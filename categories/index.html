@@ -106,19 +106,23 @@
 
 
 
-  <meta name="description" content="入门教程 技术分享 个人随笔">
+  <meta name="description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 <meta property="og:type" content="website">
 <meta property="og:title" content="分类">
 <meta property="og:url" content="/categories/index.html">
 <meta property="og:site_name" content="孙同生的博客">
-<meta property="og:description" content="入门教程 技术分享 个人随笔">
+<meta property="og:description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-11-21T06:43:56.094Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分类">
-<meta name="twitter:description" content="入门教程 技术分享 个人随笔">
+<meta name="twitter:description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 
 
+  
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
 
 
 
@@ -346,10 +350,14 @@
                     
                   
                 
-                目前共计 2 个分类
+                  
+                    
+                  
+                
+                目前共计 3 个分类
             </div>
             <div class="category-all">
-              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/quick-start/">quick-start</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/quick-start/Electron教程/">Electron教程</a><span class="category-list-count">1</span></li></ul></li></ul>
+              <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/quick-start/">quick-start</a><span class="category-list-count">2</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/quick-start/Babel教程/">Babel教程</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/quick-start/Electron教程/">Electron教程</a><span class="category-list-count">1</span></li></ul></li></ul>
             </div>
           </div>
         
@@ -398,7 +406,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.JPG" alt="SunTongSheng">
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
-              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔</p>
+              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔 译文 读书笔记</p>
           </div>
 
           
@@ -408,7 +416,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -425,7 +433,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -435,6 +445,13 @@
             </nav>
           
 
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
           
 
           
@@ -616,6 +633,31 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
 
 
 

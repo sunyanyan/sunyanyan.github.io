@@ -106,18 +106,20 @@
 
 
 
-  <meta name="description" content="入门教程 技术分享 个人随笔">
+  <meta name="description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 <meta property="og:type" content="website">
 <meta property="og:title" content="孙同生的博客">
 <meta property="og:url" content="/index.html">
 <meta property="og:site_name" content="孙同生的博客">
-<meta property="og:description" content="入门教程 技术分享 个人随笔">
+<meta property="og:description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="孙同生的博客">
-<meta name="twitter:description" content="入门教程 技术分享 个人随笔">
+<meta name="twitter:description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 
 
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
 
 
 
@@ -303,11 +305,217 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="/quick-start/Babel教程/other/Babel教程/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
+      <meta itemprop="image" content="/images/avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/quick-start/Babel教程/other/Babel教程/" itemprop="url">
+                  Babel 入门教程
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-22 11:28:17 / 修改时间：19:04:21" itemprop="dateCreated datePublished" datetime="2018-11-22T11:28:17+08:00">2018-11-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/quick-start/Babel教程/" itemprop="url" rel="index"><span itemprop="name">Babel教程</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/quick-start/Babel教程/other/Babel教程/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/Babel教程/other/Babel教程/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/quick-start/Babel教程/other/Babel教程/" class="leancloud_visitors" data-flag-title="Babel 入门教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>大家都知道js十分依赖浏览器（或Node环境），不同浏览器对js的支持不尽相同。现如今ECMAScrip标准的更新已经到了一年一次的节奏，<br>Babel 就是为了解决这个问题 ，它可以将使用新标准的JavaScript代码转换为浏览器支持可以运行的JavsScript(ES5)代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例如babel将这段代码</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(<span class="function"><span class="params">n</span> =&gt;</span> n ** <span class="number">2</span>);</span><br><span class="line"><span class="comment">//转换为：</span></span><br><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].map(<span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> n + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="在webpack中配置Babel"><a href="#在webpack中配置Babel" class="headerlink" title="在webpack中配置Babel"></a>在webpack中配置Babel</h2><blockquote>
+<p>假设在react项目配置webpack:</p>
+</blockquote>
+<p><strong>一、安装npm包：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-loader babel-core babel-plugin-transform-runtime babel-preset-es2015 babel-preset-react webpack-preset-babel-stage-0</span><br></pre></td></tr></table></figure>
+<p><strong>二、在webpack配置文件中添加规则：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>, <span class="attr">loader</span>: <span class="string">"babel-loader"</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>三、 在项目根目录创建名为<code>.babelrc</code>的文件，这是Babel的配置文件 </strong></p>
+<p>在配置文件中安装插件（plugins）或预设（presets，也就是一组插件）来指示 Babel 去做什么事情。在下面配置中：</p>
+<p><em>babel-preset-es2015</em> 打包了 es6 的特性；<br><em>babel-preset-stage-0</em> 打包处于 strawman 阶段的语法；<br><em>babel-preset-react</em> 打包react全家桶语法；</p>
+<p>Babel 几乎可以编译所有时新的 JavaScript 语法，但对于 APIs 来说却并非如此。例如： Promise、Set、Map 等新增对象，Object.assign、Object.entries等静态方法，<em>babel-plugin-transform-runtime</em>为了达成使用这些新API。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="string">"presets"</span>: [<span class="string">"es2015"</span>, <span class="string">"stage-0"</span>, <span class="string">"react"</span>],</span><br><span class="line">	<span class="string">"plugins"</span>: [<span class="string">"transform-runtime"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Babel模块"><a href="#Babel模块" class="headerlink" title="Babel模块"></a>Babel模块</h2>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/quick-start/Babel教程/other/Babel教程/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="/quick-start/Electron教程/quick-start/Electron教程/Electron/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
-      <meta itemprop="description" content="入门教程 技术分享 个人随笔">
+      <meta itemprop="description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
       <meta itemprop="image" content="/images/avatar.JPG">
     </span>
 
@@ -388,9 +596,30 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/quick-start/Electron教程/quick-start/Electron教程/Electron/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/Electron教程/quick-start/Electron教程/Electron/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
+          
+             <span id="/quick-start/Electron教程/quick-start/Electron教程/Electron/" class="leancloud_visitors" data-flag-title="Electron 入门教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -506,7 +735,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.JPG" alt="SunTongSheng">
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
-              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔</p>
+              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔 译文 读书笔记</p>
           </div>
 
           
@@ -516,7 +745,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -533,7 +762,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -543,6 +774,13 @@
             </nav>
           
 
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
           
 
           
@@ -720,6 +958,31 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
 
 
 

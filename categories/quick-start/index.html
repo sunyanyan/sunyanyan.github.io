@@ -106,18 +106,20 @@
 
 
 
-  <meta name="description" content="入门教程 技术分享 个人随笔">
+  <meta name="description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 <meta property="og:type" content="website">
 <meta property="og:title" content="孙同生的博客">
 <meta property="og:url" content="/categories/quick-start/index.html">
 <meta property="og:site_name" content="孙同生的博客">
-<meta property="og:description" content="入门教程 技术分享 个人随笔">
+<meta property="og:description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="孙同生的博客">
-<meta name="twitter:description" content="入门教程 技术分享 个人随笔">
+<meta name="twitter:description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
 
 
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
 
 
 
@@ -327,6 +329,32 @@
 
       <h3 class="post-title">
         
+            <a class="post-title-link" href="/quick-start/Babel教程/other/Babel教程/" itemprop="url">
+              
+                <span itemprop="name">Babel 入门教程</span>
+              
+            </a>
+        
+      </h3>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2018-11-22T11:28:17+08:00" content="2018-11-22">
+          11-22
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+      
+        
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h3 class="post-title">
+        
             <a class="post-title-link" href="/quick-start/Electron教程/quick-start/Electron教程/Electron/" itemprop="url">
               
                 <span itemprop="name">Electron 入门教程</span>
@@ -387,7 +415,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.JPG" alt="SunTongSheng">
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
-              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔</p>
+              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔 译文 读书笔记</p>
           </div>
 
           
@@ -397,7 +425,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -414,7 +442,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -424,6 +454,13 @@
             </nav>
           
 
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
           
 
           
@@ -601,6 +638,31 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
 
 
 

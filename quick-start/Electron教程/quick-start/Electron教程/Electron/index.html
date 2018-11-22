@@ -123,6 +123,8 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+
 
 
 
@@ -310,7 +312,7 @@
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
-      <meta itemprop="description" content="入门教程 技术分享 个人随笔">
+      <meta itemprop="description" content="入门教程 技术分享 个人随笔 译文 读书笔记">
       <meta itemprop="image" content="/images/avatar.JPG">
     </span>
 
@@ -387,9 +389,30 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/quick-start/Electron教程/quick-start/Electron教程/Electron/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/Electron教程/quick-start/Electron教程/Electron/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
+          
+             <span id="/quick-start/Electron教程/quick-start/Electron教程/Electron/" class="leancloud_visitors" data-flag-title="Electron 入门教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
           
 
           
@@ -475,6 +498,22 @@
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/quick-start/Babel教程/other/Babel教程/" rel="prev" title="Babel 入门教程">
+                Babel 入门教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
 
       
       
@@ -492,6 +531,9 @@
           </div>
           
 
+  
+    <div class="comments" id="comments">
+    </div>
   
 
 
@@ -532,7 +574,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.JPG" alt="SunTongSheng">
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
-              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔</p>
+              <p class="site-description motion-element" itemprop="description">入门教程 技术分享 个人随笔 译文 读书笔记</p>
           </div>
 
           
@@ -542,7 +584,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -559,7 +601,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                    <span class="site-state-item-count">3</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -569,6 +613,13 @@
             </nav>
           
 
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
           
 
           
@@ -766,6 +817,31 @@
 
 
 
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
 
 
 
