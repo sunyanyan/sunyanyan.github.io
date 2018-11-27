@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[每周分享第二期]]></title>
-    <url>%2Fweekly-share%2F%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB%E7%AC%AC%E4%BA%8C%E6%9C%9F%2F</url>
+    <title><![CDATA[GitHub精选分享第二期]]></title>
+    <url>%2Fweekly-share%2FGitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%BA%8C%E6%9C%9F%2F</url>
     <content type="text"><![CDATA[记录这周值得分享的事，主要是GitHub精选 前端相关~ edex-ui，一个到随处运行的科幻桌面 eDEX-UI 是一个全屏桌面应用程序，类似于科幻电脑界面，其灵感来自于DEX-UI和TRON Legacy电影特效。它在真实终端中运行您选择的shell，并显示有关系统的实时信息。 Howler.js - JavaScript 开发跨平台音频相关的开发 Howler.js提供了一个现代音频库，支持Web Audio API和HTML5 Audio的回退机制。该项目致力于简化与使用 JavaScript 开发跨平台音频相关的开发工作。几家大型技术和媒体公司正在使用 Howler.js，包括谷歌、迪士尼、Mozilla 和乐高。]]></content>
       <categories>
         <category>每周分享</category>
@@ -21,8 +21,8 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[每周分享第一期]]></title>
-    <url>%2Fweekly-share%2F%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%80%E6%9C%9F%2F</url>
+    <title><![CDATA[GitHub精选分享第一期]]></title>
+    <url>%2Fweekly-share%2FGitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%80%E6%9C%9F%2F</url>
     <content type="text"><![CDATA[记录这周值得分享的事，主要是GitHub精选 前端相关~ 向你的Hexo里放上一只萌萌哒二次元看板娘! 可以在hexo博客右下角添加live2D角色看板娘列表 How JavaScript works 系列博客包含：语言引擎，运行时和调用栈概述；如何在 V8 引擎中书写最优代码的 5 条小技巧；内存管理及如何处理 4 类常见的内存泄漏；事件循环及异步编程的出现和 5 种更好的 async/await 编程方式；深入理解 WebSockets 和带有 SSE 机制的HTTP/2 以及正确的使用姿势；WebAssembly 对比 JavaScript 及其使用场景；Web Workers 分类及 5 个使用场景；Service Workers，生命周期及其使用场景；网页消息推送通知机制；使用 MutationObserver 监测 DOM 变化；渲染引擎及性能优化小技巧；解析，语法抽象树及最小化解析时间的 5 条小技巧 …… 构建时预渲染：网页首帧优化实践 美团技术团队在“首屏白屏”问题上的优化实践 style2paints 自动上色 AI 漫画稿在线上色工具，通过人工智能，将线稿的风格转换为彩色漫画风格。该项目同时提供了在线体验网站根据不同的涂色风格，获得各种上色图片。特别值得关注的是该项目由苏州大学发布，是中国科研机构在本列表中排名最高的项目。 深度学习助力前端开发：自动生成GUI图代码 哥本哈根的一家初创公司 UIzard Technologies 训练了一个神经网络，能够把图形用户界面的截图转译成代码行，成功为开发者们分担了部分网站设计流程。令人惊叹的是，同一个模型能跨平台工作，包括 iOS、Android 和 Web 界面，从目前的研发水平来看，该算法的准确率达到了 77%。 详细可以看这篇文章机器之心-深度学习助力前端开发：自动生成GUI图代码（附试用地址） 深度学习500问 深度学习500问，以问答形式对常用的概率知识、线性代数、机器学习、深度学习、计算机视觉等热点问题进行阐述，以帮助自己及有需要的读者。 全书分为18个章节，近30万字。由于水平有限，书中不妥之处恳请广大读者批评指正。 未完待续…..]]></content>
       <categories>
         <category>每周分享</category>
@@ -346,9 +346,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[AVFoundation-avspeechsynthesizer文字转语音]]></title>
-    <url>%2Fessay%2FAVFoundation%2FAVFoundation-avspeechsynthesizer%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%2F</url>
-    <content type="text"><![CDATA[AVSpeechSynthesizer 文字转语音 简单示例： 12345AVSpeechSynthesizer *synthesizer = [AVSpeechSynthesizer new];AVSpeechUtterance * utterance = [[AVSpeechUtterance alloc] initWithString:@"需要转化的文字"];//语音合成器会生成音频[synthesizer speakUtterance:utterance]; 指定声音： 123//设置语言类别（不能被识别，返回值为nil）AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];utterance.voice = voiceType; 语速： //设置语速快慢 utterance.rate *= 0.5; 队列中插入语音 使用 https://github.com/quentinhayot/QHSpeechSynthesizerQueue]]></content>
+    <title><![CDATA[AVFoundation-AVAudioPlayer简介]]></title>
+    <url>%2Fessay%2FAVFoundation%2FAVFoundation-AVAudioPlayer%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[使用System Sound Service播放音效参考 步骤 调用AudioServicesCreateSystemSoundID( CFURLRef inFileURL, SystemSoundID* outSystemSoundID)函数获得系统声音ID。 如果需要监听播放完成操作，则使用AudioServicesAddSystemSoundCompletion( SystemSoundID inSystemSoundID, CFRunLoopRef inRunLoop, CFStringRef inRunLoopMode, AudioServicesSystemSoundCompletionProc inCompletionRoutine, void* inClientData)方法注册回调函数。 调用AudioServicesPlaySystemSound(SystemSoundID inSystemSoundID)或者AudioServicesPlayAlertSound(SystemSoundID inSystemSoundID) 方法播放音效（后者带有震动效果）。 示例： 123456789101112131415161718192021222324252627282930313233#import &lt;AudioToolbox/AudioToolbox.h&gt;/** * 播放完成回调函数 * * @param soundID 系统声音ID * @param clientData 回调时传递的数据 */void soundCompleteCallback(SystemSoundID soundID,void * clientData)&#123; NSLog(@"播放完成...");&#125;/** * 播放音效文件 * * @param name 音频文件名称 */-(void)playSoundEffect:(NSString *)name&#123; NSString *audioFile=[[NSBundle mainBundle] pathForResource:name ofType:nil]; NSURL *fileUrl=[NSURL fileURLWithPath:audioFile]; //1.获得系统声音ID SystemSoundID soundID=0; /** * inFileUrl:音频文件url * outSystemSoundID:声音id（此函数会将音效文件加入到系统音频服务中并返回一个长整形ID） */ AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileUrl), &amp;soundID); //如果需要在播放完之后执行某些操作，可以调用如下方法注册一个播放完成回调函数 AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, soundCompleteCallback, NULL); //2.播放音频 AudioServicesPlaySystemSound(soundID);//播放音效// AudioServicesPlayAlertSound(soundID);//播放音效并震动&#125; AVAudioPlayer播放和录制音频 主要通过 AVAudioPlayer 和 AVAudioRecorder 类来实现。 AVAudioPlayer 简介创建一般通过 使用本地音频文件的 NSURL 或者包含音频的内存的 NSData。 12- (nullable instancetype)initWithContentsOfURL:(NSURL *)url error:(NSError **)outError;- (nullable instancetype)initWithData:(NSData *)data error:(NSError **)outError; 使用 prepareToPlay 方法 可以取得需要的音频硬件并预加载 Audio Queue 的缓冲区。在创建的时候调用可以降低调用 play 方法和听到声音输出之间的延迟。 对播放进行控制 常见的 play、stop和 pause的播放暂停功能。其中 stop 和 pause 的区别是 stop 方法会撤销调用 prepareToPlay时所做的设置，而 pause 方法不会。 除此之外还有： 修改播放器的音量 （volume）：从0.0（静音）到1.0（最大音量之间）。 修改播放器的 pan 值：允许使用立体声播放声音，从 -1.0（极左）到 1.0（极右）。默认 0.0（居中）。 调整播放率 （rate）：需要配合 enableRate 使用。范围从 0.5（半数）到2.0（2倍数）。 无缝循环 (numberOfLoops): 播放 n+1次，若 n&lt;-1 则播放无限次直到被停止。 音频计量： 可以读取音量力度的平均值和峰值。]]></content>
       <categories>
         <category>essay</category>
         <category>AVFoundation</category>
@@ -358,9 +358,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[AVFoundation-AVAudioPlayer简介]]></title>
-    <url>%2Fessay%2FAVFoundation%2FAVFoundation-AVAudioPlayer%E7%AE%80%E4%BB%8B%2F</url>
-    <content type="text"><![CDATA[使用System Sound Service播放音效参考 步骤 调用AudioServicesCreateSystemSoundID( CFURLRef inFileURL, SystemSoundID* outSystemSoundID)函数获得系统声音ID。 如果需要监听播放完成操作，则使用AudioServicesAddSystemSoundCompletion( SystemSoundID inSystemSoundID, CFRunLoopRef inRunLoop, CFStringRef inRunLoopMode, AudioServicesSystemSoundCompletionProc inCompletionRoutine, void* inClientData)方法注册回调函数。 调用AudioServicesPlaySystemSound(SystemSoundID inSystemSoundID)或者AudioServicesPlayAlertSound(SystemSoundID inSystemSoundID) 方法播放音效（后者带有震动效果）。 示例： 123456789101112131415161718192021222324252627282930313233#import &lt;AudioToolbox/AudioToolbox.h&gt;/** * 播放完成回调函数 * * @param soundID 系统声音ID * @param clientData 回调时传递的数据 */void soundCompleteCallback(SystemSoundID soundID,void * clientData)&#123; NSLog(@"播放完成...");&#125;/** * 播放音效文件 * * @param name 音频文件名称 */-(void)playSoundEffect:(NSString *)name&#123; NSString *audioFile=[[NSBundle mainBundle] pathForResource:name ofType:nil]; NSURL *fileUrl=[NSURL fileURLWithPath:audioFile]; //1.获得系统声音ID SystemSoundID soundID=0; /** * inFileUrl:音频文件url * outSystemSoundID:声音id（此函数会将音效文件加入到系统音频服务中并返回一个长整形ID） */ AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileUrl), &amp;soundID); //如果需要在播放完之后执行某些操作，可以调用如下方法注册一个播放完成回调函数 AudioServicesAddSystemSoundCompletion(soundID, NULL, NULL, soundCompleteCallback, NULL); //2.播放音频 AudioServicesPlaySystemSound(soundID);//播放音效// AudioServicesPlayAlertSound(soundID);//播放音效并震动&#125; AVAudioPlayer播放和录制音频 主要通过 AVAudioPlayer 和 AVAudioRecorder 类来实现。 AVAudioPlayer 简介创建一般通过 使用本地音频文件的 NSURL 或者包含音频的内存的 NSData。 12- (nullable instancetype)initWithContentsOfURL:(NSURL *)url error:(NSError **)outError;- (nullable instancetype)initWithData:(NSData *)data error:(NSError **)outError; 使用 prepareToPlay 方法 可以取得需要的音频硬件并预加载 Audio Queue 的缓冲区。在创建的时候调用可以降低调用 play 方法和听到声音输出之间的延迟。 对播放进行控制 常见的 play、stop和 pause的播放暂停功能。其中 stop 和 pause 的区别是 stop 方法会撤销调用 prepareToPlay时所做的设置，而 pause 方法不会。 除此之外还有： 修改播放器的音量 （volume）：从0.0（静音）到1.0（最大音量之间）。 修改播放器的 pan 值：允许使用立体声播放声音，从 -1.0（极左）到 1.0（极右）。默认 0.0（居中）。 调整播放率 （rate）：需要配合 enableRate 使用。范围从 0.5（半数）到2.0（2倍数）。 无缝循环 (numberOfLoops): 播放 n+1次，若 n&lt;-1 则播放无限次直到被停止。 音频计量： 可以读取音量力度的平均值和峰值。]]></content>
+    <title><![CDATA[AVFoundation-avspeechsynthesizer文字转语音]]></title>
+    <url>%2Fessay%2FAVFoundation%2FAVFoundation-avspeechsynthesizer%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3%2F</url>
+    <content type="text"><![CDATA[AVSpeechSynthesizer 文字转语音 简单示例： 12345AVSpeechSynthesizer *synthesizer = [AVSpeechSynthesizer new];AVSpeechUtterance * utterance = [[AVSpeechUtterance alloc] initWithString:@"需要转化的文字"];//语音合成器会生成音频[synthesizer speakUtterance:utterance]; 指定声音： 123//设置语言类别（不能被识别，返回值为nil）AVSpeechSynthesisVoice *voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];utterance.voice = voiceType; 语速： //设置语速快慢 utterance.rate *= 0.5; 队列中插入语音 使用 https://github.com/quentinhayot/QHSpeechSynthesizerQueue]]></content>
       <categories>
         <category>essay</category>
         <category>AVFoundation</category>
