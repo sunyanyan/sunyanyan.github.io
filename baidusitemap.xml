@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://developerdoc.com/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2018-12-07T11:16:30.713Z</lastmod>
+  </url>  <url>
+    <loc>https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%89%E6%9C%9F/</loc>
+    <lastmod>2018-12-07T06:20:00.086Z</lastmod>
+  </url>  <url>
     <loc>https://developerdoc.com/essay/(%E8%AF%91)how-does-react-tell-a-class-from-a-function/</loc>
     <lastmod>2018-12-05T14:40:35.980Z</lastmod>
   </url>  <url>
@@ -54,9 +60,6 @@
   </url>  <url>
     <loc>https://developerdoc.com/essay/RN%E4%B8%AD%E5%B8%83%E5%B1%80%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%86%99%E6%B3%95/</loc>
     <lastmod>2018-11-23T02:46:34.760Z</lastmod>
-  </url>  <url>
-    <loc>https://developerdoc.com/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2018-11-23T02:42:38.747Z</lastmod>
   </url>  <url>
     <loc>https://developerdoc.com/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Reachability/</loc>
     <lastmod>2018-11-23T02:41:02.897Z</lastmod>
