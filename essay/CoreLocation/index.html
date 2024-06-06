@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="CoreLocation - iOS定位使用 CoreLocation 框架定位，基本分为权限获取,位置更新，区域检测，iBeacon,方向检测，地理编码几方面。 demo链接： Location_Demo iOS的定位支持 GPS卫星定位  其原理就是:利用天上的卫星(24颗工作卫星和数颗备份星)不断地广播信号, 地面的GPS接收设备收到信号后, 通过分析多个卫星信号，就可以计算出地球坐标, G">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CoreLocation 教程">
+<meta property="og:url" content="https://developerdoc.com/essay/CoreLocation/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="CoreLocation - iOS定位使用 CoreLocation 框架定位，基本分为权限获取,位置更新，区域检测，iBeacon,方向检测，地理编码几方面。 demo链接： Location_Demo iOS的定位支持 GPS卫星定位  其原理就是:利用天上的卫星(24颗工作卫星和数颗备份星)不断地广播信号, 地面的GPS接收设备收到信号后, 通过分析多个卫星信号，就可以计算出地球坐标, G">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://developerdoc.com/res/CoreLocation/1.jpeg">
+<meta property="og:image" content="https://developerdoc.com/res/CoreLocation/2.png">
+<meta property="og:updated_time" content="2019-03-14T12:55:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CoreLocation 教程">
+<meta name="twitter:description" content="CoreLocation - iOS定位使用 CoreLocation 框架定位，基本分为权限获取,位置更新，区域检测，iBeacon,方向检测，地理编码几方面。 demo链接： Location_Demo iOS的定位支持 GPS卫星定位  其原理就是:利用天上的卫星(24颗工作卫星和数颗备份星)不断地广播信号, 地面的GPS接收设备收到信号后, 通过分析多个卫星信号，就可以计算出地球坐标, G">
+<meta name="twitter:image" content="https://developerdoc.com/res/CoreLocation/1.jpeg">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://developerdoc.com/essay/CoreLocation/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>CoreLocation 教程 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙同生的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">为美好的世界献上祝福</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-d3学习demo演示">
+    <a href="/d3start" rel="section">d3学习demo演示</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/CoreLocation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">CoreLocation 教程
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-04 20:40:16" itemprop="dateCreated datePublished" datetime="2019-03-04T20:40:16+08:00">2019-03-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-14 20:55:26" itemprop="dateModified" datetime="2019-03-14T20:55:26+08:00">2019-03-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/CoreLocation/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/CoreLocation/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/CoreLocation/" class="leancloud_visitors" data-flag-title="CoreLocation 教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CoreLocation-iOS定位"><a href="#CoreLocation-iOS定位" class="headerlink" title="CoreLocation - iOS定位"></a>CoreLocation - iOS定位</h1><p>使用 <a href="https://developer.apple.com/documentation/corelocation" target="_blank" rel="noopener">CoreLocation</a> 框架定位，基本分为权限获取,位置更新，区域检测，iBeacon,方向检测，地理编码几方面。</p>
+<p>demo链接： <a href="https://github.com/sunyanyan/BlogDemos/tree/master/Location_Demo" target="_blank" rel="noopener">Location_Demo</a></p>
+<h2 id="iOS的定位支持"><a href="#iOS的定位支持" class="headerlink" title="iOS的定位支持"></a>iOS的定位支持</h2><blockquote>
+<p>GPS卫星定位</p>
+</blockquote>
+<p>其原理就是:利用天上的卫星(24颗工作卫星和数颗备份星)不断地广播信号, 地面的GPS接收设备收到信号后, 通过分析多个卫星信号，就可以计算出地球坐标, GPS保证全球任何一个地方(98%)都可以同时收到至少4个卫星的信号, 从而可以准确确定您的经纬度以及海拔位置（三颗星只能获得经纬度，四颗星还可以获得海拔高度）。GPS定位精度可达10米以内<br><a id="more"></a><br>iOS的GPS定位于单纯的GPS定位不同，它是A-GPS（所谓辅助GPS），首先通过基站定位或WiFi定位获得该设备的大概位置，然后通过将设备的大致位置发发哦远程服务器，由服务器负责进行查询和计算，从而获取当前位置的卫星信息，并通过网络将这些卫星信息反馈给iOS设备，避免了iOS设备直接通过GPS扫面、分析天上的卫星信息。A-GPS优点是定位快，缺点是需要网络，但也只是在初次定位时需要网络，因为一旦卫星信息返回，在有限时间和范围内，这些信息无须改变，之后的GPS定位就不再需要联网，都是直接用这些卫星参数接受信息了。</p>
+<p>与基站、WIFI定位相比，GPS定位耗电量最大，速度最慢，但是精度最高。</p>
+<blockquote>
+<p>基站定位</p>
+</blockquote>
+<p>每个手机基站都是一个标识符，iOS设备可以搜集周围所有收到信号的基站和它们的标识符，通过联网发送到苹果云端服务器，再由服务器根据这些基站的位置信息查询并计算出当前位置，然后把该定位信息返回给手机。</p>
+<blockquote>
+<p>WiFi定位</p>
+</blockquote>
+<p>iOS设备通过无线网卡搜集周围所有的WiFi热点，获得它们的MAC地址，然后通过Apple的云端服务器查询该WiFi热点是否已经登记，如果已经登记，即可获取该WiFi热点的位置，最后通过对多个WiFi热点折中计算得到当前位置并返回给iOS设备。精确度大概在几十米范围内。</p>
+<h2 id="定位相关API"><a href="#定位相关API" class="headerlink" title="定位相关API"></a>定位相关API</h2><p>首先需要获取地理信息权限。定位权限分为 <strong>仅在使用应用期间</strong> 和 <strong>始终允许</strong> ; 获取到权限后，使用 CLLocationManager 类可以开始在其代理方法 <em>didUpdateLocations</em> 中获得CLLocation位置信息。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//CLLocationManager的常用操作</span></span><br><span class="line"><span class="comment">//开始用户定位</span></span><br><span class="line">- (<span class="keyword">void</span>)startUpdatingLocation;</span><br><span class="line"><span class="comment">//停止用户定位</span></span><br><span class="line">- (<span class="keyword">void</span>) stopUpdatingLocation;</span><br><span class="line"><span class="comment">//当调用了startUpdatingLocation方法后，就开始不断地定位用户的位置，中途会频繁地调用代理的下面方法</span></span><br><span class="line">- (<span class="keyword">void</span>)locationManager:(<span class="built_in">CLLocationManager</span> *)manager didUpdateLocations:(<span class="built_in">NSArray</span> *)locations;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//定位设置：</span></span><br><span class="line"><span class="comment">//只有当最新的位置与上一次获取的位置之间的距离, 大于这个值时, 才会通过代理告诉外界.</span></span><br><span class="line"><span class="keyword">self</span>.locationM.distanceFilter = <span class="number">100</span>;</span><br><span class="line">	 </span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">定位精确度</span></span><br><span class="line"><span class="comment">kCLLocationAccuracyBestForNavigation    最适合导航</span></span><br><span class="line"><span class="comment">kCLLocationAccuracyBest    精度最好的</span></span><br><span class="line"><span class="comment">kCLLocationAccuracyNearestTenMeters    附近10米</span></span><br><span class="line"><span class="comment">kCLLocationAccuracyHundredMeters    附近100米</span></span><br><span class="line"><span class="comment">kCLLocationAccuracyKilometer    附近1000米</span></span><br><span class="line"><span class="comment">kCLLocationAccuracyThreeKilometers    附近3000米</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">self</span>.locationM.desiredAccuracy = kCLLocationAccuracyBest;</span><br></pre></td></tr></table></figure>
+<p>可以获得的 CLLocation 位置信息包括了：经纬度、位置的精度、海拔高度、海拔高度的精度、速度等信息。</p>
+<p>相应的通过CLLocation 可以计算两地之间的直线距离:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 北京:39.6 116.39</span></span><br><span class="line"><span class="comment">// 广州:23.08 113.15</span></span><br><span class="line"><span class="built_in">CLLocation</span> *BeiJing = [[<span class="built_in">CLLocation</span> alloc] initWithLatitude:<span class="number">39.6</span> longitude:<span class="number">116.39</span>];</span><br><span class="line"><span class="built_in">CLLocation</span> *GuangZhou = [[<span class="built_in">CLLocation</span> alloc] initWithLatitude:<span class="number">23.08</span> longitude:<span class="number">113.15</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到两地之间的距离</span></span><br><span class="line"><span class="built_in">CLLocationDistance</span> distance = [BeiJing distanceFromLocation:GuangZhou];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"%.2f"</span>, distance);</span><br></pre></td></tr></table></figure>
+<h2 id="后台定位"><a href="#后台定位" class="headerlink" title="后台定位"></a>后台定位</h2><blockquote>
+<p>后台短时间持续定位</p>
+</blockquote>
+<p>可以在 Background Modes 中开启Location Updates选项。这样就可以实现后台定位，但是该方法只能实现后台定位20-30分钟的时间。</p>
+<blockquote>
+<p>后台永久持续定位</p>
+</blockquote>
+<p>设置代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//allowsBackgroundLocationUpdates 这个属性是 iOS 9.0 新增的属性，</span></span><br><span class="line"><span class="comment">//默认为 NO ，设置为 YES</span></span><br><span class="line"><span class="comment">//需要保证 Target -&gt; Capabilities -&gt; Background Modes 的开关打开，并勾选 Location updates ，否则会导致 crash。</span></span><br><span class="line"><span class="keyword">if</span> (@available(iOS <span class="number">9.0</span>, *)) &#123;</span><br><span class="line">	<span class="keyword">self</span>.locationManager.allowsBackgroundLocationUpdates = <span class="literal">YES</span>;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Fallback on earlier versions</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//系统是否可以自行中断程序的定位功能    </span></span><br><span class="line"><span class="keyword">self</span>.locationManager.pausesLocationUpdatesAutomatically = <span class="literal">NO</span>;</span><br></pre></td></tr></table></figure>
+<p>该方法让系统不能够自行关闭程序的定位功能，保证程序一直处于后台定位中， </p>
+<p><strong>定位权限为应用使用期间的时候，程序在后台运行时会在顶部有一条蓝色的信息框<br>定位权限为始终的时候，就不会有蓝色框了。</strong></p>
+<blockquote>
+<p>关于 pausesLocationUpdatesAutomatically 属性</p>
+</blockquote>
+<p>CLLocationManager.pausesLocationUpdatesAutomatically 设置是否允许自动暂停定位服务，目前Apple的官方文档描述的很模糊，导致Stackoverflow上有很多的讨论：</p>
+<p>该选项主要用来节省电量消耗，防止app在进入后台后没有及时停止定位消耗电量，设置为YES后，当iOS判定设备不太可能发生移动的时候(这句话是Apple文档直译，然而并不知道具体怎么判定)，会自动暂停掉定位服务以及相关硬件设备<br>app在后台定位时，一旦符合了Apple的判定，定位服务以及相关硬件设备被暂停了，除非app回到前台，否则不会恢复定位服务(硬件暂停使得iOS无法判定设备移动)</p>
+<h2 id="区域监听"><a href="#区域监听" class="headerlink" title="区域监听"></a>区域监听</h2><p>区域监听是指,我们通过CLCircularRegion指定一个区域, 然后当用户持握设备进入或者离开指定区域, 我们都能监听到.</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化CLLocationManager等……</span></span><br><span class="line"> <span class="comment">// 1. 判断区域监听服务是否可用 </span></span><br><span class="line"> <span class="keyword">if</span> ([<span class="built_in">CLLocationManager</span> isMonitoringAvailableForClass:[<span class="built_in">CLCircularRegion</span> <span class="keyword">class</span>]]) </span><br><span class="line"> &#123;</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 创建区域中心</span></span><br><span class="line">     <span class="built_in">CLLocationCoordinate2D</span> center = <span class="built_in">CLLocationCoordinate2DMake</span>(<span class="number">29.12345</span>, <span class="number">131.23456</span>);</span><br><span class="line">     <span class="comment">// 创建区域（指定区域中心，和区域半径）</span></span><br><span class="line">     <span class="built_in">CLLocationDistance</span> radius = <span class="number">1000</span>;</span><br><span class="line">     <span class="comment">// 判断区域半径是否大于最大监听区域半径,如果大于, 就没法监听</span></span><br><span class="line">     <span class="keyword">if</span> (radius &gt; <span class="keyword">self</span>.locationM.maximumRegionMonitoringDistance) &#123;</span><br><span class="line">         radius = <span class="keyword">self</span>.locationM.maximumRegionMonitoringDistance;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="built_in">CLCircularRegion</span> *region = [[<span class="built_in">CLCircularRegion</span> alloc] initWithCenter:center radius:radius identifier:<span class="string">@"一个identifier"</span>];</span><br><span class="line"></span><br><span class="line">     <span class="comment">// 开始监听指定区域</span></span><br><span class="line">     [<span class="keyword">self</span>.locationM startMonitoringForRegion:region];</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">else</span>&#123;<span class="built_in">NSLog</span>(<span class="string">@"区域监听不可用"</span>);&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 进去监听区域后调用 </span></span><br><span class="line">-(<span class="keyword">void</span>)locationManager:(<span class="keyword">nonnull</span> <span class="built_in">CLLocationManager</span> *)manager didEnterRegion:(<span class="keyword">nonnull</span> <span class="built_in">CLRegion</span> *)region</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"进入区域---%@"</span>, region.identifier);</span><br><span class="line">    [manager stopMonitoringForRegion:region];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 离开监听区域后调用 </span></span><br><span class="line">-(<span class="keyword">void</span>)locationManager:(<span class="keyword">nonnull</span> <span class="built_in">CLLocationManager</span> *)manager didExitRegion:(<span class="keyword">nonnull</span> <span class="built_in">CLRegion</span> *)region</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"离开区域---%@"</span>, region.identifier);</span><br><span class="line">    [manager stopMonitoringForRegion:region];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//监听某个区域时, 只有进入或者离开这个区域时, 才能回调对应的方法, 是一个进入或者离开的动作 </span></span><br><span class="line"><span class="comment">//如果想知道某一个区域的当前状态(识别用户是在区域内部, 还是区域外部), 则需要使用以下方法</span></span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.locationM requestStateForRegion:region];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求某个区域状态时, 回调的代理方法</span></span><br><span class="line">-(<span class="keyword">void</span>)locationManager:(<span class="built_in">CLLocationManager</span> *)manager didDetermineState:(<span class="built_in">CLRegionState</span>)state forRegion:(<span class="built_in">CLRegion</span> *)region</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> (state) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">CLRegionStateUnknown</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"未知状态"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">CLRegionStateInside</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"在区域内部"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">CLRegionStateOutside</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"在区域外部"</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">         <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ibeacon"><a href="#ibeacon" class="headerlink" title="ibeacon"></a>ibeacon</h2><p>iBeacon 是苹果公司2013年9月发布的移动设备用OS（iOS7）上配备的新功能。其工作方式是，配备有低功耗蓝牙（BLE）通信功能的设备使用BLE技术向周围发送自己特有的 ID，接收到该 ID 的应用软件会根据该 ID 采取一些行动。</p>
+<p>iOS 中 iBeacon 是基于地理位置的微定位技术，虽然借助手机蓝牙进行接收Majro、Minor，但是他们在开发工程中没有任何关系。<br>iBeacon使用苹果提供CoreLocation库，然而在 BLE 在开发过程中使用CoreBluetooth库。从上面提供的库来看就很清楚了，特别是在 iOS8.0 之后的时候如果想使用iBeacon，必须让用户点击是否允许XXapp使用地理位置。如果在第一次使用 iOS App 扫描iBeacon的时候没有提示这句话，是不可能接收到iBeacon的信号（除非iOS 8.0之下）。如果是 BLE 则的开发过程中之需要提示用户打开蓝牙，并不要求其他的地理位置任何信息。</p>
+<p><em>就不写代码了……</em></p>
+<h2 id="地理编码与反地理编码"><a href="#地理编码与反地理编码" class="headerlink" title="地理编码与反地理编码"></a>地理编码与反地理编码</h2><p>需要获得网络权限</p>
+<blockquote>
+<p>地理编码：根据给定的地名，获得具体的位置信息（比如经纬度、地址的全称等)。</p>
+</blockquote>
+<p>输入上海市闵行区南华街25号的结果：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CLGeocoder</span> *geocoder = [[<span class="built_in">CLGeocoder</span> alloc] init];</span><br><span class="line">[geocoder geocodeAddressString:address </span><br><span class="line">completionHandler:^(<span class="built_in">NSArray</span>&lt;<span class="built_in">CLPlacemark</span> *&gt; * _Nullable placemarks, <span class="built_in">NSError</span> * _Nullable error) &#123;</span><br><span class="line">        <span class="comment">//获取结果        </span></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<p><img src="/res/CoreLocation/1.jpeg" alt></p>
+<blockquote>
+<p>反地理编码：根据给定的经纬度，获得具体的位置信息,省市区街道等信息;</p>
+</blockquote>
+<p>解析定位当前的位置的结果：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CLGeocoder</span> *geocoder = [[<span class="built_in">CLGeocoder</span> alloc] init];</span><br><span class="line">[geocoder reverseGeocodeLocation:location </span><br><span class="line">completionHandler:^(<span class="built_in">NSArray</span>&lt;<span class="built_in">CLPlacemark</span> *&gt; * _Nullable placemarks, <span class="built_in">NSError</span> * _Nullable error) &#123;</span><br><span class="line"><span class="comment">//获取结果</span></span><br><span class="line">    &#125;];</span><br></pre></td></tr></table></figure>
+<p><img src="/res/CoreLocation/2.png" alt></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CLPlacemark 地标对象详解</span><br><span class="line">    location            : CLLocation 类型, 位置对象信息, 里面包含经纬度, 海拔等等</span><br><span class="line">    region              : CLRegion 类型, 地标对象对应的区域</span><br><span class="line">    addressDictionary  : NSDictionary 类型, 存放街道,省市等信息</span><br><span class="line">    name                : NSString 类型, 地址全称</span><br><span class="line">    thoroughfare        : NSString 类型, 街道名称</span><br><span class="line">    locality            : NSString 类型, 城市名称</span><br><span class="line">    administrativeArea : NSString 类型, 省名称</span><br><span class="line">    country             : NSString 类型, 国家名称</span><br></pre></td></tr></table></figure>
+<h2 id="方向监测-指南针"><a href="#方向监测-指南针" class="headerlink" title="方向监测 / 指南针"></a>方向监测 / 指南针</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取指南针信息</span></span><br><span class="line"><span class="comment">//①、CLLocationDegrees headingFilter：设置只有当设置方向的改变值超过该属性值时才激发delegate方法；</span></span><br><span class="line"><span class="comment">//②、CLDeviceOrientation headingOrientation：设置设备当前方向；</span></span><br><span class="line">[<span class="keyword">self</span>.locationManager startUpdatingHeading];</span><br><span class="line"><span class="comment">//当设备的方向改变时，iOS系统将会自动激发CLLocationManager的delegate对象的</span></span><br><span class="line">- (<span class="keyword">void</span>)locationManager:(<span class="built_in">CLLocationManager</span> *)manager didUpdateHeading:(<span class="built_in">CLHeading</span> *)newHeading &#123;</span><br><span class="line"> <span class="comment">//CLHeading方法的主要参数：</span></span><br><span class="line"><span class="comment">//与磁北方向的偏角@property(readonly, nonatomic) CLLocationDirection magneticHeading; </span></span><br><span class="line"><span class="comment">//与正北方向的偏角@property(readonly, nonatomic) CLLocationDirection trueHeading;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>方向补充：</p>
+</blockquote>
+<p>Core Location支持两种不同的获取方向相关信息的方式：</p>
+<p>当设备处于某个点时(CLHeading)，带有磁力计的设备能能够报告其位置信息；此类被称为设备的朝向。<br>当设备处于移动过程中时(CLLocation.course)，通过带有GPS硬件的报告的位置位置信息；此类被称为设备的行动方向。</p>
+<p>朝向和行动方向表现出设备不同的信息。设备的朝向真实的反映出了设备在一个点时相对于磁北或者真北的朝向。而设备的行动方向则表现了设备在运动过程中的运动方向其并没有考虑设备的方向。你使用一种还是这两种相结合，完全取决于你的APP；例如：一个导航APP是否要在两者之间切换完全取决于用户的速度，在步行速度时，设备的朝向对于在当前环境下的确认用户方向是用户最为关心的事情；而在一辆车里运动时，行动方向则变得尤为重要。</p>
+<hr>
+<blockquote>
+<p>后台定位补充：</p>
+</blockquote>
+<p><em>关于 pausesLocationUpdatesAutomatically 属性</em>:</p>
+<p>CLLocationManager.pausesLocationUpdatesAutomatically 设置是否允许自动暂停定位服务，目前Apple的官方文档描述的很模糊，导致<a href="https://stackoverflow.com/questions/17484352/iphone-gps-in-background-never-resumes-after-pause" target="_blank" rel="noopener">Stackoverflow上有很多的讨论</a>：</p>
+<p>该选项主要用来节省电量消耗，防止app在进入后台后没有及时停止定位消耗电量，设置为YES后，当iOS判定  <strong>设备不太可能发生移动的时候</strong>  (这句话是Apple文档直译，然而并不知道具体怎么判定)，会自动暂停掉定位服务以及相关硬件设备</p>
+<p><em>唤醒</em>:</p>
+<p>首先这个方法需要 始终 权限，然后在开启定位调用 startUpdatingLocation 的同时调用 startMonitoringSignificantLocationChanges 方法。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[_locationManager startUpdatingLocation];</span><br><span class="line"><span class="comment">// 开启位置明显变化监控</span></span><br><span class="line">[_locationManager startMonitoringSignificantLocationChanges];</span><br></pre></td></tr></table></figure>
+<p>开启了这个方法之后，当位置发生较明显的变化时同样会触发一个位置更新事件，这个变化距离不依据 distanceFilter 属性值变化，而是固定的 500 米（指与上一次触发此事件时的距离），且每 5 分钟最多触发一次，触发的时候如果 APP 被杀死了，这个事件还会唤醒 APP ，APP 会在用户无感知的情况下重新走正常的启动流程，只是界面上没有任何显示，此时会在 application:didFinishLaunchingWithOptions: 方法中携带 UIApplicationLaunchOptionsLocationKey 这个 key 来表明当前启动是被位置事件唤醒的，请注意判断这个 key 来绕过一些不需要在后台启动时执行的逻辑，或者执行一些你想要在后台启动后执行的逻辑，比如启动位置上报服务。在 APP 重新启动之后需要重新调用 startMonitoringSignificantLocationChanges 以保证 APP 再次被杀之后能被重新唤醒。</p>
+<p>由此方法触发的位置更新事件同样会调用正常位置更新服务 startUpdatingLocation 的locationManager:didUpdateLocations: 回调方法，这个更新事件可能是一个最近缓存的位置，也可能是最新位置，而更精确的位置会在几秒钟之后再次回调，所以如果对细微位置差别比较敏感的话，可以通过回调的 CLLocation 对象中的时间戳来过滤。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/essay/Instruments/Instruments1/" rel="next" title="Instruments介绍">
+                <i class="fa fa-chevron-left"></i> Instruments介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/essay/Instruments/Instruments2/" rel="prev" title="Instruments使用">
+                Instruments使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+            
+              <p class="site-author-name" itemprop="name">SunTongSheng</p>
+              <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CoreLocation-iOS定位"><span class="nav-number">1.</span> <span class="nav-text">CoreLocation - iOS定位</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS的定位支持"><span class="nav-number">1.1.</span> <span class="nav-text">iOS的定位支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定位相关API"><span class="nav-number">1.2.</span> <span class="nav-text">定位相关API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后台定位"><span class="nav-number">1.3.</span> <span class="nav-text">后台定位</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区域监听"><span class="nav-number">1.4.</span> <span class="nav-text">区域监听</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ibeacon"><span class="nav-number">1.5.</span> <span class="nav-text">ibeacon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地理编码与反地理编码"><span class="nav-number">1.6.</span> <span class="nav-text">地理编码与反地理编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方向监测-指南针"><span class="nav-number">1.7.</span> <span class="nav-text">方向监测 / 指南针</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+ 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">531k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">8:03</span>
+  
+</div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

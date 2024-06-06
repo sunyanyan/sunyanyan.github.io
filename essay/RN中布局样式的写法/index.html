@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="介绍原始写法 &amp;amp; 及其改进写法一 还有比较流行的 styled-components在RN中的使用 &amp;amp; 及其改进写法二  1.原写法1234567891011121314151617181920212223/** * 原写法 */const styles1 = StyleSheet.create(&amp;#123;    item1:&amp;#123;        width:100,">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RN中布局样式的写法">
+<meta property="og:url" content="https://developerdoc.com/essay/RN中布局样式的写法/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="介绍原始写法 &amp;amp; 及其改进写法一 还有比较流行的 styled-components在RN中的使用 &amp;amp; 及其改进写法二  1.原写法1234567891011121314151617181920212223/** * 原写法 */const styles1 = StyleSheet.create(&amp;#123;    item1:&amp;#123;        width:100,">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-11-23T02:46:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RN中布局样式的写法">
+<meta name="twitter:description" content="介绍原始写法 &amp;amp; 及其改进写法一 还有比较流行的 styled-components在RN中的使用 &amp;amp; 及其改进写法二  1.原写法1234567891011121314151617181920212223/** * 原写法 */const styles1 = StyleSheet.create(&amp;#123;    item1:&amp;#123;        width:100,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://developerdoc.com/essay/RN中布局样式的写法/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>RN中布局样式的写法 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙同生的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">为美好的世界献上祝福</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-d3学习demo演示">
+    <a href="/d3start" rel="section">d3学习demo演示</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/RN中布局样式的写法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">RN中布局样式的写法
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-01-18 19:16:31" itemprop="dateCreated datePublished" datetime="2018-01-18T19:16:31+08:00">2018-01-18</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2018-11-23 10:46:34" itemprop="dateModified" datetime="2018-11-23T10:46:34+08:00">2018-11-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/RN中布局样式的写法/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/RN中布局样式的写法/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/RN中布局样式的写法/" class="leancloud_visitors" data-flag-title="RN中布局样式的写法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>介绍原始写法 &amp; 及其改进写法一</p>
+<p>还有比较流行的 styled-components在RN中的使用 &amp; 及其改进写法二</p>
+</blockquote>
+<h3 id="1-原写法"><a href="#1-原写法" class="headerlink" title="1.原写法"></a>1.原写法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 原写法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> styles1 = StyleSheet.create(&#123;</span><br><span class="line">    item1:&#123;</span><br><span class="line">        width:<span class="number">100</span>,</span><br><span class="line">        height:<span class="number">200</span>,</span><br><span class="line">        backgroundColor:<span class="string">'#66CCFF'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    item2:&#123;</span><br><span class="line">        width:<span class="number">100</span>,</span><br><span class="line">        height:<span class="number">200</span>,</span><br><span class="line">        backgroundColor:<span class="string">'#66CCFF'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    item3:&#123;</span><br><span class="line">        width:<span class="number">50</span>,</span><br><span class="line">        height:<span class="number">100</span>,</span><br><span class="line">        top:<span class="number">50</span>,</span><br><span class="line">        left:<span class="number">25</span>,</span><br><span class="line">        backgroundColor:<span class="string">'#66CCFF'</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'styles1 :'</span>,styles1);</span><br></pre></td></tr></table></figure>
+<p>原写法的缺点在于变量不好引入，不好体现样式间的关系，没有计算表达式等……</p>
+<a id="more"></a>
+<h3 id="2-改进写法一"><a href="#2-改进写法一" class="headerlink" title="2.改进写法一"></a>2.改进写法一</h3><p>看StyleSheet.create的代码，就是直接返回一个对象</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在react native 0.44版本中</span></span><br><span class="line"><span class="keyword">var</span> StyleSheet = &#123;</span><br><span class="line">  create: <span class="function"><span class="keyword">function</span>(<span class="params">styles</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> styles;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p>那就可以不限于StyleSheet.create的写法，可以比较自由的返回一个对象了，下面给出一个我的简单例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 换一种写法，简单引入了变量表达式</span></span><br><span class="line"><span class="comment"> * 虽然还是没有像iOS中 view.center / autolayout之类的写法方便</span></span><br><span class="line"><span class="comment"> * @returns &#123;&#123;&#125;&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">styles2Creator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> itemWidth = <span class="number">100</span>;</span><br><span class="line">    <span class="keyword">let</span> itemHeight = <span class="number">200</span>;</span><br><span class="line">    <span class="comment">//引用常量</span></span><br><span class="line">    s.item1 = &#123;</span><br><span class="line">        width:itemWidth,</span><br><span class="line">        height:itemHeight,</span><br><span class="line">        backgroundColor:<span class="string">'#66CCFF'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//引用其他样式的值</span></span><br><span class="line">    s.item2 = &#123;</span><br><span class="line">        width:s.item1.width,</span><br><span class="line">        height:itemHeight,</span><br><span class="line">        backgroundColor:<span class="string">`<span class="subst">$&#123;s.item1.backgroundColor&#125;</span>`</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">	<span class="comment">//计算表达式 </span></span><br><span class="line">    s.item3 = &#123;</span><br><span class="line">        width: s.item2.width / <span class="number">2</span>,</span><br><span class="line">        height: s.item2.height / <span class="number">2</span>,</span><br><span class="line">        top:s.item2.height / <span class="number">4</span>,</span><br><span class="line">        left:s.item2.width / <span class="number">4</span>,</span><br><span class="line">        backgroundColor:s.item1.backgroundColor,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//样式的继承</span></span><br><span class="line">    s.item4 = &#123;</span><br><span class="line">    	...s.item3,</span><br><span class="line">    	backgroundColor:<span class="string">'#FF00CC'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//带参数</span></span><br><span class="line">    s.item5 = <span class="function">(<span class="params">top</span>) =&gt;</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> &#123;</span><br><span class="line">    		...s.item3,</span><br><span class="line">    		marginTop:top,</span><br><span class="line">    	&#125;;    	</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//带参数 + 缺省值</span></span><br><span class="line">    s.item6 = <span class="function">(<span class="params">top</span>) =&gt;</span> &#123;</span><br><span class="line">    	<span class="keyword">return</span> &#123;</span><br><span class="line">    		...s.item3,</span><br><span class="line">    		marginTop:top ? top : <span class="number">10</span>,</span><br><span class="line">    	&#125;;       	</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> style2 = styles2Creator();</span><br><span class="line"><span class="comment">//const style2 = StyleSheet.create(styles2Creator());</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'style2 :'</span>,style2);</span><br></pre></td></tr></table></figure>
+<p>运行一下可以看到 log出来的style2和style1的属性。</p>
+<h3 id="3-styled-components"><a href="#3-styled-components" class="headerlink" title="3. styled-components"></a>3. styled-components</h3><blockquote>
+<p>号称React 中的 CSS 最佳实践,使用行内样式，支持CSS。该第三方也也可用于RN。</p>
+</blockquote>
+<p><code>react-native init</code>了个RN工程 写了个简单的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> React, &#123;Component&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    AppRegistry,</span><br><span class="line">    StyleSheet,</span><br><span class="line">    Text,</span><br><span class="line">    View,</span><br><span class="line">    Image</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"><span class="comment">//需要 `npm install --save styled-components`</span></span><br><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">"styled-components/native"</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//这里开始styled-components 式的样式：</span></span><br><span class="line"><span class="comment">//styled-components的格式为： const [自定义变量名] = styled.[相应的系统组件]`css表达式`;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//普通写法 （不大写开头会报错……</span></span><br><span class="line"><span class="keyword">const</span> ListContainerView = styled.View<span class="string">`</span></span><br><span class="line"><span class="string">    width:360;</span></span><br><span class="line"><span class="string">    height:280;</span></span><br><span class="line"><span class="string">    background-color: #F0F2F5;</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展 （backgroundColor 和 background-color都可以</span></span><br><span class="line"><span class="keyword">const</span> ItemContainerView = ListContainerView.extend<span class="string">`</span></span><br><span class="line"><span class="string">    backgroundColor: #66CCFF;</span></span><br><span class="line"><span class="string">    flexDirection:row;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//带参数</span></span><br><span class="line"><span class="keyword">const</span> LeftImageContainerView = styled.View<span class="string">`</span></span><br><span class="line"><span class="string">    height:<span class="subst">$&#123;props =&gt; props.primary ? <span class="number">280</span> : <span class="number">180</span>&#125;</span>;;</span></span><br><span class="line"><span class="string">    width:180;</span></span><br><span class="line"><span class="string">    background-color: #77BB00;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//然后发现一个尴尬的事就是不知道怎么扩展自定义组件 比如JDImage</span></span><br><span class="line"><span class="comment">//带计算表达式</span></span><br><span class="line"><span class="keyword">const</span> LeftImageHeight = <span class="number">280</span> - <span class="number">10</span> *<span class="number">2</span>;</span><br><span class="line"><span class="keyword">const</span> LeftImage = styled.Image<span class="string">`</span></span><br><span class="line"><span class="string">    margin-top:10;</span></span><br><span class="line"><span class="string">    margin-left:10;</span></span><br><span class="line"><span class="string">    width:<span class="subst">$&#123;<span class="number">180</span> - <span class="number">10</span> *<span class="number">2</span>&#125;</span>;</span></span><br><span class="line"><span class="string">    height:<span class="subst">$&#123;LeftImageHeight&#125;</span>;</span></span><br><span class="line"><span class="string">    background-color: #FFFFFF;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//想要获取另一个组件样式LeftImage的高度 不能直接使用 $&#123;LeftImage.height&#125;</span></span><br><span class="line"><span class="comment">//因为 LeftImage返回的是  ƒ StyledNativeComponent()方法……</span></span><br><span class="line"><span class="keyword">const</span> RightContainerView = styled.View<span class="string">`</span></span><br><span class="line"><span class="string">    width:160;</span></span><br><span class="line"><span class="string">    height:<span class="subst">$&#123;LeftImageHeight&#125;</span>;</span></span><br><span class="line"><span class="string">    background-color: #FF00CC;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;ItemContainerView &gt;</span><br><span class="line">                &lt;LeftImageContainerView primary&gt;</span><br><span class="line">                    &#123;<span class="built_in">console</span>.log(<span class="string">'LeftImageContainerView.style:'</span>,LeftImageContainerView)&#125;</span><br><span class="line">                    &lt;LeftImage source=&#123;&#123;<span class="attr">uri</span>:<span class="string">'http://static.runoob.com/images/demo/demo2.jpg'</span>&#125;&#125;/&gt;</span><br><span class="line">                &lt;<span class="regexp">/LeftImageContainerView&gt;</span></span><br><span class="line"><span class="regexp">                &lt;RightContainerView&gt;&lt;/</span>RightContainerView&gt;</span><br><span class="line">            &lt;<span class="regexp">/ItemContainerView&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">AppRegistry.registerComponent('MyApp', () =&gt; MyApp);</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>优点：</em></strong></p>
+<ul>
+<li>react推荐的行内样式 css in js；</li>
+<li>方便前端同学的写法 可以完全使用CSS的书写习惯</li>
+</ul>
+<p>缺点和原始写法的差不多，还对本身不是前端开发的人来说带来额外的学习成本…… 所以还是不推荐……</p>
+<p><strong><em>参考链接：</em></strong></p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/29344146" target="_blank" rel="noopener">styled-components React 中的 CSS 最佳实践 | zhihu</a></li>
+<li><a href="https://www.styled-components.com/" target="_blank" rel="noopener">styled-components | 官方文档</a></li>
+<li><a href="http://www.alloyteam.com/2017/05/guide-styled-components/" target="_blank" rel="noopener">Styled Components：让样式也成为组件 | alloyteam.</a></li>
+</ul>
+<h3 id="4-改进写法二"><a href="#4-改进写法二" class="headerlink" title="4.改进写法二"></a>4.改进写法二</h3><blockquote>
+<p>简单来讲 styled-components 就是生成一个带样式的组件，完全可以吸收这种写法 自己改进RN中 ，而不使用styled-components这个库</p>
+</blockquote>
+<p>结合 写法一 和 styled-components的想法，给出一个简单例子：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123;Component&#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;</span><br><span class="line">    AppRegistry,</span><br><span class="line">    StyleSheet,</span><br><span class="line">    Text,</span><br><span class="line">    View,</span><br><span class="line">    Image</span><br><span class="line">&#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写法二</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">stylesCreator</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> s = &#123;&#125;;</span><br><span class="line">    <span class="keyword">let</span> width = <span class="number">360.0</span>, height = <span class="number">280.0</span>;</span><br><span class="line">    s.ListContainerView = &#123;</span><br><span class="line">        width:  width,</span><br><span class="line">        height: height,</span><br><span class="line">        backgroundColor: <span class="string">'#F0F2F5'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    s.ItemContainerView = &#123;</span><br><span class="line">        width:  width,</span><br><span class="line">        height: height,</span><br><span class="line">        backgroundColor: <span class="string">'#66CCFF'</span>,</span><br><span class="line">        flexDirection:<span class="string">'row'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'s.ItemContainerView :'</span>,s.ItemContainerView);</span><br><span class="line">    s.LeftImageContainerView = &#123;</span><br><span class="line">        height:height,</span><br><span class="line">        width:width / <span class="number">2</span>,</span><br><span class="line">        backgroundColor: <span class="string">'#77BB00'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    s.LeftImage = &#123;</span><br><span class="line">        marginTop:<span class="number">10</span>,</span><br><span class="line">        marginLeft:<span class="number">10</span>,</span><br><span class="line">        width: <span class="number">180</span> - <span class="number">10</span> *<span class="number">2</span>,</span><br><span class="line">        height: s.LeftImageContainerView.height - <span class="number">10</span>*<span class="number">2</span>,</span><br><span class="line">        backgroundColor: <span class="string">`#FFFFFF`</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    s.RightContainerView = &#123;</span><br><span class="line">        width: width / <span class="number">2</span>,</span><br><span class="line">        height: s.LeftImage.height,</span><br><span class="line">        backgroundColor: <span class="string">'#FF00CC'</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> s;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> styles = stylesCreator();</span><br><span class="line"><span class="comment">//const styles = StyleSheet.create(stylesCreator());</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//然后再结合 styled-components：</span></span><br><span class="line"><span class="comment">// 模拟 styled-components API</span></span><br><span class="line"><span class="keyword">const</span> styled = <span class="function">(<span class="params">Component, styler</span>) =&gt;</span> (props) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> style = <span class="keyword">typeof</span> styler === <span class="string">'function'</span> ? styler(props) : styler;</span><br><span class="line">    <span class="keyword">return</span> &lt;Component &#123;...props&#125; style=&#123;[ style, props.style ]&#125; /&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// styled components</span><br><span class="line">//同样可以完成组件（带样式）的继承 const RightContainerView = styled(LeftImageContainerView,styles.RightContainerView);</span><br><span class="line"></span><br><span class="line">const ListContainerView = styled(View,styles.ListContainerView);</span><br><span class="line">const ItemContainerView = styled(View,styles.ItemContainerView);</span><br><span class="line">const LeftImageContainerView = styled(View,styles.LeftImageContainerView);</span><br><span class="line">const LeftImage = styled(Image,styles.LeftImage);</span><br><span class="line">const RightContainerView = styled(View,styles.RightContainerView);</span><br><span class="line"></span><br><span class="line">export default class MyApp extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;ItemContainerView &gt;</span><br><span class="line">                &lt;LeftImageContainerView primary&gt;</span><br><span class="line">                    &#123;console.log('LeftImageContainerView.style:',LeftImageContainerView)&#125;</span><br><span class="line">                    &lt;LeftImage source=&#123;&#123;uri:'http://static.runoob.com/images/demo/demo2.jpg'&#125;&#125;/&gt;</span><br><span class="line">                &lt;/LeftImageContainerView&gt;</span><br><span class="line">                &lt;RightContainerView&gt;&lt;/RightContainerView&gt;</span><br><span class="line">            &lt;/ItemContainerView&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">AppRegistry.registerComponent('MyApp', () =&gt; MyApp);</span><br></pre></td></tr></table></figure>
+<p>emmm ，无需引入第三方库 感觉好多了。缺点当然是不支持原CSS写法。</p>
+<h3 id="5-react-native-0-45"><a href="#5-react-native-0-45" class="headerlink" title="5. react native 0.45"></a>5. react native 0.45</h3><p>在0.45版本中运行改进写法一时，你可能看到style2在控制台的输出类似为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//const style2 = StyleSheet.create(styles2Creator());</span></span><br><span class="line"></span><br><span class="line">  style2 : </span><br><span class="line">&#123;<span class="attr">item1</span>: <span class="number">12</span>, <span class="attr">item2</span>: <span class="number">13</span>, <span class="attr">item3</span>: <span class="number">14</span>, <span class="attr">item4</span>: <span class="number">15</span>, <span class="attr">item5</span>: <span class="number">16</span>, …&#125;</span><br><span class="line">	item1:<span class="number">12</span></span><br><span class="line">	item2:<span class="number">13</span></span><br><span class="line">	item3:<span class="number">14</span></span><br><span class="line">	item4:<span class="number">15</span></span><br><span class="line">	item5:<span class="number">16</span></span><br><span class="line">	item6:<span class="number">17</span></span><br><span class="line">__proto__:<span class="built_in">Object</span></span><br></pre></td></tr></table></figure>
+<p>这是怎么肥事！我的item对象怎么变成数字了！</p>
+<p>别急，在0.45版本后StyleSheet代码有所改变（其实我没看具体哪个小版本改的 <code>_(:зゝ∠)_</code>）, StyleSheet.create改成：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//react native : 0.45.1</span></span><br><span class="line">  create&lt;S: Styles&gt;(obj: S): StyleSheet&lt;S&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> result: StyleSheet&lt;S&gt; = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">      StyleSheetValidation.validateStyle(key, obj);</span><br><span class="line">      result[key] = ReactNativePropRegistry.register(obj[key]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//react native0.45.1 ReactNativePropRegistry.js</span></span><br><span class="line"><span class="keyword">var</span> objects = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> uniqueID = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> emptyObject = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ReactNativePropRegistry</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> register(object: <span class="built_in">Object</span>): number &#123;</span><br><span class="line">    <span class="keyword">var</span> id = ++uniqueID;</span><br><span class="line">    <span class="keyword">if</span> (__DEV__) &#123;</span><br><span class="line">      <span class="built_in">Object</span>.freeze(object);</span><br><span class="line">    &#125;</span><br><span class="line">    objects[id] = object;</span><br><span class="line">    <span class="keyword">return</span> id;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//多的就不看了……内容不多各位有兴趣自己看</span></span><br></pre></td></tr></table></figure>
+<p>通过看ReactNativePropRegistry代码，StyleSheet将样式对象储存在<code>objects</code>中,并返回<code>uniqueID</code></p>
+<p>比如取回原来的item，就可以这样做：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> ReactNativePropRegistry <span class="keyword">from</span> <span class="string">'../node_modules/react-native/Libraries/Renderer/src/renderers/native/ReactNativePropRegistry'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"ReactNativePropRegistry.getByID(12): "</span>,ReactNativePropRegistry.getByID(<span class="number">12</span>));</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"ReactNativePropRegistry.getByID(style2. item1): "</span>,ReactNativePropRegistry.getByID(style2. item1));</span><br></pre></td></tr></table></figure>
+<p>就可以通过 <strong>ReactNativePropRegistry.getByID</strong>就可以取得样式对象了。这可能对于之前的改进写法造成了一点小麻烦，不过还可以用~</p>
+<hr>
+<blockquote>
+<p>其他参考阅读：</p>
+</blockquote>
+<ul>
+<li><a href="https://github.com/sabeurthabti/react-native-css" target="_blank" rel="noopener">react-native-css | github</a> css + sass in rn</li>
+<li><a href="https://github.com/blackmiaool/rn-less" target="_blank" rel="noopener">rn-less | github</a> css + less in rn</li>
+<li><a href="https://zhuanlan.zhihu.com/p/28060579" target="_blank" rel="noopener">React-Native 样式管理方案浅谈 | zhihu</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React-Native/" rel="tag"># React Native</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/essay/Runtime/runtime-分类Category原理/" rel="next" title="Category结构与原理">
+                <i class="fa fa-chevron-left"></i> Category结构与原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/essay/Redux源码浅读/" rel="prev" title="Redux源码浅读">
+                Redux源码浅读 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+            
+              <p class="site-author-name" itemprop="name">SunTongSheng</p>
+              <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-原写法"><span class="nav-number">1.</span> <span class="nav-text">1.原写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-改进写法一"><span class="nav-number">2.</span> <span class="nav-text">2.改进写法一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-styled-components"><span class="nav-number">3.</span> <span class="nav-text">3. styled-components</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-改进写法二"><span class="nav-number">4.</span> <span class="nav-text">4.改进写法二</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-react-native-0-45"><span class="nav-number">5.</span> <span class="nav-text">5. react native 0.45</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+ 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">531k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">8:03</span>
+  
+</div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

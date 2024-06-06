@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="主要包含 字典与模型互转 、对象关联、遍历变量、遍历方法、遍历协议">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Runtime 使用">
+<meta property="og:url" content="https://developerdoc.com/essay/Runtime/runtime使用/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="主要包含 字典与模型互转 、对象关联、遍历变量、遍历方法、遍历协议">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-07T09:27:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Runtime 使用">
+<meta name="twitter:description" content="主要包含 字典与模型互转 、对象关联、遍历变量、遍历方法、遍历协议">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://developerdoc.com/essay/Runtime/runtime使用/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Runtime 使用 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙同生的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">为美好的世界献上祝福</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-d3学习demo演示">
+    <a href="/d3start" rel="section">d3学习demo演示</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Runtime/runtime使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Runtime 使用
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2016-10-13 11:20:42" itemprop="dateCreated datePublished" datetime="2016-10-13T11:20:42+08:00">2016-10-13</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-07 17:27:57" itemprop="dateModified" datetime="2019-03-07T17:27:57+08:00">2019-03-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/Runtime/runtime使用/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/Runtime/runtime使用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/Runtime/runtime使用/" class="leancloud_visitors" data-flag-title="Runtime 使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">11k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">10 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>主要包含 字典与模型互转 、对象关联、遍历变量、遍历方法、遍历协议</p>
+<a id="more"></a>
+<h2 id="字典与模型互转">字典与模型互转</h2>
+
+<p>字典转模型的时候：</p>
+<ol>
+<li>根据字典的 key 生成 setter 方法.</li>
+<li>使用 objc_msgSend 调用 setter 方法为 Model 的属性赋值（或者 KVC）.</li>
+</ol>
+<p>模型转字典的时候：</p>
+<ol>
+<li>调用 class_copyPropertyList 方法获取当前 Model 的所有属性.</li>
+<li>调用 property_getName 获取属性名称.</li>
+<li>根据属性名称生成 getter 方法.</li>
+<li>使用 objc_msgSend 调用 getter 方法获取属性值（或者 KVC）. </li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"NSObject+KeyValues.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">KeyValues</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字典转模型</span></span><br><span class="line">+(<span class="keyword">id</span>)objectWithKeyValues:(<span class="built_in">NSDictionary</span> *)aDictionary&#123;</span><br><span class="line">   <span class="keyword">id</span> objc = [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">   <span class="keyword">for</span> (<span class="built_in">NSString</span> *key <span class="keyword">in</span> aDictionary.allKeys) &#123;</span><br><span class="line">       <span class="keyword">id</span> value = aDictionary[key];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">/*判断当前属性是不是Model*/</span></span><br><span class="line">       objc_property_t property = class_getProperty(<span class="keyword">self</span>, key.UTF8String);</span><br><span class="line">       <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">       objc_property_attribute_t *attributeList = property_copyAttributeList(property, &amp;outCount);</span><br><span class="line">       objc_property_attribute_t attribute = attributeList[<span class="number">0</span>];</span><br><span class="line">       <span class="built_in">NSString</span> *typeString = [<span class="built_in">NSString</span> stringWithUTF8String:attribute.value];</span><br><span class="line">       <span class="keyword">if</span> ([typeString isEqualToString:<span class="string">@"@\"TestModel\""</span>]) &#123;</span><br><span class="line">           value = [<span class="keyword">self</span> objectWithKeyValues:value];</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">/**********************/</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">//生成setter方法，并用objc_msgSend调用</span></span><br><span class="line">       <span class="built_in">NSString</span> *methodName = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"set%@%@:"</span>,[key substringToIndex:<span class="number">1</span>].uppercaseString,[key substringFromIndex:<span class="number">1</span>]];</span><br><span class="line">       SEL <span class="keyword">setter</span> = sel_registerName(methodName.UTF8String);</span><br><span class="line">       <span class="keyword">if</span> ([objc respondsToSelector:<span class="keyword">setter</span>]) &#123;</span><br><span class="line">           ((<span class="keyword">void</span> (*) (<span class="keyword">id</span>,SEL,<span class="keyword">id</span>)) objc_msgSend) (objc,<span class="keyword">setter</span>,value);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> objc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//模型转字典</span></span><br><span class="line">-(<span class="built_in">NSDictionary</span> *)keyValuesWithObject&#123;</span><br><span class="line">   <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   objc_property_t *propertyList = class_copyPropertyList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="built_in">NSMutableDictionary</span> *dict = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       objc_property_t property = propertyList[i];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//生成getter方法，并用objc_msgSend调用</span></span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">char</span> *propertyName = property_getName(property);</span><br><span class="line">       SEL <span class="keyword">getter</span> = sel_registerName(propertyName);</span><br><span class="line">       <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:<span class="keyword">getter</span>]) &#123;</span><br><span class="line">           <span class="keyword">id</span> value = ((<span class="keyword">id</span> (*) (<span class="keyword">id</span>,SEL)) objc_msgSend) (<span class="keyword">self</span>,<span class="keyword">getter</span>);</span><br><span class="line">           </span><br><span class="line">           <span class="comment">/*判断当前属性是不是Model*/</span></span><br><span class="line">           <span class="keyword">if</span> ([value isKindOfClass:[<span class="keyword">self</span> <span class="keyword">class</span>]] &amp;&amp; value) &#123;</span><br><span class="line">               value = [value keyValuesWithObject];</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">/**********************/</span></span><br><span class="line">           </span><br><span class="line">           <span class="keyword">if</span> (value) &#123;</span><br><span class="line">               <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:propertyName];</span><br><span class="line">               [dict setObject:value forKey:key];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> dict;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2 id="对象关联">对象关联</h2>
+
+<blockquote>
+<p>对已经存在的类在 Category 中添加自定义的属性：</p>
+</blockquote>
+<ul>
+<li>要取出被关联的对象使用 objc_getAssociatedObject 方法即可，</li>
+<li>要删除一个被关联的对象，使用 objc_setAssociatedObject 方法将对应的 key 设置成 nil 即可</li>
+<li>objc_removeAssociatedObjects 方法将会移除源对象中所有的关联对象.</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<p>为类别添加chineseName属性<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"XiaoMing+MutipleName.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XiaoMing</span> (<span class="title">MutipleName</span>)</span></span><br><span class="line"><span class="keyword">char</span> cName;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)setChineseName:(<span class="built_in">NSString</span> *) chineseName&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;cName, chineseName, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="built_in">NSString</span> *)chineseName&#123;</span><br><span class="line"><span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;cName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>举个栗子，假如我们要给 UIButton 添加一个监听单击事件的 block 属性，新建 UIButton 的 Category，其.m文件如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"UIButton+ClickBlock.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">void</span> *associatedKey = <span class="string">"associatedKey"</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIButton</span> (<span class="title">ClickBlock</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Category中的属性，只会生成setter和getter方法，不会生成成员变量</span></span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)setClick:(clickBlock)click&#123;</span><br><span class="line">   objc_setAssociatedObject(<span class="keyword">self</span>, associatedKey, click, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">   [<span class="keyword">self</span> removeTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(buttonClick) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">   <span class="keyword">if</span> (click) &#123;</span><br><span class="line">       [<span class="keyword">self</span> addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(buttonClick) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(clickBlock)click&#123;</span><br><span class="line">   <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, associatedKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)buttonClick&#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">self</span>.click) &#123;</span><br><span class="line">       <span class="keyword">self</span>.click();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后在代码中，就可以使用 UIButton 的属性来监听单击事件了：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span> *button = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</span><br><span class="line">button.frame = <span class="keyword">self</span>.view.bounds;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:button];</span><br><span class="line">button.click = ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"buttonClicked"</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="遍历变量">遍历变量</h2>
+
+<ol>
+<li>使用 class_copyIvarList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 ivar_getName 方法获取成员变量的名称.</li>
+<li>通过 KVC 来读取 Model 的属性值</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Ivar *vars = class_copyIvarList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Ivar var = vars[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">char</span> *name = ivar_getName(var);</span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">char</span> *type = ivar_getTypeEncoding(ivar);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 注意kvc的特性是，如果能找到key这个属性的setter方法，则调用setter方法</span></span><br><span class="line">       <span class="comment">// 如果找不到setter方法，则查找成员变量key或者成员变量_key，并且为其赋值</span></span><br><span class="line">       <span class="comment">// 所以这里不需要再另外处理成员变量名称的“_”前缀</span></span><br><span class="line">       <span class="keyword">id</span> value = [obj valueForKey:key];</span><br><span class="line">       <span class="comment">//对value做相应操作</span></span><br><span class="line">       ...</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="自动归档">自动归档</h3>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"TestModel.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">TestModel</span></span></span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder&#123;</span><br><span class="line">   <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Ivar *vars = class_copyIvarList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Ivar var = vars[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">char</span> *name = ivar_getName(var);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 注意kvc的特性是，如果能找到key这个属性的setter方法，则调用setter方法</span></span><br><span class="line">       <span class="comment">// 如果找不到setter方法，则查找成员变量key或者成员变量_key，并且为其赋值</span></span><br><span class="line">       <span class="comment">// 所以这里不需要再另外处理成员变量名称的“_”前缀</span></span><br><span class="line">       <span class="keyword">id</span> value = [<span class="keyword">self</span> valueForKey:key];</span><br><span class="line">       [aCoder encodeObject:value forKey:key];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder&#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">       <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">       Ivar *vars = class_copyIvarList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">           Ivar var = vars[i];</span><br><span class="line">           <span class="keyword">const</span> <span class="keyword">char</span> *name = ivar_getName(var);</span><br><span class="line">           <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">           <span class="keyword">id</span> value = [aDecoder decodeObjectForKey:key];</span><br><span class="line">           [<span class="keyword">self</span> setValue:value forKey:key];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改变量值">修改变量值</h3>
+
+<ol>
+<li>使用 class_copyIvarList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 ivar_getName 方法获取成员变量的名称.</li>
+<li>通过 KVC 来读取 Model 的属性值</li>
+<li>修改对应的字段值 object_setIvar(id obj, Ivar ivar, id value) </li>
+</ol>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Ivar *vars = class_copyIvarList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Ivar var = vars[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">char</span> *name = ivar_getName(var);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">if</span> ([name isEqualToString:<span class="string">@"_shuxingming"</span>]) &#123;</span><br><span class="line">       object_setIvar(<span class="keyword">self</span>, var, <span class="string">@"新的值"</span>);</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">        </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="遍历属性">遍历属性</h2>
+
+
+<ol>
+<li>通过class_copyPropertyList函数来获取属性列表，其中属性列表是使用@property声明的列表，对于直接使用声明为成员变量的，都不会出现在属性列表中，这也是正常的。</li>
+<li>我们通过runtime提供的property_getName函数来获取属性名称。</li>
+<li>若有获取属性的详细描述，可通过runtime提供的property_getAttributes函数来获取。</li>
+<li>若有获取属性中的objc_property_attribute_t列表，可以通过property_copyAttributeList函数来获取。</li>
+<li>若有获取单独的objc_property_attribute_t的name或者value，直接使用点语法即可，它是一个结构体。</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">objc_property_t *properties = class_copyPropertyList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">	objc_property_t property = properties[i];</span><br><span class="line">	<span class="comment">//获取属性名称</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name = property_getName(property);</span><br><span class="line">	<span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *propertyAttributes = property_getAttributes(property);</span><br><span class="line">	<span class="built_in">NSLog</span>(<span class="string">@"%s  %s"</span>, propertyName, propertyAttributes);</span><br><span class="line">   </span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">	objc_property_attribute_t *attrbutes = property_copyAttributeList(property, &amp;count);</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; count; ++j) &#123;</span><br><span class="line">	objc_property_attribute_t attribute = attrbutes[j];</span><br><span class="line">     </span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name = attribute.name;</span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *value = attribute.value;</span><br><span class="line">	<span class="built_in">NSLog</span>(<span class="string">@"name: %s   value: %s"</span>, name, value);</span><br><span class="line">   		&#125;</span><br><span class="line">   </span><br><span class="line">   	free(attrbutes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="遍历方法">遍历方法</h2>
+
+<ol>
+<li>使用 class_copyMethodList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 method_getName 方法获取成员变量的名称.</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Method *methods = class_copyMethodList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Method method = methods[i];</span><br><span class="line"><span class="comment">//获取方法</span></span><br><span class="line">SEL methodSEL = method_getName(method);</span><br><span class="line">       	<span class="keyword">const</span> <span class="keyword">char</span> *name = sel_getName(methodSEL);</span><br><span class="line">       	<span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line"><span class="comment">//获取方法的参数个数</span></span><br><span class="line"><span class="keyword">int</span> arguments = method_getNumberOfArguments(method);</span><br><span class="line"><span class="comment">// 获取方法的参数类型</span></span><br><span class="line"><span class="keyword">char</span> argName[<span class="number">512</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> j = <span class="number">0</span>; j &lt; arguments; ++j) &#123;</span><br><span class="line">	method_getArgumentType(method, j, argName, <span class="number">512</span>);</span><br><span class="line">	<span class="built_in">NSLog</span>(<span class="string">@"第%u个参数类型为：%s"</span>, j, argName);</span><br><span class="line">	memset(argName, <span class="string">'\0'</span>, strlen(argName));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">char</span> returnType[<span class="number">512</span>] = &#123;&#125;;</span><br><span class="line">   	method_getReturnType(method, returnType, <span class="number">512</span>);</span><br><span class="line">   	<span class="built_in">NSLog</span>(<span class="string">@"返回值类型：%s"</span>, returnType);</span><br><span class="line">   </span><br><span class="line">   	<span class="comment">// type encoding</span></span><br><span class="line">   	<span class="built_in">NSLog</span>(<span class="string">@"TypeEncoding: %s"</span>, method_getTypeEncoding(method));</span><br><span class="line">   	</span><br><span class="line">   &#125;</span><br><span class="line">   free(methods);</span><br></pre></td></tr></table></figure>
+<h3 id="动态交换方法"><a href="#动态交换方法" class="headerlink" title="动态交换方法"></a>动态交换方法</h3><ol>
+<li><code>Method class_getInstanceMethod(Class cls, SEL name)</code> 找到方法实例</li>
+<li><code>void method_exchangeImplementations(Method m1, Method m2)</code> 交换方法</li>
+</ol>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)answer&#123;</span><br><span class="line">Method m1 = class_getInstanceMethod([<span class="keyword">self</span>.xiaoMing <span class="keyword">class</span>], <span class="keyword">@selector</span>(firstSay));</span><br><span class="line">Method m2 = class_getInstanceMethod([<span class="keyword">self</span>.xiaoMing <span class="keyword">class</span>], <span class="keyword">@selector</span>(secondSay));</span><br><span class="line"></span><br><span class="line">method_exchangeImplementations(m1, m2);</span><br><span class="line"><span class="built_in">NSString</span> *secondName = [<span class="keyword">self</span>.xiaoMing firstSay];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.nameTf.text = secondName;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"XiaoMing:My name is %@"</span>,secondName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Method-Swizzling-原理"><a href="#Method-Swizzling-原理" class="headerlink" title="Method Swizzling 原理"></a>Method Swizzling 原理</h3><p>归根结底，都是偷换了selector的IMP</p>
+<ul>
+<li>method_exchangeImplementations 来交换2个方法中的IMP，</li>
+<li>利用 class_replaceMethod 来修改类，</li>
+<li>利用 method_setImplementation 来直接设置某个方法的IMP</li>
+</ul>
+<h3 id="动态添加方法"><a href="#动态添加方法" class="headerlink" title="动态添加方法"></a>动态添加方法</h3><ol>
+<li><code>void class_addMethods(Class, struct objc_method_list *)</code>添加多个方法</li>
+<li><code>BOOL class_addMethod(Class cls, SEL name, IMP imp, const char *types)</code>添加方法<ul>
+<li>(IMP)guessAnswer 意思是guessAnswer的地址指针;</li>
+<li>“v@:” 意思是，v代表无返回值void，如果是i则代表int；@代表 id sel; : 代表 SEL _cmd;“v@:@@” 意思是，两个参数的没有返回值。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<p>假设XiaoMing的中没有guess这个方法，后来被Runtime添加一个名字叫guess的方法，最终再调用guess方法做出相应。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>)answer&#123;</span><br><span class="line">class_addMethod([<span class="keyword">self</span>.xiaoMing <span class="keyword">class</span>], <span class="keyword">@selector</span>(guess), (IMP)guessAnswer, <span class="string">"v@:"</span>);</span><br><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.xiaoMing respondsToSelector:<span class="keyword">@selector</span>(guess)]) &#123;</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span>.xiaoMing performSelector:<span class="keyword">@selector</span>(guess)];</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Sorry,I don't know"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">self</span>.cityTf.text = <span class="string">@"GuangTong"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> guessAnswer(<span class="keyword">id</span> <span class="keyword">self</span>,SEL _cmd)&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"He is from GuangTong"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用：</p>
+<pre><code>`[self.xiaoMing performSelector:@selector(guess)];`
+</code></pre><h2 id="遍历协议"><a href="#遍历协议" class="headerlink" title="遍历协议"></a>遍历协议</h2><ol>
+<li>使用 class_copyProtocolList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 protocol_getName 方法获取成员变量的名称.</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   _<span class="keyword">unsafe_unretained</span> Protocol **protocols = class_copyProtocolList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Protocol *protocol = protocols[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="keyword">char</span> *name = protocol_getName(protocol);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<!-- *    [Runtime全方位装逼指南](http://www.jianshu.com/p/efeb33712445)
+*    [谈Runtime机制和使用的整体化梳理](http://www.jianshu.com/p/8916ad5662a2)
+* [runtime属性与成员变量](http://www.henishuo.com/runtime-property-ivar/) -->
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/quick-start/xcodebuild命令/" rel="next" title="xcodebuild命令">
+                <i class="fa fa-chevron-left"></i> xcodebuild命令
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/essay/Runtime/runtime实践/" rel="prev" title="Runtime 实践">
+                Runtime 实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+            
+              <p class="site-author-name" itemprop="name">SunTongSheng</p>
+              <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字典与模型互转"><span class="nav-number">1.</span> <span class="nav-text">字典与模型互转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象关联"><span class="nav-number">2.</span> <span class="nav-text">对象关联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历变量"><span class="nav-number">3.</span> <span class="nav-text">遍历变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自动归档"><span class="nav-number">3.1.</span> <span class="nav-text">自动归档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改变量值"><span class="nav-number">3.2.</span> <span class="nav-text">修改变量值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历属性"><span class="nav-number">4.</span> <span class="nav-text">遍历属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历方法"><span class="nav-number">5.</span> <span class="nav-text">遍历方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态交换方法"><span class="nav-number">5.1.</span> <span class="nav-text">动态交换方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method-Swizzling-原理"><span class="nav-number">5.2.</span> <span class="nav-text">Method Swizzling 原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态添加方法"><span class="nav-number">5.3.</span> <span class="nav-text">动态添加方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遍历协议"><span class="nav-number">6.</span> <span class="nav-text">遍历协议</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+ 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">531k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">8:03</span>
+  
+</div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="CPUCPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。 wiki上比较全的iPhone CPU信息 : Apple-designed_processors) 相关系统原理iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 性能监控1 Cpu 和 Memory信息">
+<meta property="og:url" content="https://developerdoc.com/essay/APM/iOSAPM1/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="CPUCPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。 wiki上比较全的iPhone CPU信息 : Apple-designed_processors) 相关系统原理iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://developerdoc.com/res/apm/mach-task-thread-system.png">
+<meta property="og:updated_time" content="2020-10-13T11:37:05.309Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 性能监控1 Cpu 和 Memory信息">
+<meta name="twitter:description" content="CPUCPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。 wiki上比较全的iPhone CPU信息 : Apple-designed_processors) 相关系统原理iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成">
+<meta name="twitter:image" content="https://developerdoc.com/res/apm/mach-task-thread-system.png">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://developerdoc.com/essay/APM/iOSAPM1/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>iOS 性能监控1 Cpu 和 Memory信息 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙同生的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">为美好的世界献上祝福</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-d3学习demo演示">
+    <a href="/d3start" rel="section">d3学习demo演示</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/APM/iOSAPM1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">iOS 性能监控1 Cpu 和 Memory信息
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-09 09:30:44" itemprop="dateCreated datePublished" datetime="2020-10-09T09:30:44+08:00">2020-10-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-10-13 19:37:05" itemprop="dateModified" datetime="2020-10-13T19:37:05+08:00">2020-10-13</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/APM/" itemprop="url" rel="index"><span itemprop="name">APM</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/APM/iOSAPM1/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/APM/iOSAPM1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/APM/iOSAPM1/" class="leancloud_visitors" data-flag-title="iOS 性能监控1 Cpu 和 Memory信息">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.2k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><p>CPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。</p>
+<p>wiki上比较全的iPhone CPU信息 : <a href="https://en.wikipedia.org/wiki/Apple-designed_processors" target="_blank" rel="noopener">Apple-designed_processors</a>)</p>
+<h3 id="相关系统原理"><a href="#相关系统原理" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p>iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成，XNU（X is not UNIX） 是 Darwin 的内核，一个混合内核，由 Mach 微内核和 BSD 组成。Mach 内核是轻量级的平台，只能完成操作系统最基本的职责，如：进程和线程、虚拟内存管理、任务调度、进程通信和消息传递机制。其他的工作，如文件操作和设备访问，都是由 BSD 层实现。</p>
+<p>事实上，Mach 并不能识别 UNIX 中的所有进程，而是采用一种稍微不同的方式，使用了比进程更轻量级的概念：任务（Task）。经典的 UNIX 采用了自上而下的方式：最基本的对象是进程，然后进一步划分为一个或多个线程；Mach 则采用了自底向上的方式：最基本的单元是线程，一个或多个线程包含在一个任务中。</p>
+<ul>
+<li>线程<ul>
+<li>线程定义了 Mach 中最小的执行单元。线程表示的是底层的机器寄存器状态以及各种调度统计数据，其从设计上提供了调度所需要的大量信息。</li>
+</ul>
+</li>
+<li>任务<ul>
+<li>任务是一种容器对象，虚拟内存空间和其他资源都是通过这个容器对象管理的。这些资源包括设备和其他句柄。资源进一步被抽象为端口。因此，资源的共享实际上相当于允许对对应端口进行访问。</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+<p>严格来说，Mach 的任务并不是hi操作系统中所谓的进程，因为 Mach 作为一个微内核的操作系统，并没有提供“进程”的逻辑，而只提供了最基本的实现。在 BSD 模型中，这两个概念有一对一的简单映射，每个 BSD 进程（即 OS X 进程）都在底层关联了一个 Mach 任务对象。实现这种映射的方法是指定一个透明的指针 bsd_info，Mach 对 bsd_info 完全无知。Mach 将内核也用任务表示（全局范围称为 kernel_task），尽管该任务没有对应的 PID，但可以想象 PID 为 0。</p>
+<p>下图所示为权威著作《OS X Internal: A System Approach》中提供的 Mach OS X 中进程子系统组成的概念图。与 Mac OS X 类似，iOS 的线程技术也是基于 Mach 线程技术实现的。</p>
+<p><img src="/res/apm/mach-task-thread-system.png" alt></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>上述提到线程表示的是底层的机器寄存器状态以及各种给调度统计数据。再来看 Mach 层中的 thread_basic_info 结构体的定义，其成员信息也证实了这一点。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">thread_basic_info</span> &#123;</span></span><br><span class="line">        <span class="keyword">time_value_t</span>    user_time;      <span class="comment">// 用户运行时长</span></span><br><span class="line">        <span class="keyword">time_value_t</span>    system_time;    <span class="comment">// 系统运行时长</span></span><br><span class="line">        <span class="keyword">integer_t</span>       cpu_usage;      <span class="comment">// CPU 使用率</span></span><br><span class="line">        <span class="keyword">policy_t</span>        policy;         <span class="comment">// 调度策略</span></span><br><span class="line">        <span class="keyword">integer_t</span>       run_state;      <span class="comment">// 运行状态</span></span><br><span class="line">        <span class="keyword">integer_t</span>       flags;          <span class="comment">// 各种标记</span></span><br><span class="line">        <span class="keyword">integer_t</span>       suspend_count;  <span class="comment">// 暂停线程的计数</span></span><br><span class="line">        <span class="keyword">integer_t</span>       sleep_time;     <span class="comment">// 休眠时间</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>每个线程都有这个结构体，所以我们只需要定时去遍历每个线程，累加每个线程的 cpu_usage 字段的值，就可以得到当前 App 所在进程的 CPU 使用率。</p>
+<p>如下所示为 CPU 占用率 的代码实现：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取 CPU 使用率</span></span><br><span class="line">+ (CGFloat)appCpuUsage &#123;</span><br><span class="line">    <span class="keyword">kern_return_t</span> kr;</span><br><span class="line">    <span class="keyword">task_info_data_t</span> tinfo;</span><br><span class="line">    <span class="keyword">mach_msg_type_number_t</span> task_info_count;</span><br><span class="line">    </span><br><span class="line">    task_info_count = TASK_INFO_MAX;</span><br><span class="line">    kr = task_info(mach_task_self(), MACH_TASK_BASIC_INFO, (<span class="keyword">task_info_t</span>)tinfo, &amp;task_info_count);</span><br><span class="line">    <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">thread_array_t</span>         thread_list;</span><br><span class="line">    <span class="keyword">mach_msg_type_number_t</span> thread_count;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">thread_info_data_t</span>     thinfo;</span><br><span class="line">    <span class="keyword">mach_msg_type_number_t</span> thread_info_count;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">thread_basic_info_t</span> basic_info_th;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// get threads in the task</span></span><br><span class="line">    kr = task_threads(mach_task_self(), &amp;thread_list, &amp;thread_count);</span><br><span class="line">    <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">long</span> total_time     = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">long</span> total_userTime = <span class="number">0</span>;</span><br><span class="line">    CGFloat total_cpu   = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// for each thread</span></span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; (<span class="keyword">int</span>)thread_count; j++) &#123;</span><br><span class="line">        thread_info_count = THREAD_INFO_MAX;</span><br><span class="line">        kr = thread_info(thread_list[j], THREAD_BASIC_INFO,</span><br><span class="line">                         (<span class="keyword">thread_info_t</span>)thinfo, &amp;thread_info_count);</span><br><span class="line">        <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        basic_info_th = (<span class="keyword">thread_basic_info_t</span>)thinfo;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!(basic_info_th-&gt;flags &amp; TH_FLAGS_IDLE)) &#123;</span><br><span class="line">            total_time     = total_time + basic_info_th-&gt;user_time.seconds + basic_info_th-&gt;system_time.seconds;</span><br><span class="line">            total_userTime = total_userTime + basic_info_th-&gt;user_time.microseconds + basic_info_th-&gt;system_time.microseconds;</span><br><span class="line">            total_cpu      = total_cpu + basic_info_th-&gt;cpu_usage / (<span class="keyword">float</span>)TH_USAGE_SCALE * kMaxPercent;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    kr = vm_deallocate(mach_task_self(), (<span class="keyword">vm_offset_t</span>)thread_list, thread_count * <span class="keyword">sizeof</span>(<span class="keyword">thread_t</span>));</span><br><span class="line">    assert(kr == KERN_SUCCESS);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> total_cpu;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>代码中使用 task_threads API 调用获取指定的 task 的线程列表。task_threads 将 target_task 任务中的所有线程保存在 act_list 数组中，数组包含 act_listCnt 个条目。上述源码中，在调用 task_threads API 时，target_task 参数传入的是 mach_task_self()，表示获取当前的 Mach task。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">kern_return_t</span> task_threads</span><br><span class="line">(</span><br><span class="line">	<span class="keyword">task_t</span> target_task,</span><br><span class="line">	<span class="keyword">thread_act_array_t</span> *act_list,</span><br><span class="line">	<span class="keyword">mach_msg_type_number_t</span> *act_listCnt</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>在获取到线程列表后，代码中使用 thread_info API 调用获取指定线程的线程信息。thread_info 查询 flavor 指定的线程信息，将信息返回到长度为 thread_info_outCnt 字节的 thread_info_out 缓存区中。上述源码，在调用 thread_info API 时，flavor 参数传入的是 THREAD_BASIC_INFO，使用这个类型会返回线程的基本信息，即 thread_basic_info_t 结构体。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">kern_return_t</span> thread_info</span><br><span class="line">(</span><br><span class="line">	<span class="keyword">thread_act_t</span> target_act,</span><br><span class="line">	<span class="keyword">thread_flavor_t</span> flavor,</span><br><span class="line">	<span class="keyword">thread_info_t</span> thread_info_out,</span><br><span class="line">	<span class="keyword">mach_msg_type_number_t</span> *thread_info_outCnt</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>上述源码的最后，使用 vm_deallocate API 以防止出现内存泄露。</p>
+<h3 id="总的-CPU-占用率"><a href="#总的-CPU-占用率" class="headerlink" title="总的 CPU 占用率"></a>总的 CPU 占用率</h3><p>使用 <code>host_statistics</code> 函数拿到 host_cpu_load_info 的值，这个结构体的成员变量 cpu_ticks 包含了 CPU 运行的时钟脉冲的数量，cpu_ticks 是一个数组，里面分别包含了 CPU_STATE_USER, CPU_STATE_SYSTEM, CPU_STATE_IDLE 和 CPU_STATE_NICE 模式下的时钟脉冲。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">+ (CGFloat)cpuUsage &#123;</span><br><span class="line">    <span class="keyword">kern_return_t</span> kr;</span><br><span class="line">    <span class="keyword">mach_msg_type_number_t</span> count;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">host_cpu_load_info_data_t</span> previous_info = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">host_cpu_load_info_data_t</span> info;</span><br><span class="line">    </span><br><span class="line">    count = HOST_CPU_LOAD_INFO_COUNT;</span><br><span class="line">    </span><br><span class="line">    kr = host_statistics(mach_host_self(), HOST_CPU_LOAD_INFO, (<span class="keyword">host_info_t</span>)&amp;info, &amp;count);</span><br><span class="line">    <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">natural_t</span> user   = info.cpu_ticks[CPU_STATE_USER] - previous_info.cpu_ticks[CPU_STATE_USER];</span><br><span class="line">    <span class="keyword">natural_t</span> nice   = info.cpu_ticks[CPU_STATE_NICE] - previous_info.cpu_ticks[CPU_STATE_NICE];</span><br><span class="line">    <span class="keyword">natural_t</span> system = info.cpu_ticks[CPU_STATE_SYSTEM] - previous_info.cpu_ticks[CPU_STATE_SYSTEM];</span><br><span class="line">    <span class="keyword">natural_t</span> idle   = info.cpu_ticks[CPU_STATE_IDLE] - previous_info.cpu_ticks[CPU_STATE_IDLE];</span><br><span class="line">    <span class="keyword">natural_t</span> total  = user + nice + system + idle;</span><br><span class="line">    previous_info    = info;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (user + nice + system) * <span class="number">100.0</span> / total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面代码通过计算 info 和 previous_info 的差值，分别得到在这几个模式下的 cpu_ticks，除 idle 以外都属于 CPU 被占用的情况，最后就能求出 CPU 的占用率。</p>
+<h3 id="CPU-核数"><a href="#CPU-核数" class="headerlink" title="CPU 核数"></a>CPU 核数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+ (NSUInteger)cpuNumber &#123;</span><br><span class="line">    <span class="keyword">return</span> [NSProcessInfo processInfo].activeProcessorCount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="CPU-频率"><a href="#CPU-频率" class="headerlink" title="CPU 频率"></a>CPU 频率</h3><p>CPU 频率，就是 CPU 的时钟频率， 是 CPU 运算时的工作的频率（1秒内发生的同步脉冲数）的简称。单位是 Hz，它决定移动设备的运行速度。</p>
+<p>由于安全性考虑，苹果已经禁止访问内核变量来获取 CPU 频率。现实现方法是通过硬编码方式获取 CPU 频率，新机发布需更新。</p>
+<p>我们通过硬编码的方式，建立一张机型和 CPU 主频的映射表，然后根据机型找到对应的 CPU 主频即可。</p>
+<p>可以在其中找到对应机型cpu的对应 : <a href="https://en.wikipedia.org/wiki/Apple-designed_processors" target="_blank" rel="noopener">Apple-designed_processors</a></p>
+<h3 id="CPU-类型"><a href="#CPU-类型" class="headerlink" title="CPU 类型"></a>CPU 类型</h3><p>我们知道 iPhone 使用的处理器架构都是 ARM 的，而 ARM 又分为 ARMV7、ARMV7S 和 ARM64等。而想要获取设备具体的处理器架构则需要使用 NXGetLocalArchInfo() 函数。这个函数的返回值是 NXArchInfo 结构体类型，如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name;</span><br><span class="line">    <span class="keyword">cpu_type_t</span> cputype;</span><br><span class="line">    <span class="keyword">cpu_subtype_t</span> cpusubtype;</span><br><span class="line">    <span class="keyword">enum</span> NXByteOrder byteorder;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *description;</span><br><span class="line">&#125; NXArchInfo;</span><br></pre></td></tr></table></figure>
+<p>NXArchInfo 结构体成员变量中就包含我们需要的信息：cputype 和 cpusubtype，这两个变量类型的定义在 mach/machine.h 头文件中给出，本质上都是 int 类型 typedef 得到的。</p>
+<p>根据 mach/machine.h 头文件给出的 CPU 架构类型的定义，可以很容易建立起各 CPU 架构到其对应描述的映射关系，代码实现如下：<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">+ (NSInteger)cpuType &#123;</span><br><span class="line">    <span class="keyword">return</span> (NSInteger)NXGetLocalArchInfo()-&gt;cputype;</span><br><span class="line">&#125;</span><br><span class="line">+ (NSInteger)cpuSubtype &#123;</span><br><span class="line">    <span class="keyword">return</span> (NSInteger)NXGetLocalArchInfo()-&gt;cpusubtype;</span><br><span class="line">&#125;</span><br><span class="line">- (NSString *)p_stringFromCpuType:(NSInteger)cpuType &#123;</span><br><span class="line">    <span class="keyword">switch</span> (cpuType) &#123;</span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_VAX:          <span class="keyword">return</span> @<span class="string">"VAX"</span>;          </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_MC680x0:      <span class="keyword">return</span> @<span class="string">"MC680x0"</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_X86:          <span class="keyword">return</span> @<span class="string">"X86"</span>;          </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_X86_64:       <span class="keyword">return</span> @<span class="string">"X86_64"</span>;       </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_MC98000:      <span class="keyword">return</span> @<span class="string">"MC98000"</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_HPPA:         <span class="keyword">return</span> @<span class="string">"HPPA"</span>;         </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_ARM:          <span class="keyword">return</span> @<span class="string">"ARM"</span>;          </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_ARM64:        <span class="keyword">return</span> @<span class="string">"ARM64"</span>;        </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_MC88000:      <span class="keyword">return</span> @<span class="string">"MC88000"</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_SPARC:        <span class="keyword">return</span> @<span class="string">"SPARC"</span>;        </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_I860:         <span class="keyword">return</span> @<span class="string">"I860"</span>;         </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_POWERPC:      <span class="keyword">return</span> @<span class="string">"POWERPC"</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_POWERPC64:    <span class="keyword">return</span> @<span class="string">"POWERPC64"</span>;    </span><br><span class="line">        <span class="keyword">default</span>:                    <span class="keyword">return</span> @<span class="string">"Unknown"</span>;      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (NSString *)cpuTypeString &#123;</span><br><span class="line">    <span class="keyword">if</span> (!_cpuTypeString) &#123;</span><br><span class="line">        _cpuTypeString = [self p_stringFromCpuType:[[self class] cpuType]];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _cpuTypeString;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSString *)cpuSubtypeString &#123;</span><br><span class="line">    <span class="keyword">if</span> (!_cpuSubtypeString) &#123;</span><br><span class="line">        _cpuSubtypeString = [NSString stringWithUTF8String:NXGetLocalArchInfo()-&gt;description];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _cpuSubtypeString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>经测试发现 NXArchInfo 结构体成员变量 description 包含的就是 CPU 架构的详尽信息，所以可以用它作为 cpuSubtypeString，当然也可以自己建立 cpuSubtype 的映射关系。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/quick-start/图片/iOS图片-像素操作/" rel="next" title="iOS图片-像素操作">
+                <i class="fa fa-chevron-left"></i> iOS图片-像素操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/essay/APM/iOSAPM2/" rel="prev" title="iOS 性能监控2 Memory信息">
+                iOS 性能监控2 Memory信息 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+            
+              <p class="site-author-name" itemprop="name">SunTongSheng</p>
+              <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU"><span class="nav-number">1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关系统原理"><span class="nav-number">2.</span> <span class="nav-text">相关系统原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总的-CPU-占用率"><span class="nav-number">4.</span> <span class="nav-text">总的 CPU 占用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-核数"><span class="nav-number">5.</span> <span class="nav-text">CPU 核数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-频率"><span class="nav-number">6.</span> <span class="nav-text">CPU 频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-类型"><span class="nav-number">7.</span> <span class="nav-text">CPU 类型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+ 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">531k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">8:03</span>
+  
+</div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

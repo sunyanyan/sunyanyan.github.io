@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="原文地址: how-does-react-tell-a-class-from-a-function本文地址： React是如何区分Class和Function？边看边翻译 花了2h+… 如果你觉得读起来还算通顺不费事 那也算我为大家做了一点小贡献吧">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(译)React是如何区分Class和Function？">
+<meta property="og:url" content="https://developerdoc.com/essay/(译)how-does-react-tell-a-class-from-a-function/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="原文地址: how-does-react-tell-a-class-from-a-function本文地址： React是如何区分Class和Function？边看边翻译 花了2h+… 如果你觉得读起来还算通顺不费事 那也算我为大家做了一点小贡献吧">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-06T03:19:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(译)React是如何区分Class和Function？">
+<meta name="twitter:description" content="原文地址: how-does-react-tell-a-class-from-a-function本文地址： React是如何区分Class和Function？边看边翻译 花了2h+… 如果你觉得读起来还算通顺不费事 那也算我为大家做了一点小贡献吧">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+
+
+
+
+  <link rel="canonical" href="https://developerdoc.com/essay/(译)how-does-react-tell-a-class-from-a-function/">
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>(译)React是如何区分Class和Function？ | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙同生的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">为美好的世界献上祝福</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-d3学习demo演示">
+    <a href="/d3start" rel="section">d3学习demo演示</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/(译)how-does-react-tell-a-class-from-a-function/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">(译)React是如何区分Class和Function？
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-12-04 22:33:48" itemprop="dateCreated datePublished" datetime="2018-12-04T22:33:48+08:00">2018-12-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-03-06 11:19:45" itemprop="dateModified" datetime="2019-03-06T11:19:45+08:00">2019-03-06</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/译文/" itemprop="url" rel="index"><span itemprop="name">译文</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/(译)how-does-react-tell-a-class-from-a-function/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/(译)how-does-react-tell-a-class-from-a-function/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/(译)how-does-react-tell-a-class-from-a-function/" class="leancloud_visitors" data-flag-title="(译)React是如何区分Class和Function？">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">13k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">12 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>原文地址: <a href="https://overreacted.io/how-does-react-tell-a-class-from-a-function/" target="_blank" rel="noopener">how-does-react-tell-a-class-from-a-function</a><br>本文地址： <a href="https://developerdoc.com/essay/(译)how-does-react-tell-a-class-from-a-function/">React是如何区分Class和Function？</a><br>边看边翻译 花了2h+… 如果你觉得读起来还算通顺不费事 那也算我为大家做了一点小贡献吧</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="React调用两者的不同之处"><a href="#React调用两者的不同之处" class="headerlink" title="React调用两者的不同之处"></a>React调用两者的不同之处</h2><p>一起来看下这个 function 类型的 <code>Greeting</code>组件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Greeting</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;p&gt;Hello&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>React 同样支持将它定义为 class 类型:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Greeting</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;p&gt;Hello&lt;/p&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>(直到<a href="https://reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">最近 hooks-intro</a>，这是使用state等特性的唯一方法。)</p>
+<p>当你想渲染<code>&lt;Greeting /&gt;</code>组件时，你不必关心它是如何定义的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//类或者函数，都可以</span></span><br><span class="line">&lt;Greeting /&gt;</span><br></pre></td></tr></table></figure>
+<p>但是，作为 <em>React本身</em> 是会认为这两个是有不同之处的。</p>
+<p>如果<code>Greeting</code>是一个函数，React 只需要直接调用它:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 你的代码</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Greeting</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &lt;p&gt;Hello&lt;/p&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// React内</span></span><br><span class="line"><span class="keyword">const</span> result = Greeting(props); <span class="comment">// &lt;p&gt;Hello&lt;/p&gt;</span></span><br></pre></td></tr></table></figure>
+<p>但是如果<code>Greeting</code>是一个类，那么 React 就需要使用<code>new</code>来实例化它，然后在实例上调用<code>render</code>方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 你的代码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Greeting</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;p&gt;Hello&lt;/p&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// React内</span></span><br><span class="line"><span class="keyword">const</span> instance = <span class="keyword">new</span> Greeting(props); <span class="comment">// Greeting &#123;&#125;</span></span><br><span class="line"><span class="keyword">const</span> result = instance.render(); <span class="comment">// &lt;p&gt;Hello&lt;/p&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在这两种情况下，<code>React</code>的目标是获取渲染节点（本例中，是<code>&lt;p&gt; Hello &lt;/ p&gt;</code>），但确切的步骤取决于<code>Greeting</code>的类型。</p>
+<p><strong>那么React如何知道某个东西是class类型还是function类型呢？</strong></p>
+<p>事实上，这篇文章更多的是关于JavaScript而不是关于React。<br>如何你好奇React为何以某种方式运作，让我们一起挖掘其中的原理。</p>
+<p><strong>这是一段漫长的探求之旅。这篇文章没有太多关于React本身的信息，我们将讨论<code>new</code>，<code>this</code>，<code>class</code>，<code>arrow function</code>，<code>prototype</code>，<code>__ proto__</code>，<code>instanceof</code>这些概念，以及这些东西如何在JavaScript中运作的机制。幸运的是，当你仅仅是使用React时，你不需要考虑这么多。但你如果要深究React……</strong></p>
+<p>(如果你真的只想知道答案，请拉动到文章最后。)</p>
+<h2 id="为什么要用不同的调用方式？"><a href="#为什么要用不同的调用方式？" class="headerlink" title="为什么要用不同的调用方式？"></a>为什么要用不同的调用方式？</h2><p>首先，我们需要理解以不同方式处理class和function的重要性。注意我们在调用类时如何使用new运算符：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// If Greeting is a function</span></span><br><span class="line"><span class="keyword">const</span> result = Greeting(props); <span class="comment">// &lt;p&gt;Hello&lt;/p&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// If Greeting is a class</span></span><br><span class="line"><span class="keyword">const</span> instance = <span class="keyword">new</span> Greeting(props); <span class="comment">// Greeting &#123;&#125;</span></span><br><span class="line"><span class="keyword">const</span> result = instance.render(); <span class="comment">// &lt;p&gt;Hello&lt;/p&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>让我们大致的了解下<code>new</code>在Javascript中做了什么：</p>
+<hr>
+<p>在ES6之前，Javascript没有class这个概念。但是，可以使用纯函数表现出和class相似的模式。 <strong>具体来说，你可以使用new来调用类似类构造方法的函数，来表现出和class相似的模式</strong><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 只是一个function</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fred = <span class="keyword">new</span> Person(<span class="string">'Fred'</span>); <span class="comment">// ✅ Person &#123;name: 'Fred'&#125;</span></span><br><span class="line"><span class="keyword">var</span> george = Person(<span class="string">'George'</span>); <span class="comment">// 🔴 不会如期工作</span></span><br><span class="line"><span class="comment">//你今天仍然可以写这样的代码！在 `DevTools` 中尝试一下。</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不用<code>new</code>修饰<code>Person(&#39;Fred&#39;)</code>,Person内部的<code>this</code>在里面会指向 <code>window</code> 或者 <code>undefined</code> 。结果就是代码会崩溃或者像给<code>window.name</code>赋值一样愚蠢。</p>
+<p>在调用之前添加<code>new</code>，等于说：“嘿 JavaScript，我知道<code>Person</code>只是一个函数，但让我们假装它是个类构造函数。 <strong>创建一个{}对象 并在<code>Person</code>函数内将<code>this</code>指向该对象， 这样我就可以赋值像<code>this.name</code>这样的东西。然后把那个对象返回给我。”</strong></p>
+<p>上面这些就是<code>new</code>操作符做的事情。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fred = <span class="keyword">new</span> Person(<span class="string">'Fred'</span>); <span class="comment">// `Person`内，相同的对象作为`this`</span></span><br></pre></td></tr></table></figure>
+<p>同时<code>new</code>操作符使上面的<code>fred</code>对象可以使用<code>Person.prototype</code>上的任何内容。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Hi, I am '</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fred = <span class="keyword">new</span> Person(<span class="string">'Fred'</span>);</span><br><span class="line">fred.sayHi();</span><br></pre></td></tr></table></figure>
+<p>这是之前人们在JavaScript模拟类的方式。</p>
+<p>可以看到的是在JavaScript早已有<code>new</code>。但是，<code>class</code>却是后来加入的特性。为了更明确我们的意图，重写一下代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(name) &#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">  &#125;</span><br><span class="line">  sayHi() &#123;</span><br><span class="line">    alert(<span class="string">'Hi, I am '</span> + <span class="keyword">this</span>.name);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fred = <span class="keyword">new</span> Person(<span class="string">'Fred'</span>);</span><br><span class="line">fred.sayHi();</span><br></pre></td></tr></table></figure></p>
+<p><em>在语言和API设计中把握开发人员的意图非常重要。</em></p>
+<p>如果你编写一个函数，JavaScript就无法猜测你的意思是像<code>alert()</code>一样被直接调用，还是像<code>new Person()</code>那样充当构造函数。忘记添加<code>new</code>会导致令人困惑的执行结果。</p>
+<p><strong>class语法让我们明确的告诉Javascript：“这不仅仅是一个函数 - 它是一个类，它有一个构造函数”。</strong> 如果在调用class时忘记使用<code>new</code>，JavaScript抛出异常：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fred = <span class="keyword">new</span> Person(<span class="string">'Fred'</span>);</span><br><span class="line"><span class="comment">// ✅  If Person is a function: works fine</span></span><br><span class="line"><span class="comment">// ✅  If Person is a class: works fine too</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> george = Person(<span class="string">'George'</span>); <span class="comment">// We forgot `new`</span></span><br><span class="line"><span class="comment">// 😳 If Person is a constructor-like function: confusing behavior</span></span><br><span class="line"><span class="comment">// 🔴 If Person is a class: fails immediately</span></span><br></pre></td></tr></table></figure></p>
+<p>这有助于我们尽早发现错误，而不是出现一些不符合预期的结果 比如<code>this.name</code>被视为<code>window.name</code>而不是<code>george.name</code>。</p>
+<p>但是，这意味着<code>React</code>需要在调用任何class之前使用<code>new</code>。它不能只是将其作为普通函数直接调用，因为JavaScript会将其视为错误！<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;p&gt;Hello&lt;/p&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 🔴 React can't just do this:</span></span><br><span class="line"><span class="keyword">const</span> instance = Counter(props);</span><br></pre></td></tr></table></figure></p>
+<p>这意味着麻烦(麻烦就是在于React需要区分Class和Function……)。</p>
+<h2 id="探究React式如何解决的"><a href="#探究React式如何解决的" class="headerlink" title="探究React式如何解决的"></a>探究React式如何解决的</h2><blockquote>
+<p>babel之类编译工具给解决问题带来的麻烦</p>
+</blockquote>
+<p>在我们探究React式如何解决这个问题时，需要考虑到大多数人都使用Babel之类的编译器来兼容浏览器（例如转义class等），所以我们需要在设计中考虑编译器这种情况。</p>
+<p>在Babel的早期版本中，可以在没有<code>new</code>的情况下调用类。但是通过生成一些额外的代码，这个情况已经被修复了：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// A bit simplified from Babel output:</span></span><br><span class="line">  <span class="keyword">if</span> (!(<span class="keyword">this</span> <span class="keyword">instanceof</span> Person)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">TypeError</span>(<span class="string">"Cannot call a class as a function"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// Our code:</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Person(<span class="string">'Fred'</span>); <span class="comment">// ✅ Okay</span></span><br><span class="line">Person(<span class="string">'George'</span>);   <span class="comment">// 🔴 Can’t call class as a function</span></span><br></pre></td></tr></table></figure>
+<p>你或许在打包文件中看到类似的代码，这就是<code>_classCallCheck</code>函数所做的功能。 （您可以通过设置“loose mode”不进行检查来减小捆绑包大小，但这可能会使代码最终转换为真正的原生类变得复杂。）</p>
+<p>到现在为止，你应该大致了解使用<code>new</code>与不使用<code>new</code>来调用某些内容之间的区别：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>new Person()</code></th>
+<th><code>Person()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>class</code></td>
+<td>✅ <code>this</code> is a <code>Person</code> instance</td>
+<td>🔴 <code>TypeError</code></td>
+</tr>
+<tr>
+<td><code>function</code></td>
+<td>✅ <code>this</code> is a <code>Person</code> instance</td>
+<td>😳 <code>this</code> is <code>window</code> or <code>undefined</code></td>
+</tr>
+</tbody>
+</table>
+<p>这之中的区别就是React为什么需要正确调用组件的重要原因。 <strong>如果您的组件被定义为类，React在调用它时需要使用<code>new</code>。</strong></p>
+<p><strong>那么问题来了 React是否可以判断某个东西是不是一个class？</strong></p>
+<p>没有那么容易！即使我们可以<a href="https://stackoverflow.com/questions/29093396/how-do-you-check-the-difference-between-an-ecmascript-6-class-and-function" target="_blank" rel="noopener">在JavaScript es6 中区别class 和 function</a>，这仍然不适用于像Babel这样的工具处理之后的class。因为对于浏览器来说，它们只是单纯的function而已（class被babel处理后）。 </p>
+<hr>
+<p>Okay，也许React可以在每次调用时使用<code>new</code>？不幸的是，这也并不总是奏效。</p>
+<h3 id="异常情况一："><a href="#异常情况一：" class="headerlink" title="异常情况一："></a>异常情况一：</h3><p>作为一般function，使用<code>new</code>调用它们会为它们提供一个对象实例作为<code>this</code>。对于作为构造函数编写的函数（如上面的<code>Person</code>），它是理想的，但它会给函数组件带来混乱：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Greeting</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 我们不希望“this”在这里成为任何一种情况下的实例</span></span><br><span class="line">  <span class="keyword">return</span> &lt;p&gt;Hello&lt;/p&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>虽然这种情况也是可以容忍的，但还有另外两个原因可以扼杀一直使用<code>new</code>的想法。</p>
+<h3 id="异常情况二："><a href="#异常情况二：" class="headerlink" title="异常情况二："></a>异常情况二：</h3><p>第一个是箭头函数（未被babel编译时）会使<code>new</code>调用失效，使用<code>new</code>调用箭头函数会抛出一个异常<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Greeting = <span class="function"><span class="params">()</span> =&gt;</span> &lt;p&gt;Hello&lt;<span class="regexp">/p&gt;;</span></span><br><span class="line"><span class="regexp">new Greeting(); /</span><span class="regexp">/ 🔴 Greeting is not a constructor</span></span><br></pre></td></tr></table></figure></p>
+<p>这种情况时是有意的，并且遵循箭头函数的设计。箭头函数的主要优点之一是它们没有自己的<code>this</code>绑定 - 取而代之的是 <code>this</code>被绑定到最近的函数体中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Friends</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> friends = <span class="keyword">this</span>.props.friends;</span><br><span class="line">    <span class="keyword">return</span> friends.map(<span class="function"><span class="params">friend</span> =&gt;</span></span><br><span class="line">      &lt;Friend</span><br><span class="line">        <span class="comment">// `this` is resolved from the `render` method</span></span><br><span class="line">        size=&#123;<span class="keyword">this</span>.props.size&#125;</span><br><span class="line">        name=&#123;friend.name&#125;</span><br><span class="line">        key=&#123;friend.id&#125;</span><br><span class="line">      /&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Okay，所以<strong>箭头功能没有自己的<code>this</code>。</strong> 这意味着箭头函数无法成为构造者！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Person = <span class="function">(<span class="params">name</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 🔴 This wouldn’t make sense!</span></span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因此，JavaScript不允许使用<code>new</code>调用箭头函数。如果你这样做，只会产生错误。这类似于JavaScript不允许在没有<code>new</code>的情况下调用类的方式。</p>
+<p>这很不错，但它也使我们在全部函数调用前添加new的计划失败。 React不可以在所有情况下调用new，因为它会破坏箭头函数！我们可以尝试通过缺少<code>prototype</code>来判断出箭头函数：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;).prototype <span class="comment">// undefined</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;).prototype <span class="comment">// &#123;constructor: f&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>但是这个<a href="https://github.com/facebook/react/issues/4599#issuecomment-136562930" target="_blank" rel="noopener">不适用</a>于使用<code>babel</code>编译的函数。这可能不是什么大问题，但还有另一个原因让这种方法失败。</p>
+<h3 id="异常情况三："><a href="#异常情况三：" class="headerlink" title="异常情况三："></a>异常情况三：</h3><p>我们不能总是使用<code>new</code>的另一个原因是，这样做不支持返回字符串或其他原始类型。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Greeting</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">'Hello'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Greeting(); <span class="comment">// ✅ 'Hello'</span></span><br><span class="line"><span class="keyword">new</span> Greeting(); <span class="comment">// 😳 Greeting &#123;&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这再次与<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/new" target="_blank" rel="noopener"><code>new</code>的设计</a>奇怪表现有关。正如我们之前看到的那样，<code>new</code>告诉JavaScript引擎创建一个对象，在函数内部创建该对象，然后将该对象作为<code>new</code>的结果。<br>但是，JavaScript还允许使用<code>new</code>调用的函数通过返回一些其他对象来覆盖<code>new</code>的返回值。这可能对类似对象池这样的模式很有用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Created lazily</span></span><br><span class="line"><span class="keyword">var</span> zeroVector = <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vector</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (x === <span class="number">0</span> &amp;&amp; y === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (zeroVector !== <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">// Reuse the same instance</span></span><br><span class="line">      <span class="keyword">return</span> zeroVector;</span><br><span class="line">    &#125;</span><br><span class="line">    zeroVector = <span class="keyword">this</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.x = x;</span><br><span class="line">  <span class="keyword">this</span>.y = y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Vector(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> Vector(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> Vector(<span class="number">0</span>, <span class="number">0</span>); <span class="comment">// 😲 b === c</span></span><br></pre></td></tr></table></figure>
+<p>但是，如果函数的返回值不是对象，<code>new</code>会完全忽略函数的返回值。如果你返回一个字符串或一个数字，就好像没有返回一样。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Answer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">42</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Answer(); <span class="comment">// ✅ 42</span></span><br><span class="line"><span class="keyword">new</span> Answer(); <span class="comment">// 😳 Answer &#123;&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>当使用<code>new</code>调用函数时，无法从函数中读取原始返回值（如数字或字符串）。因此，如果React总是使用new，它将无法支持返回字符串类型的函数（组件）</p>
+<p>这是不可接受的，所以我们得另寻他法。</p>
+<h3 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h3><p><strong>到目前为止我们了解到了什么？</strong>  React需要用<code>new</code>调用类（兼容<code>Babel</code>情况），但它需要调用常规函数或箭头函数（兼容Babel）时不能使用<code>new</code>。同时并没有可靠的方法来区分它们。<br><strong>如果我们无法解决一个普遍问题，那么我们能解决一个更具体的问题吗？</strong></p>
+<p>将Component定义为class时，你可能希望继承<code>React.Component</code>使用其内置方法（比如<code>this.setState()</code>）。<strong>那么我们可以只检测React.Component子类，而不是尝试检测所有class吗？</strong></p>
+<p><em>剧透：这正是React所做的。</em></p>
+<h4 id="prototype-与-proto"><a href="#prototype-与-proto" class="headerlink" title="prototype 与 __proto__"></a><code>prototype</code> 与 <code>__proto__</code></h4><p>也许，判断<code>Greeting</code>是否是React component class的一般方法是测试<code>Greeting.prototype instanceof React.Component</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(B.prototype <span class="keyword">instanceof</span> A); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p>
+<p>我知道你在想什么。刚刚发生了什么？！要回答这个问题，我们需要了解JavaScript原型。</p>
+<p>你可能熟悉原型链。JavaScript中的每个对象都可能有一个“原型”。当我们编写<code>fred.sayHi（）</code>但<code>fred</code>对象没有<code>sayHi</code>属性时，我们在<code>fred</code>的原型上查找<code>sayHi</code>属性。如果我们在那里找不到它，我们会看看链中的下一个原型–<code>fred</code>的原型的原型。并以此类推。</p>
+<p><strong>令人困惑的是，类或函数的prototype属性并不指向该值的原型。</strong> 我不是在开玩笑。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype); <span class="comment">// 🤪 Not Person's prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.__proto__); <span class="comment">// 😳 Person's prototype</span></span><br></pre></td></tr></table></figure></p>
+<p>所以“原型链”更像是<code>__proto __.__ proto __.__ proto__</code>而不是<code>prototype.prototype.prototype</code>。我花了许多年才了解到这一点。</p>
+<p><strong>所有对象的 <code>__proto__</code> 都指向其构造器的prototype</strong> 函数或类的<code>prototype</code>属性就是这样一个东西<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.sayHi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">'Hi, I am '</span> + <span class="keyword">this</span>.name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fred = <span class="keyword">new</span> Person(<span class="string">'Fred'</span>); <span class="comment">// Sets `fred.__proto__` to `Person.prototype`</span></span><br></pre></td></tr></table></figure></p>
+<p>而<code>__proto__</code>链是JavaScript查找属性的方式：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fred.sayHi();</span><br><span class="line"><span class="comment">// 1. Does fred have a sayHi property? No.</span></span><br><span class="line"><span class="comment">// 2. Does fred.__proto__ have a sayHi property? Yes. Call it!</span></span><br><span class="line"></span><br><span class="line">fred.toString();</span><br><span class="line"><span class="comment">// 1. Does fred have a toString property? No.</span></span><br><span class="line"><span class="comment">// 2. Does fred.__proto__ have a toString property? No.</span></span><br><span class="line"><span class="comment">// 3. Does fred.__proto__.__proto__ have a toString property? Yes. Call it!</span></span><br></pre></td></tr></table></figure></p>
+<p>事实上，除非您正在调试与原型链相关的内容，否则您几乎不需要直接在代码中修改<code>__proto__</code>。如果你想在<code>fred .__ proto__</code>上添加东西，你应该把它放在<code>Person.prototype</code>上。它最初就是这么设计的。</p>
+<p>甚至浏览器都不应该暴露<code>__proto__</code>属性，因为原型链被设计为一个内部概念。但是有些浏览器添加了<code>__proto__</code>，最终它被勉强标准化。</p>
+<p>至今我仍然觉得“<code>prototype</code>的属性没有给你一个值的原型“非常令人困惑（例如，<code>fred.prototype</code>未定义，因为<code>fred</code>不是一个函数）。就个人而言，我认为这是导致经验丰富的开发人员也会误解JavaScript原型的最大原因。</p>
+<h4 id="extends-与-原型链"><a href="#extends-与-原型链" class="headerlink" title="extends 与 原型链"></a>extends 与 原型链</h4><p>这帖子有点长 不是吗？别放弃！现在已经讲了80%的内容了，让我们继续吧</p>
+<p>我们知道，当说调用<code>obj.foo</code>时，JavaScript实际上在<code>obj</code>，<code>obj .__ proto__</code>，<code>obj .__ proto __.__ proto__</code>中寻找<code>foo</code>，依此类推。</p>
+<p>对于类来说原型链机制会更加复杂，但<code>extends</code>会使类完美适用原型链机制。这也是React类的实例访问<code>setState</code>之类的方法的原理：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Greeting</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> &lt;p&gt;Hello&lt;/p&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> Greeting();</span><br><span class="line"><span class="built_in">console</span>.log(c.__proto__); <span class="comment">// Greeting.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(c.__proto__.__proto__); <span class="comment">// React.Component.prototype</span></span><br><span class="line"><span class="built_in">console</span>.log(c.__proto__.__proto__.__proto__); <span class="comment">// Object.prototype</span></span><br><span class="line"></span><br><span class="line">c.render();      <span class="comment">// Found on c.__proto__ (Greeting.prototype)</span></span><br><span class="line">c.setState();    <span class="comment">// Found on c.__proto__.__proto__ (React.Component.prototype)</span></span><br><span class="line">c.toString();    <span class="comment">// Found on c.__proto__.__proto__.__proto__ (Object.prototype)</span></span><br></pre></td></tr></table></figure></p>
+<p>换句话说，类实例的<code>__protp__</code>链会镜像拷贝类的继承关系：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// `extends` chain</span></span><br><span class="line">Greeting</span><br><span class="line">  → React.Component</span><br><span class="line">    → <span class="built_in">Object</span> (implicitly)</span><br><span class="line"></span><br><span class="line"><span class="comment">// `__proto__` chain</span></span><br><span class="line"><span class="keyword">new</span> Greeting()</span><br><span class="line">  → Greeting.prototype</span><br><span class="line">    → React.Component.prototype</span><br><span class="line">      → <span class="built_in">Object</span>.prototype</span><br></pre></td></tr></table></figure></p>
+<p>如此两个链（继承链 原型链）</p>
+<h4 id="instanceof-判断方式"><a href="#instanceof-判断方式" class="headerlink" title="instanceof 判断方式"></a>instanceof 判断方式</h4><p>由于<code>__proto__</code>链镜像拷贝类的继承关系，因此我们可以通过<code>Greeting</code>的原型链来判断<code>Greeting</code>是否继承了<code>React.Component</code>：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// `__proto__` chain</span></span><br><span class="line"><span class="keyword">new</span> Greeting()</span><br><span class="line">  → Greeting.prototype <span class="comment">// 🕵️ We start here</span></span><br><span class="line">    → React.Component.prototype <span class="comment">// ✅ Found it!</span></span><br><span class="line">      → <span class="built_in">Object</span>.prototype</span><br></pre></td></tr></table></figure></p>
+<p>方便的是，<code>x instanceof Y</code>就是相同的搜索原理。它在<code>x .__ proto__</code>链中寻找是否有<code>Y.prototype</code>存在。</p>
+<p>通常，它用于确定某些东西是否是类的实例：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> greeting = <span class="keyword">new</span> Greeting();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(greeting <span class="keyword">instanceof</span> Greeting); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// greeting (🕵️‍ We start here)</span></span><br><span class="line"><span class="comment">//   .__proto__ → Greeting.prototype (✅ Found it!)</span></span><br><span class="line"><span class="comment">//     .__proto__ → React.Component.prototype </span></span><br><span class="line"><span class="comment">//       .__proto__ → Object.prototype</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(greeting <span class="keyword">instanceof</span> React.Component); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// greeting (🕵️‍ We start here)</span></span><br><span class="line"><span class="comment">//   .__proto__ → Greeting.prototype</span></span><br><span class="line"><span class="comment">//     .__proto__ → React.Component.prototype (✅ Found it!)</span></span><br><span class="line"><span class="comment">//       .__proto__ → Object.prototype</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(greeting <span class="keyword">instanceof</span> <span class="built_in">Object</span>); <span class="comment">// true</span></span><br><span class="line"><span class="comment">// greeting (🕵️‍ We start here)</span></span><br><span class="line"><span class="comment">//   .__proto__ → Greeting.prototype</span></span><br><span class="line"><span class="comment">//     .__proto__ → React.Component.prototype</span></span><br><span class="line"><span class="comment">//       .__proto__ → Object.prototype (✅ Found it!)</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(greeting <span class="keyword">instanceof</span> Banana); <span class="comment">// false</span></span><br><span class="line"><span class="comment">// greeting (🕵️‍ We start here)</span></span><br><span class="line"><span class="comment">//   .__proto__ → Greeting.prototype</span></span><br><span class="line"><span class="comment">//     .__proto__ → React.Component.prototype </span></span><br><span class="line"><span class="comment">//       .__proto__ → Object.prototype (🙅‍ Did not find it!)</span></span><br></pre></td></tr></table></figure></p>
+<p>但它也可以用于确定一个类是否继承另一个类：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(Greeting.prototype <span class="keyword">instanceof</span> React.Component);</span><br><span class="line"><span class="comment">// greeting</span></span><br><span class="line"><span class="comment">//   .__proto__ → Greeting.prototype (🕵️‍ We start here)</span></span><br><span class="line"><span class="comment">//     .__proto__ → React.Component.prototype (✅ Found it!)</span></span><br><span class="line"><span class="comment">//       .__proto__ → Object.prototype</span></span><br></pre></td></tr></table></figure></p>
+<p>这种判断方式就是是我们如何确定某些东西是React组件类还是一般函数。</p>
+<h4 id="React-判断方式"><a href="#React-判断方式" class="headerlink" title="React 判断方式"></a>React 判断方式</h4><p>但这并不是React所做的。 😳</p>
+<p><code>instanceof</code>解决方案的一个隐患是：当页面上有多个React副本时，我们正在检查的组件可能继承自另一个React副本的React.Component，这种instanceof方式就会失效。<br>在一个项目中混合使用React的多个副本是不好的方式，但我们应该尽可能避免出现由于历史遗留所产生的这种问题。 （使用Hooks，我们<a href="https://github.com/facebook/react/issues/13991" target="_blank" rel="noopener">可能需要</a>强制删除重复数据。）</p>
+<p>另一种可能的骚操作是检查原型上是否存在<code>render</code>方法。但是，当时还<a href="https://github.com/facebook/react/issues/4599#issuecomment-129714112" target="_blank" rel="noopener">不清楚</a>组件API将如何变换。每个判断操作都有成本我们不想添加多于一次的操作。如果将render定义为实例方法（例如使用类属性语法），这也不起作用。</p>
+<p>因此，React为基本组件<a href="https://github.com/facebook/react/pull/4663" target="_blank" rel="noopener">添加</a>了一个特殊标志。React通过检查是该标志来判断一个东西是否是React组件类。</p>
+<p>最初该标志在React.Component基础类本身上：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Inside React</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span> </span>&#123;&#125;</span><br><span class="line">Component.isReactClass = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// We can check it like this</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Greeting</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Greeting.isReactClass); <span class="comment">// ✅ Yes</span></span><br></pre></td></tr></table></figure></p>
+<p>但是，我们想要判断的一些类实现没有<a href="https://github.com/scala-js/scala-js/issues/1900" target="_blank" rel="noopener">复制</a>静态属性（或设置<code>__proto__</code>），因此标志丢失了。</p>
+<p>这就是React将此标志移动到<code>React.Component.prototype</code>的原因：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Inside React</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Component</span> </span>&#123;&#125;</span><br><span class="line">Component.prototype.isReactComponent = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// We can check it like this</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Greeting</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;&#125;</span><br><span class="line"><span class="built_in">console</span>.log(Greeting.prototype.isReactComponent); <span class="comment">// ✅ Yes</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>这就是React如何判断class的全部内容。</strong></p>
+<hr>
+<p>如今在React中使用就是<code>isReactComponent</code>标志检查。</p>
+<p>如果不扩展React.Component，React将不会在原型上找到<code>isReactComponent</code>，也不会将组件视为类。现在你知道为什么<code>Cannot call a class as a function</code>问题<a href="https://stackoverflow.com/questions/38481857/getting-cannot-call-a-class-as-a-function-in-my-react-project/42680526#42680526" target="_blank" rel="noopener">最受欢迎的回答</a>是添加<code>extends React.Component</code>。最后，添加了一个<code>prototype.render</code>存在时，但<code>prototype.isReactComponent</code>不存在的<a href="https://github.com/facebook/react/pull/11168" target="_blank" rel="noopener">警告</a>。</p>
+<p><strong>实际的解决方案非常简单，但我用大量的时间解释了为什么React最终采取这个解决方案，以及替代方案是什么。</strong> 你可能觉得博文这个解释过程有点啰嗦，</p>
+<p>根据我的经验，开发库API经常会遇到这种情况。为了使API易于使用，开发者需要考虑语言语义（可能，对于多种语言，包括未来的方向）、运行时性能、是否编译情况的兼容、完整体系和打包解决方案的状态、 早期预警和许多其他事情。 最终结果可能并不优雅，但必须实用。</p>
+<p><strong>如果最终API是成功的，则用户永远不必考虑此过程。</strong> 取而代之的是他们只需要专注于创建应用程序。</p>
+<p>但如果你也好奇……去探究其中的原因还是十分有趣的。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/weekly-share/GitHub精选分享第二期/" rel="next" title="GitHub精选分享第二期">
+                <i class="fa fa-chevron-left"></i> GitHub精选分享第二期
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/weekly-share/GitHub精选分享第三期/" rel="prev" title="GitHub精选分享第三期">
+                GitHub精选分享第三期 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+            
+              <p class="site-author-name" itemprop="name">SunTongSheng</p>
+              <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React调用两者的不同之处"><span class="nav-number">1.</span> <span class="nav-text">React调用两者的不同之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用不同的调用方式？"><span class="nav-number">2.</span> <span class="nav-text">为什么要用不同的调用方式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#探究React式如何解决的"><span class="nav-number">3.</span> <span class="nav-text">探究React式如何解决的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情况一："><span class="nav-number">3.1.</span> <span class="nav-text">异常情况一：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情况二："><span class="nav-number">3.2.</span> <span class="nav-text">异常情况二：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情况三："><span class="nav-number">3.3.</span> <span class="nav-text">异常情况三：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方式"><span class="nav-number">3.4.</span> <span class="nav-text">解决方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#prototype-与-proto"><span class="nav-number">3.4.1.</span> <span class="nav-text">prototype 与 __proto__</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#extends-与-原型链"><span class="nav-number">3.4.2.</span> <span class="nav-text">extends 与 原型链</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#instanceof-判断方式"><span class="nav-number">3.4.3.</span> <span class="nav-text">instanceof 判断方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#React-判断方式"><span class="nav-number">3.4.4.</span> <span class="nav-text">React 判断方式</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+ 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">531k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">8:03</span>
+  
+</div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
