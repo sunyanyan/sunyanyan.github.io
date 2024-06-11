@@ -117,21 +117,16 @@
 
 
 
-  <meta name="description" content="在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外,还能使用Method Swizzling方法  原理在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。 每个类都有">
-<meta name="keywords" content="iOS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Method-Swizzling使用">
-<meta property="og:url" content="https://developerdoc.com/essay/Runtime/Method-Swizzling/index.html">
+  <meta name="description" content="移动端 前端 跨平台">
+<meta property="og:type" content="website">
+<meta property="og:title" content="孙同生的博客">
+<meta property="og:url" content="https://developerdoc.com/archives/2022/index.html">
 <meta property="og:site_name" content="孙同生的博客">
-<meta property="og:description" content="在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外,还能使用Method Swizzling方法  原理在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。 每个类都有">
+<meta property="og:description" content="移动端 前端 跨平台">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://developerdoc.com/res/runtime/o_methodSwizzling1.png">
-<meta property="og:image" content="https://developerdoc.com/res/runtime/o_methodSwizzling2.png">
-<meta property="og:updated_time" content="2019-03-07T09:43:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Method-Swizzling使用">
-<meta name="twitter:description" content="在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外,还能使用Method Swizzling方法  原理在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。 每个类都有">
-<meta name="twitter:image" content="https://developerdoc.com/res/runtime/o_methodSwizzling1.png">
+<meta name="twitter:title" content="孙同生的博客">
+<meta name="twitter:description" content="移动端 前端 跨平台">
 
 
 
@@ -140,7 +135,7 @@
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/Runtime/Method-Swizzling/">
+  <link rel="canonical" href="https://developerdoc.com/archives/2022/">
 
 
 
@@ -150,7 +145,7 @@
   };
 </script>
 
-  <title>Method-Swizzling使用 | 孙同生的博客</title>
+  <title>归档 | 孙同生的博客</title>
   
 
 
@@ -199,7 +194,7 @@
     
   
 
-  <div class="container sidebar-position-right page-post-detail">
+  <div class="container sidebar-position-right page-archive">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -261,7 +256,7 @@
         
         
           
-          <li class="menu-item menu-item-archives">
+          <li class="menu-item menu-item-archives menu-item-active">
     <a href="/archives/" rel="section">归档</a>
   </li>
         
@@ -328,303 +323,103 @@
           
             
 
+    
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+      
+      
+    
+    
+
+  
+
+
           
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block archive">
+    <div id="posts" class="posts-collapse">
+      <span class="archive-move-on"></span>
 
-  
+      
+      <span class="archive-page-counter">
+        
+        
+         
+          
+        不错! 目前共计 73 篇日志。 继续努力。
+      </span>
+      
 
-  
-  
-  
+      
 
-  
-    <div class="reading-progress-bar"></div>
-  
+        
+        
+        
+
+        
+          
+          <div class="collection-title">
+            <h2 class="archive-year" id="archive-year-2022">2022</h2>
+          </div>
+        
+        
+
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Runtime/Method-Swizzling/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SunTongSheng">
-      <meta itemprop="description" content="移动端 前端 跨平台">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙同生的博客">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h3 class="post-title">
         
+            <a class="post-title-link" href="/App启动优化/" itemprop="url">
+              
+                <span itemprop="name">iOS App启动优化</span>
+              
+            </a>
         
-          <h2 class="post-title" itemprop="name headline">Method-Swizzling使用
-              
-            
-          </h2>
-        
+      </h3>
 
-        <div class="post-meta">
-          <span class="post-time">
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated" datetime="2022-06-06T20:57:54+08:00" content="2022-06-06">
+          06-06
+        </time>
+      </div>
 
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2016-10-10 10:49:45" itemprop="dateCreated datePublished" datetime="2016-10-10T10:49:45+08:00">2016-10-10</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-03-07 17:43:18" itemprop="dateModified" datetime="2019-03-07T17:43:18+08:00">2019-03-07</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/essay/Runtime/Method-Swizzling/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/Runtime/Method-Swizzling/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/essay/Runtime/Method-Swizzling/" class="leancloud_visitors" data-flag-title="Method-Swizzling使用">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">2.6k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">2 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <blockquote>
-<p>   在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外,还能使用Method Swizzling方法</p>
-</blockquote>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。</p>
-<p>每个类都有一个方法列表，存放着selector的名字和方法实现的映射关系。IMP有点类似函数指针，指向具体的Method实现。</p>
-<a id="more"></a>
-<p><img src="/res/runtime/o_methodSwizzling1.png" alt></p>
-<p>我们可以利用 method_exchangeImplementations 来交换2个方法中的IMP，</p>
-<p>我们可以利用 class_replaceMethod 来修改类，</p>
-<p>我们可以利用 method_setImplementation 来直接设置某个方法的IMP，</p>
-<p>归根结底，都是偷换了selector的IMP，如下图所示：</p>
-<p><img src="/res/runtime/o_methodSwizzling2.png" alt></p>
-<h2 id="实践1"><a href="#实践1" class="headerlink" title="实践1"></a>实践1</h2><p>举个例子好了，我想钩一下NSArray的lastObject 方法，只需两个步骤。</p>
-<p>第一步：给NSArray加一个我自己的lastObject<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"NSArray+Swizzle.h"</span>  </span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSArray</span> (<span class="title">Swizzle</span>)  </span></span><br><span class="line">- (<span class="keyword">id</span>)myLastObject  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="keyword">id</span> ret = [<span class="keyword">self</span> myLastObject];  </span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"**********  myLastObject *********** "</span>);  </span><br><span class="line">   <span class="keyword">return</span> ret;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
-<p>乍一看，这不递归了么？别忘记这是我们准备调换IMP的selector，[self myLastObject] 将会执行真的 [self lastObject] 。</p>
-<p>第二步：调换IMP</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"NSArray+Swizzle.h"</span>  </span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="keyword">@autoreleasepool</span> &#123;  </span><br><span class="line">         </span><br><span class="line">       Method ori_Method =  class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(lastObject));  </span><br><span class="line">       Method my_Method = class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(myLastObject));  </span><br><span class="line">       method_exchangeImplementations(ori_Method, my_Method);  </span><br><span class="line">         </span><br><span class="line">       <span class="built_in">NSArray</span> *array = @[<span class="string">@"0"</span>,<span class="string">@"1"</span>,<span class="string">@"2"</span>,<span class="string">@"3"</span>];  </span><br><span class="line">       <span class="built_in">NSString</span> *string = [array lastObject];  </span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@"TEST RESULT : %@"</span>,string);  </span><br><span class="line">         </span><br><span class="line">       <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>控制台输出Log：    </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2013-07-18 16:26:12.585 Hook[1740:c07] **********  myLastObject ***********   </span><br><span class="line">2013-07-18 16:26:12.589 Hook[1740:c07] TEST RESULT : 3</span><br></pre></td></tr></table></figure>
-<h3 id="实践2">实践2：拦截系统方法</h3>
-
-<blockquote>
-<p>需求：比如iOS6 升级 iOS7 后需要版本适配，根据不同系统使用不同样式图片（拟物化和扁平化），如何通过不去手动一个个修改每个UIImage的imageNamed：方法就可以实现为该方法中加入版本判断语句？</p>
-</blockquote>
-<p>步骤：</p>
-<ol>
-<li>为UIImage建一个分类（UIImage+Category）</li>
-<li><p>在分类中实现一个自定义方法，方法中写要在系统方法中加入的语句，比如版本判断</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="built_in">UIImage</span> *)xh_imageNamed:(<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line">   <span class="keyword">double</span> version = [[<span class="built_in">UIDevice</span> currentDevice].systemVersion doubleValue];</span><br><span class="line">   <span class="keyword">if</span> (version &gt;= <span class="number">7.0</span>) &#123;</span><br><span class="line">       <span class="comment">// 如果系统版本是7.0以上，使用另外一套文件名结尾是‘_os7’的扁平化图片</span></span><br><span class="line">       name = [name stringByAppendingString:<span class="string">@"_os7"</span>];</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> [<span class="built_in">UIImage</span> xh_imageNamed:name];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>分类中重写UIImage的load方法，实现方法的交换（只要能让其执行一次方法交换语句，load再合适不过了）</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)load &#123;</span><br><span class="line">  	<span class="comment">// 获取两个类的类方法</span></span><br><span class="line">  	Method m1 = class_getClassMethod([<span class="built_in">UIImage</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(imageNamed:));</span><br><span class="line">  	Method m2 = class_getClassMethod([<span class="built_in">UIImage</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(xh_imageNamed:));</span><br><span class="line">  	<span class="comment">// 开始交换方法实现</span></span><br><span class="line">  	method_exchangeImplementations(m1, m2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p><strong>注意：自定义方法中最后一定要再调用一下系统的方法，让其有加载图片的功能，但是由于方法交换，系统的方法名已经变成了我们自定义的方法名（有点绕，就是用我们的名字能调用系统的方法，用系统的名字能调用我们的方法），这就实现了系统方法的拦截！</strong></p>
-<p>利用以上思路，我们还可以给 NSObject 添加分类，统计创建了多少个对象，给控制器添加分类，统计有创建了多少个控制器</p>
-
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/iOS/" rel="tag"># iOS</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/essay/sqlite3-简介/" rel="next" title="sqlite3-简介.md">
-                <i class="fa fa-chevron-left"></i> sqlite3-简介.md
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/essay/Autorelease相关/" rel="prev" title="Autorelease相关.md">
-                Autorelease相关.md <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
+
+      
+
+    </div>
   </div>
+  
+  
+  
+
+  
+
 
 
           </div>
           
-
-  
-    <div class="comments" id="comments">
-    </div>
-  
-
-
 
         </div>
         
@@ -645,17 +440,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -819,22 +605,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践1"><span class="nav-number">2.</span> <span class="nav-text">实践1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实践2"><span class="nav-number">2.1.</span> <span class="nav-text">实践2：拦截系统方法</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -1007,10 +777,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
-
-
 
   
 

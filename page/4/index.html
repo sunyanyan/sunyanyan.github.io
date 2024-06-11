@@ -344,6 +344,237 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/(转)浏览器的工作原理-现代浏览器幕后/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/essay/(转)浏览器的工作原理-现代浏览器幕后/" itemprop="url">
+                  (转)浏览器的工作原理-现代浏览器幕后
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-11-27 10:34:13 / 修改时间：23:08:22" itemprop="dateCreated datePublished" datetime="2018-11-27T10:34:13+08:00">2018-11-27</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a></span>
+
+                
+                
+                  ，
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/转载/" itemprop="url" rel="index"><span itemprop="name">转载</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/(转)浏览器的工作原理-现代浏览器幕后/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/(转)浏览器的工作原理-现代浏览器幕后/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/(转)浏览器的工作原理-现代浏览器幕后/" class="leancloud_visitors" data-flag-title="(转)浏览器的工作原理-现代浏览器幕后">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">29k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">27 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>原文地址： <a href="https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/" target="_blank" rel="noopener">How Browsers Work: Behind the scenes of modern web browsers</a></p>
+</blockquote>
+<center><strong>序言</strong></center>
+
+<p>这是一篇全面介绍 WebKit 和 Gecko 内部操作的入门文章，是以色列开发人员塔利·加希尔大量研究的成果。在过去的几年中，她查阅了所有公开发布的关于浏览器内部机制的数据（请参见资源），并花了很多时间来研读网络浏览器的源代码。她写道：</p>
+<p>在 IE 占据 90% 市场份额的年代，我们除了把浏览器当成一个“黑箱”，什么也做不了。但是现在，开放源代码的浏览器拥有了过半的市场份额，因此，是时候来揭开神秘的面纱，一探网络浏览器的内幕了。呃，里面只有数以百万行计的 C++ 代码…</p>
+<p>塔利在她的网站上公布了自己的研究成果，但是我们觉得它值得让更多的人来了解，所以我们在此重新整理并公布。</p>
+<p>作为一名网络开发人员，学习浏览器的内部工作原理将有助于您作出更明智的决策，并理解那些最佳开发实践的个中缘由。尽管这是一篇相当长的文档，但是我们建议您花些时间来仔细阅读；读完之后，您肯定会觉得所费不虚。</p>
+<p align="right">保罗·爱丽诗 (Paul Irish)，Chrome 浏览器开发人员事务部</p>
+
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>网络浏览器很可能是使用最广的软件。在这篇入门文章中，我将会介绍它们的幕后工作原理。我们会了解到，从您在地址栏输入 google.com 直到您在浏览器屏幕上看到 Google 首页的整个过程中都发生了些什么。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/essay/(转)浏览器的工作原理-现代浏览器幕后/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://developerdoc.com/weekly-share/GitHub精选分享第一期/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2459,253 +2690,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SunTongSheng">
-      <meta itemprop="description" content="移动端 前端 跨平台">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙同生的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy/" itemprop="url">
-                  Python爬虫教程-使用Scrapy
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2017-05-19 16:17:22" itemprop="dateCreated datePublished" datetime="2017-05-19T16:17:22+08:00">2017-05-19</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-23 10:56:27" itemprop="dateModified" datetime="2018-11-23T10:56:27+08:00">2018-11-23</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quick-start/Python爬虫教程/" itemprop="url" rel="index"><span itemprop="name">Python爬虫教程</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy/" class="leancloud_visitors" data-flag-title="Python爬虫教程-使用Scrapy">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">9.2k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">8 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>scrapy基础实例，爬取zhipin网站信息</p>
-<p>scarpy的新建 + scarpy模拟登录 + 在pipeline中存取信息到sqlite3 +xpath解析页面</p>
-</blockquote>
-<ul>
-<li>文档<ul>
-<li><a href="https://docs.scrapy.org/en/latest/index.html" target="_blank" rel="noopener">Scrapy Documentation</a></li>
-<li><a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/" target="_blank" rel="noopener">Scrapy 0.25 中文翻译</a></li>
-</ul>
-</li>
-<li>环境 python3.5.2 + scrapy1.3</li>
-</ul>
-<h2 id="scrapy新建工程"><a href="#scrapy新建工程" class="headerlink" title="scrapy新建工程"></a>scrapy新建工程</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject projectName</span><br></pre></td></tr></table></figure>
-<p>具体可以查看 <a href="../Python爬虫教程-入门/">python3爬虫学习</a></p>
-<p>发现 <strong>parse</strong> 或者 <strong>start_requests</strong>是爬虫的入口</p>
-<h2 id="解析html"><a href="#解析html" class="headerlink" title="解析html"></a>解析html</h2>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2755,7 +2739,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">72</span>
+                    <span class="site-state-item-count">73</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2928,7 +2912,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">531k</span>
+    <span title="站点总字数">539k</span>
   
 
   
@@ -2937,7 +2921,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:03</span>
+    <span title="站点阅读时长">8:10</span>
   
 </div>
 
