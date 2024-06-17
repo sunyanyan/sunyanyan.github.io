@@ -117,16 +117,21 @@
 
 
 
-  <meta name="description" content="移动端 前端 跨平台">
-<meta property="og:type" content="website">
-<meta property="og:title" content="孙同生的博客">
-<meta property="og:url" content="https://developerdoc.com/categories/重学iOS/Runtime/index.html">
+  <meta name="description" content="主要介绍一下 https://github.com/sunyanyan/ipaAnalyze 里的脚本。该脚本输入ipa文件以及对应linkmap文件，输入该ipa各类资源的大小、以及各个模块的大小。">
+<meta name="keywords" content="iOS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ipa包体分析脚本">
+<meta property="og:url" content="https://developerdoc.com/essay/ios-business/ipaAnylize/index.html">
 <meta property="og:site_name" content="孙同生的博客">
-<meta property="og:description" content="移动端 前端 跨平台">
+<meta property="og:description" content="主要介绍一下 https://github.com/sunyanyan/ipaAnalyze 里的脚本。该脚本输入ipa文件以及对应linkmap文件，输入该ipa各类资源的大小、以及各个模块的大小。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://github.com/sunyanyan/ipaAnalyze/raw/main/test/test1.png">
+<meta property="og:image" content="https://github.com/sunyanyan/ipaAnalyze/raw/main/test/test4.png">
+<meta property="og:updated_time" content="2024-06-17T12:40:22.923Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="孙同生的博客">
-<meta name="twitter:description" content="移动端 前端 跨平台">
+<meta name="twitter:title" content="ipa包体分析脚本">
+<meta name="twitter:description" content="主要介绍一下 https://github.com/sunyanyan/ipaAnalyze 里的脚本。该脚本输入ipa文件以及对应linkmap文件，输入该ipa各类资源的大小、以及各个模块的大小。">
+<meta name="twitter:image" content="https://github.com/sunyanyan/ipaAnalyze/raw/main/test/test1.png">
 
 
 
@@ -135,7 +140,7 @@
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/categories/重学iOS/Runtime/">
+  <link rel="canonical" href="https://developerdoc.com/essay/ios-business/ipaAnylize/">
 
 
 
@@ -145,7 +150,7 @@
   };
 </script>
 
-  <title>分类: Runtime | 孙同生的博客</title>
+  <title>ipa包体分析脚本 | 孙同生的博客</title>
   
 
 
@@ -194,7 +199,7 @@
     
   
 
-  <div class="container sidebar-position-right ">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -249,7 +254,7 @@
         
         
           
-          <li class="menu-item menu-item-categories menu-item-active">
+          <li class="menu-item menu-item-categories">
     <a href="/categories/" rel="section">分类</a>
   </li>
         
@@ -323,213 +328,287 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block category">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>Runtime<small>分类</small>
-        </h2>
-      </div>
-
-      
-        
+  
+    <div class="reading-progress-bar"></div>
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ios-business/ipaAnylize/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/essay/Runtime/runtime-分类Category原理/" itemprop="url">
-              
-                <span itemprop="name">Category结构与原理</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">ipa包体分析脚本
+              
+            
+          </h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-11-29T17:31:45+08:00" content="2017-11-29">
-          11-29
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-06-17 18:24:12" itemprop="dateCreated datePublished" datetime="2022-06-17T18:24:12+08:00">2022-06-17</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-06-17 20:40:22" itemprop="dateModified" datetime="2024-06-17T20:40:22+08:00">2024-06-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS开发进阶/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/ios-business/ipaAnylize/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/ios-business/ipaAnylize/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/ios-business/ipaAnylize/" class="leancloud_visitors" data-flag-title="ipa包体分析脚本">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">1.9k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">2 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/essay/Runtime/runtime-对象关联/" itemprop="url">
-              
-                <span itemprop="name">Runtime 对象关联原理</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2017-11-22T17:09:12+08:00" content="2017-11-22">
-          11-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/essay/Runtime/runtime实践/" itemprop="url">
-              
-                <span itemprop="name">Runtime 实践</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-10-13T15:34:56+08:00" content="2016-10-13">
-          10-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/essay/Runtime/runtime使用/" itemprop="url">
-              
-                <span itemprop="name">Runtime 使用</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-10-13T11:20:42+08:00" content="2016-10-13">
-          10-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/essay/Runtime/runtime-objc_msgSend/" itemprop="url">
-              
-                <span itemprop="name">objc_msgSend相关结构体 消息发送原理</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-10-10T10:49:46+08:00" content="2016-10-10">
-          10-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/essay/Runtime/Method-Swizzling/" itemprop="url">
-              
-                <span itemprop="name">Method-Swizzling使用</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2016-10-10T10:49:45+08:00" content="2016-10-10">
-          10-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+        <p>主要介绍一下 <a href="https://github.com/sunyanyan/ipaAnalyze" target="_blank" rel="noopener">https://github.com/sunyanyan/ipaAnalyze</a> 里的脚本。<br>该脚本输入ipa文件以及对应linkmap文件，输入该ipa各类资源的大小、以及各个模块的大小。</p>
+<a id="more"></a>
+<h3 id="ipa内部文件"><a href="#ipa内部文件" class="headerlink" title="ipa内部文件"></a>ipa内部文件</h3><p>iOS打包出来的ipa，本质上是一个压缩包，所以可以将.ipa的后缀改为.zip，然后进行解压缩，之后会得到一个Payload文件夹，里面又一个xxx.app的文件，这个xxx.app就是包含所有文件的包了，选中xxx.app，右键显示包内容，即可看到里面具体包含的东西了，大致如下</p>
+<ul>
+<li>_CodeSignature：  ipa包签名文件</li>
+<li>.lproj：      语言文件</li>
+<li>Frameworks：      第三库、SwiftSupport库</li>
+<li>Plugins：         App创建的扩展，比如：Widget、Push、分享</li>
+<li>Assets.car：      由Assets.xcassets生成的资源文件，里面包含各种分辨率的图片</li>
+<li>embedded.mobileprovision：证书配置文件</li>
+<li>Info.plist：      项目配置</li>
+<li>exec格式的xxx：    可执行包</li>
+<li>其它资源文件<ul>
+<li>.mp3格式的文件</li>
+<li>.html的文件</li>
+<li>.json的文件</li>
+<li>.png或者.jpg的文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="资源分类"><a href="#资源分类" class="headerlink" title="资源分类"></a>资源分类</h3><p>脚本对于资源分类 简单粗暴根据文件后缀名分类：</p>
+<p><img src="https://github.com/sunyanyan/ipaAnalyze/raw/main/test/test1.png" alt></p>
+<h3 id="模块分类"><a href="#模块分类" class="headerlink" title="模块分类"></a>模块分类</h3><p>根据linkmap文件分析，Link Map 中的包含的区块内容有：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Path: Link Map 文件对应的可执行二进制文件</span><br><span class="line">Arch: 编译生成的可执行二进制文件的 CPU 架构</span><br><span class="line">Object files: 每一个源代码文件编译后生成的对象文件列表</span><br><span class="line">Sections: 在最终可执行二进制文件中不同类型代码所在的节列表</span><br><span class="line">Symbols: 所有代码中的函数、变量、字符串等实际生成的符合列表</span><br></pre></td></tr></table></figure>
+<p>我们不用关心 Sections 中的内容，因为它只是对应到不同符号存储的位置，不影响它实际占用的体积。我们需要关注 Object files 和 Symbols 这两块内容，因为它实际包含了在可执行二进制文件中占有体积的部分。</p>
+<p>其中 Object files 包含了每个代码文件编译出来的对象文件路径，以及它的编号。每个对象文件的编号，将在后续符号列表中被引用，从而标识那些符号是由哪个代码文件中的代码生成的。</p>
+<p>例如上面示例中的 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"># Sections:</span><br><span class="line"># Address   Size        Segment Section</span><br><span class="line">0x100002CC0 0x0000CAF2  __TEXT  __text</span><br><span class="line">0x10000F7B2 0x000000C0  __TEXT  __stubs</span><br><span class="line">0x10000F874 0x00000150  __TEXT  __stub_helper</span><br><span class="line">0x10000F9C4 0x00002BD0  __TEXT  __objc_methname</span><br><span class="line">......</span><br><span class="line"># Symbols:</span><br><span class="line"># Address   Size        File  Name</span><br><span class="line">0x100002CC0 0x00000080  [  1] -[LMWindowController windowDidLoad]</span><br><span class="line">0x100002D40 0x00000059  [  1] -[LMWindowController windowShouldClose:]</span><br><span class="line">0x100002DA0 0x00000170  [  2] -[ViewController viewDidLoad]</span><br><span class="line">0x100002F10 0x00000070  [  2] -[ViewController setRepresentedObject:]</span><br><span class="line">0x100002F80 0x00000140  [  2] -[ViewController saveURL:forKey:]</span><br><span class="line">0x1000030C0 0x00000220  [  2] -[ViewController retriveURLForKey:]</span><br><span class="line">0x1000032E0 0x00000120  [  2] -[ViewController chooseLinkMap:]</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>在符号列表中，我们就可以获取到每个类的每个函数的大小，再通过对象文件编号进行关联，就可以将每个代码文件所生成的指令在最终可执行二进制文件所占的体积大小统计出来。</p>
+<p>最终得到如图输出</p>
+<p><img src="https://github.com/sunyanyan/ipaAnalyze/raw/main/test/test4.png" alt></p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/essay/ios-business/ipa_size/" rel="next" title="iOS安装包瘦身">
+                <i class="fa fa-chevron-left"></i> iOS安装包瘦身
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -550,8 +629,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -715,6 +803,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#ipa内部文件"><span class="nav-number">1.</span> <span class="nav-text">ipa内部文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源分类"><span class="nav-number">2.</span> <span class="nav-text">资源分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块分类"><span class="nav-number">3.</span> <span class="nav-text">模块分类</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -887,6 +991,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
 
   
 
