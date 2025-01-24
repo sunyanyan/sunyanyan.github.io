@@ -1,25 +1,393 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="iOS页面路由,具体可能需要处理的场景、问题有：  最普通 原生页面跳转到原生页面 有多种技术栈的app，可能包含原生、h5&#x2F;rn&#x2F;flutter等页面。就扩展出：  原生页面和h5页面互相跳转 原生和rn页面互相跳转 原生和flutter互相跳转等   在上述的基础上，很多原本原生实现的页面，需要通过新的H5页面进行升级&#x2F;降级，或者原本PC或者H5页面，需要重定向到">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS页面路由思路">
+<meta property="og:url" content="https://developerdoc.com/essay/iOS%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="iOS页面路由,具体可能需要处理的场景、问题有：  最普通 原生页面跳转到原生页面 有多种技术栈的app，可能包含原生、h5&#x2F;rn&#x2F;flutter等页面。就扩展出：  原生页面和h5页面互相跳转 原生和rn页面互相跳转 原生和flutter互相跳转等   在上述的基础上，很多原本原生实现的页面，需要通过新的H5页面进行升级&#x2F;降级，或者原本PC或者H5页面，需要重定向到">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-11-21T10:14:53.000Z">
+<meta property="article:modified_time" content="2025-01-08T09:37:33.719Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/iOS%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/iOS%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1/","path":"essay/iOS页面路由/","title":"iOS页面路由思路"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS页面路由思路 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">iOS页面路由</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#URI%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.</span> <span class="nav-text">URI简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#URL-Scheme"><span class="nav-number">1.2.</span> <span class="nav-text">URL Scheme</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Universal-links"><span class="nav-number">2.</span> <span class="nav-text">Universal links</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1iOS%E8%B7%AF%E7%94%B1%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">设计iOS路由需要考虑的</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/iOS%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS页面路由思路 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS页面路由思路
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-11-21 18:14:53" itemprop="dateCreated datePublished" datetime="2024-11-21T18:14:53+08:00">2024-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2025-01-08 17:37:33" itemprop="dateModified" datetime="2025-01-08T17:37:33+08:00">2025-01-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>iOS页面路由,具体可能需要处理的场景、问题有：</p>
+<ol>
+<li>最普通 原生页面跳转到原生页面</li>
+<li>有多种技术栈的app，可能包含原生、h5&#x2F;rn&#x2F;flutter等页面。就扩展出： <ul>
+<li>原生页面和h5页面互相跳转</li>
+<li>原生和rn页面互相跳转</li>
+<li>原生和flutter互相跳转等</li>
+</ul>
+</li>
+<li>在上述的基础上，很多原本原生实现的页面，需要通过新的H5页面进行升级&#x2F;降级，或者原本PC或者H5页面，需要重定向到已有的原生页面。而这些基本都是硬编码的跳转逻辑，需要随着版本不停改动。跳转的逻辑需要根据版本迭代走，无法统一远程进行改动（例如：每次新增一个需要拦截跳转原生的页面，都需要通过发版来解决）<ul>
+<li>跨技术栈跳转的实现成本比较高，必须在桥接模块中进行特殊适配。H5页面中，某些跳转需要跳转原生或者其他页面，必须要通过WebView跳转的拦截做特殊判断处理</li>
+<li>需要梳理的各技术栈跳转逻辑，将这些跳转整合，能够满足动态性、可配置的需求。</li>
+</ul>
+</li>
+<li>一些应用有社交分享功能，需要分享出去一个链接以打开自身app内特定页面。或者有应用内分享链接 也可以打开自身app内特定页面。<ul>
+<li>一般来说 应用外打开app需要使用iOS的<code>URL Scheme</code>功能或者<code>Universal links</code>功能</li>
+</ul>
+</li>
+</ol>
+<span id="more"></span>
+
+<h3 id="iOS页面路由"><a href="#iOS页面路由" class="headerlink" title="iOS页面路由"></a>iOS页面路由</h3><h4 id="URI简介"><a href="#URI简介" class="headerlink" title="URI简介"></a>URI简介</h4><p>统一资源标识符（Uniform Resource Identifier）是一种用于标识互联网资源的字符串，此种标识允许用于对网络中的资源通过特定的协议进行交互操作。URI 最常见的形式就是统一资源定位符 URL。<br><a href="https://en.wikipedia.org/wiki/Uniform_Resource_Identifier">URL WIKI</a><br>这是一段URL，每一段都代表类对应的含义，我们可以理解 URL 为一段携带了获取到某资源的所有必须的信息的特定组合字符串。</p>
+<h4 id="URL-Scheme"><a href="#URL-Scheme" class="headerlink" title="URL Scheme"></a>URL Scheme</h4><p>iOS 系统里面支持的 URL Scheme 方式打开应用。我们可以通过 TARGETS -&gt; Info -&gt; URL Types 添加应用的 Scheme，该 Scheme 可以理解为 App 的一个身份标识，用它可以打开我们的应用（在三方分享时经常需要我们去平台生成自己的 Scheme，三方平台用此字段跳转我们App）。</p>
+<p>也可以通过 info.plist 文件中的 URL types 字段管理你的 URL Scheme 信息。即使你没有用过 URL Scheme，那么你一定使用过一些系统的服务，例如拨打电话，使用系统邮箱等功能。他们的协议头就像下面这样：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mailto://</span><br><span class="line">tel://110</span><br></pre></td></tr></table></figure>
+
+<p>我们可以通过 AppDelegate 中的回调代理进行接收处理：<br><code>- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary&lt;UIApplicationOpenURLOptionsKey, id&gt; *)options</code></p>
+<h3 id="Universal-links"><a href="#Universal-links" class="headerlink" title="Universal links"></a>Universal links</h3><p>在 iOS 9.0 之后，苹果新增了一项功能 Universal Links，直译就是通用链接，这个功能让我们可以通过普通的 HTTP 链接就能启动我们的 App。</p>
+<p>使用 Universal Links 跳转应用的好处就是：</p>
+<p>如果安装了App，无论是在系统浏览器 Safari 里，还是在其他使用了webView控件的页面中，都可以打开App。<br>如果没有安装App，就会打开对应的网页，这个网页可以是宣传官网，又或者是下载安装地址。</p>
+<h3 id="设计iOS路由需要考虑的"><a href="#设计iOS路由需要考虑的" class="headerlink" title="设计iOS路由需要考虑的"></a>设计iOS路由需要考虑的</h3><ol>
+<li><strong>APP内外跳转统一</strong>：APP外跳转是用的URL方式，起码应用内跳转需要做到支持URL解析映射到页面的逻辑<ol>
+<li>通过URLScheme过来的的消息 需要在<code>- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary&lt;UIApplicationOpenURLOptionsKey, id&gt; *)options</code>中处理参数</li>
+<li>通过Universal Link&#x2F;Spotlight打开的 ，并且userActivity:activityType为NSUserActivityTypeBrowsingWeb需要在<code>- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void(^)(NSArray&lt;id&lt;UIUserActivityRestoring&gt;&gt; * __nullable restorableObjects))restorationHandler;</code> 之中处理参数</li>
+</ol>
+</li>
+<li>老生常谈的的页面互相引用耦合问题<ol>
+<li>原始页面跳转一般是直接引用目标页面，然后初始化获取目标页面实例，然后手动跳转到该页面。这样就会造成页面之间的相互引用耦合</li>
+<li>目前常见的路由做法为 所有页面引用路由中心，通过传入参数从路由中心获取目标页面实例进行跳转。其注册的URL来找到对应信息，然后负责实例化，解析参数，跳转页面等业务处理。在这个实现里完成引用的转移。</li>
+</ol>
+</li>
+<li><strong>页面配置相关</strong>：<ol>
+<li>页面配置对应URI是否配置成 <code>scheme://router/demo</code> 一个完整的URI 或者URI的部分，path 参数相组合。配置成部分信息的场景在于对于一个页面有时候不仅仅只需要一个路由动作，可能是仅仅是拿取这个vc实例，可能是拿取vc嵌套进其他页面，可能是与这个vc通信。即不只有router一个动作，配置成URI部分，URI的前面信息可以改成 <code>scheme://action</code>等便于复用。</li>
+<li>配置信息的分布，配置信息是统一注册，还是可以每个页面离散式注册。不同的方式可以带来不同优势和缺点。</li>
+<li>是否有动态路由 动态配置下发。粗略的讲就是指你的URL地址与页面或者组件之间的映射关系。  会根据最新配置，通过远端下发的方式，去动态构建这个路由映射表。实现动态显示可跳转的页面或组件。一般来说经常的用法是某个URL配置不同的活动页面，或者某个iOS原生页面降级为h5页面，或者h5页面替换为RN页面等等</li>
+</ol>
+</li>
+<li><strong>页面跳转相关</strong><ol>
+<li>在iOS里一般有两种跳转push 和 present方式，或者是自定义一个UIView盖在上面自己控制相关的转场动画。</li>
+<li>比较简单的做法有直接在当前页面进行push跳转到下一个页面，或者遇到当前页无法push的先present一个UINavigationController然后在这个UINavigationController中进行push</li>
+<li>另外一种当然是直接present目标页面，一直present操作…</li>
+<li>在有tabcontroller时，还需要处理跨tab跳转</li>
+</ol>
+</li>
+<li><strong>页面间传值</strong><ol>
+<li>页面间传值有许多方式，比如属性传值，delegate传值，通过中间持久层（单例、数据库、NSUserDefalt）等传递</li>
+<li>既然页面路由统一了跳转方式，页面间传值也需要统一一下。比较简单的方法有将要传递的信息通过字典传递给下一个页面，路由实例化下一个页面后统一调用解析参数方法。解析参数方法具体实现由各个页面自定义实现。</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/iOS%E5%82%A8%E5%AD%98%E7%A9%BA%E9%97%B4%E8%AE%A1%E7%AE%97/" rel="prev" title="iOS 储存空间计算">
+                  <i class="fa fa-angle-left"></i> iOS 储存空间计算
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

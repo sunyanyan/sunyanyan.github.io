@@ -1,25 +1,386 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="最近想开个可视化的坑，就看到了 D3 , 别问为什么不选择echarts、Highcharts之类的，老夫写代码就看star数最多的……D3 的全称是（Data-Driven Documents）, D3 将生成可视化的复杂步骤精简到了几个简单的函数，你只需要输入几个简单的数据，就能够转换为各种绚丽的图形。咋一看d3首页 被其凌乱的文档折服了 差点就完成了就入门到放弃，于是做个学习过程记录，帮助">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可视化D3教程-快速开始">
+<meta property="og:url" content="https://developerdoc.com/quick-start/d3-tutorials-quickstart/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="最近想开个可视化的坑，就看到了 D3 , 别问为什么不选择echarts、Highcharts之类的，老夫写代码就看star数最多的……D3 的全称是（Data-Driven Documents）, D3 将生成可视化的复杂步骤精简到了几个简单的函数，你只需要输入几个简单的数据，就能够转换为各种绚丽的图形。咋一看d3首页 被其凌乱的文档折服了 差点就完成了就入门到放弃，于是做个学习过程记录，帮助">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/d3/quick-start-2.png">
+<meta property="article:published_time" content="2018-12-12T02:12:31.000Z">
+<meta property="article:modified_time" content="2019-03-06T03:18:46.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="可视化">
+<meta property="article:tag" content="D3">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/d3/quick-start-2.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/quick-start/d3-tutorials-quickstart/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/quick-start/d3-tutorials-quickstart/","path":"quick-start/d3-tutorials-quickstart/","title":"可视化D3教程-快速开始"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>可视化D3教程-快速开始 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%85%A5d3"><span class="nav-number">1.</span> <span class="nav-text">引入d3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E6%A0%B9%E8%A7%86%E5%9B%BE%E5%92%8C%E6%95%B0%E6%8D%AE"><span class="nav-number">2.</span> <span class="nav-text">准备根视图和数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E7%94%BB%E5%B8%83"><span class="nav-number">3.</span> <span class="nav-text">设置画布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E6%AF%94%E4%BE%8B%E5%B0%BA"><span class="nav-number">4.</span> <span class="nav-text">设置比例尺</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%BB%E5%87%BA%E7%9F%A9%E5%BD%A2"><span class="nav-number">5.</span> <span class="nav-text">画出矩形</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%BB%E5%87%BA%E5%9D%90%E6%A0%87%E8%BD%B4"><span class="nav-number">6.</span> <span class="nav-text">画出坐标轴</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">7.</span> <span class="nav-text">最后</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/d3-tutorials-quickstart/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="可视化D3教程-快速开始 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          可视化D3教程-快速开始
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-12 10:12:31" itemprop="dateCreated datePublished" datetime="2018-12-12T10:12:31+08:00">2018-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-06 11:18:46" itemprop="dateModified" datetime="2019-03-06T11:18:46+08:00">2019-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/%E5%8F%AF%E8%A7%86%E5%8C%96D3%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">可视化D3教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>最近想开个可视化的坑，就看到了 <a href="https://github.com/d3/d3">D3</a> , 别问为什么不选择echarts、Highcharts之类的，老夫写代码就看star数最多的……<br>D3 的全称是（Data-Driven Documents）, D3 将生成可视化的复杂步骤精简到了几个简单的函数，你只需要输入几个简单的数据，就能够转换为各种绚丽的图形。<br>咋一看d3首页 被其凌乱的文档折服了 差点就完成了就入门到放弃，于是做个学习过程记录，帮助一起入门d3的大家^_^</p>
+</blockquote>
+<span id="more"></span>
+
+<p>本文快速上手先来画出这样一个图形：</p>
+<img src="/res/d3/quick-start-2.png" width="33%"/>
+
+
+
+<p>迫于只会 React  之后的代码里可能会出现 react相关知识，但是只会vue的同学不用着急 重点相关的都是 d3 ，都可以看得懂得啦~ 废话不多说，让我们快速上手d3吧。</p>
+<h3 id="引入d3"><a href="#引入d3" class="headerlink" title="引入d3"></a>引入d3</h3><p>引入d3的方式很多，我是用create-react-app创建示例工程，所以这里用npm引入</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">npm install d3</span><br><span class="line"><span class="comment">//安装后得到的d3版本 之后都会依据这个版本做示例： &quot;d3&quot;: &quot;^5.7.0&quot;,</span></span><br><span class="line"><span class="comment">//d3 4/5 版本之间的API会略有不同</span></span><br><span class="line"><span class="comment">//然后在js文件中</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> d3 <span class="keyword">from</span> <span class="string">&#x27;d3&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="准备根视图和数据"><a href="#准备根视图和数据" class="headerlink" title="准备根视图和数据"></a>准备根视图和数据</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//之后会在这里加入画布</span></span><br><span class="line">&lt;div id=<span class="string">&quot;graph&quot;</span> /&gt;</span><br><span class="line"><span class="comment">//本次最后会画出一个“柱状图”，简单准备下这样的数据源</span></span><br><span class="line"><span class="keyword">let</span> data = [<span class="number">2500</span>, <span class="number">2100</span>, <span class="number">1700</span>, <span class="number">1300</span>, <span class="number">900</span>] </span><br></pre></td></tr></table></figure>
+
+<h3 id="设置画布"><a href="#设置画布" class="headerlink" title="设置画布"></a>设置画布</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在之前准备的div下插入svg</span></span><br><span class="line"><span class="keyword">let</span> svg = d3.<span class="title function_">select</span>(<span class="string">&quot;#graph&quot;</span>) <span class="comment">// d3.select()：是选择所有指定元素的第一个</span></span><br><span class="line">    .<span class="title function_">append</span>(<span class="string">&quot;svg&quot;</span>)<span class="comment">//获取到画布</span></span><br><span class="line">    .<span class="title function_">attr</span>(<span class="string">&quot;width&quot;</span>, <span class="number">500</span>)<span class="comment">//设置宽度</span></span><br><span class="line">    .<span class="title function_">attr</span>(<span class="string">&quot;height&quot;</span>, <span class="number">500</span>);<span class="comment">//设置高度</span></span><br></pre></td></tr></table></figure>
+
+<p>D3 虽然没有明文规定一定要在 SVG 中绘图，但是 D3 提供了众多的 SVG 图形的生成器，它们都是只支持 SVG 的。因此，建议使用 SVG 画布。        </p>
+<p>SVG，指可缩放矢量图形（Scalable Vector Graphics），是用于描述二维矢量图形的一种图形格式，是由万维网联盟制定的开放标准。SVG 使用 XML 格式来定义图形，可将 SVG 文本直接嵌入 HTML 中显示。</p>
+<p>SVG 有如下特点：</p>
+<ul>
+<li>SVG 绘制的是矢量图，因此对图像进行放大不会失真。</li>
+<li>基于 XML，可以为每个元素添加 JavaScript 事件处理器。</li>
+<li>每个图形均视为对象，更改对象的属性，图形也会改变。</li>
+<li>不适合游戏应用。</li>
+</ul>
+<h3 id="设置比例尺"><a href="#设置比例尺" class="headerlink" title="设置比例尺"></a>设置比例尺</h3><p>为什么要设置比例尺？直接使用输入的数值当成矩形的长度 如果数值过大或过小 可能画布没有这么大，或者根本看不见。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> linear = d3.<span class="title function_">scaleLinear</span>()<span class="comment">//返回线性比例尺</span></span><br><span class="line">    .<span class="title function_">domain</span>([<span class="number">0</span>, <span class="number">2500</span>])<span class="comment">// 0-2500 映射到 0-100</span></span><br><span class="line">    .<span class="title function_">range</span>([<span class="number">0</span>, <span class="number">250</span>]);<span class="comment">//这里0 2500对应输入数据的最小最大值 </span></span><br></pre></td></tr></table></figure>
+
+<h3 id="画出矩形"><a href="#画出矩形" class="headerlink" title="画出矩形"></a>画出矩形</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加了与 data 数组的长度相同数量的矩形</span></span><br><span class="line">svg.<span class="title function_">selectAll</span>(<span class="string">&quot;rect&quot;</span>)   <span class="comment">//选择svg内所有的矩形</span></span><br><span class="line">    .<span class="title function_">data</span>(<span class="variable language_">this</span>.<span class="property">props</span>.<span class="property">data</span>)  <span class="comment">//绑定数组</span></span><br><span class="line">    .<span class="title function_">enter</span>()        <span class="comment">//指定选择集的enter部分</span></span><br><span class="line">    .<span class="title function_">append</span>(<span class="string">&quot;rect&quot;</span>) <span class="comment">//添加足够数量的矩形元素 rect表示矩形</span></span><br><span class="line">    <span class="comment">//设置各个矩形的坐标和长宽</span></span><br><span class="line">    .<span class="title function_">attr</span>(<span class="string">&quot;x&quot;</span>, <span class="number">25</span>) <span class="comment">//每个矩形的x坐标</span></span><br><span class="line">    .<span class="title function_">attr</span>(<span class="string">&quot;y&quot;</span>, <span class="function">(<span class="params">d, i</span>) =&gt;</span> i * <span class="number">40</span>) <span class="comment">//每个矩形的y坐标</span></span><br><span class="line">    <span class="comment">//将比例尺应用到width</span></span><br><span class="line">    .<span class="title function_">attr</span>(<span class="string">&quot;width&quot;</span>, <span class="function">(<span class="params">d, i</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;&#123;d,i&#125;&quot;</span>, &#123; d, i &#125;)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;linear(d)&quot;</span>, <span class="title function_">linear</span>(d))</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_">linear</span>(d);</span><br><span class="line">        &#125;)</span><br><span class="line">    .<span class="title function_">attr</span>(<span class="string">&quot;height&quot;</span>, <span class="number">25</span>)</span><br><span class="line">    <span class="comment">//设置颜色</span></span><br><span class="line">    .<span class="title function_">attr</span>(<span class="string">&quot;fill&quot;</span>, <span class="string">&quot;#66ccff&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="画出坐标轴"><a href="#画出坐标轴" class="headerlink" title="画出坐标轴"></a>画出坐标轴</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g = svg.<span class="title function_">append</span>(<span class="string">&quot;g&quot;</span>);</span><br><span class="line">    <span class="comment">//设置x轴</span></span><br><span class="line">    g.<span class="title function_">append</span>(<span class="string">&quot;g&quot;</span>)<span class="comment">//定义了坐标轴之后，只需要在 SVG 中添加一个分组元素 &lt;g&gt;，再将坐标轴的其他元素添加到这个 &lt;g&gt; 里即可</span></span><br><span class="line">        .<span class="title function_">attr</span>(<span class="string">&quot;transform&quot;</span>, <span class="string">&quot;translate(25,0)&quot;</span>)<span class="comment">//坐标轴的位置，可以通过 transform 属性来设定。</span></span><br><span class="line">        .<span class="title function_">call</span>(</span><br><span class="line">            d3.<span class="title function_">axisBottom</span>(linear)<span class="comment">//axisBottom表示刻度向下的坐标轴</span></span><br><span class="line">            .<span class="title function_">ticks</span>(<span class="number">5</span>)<span class="comment">//刻度的数量</span></span><br><span class="line">        );</span><br><span class="line">    <span class="comment">//设置y轴</span></span><br><span class="line">    <span class="comment">// 	svg.append(&quot;g&quot;).call(axis); 等价于  axis(svg.append(g));</span></span><br><span class="line">    g.<span class="title function_">append</span>(<span class="string">&quot;g&quot;</span>)</span><br><span class="line">        .<span class="title function_">attr</span>(<span class="string">&quot;transform&quot;</span>, <span class="string">&quot;translate(25,0)&quot;</span>)</span><br><span class="line">        .<span class="title function_">call</span>(d3.<span class="title function_">axisLeft</span>(linear).<span class="title function_">ticks</span>(<span class="number">0</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>看到这里或许你会对 react&#x2F;g 、 x&#x2F;y&#x2F;width&#x2F;height&#x2F;fill 以及 svg坐标系产生好奇,这里就推荐 MDN 的文档了 :</p>
+<ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Element">SVG元素参考</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Attribute">SVG属性参考</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/SVG/Tutorial">SVG教程</a></li>
+</ul>
+<p>完整代码 ： <a href="https://github.com/sunyanyan/d3-start/blob/master/src/View/D3/QuickStart.js">QuickStart.js</a></p>
+<p>在线演示 ： <a href="/d3start/#/quick-start">可视化学习-quick-start</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/" rel="tag"># 可视化</a>
+              <a href="/tags/D3/" rel="tag"># D3</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%89%E6%9C%9F/" rel="prev" title="GitHub精选分享第三期">
+                  <i class="fa fa-angle-left"></i> GitHub精选分享第三期
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/quick-start/ReLearning-iOS/" rel="next" title="重学iOS-知识树大纲">
+                  重学iOS-知识树大纲 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

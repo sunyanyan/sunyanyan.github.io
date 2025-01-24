@@ -1,23 +1,1423 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
 
-{% block title %}{{ title }}{% if theme.index_with_subtitle and subtitle %} – {{ subtitle }}{% endif %}{% endblock %}
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-{% block page_class %}
-  {% if is_home() %}page-home{% endif -%}
-{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block content %}
-  <section id="posts" class="posts-expand">
-    {% for post in page.posts %}
-      {{ post_template.render(post, true) }}
-    {% endfor %}
-  </section>
 
-  {% include '_partials/pagination.swig' %}
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="移动端 前端 跨平台">
+<meta property="og:type" content="website">
+<meta property="og:title" content="孙同生的博客">
+<meta property="og:url" content="https://developerdoc.com/page/5/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="移动端 前端 跨平台">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="SunTongSheng">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://developerdoc.com/page/5/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/5/index.html","title":""}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">孙同生的博客</h1>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">Electron入门教程</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-21 15:58:50" itemprop="dateCreated datePublished" datetime="2018-11-21T15:58:50+08:00">2018-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-12-07 19:16:30" itemprop="dateModified" datetime="2018-12-07T19:16:30+08:00">2018-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/Electron%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Electron教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a href="https://electronjs.org/docs/tutorial/about">Electron</a>是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。 Electron通过将 <strong>Chromium</strong> 和 <strong>Node.js</strong>合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。</p>
+<p>相信大部分前端同学都听说或者了解过<a href="https://nodejs.org/zh-cn/">NodeJs</a> 它是一个基于<a href="https://v8.dev/">Chrome V8 引擎</a>的JavaScript运行时， 而 <a href="https://www.chromium.org/">Chromium</a> 是Google为发展自家浏览器Chrome而开启的开源浏览器项目，可以看成是是Chrome的先行版。大家较为熟悉的VS Code 和 Atom就是使用Electron来完成的。</p>
+<p>从开发的角度来看, Electron application 本质上是一个 Node. js 应用程序。可以让前端开发者让你使用纯 JavaScript 调用丰富的原生操作系统APIs来创造桌面应用~</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><blockquote>
+<p>确认你的网络可以访问github , 若访问受限参考 <a href="https://electronjs.org/docs/tutorial/installation">安装指南</a> 来了解如何用代理、镜像和自定义缓存</p>
+</blockquote>
+<p>你肯定已经已经安装好git和node了，那么只要：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官网已经有 electron-quick-start 仓库克隆下来</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/electron/electron-quick-start</span><br><span class="line"><span class="comment"># 进入文件夹</span></span><br><span class="line"><span class="built_in">cd</span> electron-quick-start</span><br><span class="line"><span class="comment"># 安装依赖包并运行</span></span><br><span class="line">npm install &amp;&amp; npm start</span><br></pre></td></tr></table></figure>
+
+<p>然后你的第一个桌面应用就开启了！</p>
+<p><img src="/res/Electron/Electron_1.png"></p>
+<p>若你跟着一起实践到这里，肯定会发现界面有些许不同？我这里多了个调试界面，那么来看下代码看看。在Electron中main.js是入口文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; app, <span class="title class_">BrowserWindow</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Keep a global reference of the window object, if you don&#x27;t, the window will</span></span><br><span class="line"><span class="comment">// be closed automatically when the JavaScript object is garbage collected.</span></span><br><span class="line"><span class="keyword">let</span> win</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createWindow</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 创建浏览器窗口。</span></span><br><span class="line">  win = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123; <span class="attr">width</span>: <span class="number">800</span>, <span class="attr">height</span>: <span class="number">600</span> &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 然后加载应用的 index.html。对应的index.html 就是初始界面。</span></span><br><span class="line">  win.<span class="title function_">loadFile</span>(<span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 打开开发者工具</span></span><br><span class="line">  win.<span class="property">webContents</span>.<span class="title function_">openDevTools</span>()</span><br><span class="line"></span><br><span class="line">  <span class="comment">//关于win 窗口的生命周期我们之后再研究……</span></span><br><span class="line">  <span class="comment">// 当 window 被关闭，这个事件会被触发。</span></span><br><span class="line">  win.<span class="title function_">on</span>(<span class="string">&#x27;closed&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 取消引用 window 对象，如果你的应用支持多窗口的话，</span></span><br><span class="line">    <span class="comment">// 通常会把多个 window 对象存放在一个数组里面，</span></span><br><span class="line">    <span class="comment">// 与此同时，你应该删除相应的元素。</span></span><br><span class="line">    win = <span class="literal">null</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关于 app 主进程的生命周期我们之后再研究……</span></span><br><span class="line"><span class="comment">// Electron 会在初始化后并准备</span></span><br><span class="line"><span class="comment">// 创建浏览器窗口时，调用这个函数。</span></span><br><span class="line"><span class="comment">// 部分 API 在 ready 事件触发后才能使用。</span></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;ready&#x27;</span>, createWindow)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当全部窗口关闭时退出。</span></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;window-all-closed&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 在 macOS 上，除非用户用 Cmd + Q 确定地退出，</span></span><br><span class="line">  <span class="comment">// 否则绝大部分应用及其菜单栏会保持激活。</span></span><br><span class="line">  <span class="keyword">if</span> (process.<span class="property">platform</span> !== <span class="string">&#x27;darwin&#x27;</span>) &#123;</span><br><span class="line">    app.<span class="title function_">quit</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;activate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 在macOS上，当单击dock图标并且没有其他窗口打开时，</span></span><br><span class="line">  <span class="comment">// 通常在应用程序中重新创建一个窗口。</span></span><br><span class="line">  <span class="keyword">if</span> (win === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="title function_">createWindow</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个文件中，你可以续写应用剩下主进程代码。</span></span><br><span class="line"><span class="comment">// 也可以拆分成几个文件，然后用 require 导入。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="与现有React工程结合"><a href="#与现有React工程结合" class="headerlink" title="与现有React工程结合"></a>与现有React工程结合</h2><p>迫于不会Vue ，在这里介绍下React工程如何和Electron结合起来。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Redux%E6%BA%90%E7%A0%81%E6%B5%85%E8%AF%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/essay/Redux%E6%BA%90%E7%A0%81%E6%B5%85%E8%AF%BB/" class="post-title-link" itemprop="url">Redux源码浅读</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-29 16:15:53" itemprop="dateCreated datePublished" datetime="2018-01-29T16:15:53+08:00">2018-01-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-28 22:28:12" itemprop="dateModified" datetime="2018-11-28T22:28:12+08:00">2018-11-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/Redux/" itemprop="url" rel="index"><span itemprop="name">Redux</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>本文是关于 redux（3.7.2）源代码的一些浅读</p>
+</blockquote>
+<p>在<a href="https://github.com/reactjs/redux/tree/master/src">redux源码目录</a>中 ，可以看到以下文件目录：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">|-- utils/</span><br><span class="line">    |-- warning.<span class="property">js</span>              <span class="comment">//打印error</span></span><br><span class="line">|-- <span class="number">1.</span> applyMiddleware.<span class="property">js</span>          <span class="comment">// </span></span><br><span class="line">|-- <span class="number">2.</span> bindActionCreators.<span class="property">js</span>       <span class="comment">//</span></span><br><span class="line">|-- <span class="number">3.</span> combineReducers.<span class="property">js</span>          <span class="comment">//</span></span><br><span class="line">|-- <span class="number">4.</span> compose.<span class="property">js</span>                  <span class="comment">//</span></span><br><span class="line">|-- <span class="number">5.</span> createStore.<span class="property">js</span>              <span class="comment">//</span></span><br><span class="line">|-- index.<span class="property">js</span>                    <span class="comment">//入口文件</span></span><br></pre></td></tr></table></figure>
+
+<p>与文件对应的，主要也是介绍 createStore compose combineReducers bindActionCreators applyMiddleware这几个函数。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/essay/Redux%E6%BA%90%E7%A0%81%E6%B5%85%E8%AF%BB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/RN%E4%B8%AD%E5%B8%83%E5%B1%80%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%86%99%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/essay/RN%E4%B8%AD%E5%B8%83%E5%B1%80%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%86%99%E6%B3%95/" class="post-title-link" itemprop="url">RN中布局样式的写法</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-01-18 19:16:31" itemprop="dateCreated datePublished" datetime="2018-01-18T19:16:31+08:00">2018-01-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-23 10:46:34" itemprop="dateModified" datetime="2018-11-23T10:46:34+08:00">2018-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/React-Native/" itemprop="url" rel="index"><span itemprop="name">React Native</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>介绍原始写法 &amp; 及其改进写法一</p>
+<p>还有比较流行的 styled-components在RN中的使用 &amp; 及其改进写法二</p>
+</blockquote>
+<h3 id="1-原写法"><a href="#1-原写法" class="headerlink" title="1.原写法"></a>1.原写法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 原写法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> styles1 = <span class="title class_">StyleSheet</span>.<span class="title function_">create</span>(&#123;</span><br><span class="line">    <span class="attr">item1</span>:&#123;</span><br><span class="line">        <span class="attr">width</span>:<span class="number">100</span>,</span><br><span class="line">        <span class="attr">height</span>:<span class="number">200</span>,</span><br><span class="line">        <span class="attr">backgroundColor</span>:<span class="string">&#x27;#66CCFF&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">item2</span>:&#123;</span><br><span class="line">        <span class="attr">width</span>:<span class="number">100</span>,</span><br><span class="line">        <span class="attr">height</span>:<span class="number">200</span>,</span><br><span class="line">        <span class="attr">backgroundColor</span>:<span class="string">&#x27;#66CCFF&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">item3</span>:&#123;</span><br><span class="line">        <span class="attr">width</span>:<span class="number">50</span>,</span><br><span class="line">        <span class="attr">height</span>:<span class="number">100</span>,</span><br><span class="line">        <span class="attr">top</span>:<span class="number">50</span>,</span><br><span class="line">        <span class="attr">left</span>:<span class="number">25</span>,</span><br><span class="line">        <span class="attr">backgroundColor</span>:<span class="string">&#x27;#66CCFF&#x27;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;styles1 :&#x27;</span>,styles1);</span><br></pre></td></tr></table></figure>
+
+<p>原写法的缺点在于变量不好引入，不好体现样式间的关系，没有计算表达式等……</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/essay/RN%E4%B8%AD%E5%B8%83%E5%B1%80%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%86%99%E6%B3%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Runtime/runtime-%E5%88%86%E7%B1%BBCategory%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/essay/Runtime/runtime-%E5%88%86%E7%B1%BBCategory%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">Category结构与原理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-29 17:31:45" itemprop="dateCreated datePublished" datetime="2017-11-29T17:31:45+08:00">2017-11-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-07 17:44:12" itemprop="dateModified" datetime="2019-03-07T17:44:12+08:00">2019-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>分类的实现原理，编译时的表现，运行时的加载原理<br>参考文档: <a href="https://opensource.apple.com/tarballs/objc4/">objc4-723</a></p>
+</blockquote>
+<p>category的主要作用是为已经存在的类添加方法。可以把类的实现分开在几个不同的文件里面。</p>
+<h3 id="Category-结构体"><a href="#Category-结构体" class="headerlink" title="Category 结构体"></a>Category 结构体</h3><p>Category用Category_t结构体定义：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> category_t &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="type">char</span> *name;<span class="comment">//类的名字</span></span><br><span class="line">    classref_t cls;<span class="comment">//类</span></span><br><span class="line">    <span class="keyword">struct</span> method_list_t *instanceMethods;<span class="comment">//实例方法的列表</span></span><br><span class="line">    <span class="keyword">struct</span> method_list_t *classMethods;<span class="comment">//类方法的列表</span></span><br><span class="line">    <span class="keyword">struct</span> protocol_list_t *protocols;<span class="comment">//所有协议的列表</span></span><br><span class="line">    <span class="keyword">struct</span> property_list_t *instanceProperties;<span class="comment">//添加的所有属性</span></span><br><span class="line">&#125; category_t;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/essay/Runtime/runtime-%E5%88%86%E7%B1%BBCategory%E5%8E%9F%E7%90%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Runtime/runtime-%E5%AF%B9%E8%B1%A1%E5%85%B3%E8%81%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/essay/Runtime/runtime-%E5%AF%B9%E8%B1%A1%E5%85%B3%E8%81%94/" class="post-title-link" itemprop="url">Runtime 对象关联原理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-22 17:09:12" itemprop="dateCreated datePublished" datetime="2017-11-22T17:09:12+08:00">2017-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-07 17:45:49" itemprop="dateModified" datetime="2019-03-07T17:45:49+08:00">2019-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>介绍 对象关联，以及如何为Category添加weak属性<br><a href="https://opensource.apple.com/tarballs/objc4/">apple open source</a></p>
+</blockquote>
+<h2 id="对象关联原理"><a href="#对象关联原理" class="headerlink" title="对象关联原理"></a>对象关联原理</h2><p>创建一个类的分类<code>Category</code>，并添加一个属性<code>CategoryProperty</code>，分类中的@CategoryProperty并没有帮我们生成实例变量以及存取方法，要求我们手动实现，这时候就需要用到对象关联。</p>
+<p>在分类中，因为类的实例变量的布局已经固定，使用 @property 已经无法向固定的布局中添加新的实例变量（这样做可能会覆盖子类的实例变量），所以我们需要使用关联对象以及两个方法来模拟构成属性的三个要素。</p>
+<p>关联对象又是如何实现并且管理的呢：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/essay/Runtime/runtime-%E5%AF%B9%E8%B1%A1%E5%85%B3%E8%81%94/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/CoreText%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/essay/CoreText%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">CoreText介绍.md</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-10-17 15:49:37" itemprop="dateCreated datePublished" datetime="2017-10-17T15:49:37+08:00">2017-10-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-10-09 09:30:14" itemprop="dateModified" datetime="2020-10-09T09:30:14+08:00">2020-10-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>16 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>介绍CoreText的一些概念</p>
+</blockquote>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/essay/CoreText%E4%BB%8B%E7%BB%8D/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/" class="post-title-link" itemprop="url">Python爬虫教程-使用Scrapy(2)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-09-22 14:32:35" itemprop="dateCreated datePublished" datetime="2017-09-22T14:32:35+08:00">2017-09-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-23 10:57:46" itemprop="dateModified" datetime="2018-11-23T10:57:46+08:00">2018-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Python爬虫教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>本文主要讲使用IP代理防止爬虫被禁</p>
+<p>在 <a href="../Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy/">python爬虫</a>中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~ </p>
+</blockquote>
+<p><img src="/res/Python/zhipin_403.png"></p>
+<p>为了防止这个悲剧发生 根据Scarpy <a href="https://doc.scrapy.org/en/latest/topics/practices.html?highlight=banned#avoiding-getting-banned">https://doc.scrapy.org/en/latest/topics/practices.html?highlight=banned#avoiding-getting-banned</a> 有以下几个建议：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy/" class="post-title-link" itemprop="url">Python爬虫教程-使用Scrapy</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-05-19 16:17:22" itemprop="dateCreated datePublished" datetime="2017-05-19T16:17:22+08:00">2017-05-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-23 10:56:27" itemprop="dateModified" datetime="2018-11-23T10:56:27+08:00">2018-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Python爬虫教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>scrapy基础实例，爬取zhipin网站信息</p>
+<p>scarpy的新建 + scarpy模拟登录 + 在pipeline中存取信息到sqlite3 +xpath解析页面</p>
+</blockquote>
+<ul>
+<li>文档<ul>
+<li><a href="https://docs.scrapy.org/en/latest/index.html">Scrapy Documentation</a></li>
+<li><a href="http://scrapy-chs.readthedocs.io/zh_CN/latest/">Scrapy 0.25 中文翻译</a></li>
+</ul>
+</li>
+<li>环境 python3.5.2 + scrapy1.3</li>
+</ul>
+<h2 id="scrapy新建工程"><a href="#scrapy新建工程" class="headerlink" title="scrapy新建工程"></a>scrapy新建工程</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scrapy startproject projectName</span><br></pre></td></tr></table></figure>
+
+<p>具体可以查看 <a href="../Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8/">python3爬虫学习</a></p>
+<p>发现 <strong>parse</strong> 或者 <strong>start_requests</strong>是爬虫的入口</p>
+<h2 id="解析html"><a href="#解析html" class="headerlink" title="解析html"></a>解析html</h2>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">Python爬虫教程-入门</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-25 17:26:18" itemprop="dateCreated datePublished" datetime="2017-04-25T17:26:18+08:00">2017-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-23 10:52:54" itemprop="dateModified" datetime="2018-11-23T10:52:54+08:00">2018-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Python爬虫教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ul>
+<li>使用的IDE ： <a href="https://www.jetbrains.com/pycharm/download/">pycharm ce 社区版</a></li>
+<li>python lib文档 : <a href="https://docs.python.org/3.5/library/index.html">The Python Standard Library</a></li>
+</ul>
+<blockquote>
+<p>python3 爬虫</p>
+</blockquote>
+<h1 id="创建爬虫"><a href="#创建爬虫" class="headerlink" title="创建爬虫"></a>创建爬虫</h1><h2 id="BeautifulSoup"><a href="#BeautifulSoup" class="headerlink" title="BeautifulSoup"></a>BeautifulSoup</h2><blockquote>
+<p>网络连接</p>
+</blockquote>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> urlopen</span><br><span class="line">html = urlopen(<span class="string">&quot;http://pythonscraping.com/pages/page1.html&quot;</span>) <span class="built_in">print</span>(html.read())</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>BeautifulSoup</p>
+</blockquote>
+<p>中文文档 <a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/">https://www.crummy.com/software/BeautifulSoup/bs4/doc.zh/</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Serialization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Serialization/" class="post-title-link" itemprop="url">AFNetworking3源码阅读-Serialization</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-20 21:18:54" itemprop="dateCreated datePublished" datetime="2017-04-20T21:18:54+08:00">2017-04-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-23 10:36:45" itemprop="dateModified" datetime="2018-11-23T10:36:45+08:00">2018-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/AFNetworking/" itemprop="url" rel="index"><span itemprop="name">AFNetworking</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>Serialization 包括 <code>AFURLResponseSerialization</code> 和 <code>AFURLRequestSerialization</code></p>
+</blockquote>
+<p><strong>AFURLResponseSerialization</strong> 是处理响应的模块，将请求返回的数据解析成对应的格式。而<strong>AFURLRequestSerialization</strong>的主要作用是修改请求（主要是 HTTP 请求）的头部，提供了一些语义明确的接口设置 HTTP 头部字段。</p>
+<h2 id="AFURLResponseSerialization"><a href="#AFURLResponseSerialization" class="headerlink" title="AFURLResponseSerialization"></a>AFURLResponseSerialization</h2><blockquote>
+<p>AFURLResponseSerialization 是一个协议，协议的内容为：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="type">id</span>)responseObjectForResponse:(<span class="keyword">nullable</span> <span class="built_in">NSURLResponse</span> *)response</span><br><span class="line">                           data:(<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)data</span><br><span class="line">                          error:(<span class="built_in">NSError</span> * _Nullable __autoreleasing *)error <span class="built_in">NS_SWIFT_NOTHROW</span>;</span><br></pre></td></tr></table></figure>
+<p>它的实现类为：</p>
+<ul>
+<li>AFURLResponseSerialization<ul>
+<li>AFHTTPResponseSerializer<ul>
+<li>AFJSONResponseSerializer</li>
+<li>AFXMLParserResponseSerializer</li>
+<li>AFXMLDocumentResponseSerializer</li>
+<li>AFPropertyListResponseSerializer</li>
+<li>AFImageResponseSerializer</li>
+<li>AFCompoundResponseSerializer</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在文件中 所有类都遵循<strong>AFURLResponseSerialization</strong>，而<strong>AFHTTPResponseSerializer</strong>是其他类的基类。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Serialization/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/6/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

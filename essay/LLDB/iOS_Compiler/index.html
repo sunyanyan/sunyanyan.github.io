@@ -1,25 +1,521 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="编译器 把一种编程语言(原始语言)转换为另一种编程语言(目标语言)的程序叫做编译器  大多数编译器由两部分组成：前端和后端。  前端负责词法分析，语法分析，生成中间代码； 后端以中间代码作为输入，进行行架构无关的代码优化，接着针对不同架构生成不同的机器码。  Objective C&#x2F;C&#x2F;C++使用的编译器前端是clang，swift是swift，后端都是LLVM。 llvm介绍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS编译过程">
+<meta property="og:url" content="https://developerdoc.com/essay/LLDB/iOS_Compiler/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="编译器 把一种编程语言(原始语言)转换为另一种编程语言(目标语言)的程序叫做编译器  大多数编译器由两部分组成：前端和后端。  前端负责词法分析，语法分析，生成中间代码； 后端以中间代码作为输入，进行行架构无关的代码优化，接着针对不同架构生成不同的机器码。  Objective C&#x2F;C&#x2F;C++使用的编译器前端是clang，swift是swift，后端都是LLVM。 llvm介绍">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/LLVM/LLVMCompiler1.png">
+<meta property="og:image" content="https://developerdoc.com/res/LLVM/iOSCompiler.png">
+<meta property="og:image" content="https://developerdoc.com/res/LLVM/xcode-optimize.png">
+<meta property="og:image" content="https://developerdoc.com/res/LLVM/llvm1.png">
+<meta property="og:image" content="https://developerdoc.com/res/LLVM/xcode.png">
+<meta property="article:published_time" content="2019-04-10T02:54:52.000Z">
+<meta property="article:modified_time" content="2019-04-23T02:17:39.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="LLVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/LLVM/LLVMCompiler1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/LLDB/iOS_Compiler/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/LLDB/iOS_Compiler/","path":"essay/LLDB/iOS_Compiler/","title":"iOS编译过程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS编译过程 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">编译器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#llvm%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">llvm介绍</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8llvm%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">使用llvm命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">编译器处理过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#preprocessor-%E9%A2%84%E5%A4%84%E7%90%86"><span class="nav-number">3.1.</span> <span class="nav-text">preprocessor 预处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#compiler-%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90%E8%A7%A3%E6%9E%90%E6%A0%87%E8%AE%B0"><span class="nav-number">3.2.</span> <span class="nav-text">compiler 词法分析解析标记</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E8%AF%8D%E6%B3%95%E5%88%86%E6%9E%90-Lexical-Analysis"><span class="nav-number">3.2.1.</span> <span class="nav-text">一、词法分析-Lexical Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%AF%AD%E6%B3%95%E5%88%86%E6%9E%90-Semantic-Analysis"><span class="nav-number">3.2.2.</span> <span class="nav-text">二、语法分析 - Semantic Analysis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%9D%99%E6%80%81%E5%88%86%E6%9E%90-Static-Analyzer"><span class="nav-number">3.2.3.</span> <span class="nav-text">三、静态分析 - Static Analyzer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81%E5%92%8C%E4%BC%98%E5%8C%96%E9%98%B6%E6%AE%B5"><span class="nav-number">3.3.</span> <span class="nav-text">生成代码和优化阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B1%87%E7%BC%96%E5%99%A8"><span class="nav-number">3.4.</span> <span class="nav-text">汇编器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5%E5%99%A8"><span class="nav-number">3.5.</span> <span class="nav-text">链接器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">编译多个文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%A6%E5%8F%B7%E8%A1%A8%E5%92%8C%E9%93%BE%E6%8E%A5"><span class="nav-number">4.1.</span> <span class="nav-text">符号表和链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">动态链接器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E6%80%BB%E7%BB%93%E4%B8%80%E4%B8%8B%E5%B0%B1%E6%98%AF%E4%BB%A5%E4%B8%8B%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="nav-number">5.</span> <span class="nav-text">最后总结一下就是以下编译过程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Xcode-%E7%BC%96%E8%AF%91"><span class="nav-number">6.</span> <span class="nav-text">Xcode 编译</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/LLDB/iOS_Compiler/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS编译过程 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS编译过程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-10 10:54:52" itemprop="dateCreated datePublished" datetime="2019-04-10T10:54:52+08:00">2019-04-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-04-23 10:17:39" itemprop="dateModified" datetime="2019-04-23T10:17:39+08:00">2019-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>18k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>16 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h2><blockquote>
+<p>把一种编程语言(原始语言)转换为另一种编程语言(目标语言)的程序叫做编译器</p>
+</blockquote>
+<p>大多数编译器由两部分组成：前端和后端。</p>
+<ul>
+<li>前端负责词法分析，语法分析，生成中间代码；</li>
+<li>后端以中间代码作为输入，进行行架构无关的代码优化，接着针对不同架构生成不同的机器码。</li>
+</ul>
+<p>Objective C&#x2F;C&#x2F;C++使用的编译器前端是clang，swift是swift，后端都是LLVM。</p>
+<h3 id="llvm介绍"><a href="#llvm介绍" class="headerlink" title="llvm介绍"></a>llvm介绍</h3><p>LLVM是什么，是low level virtual machine的简称，其实是一个编译器框架。LLVM 的优点主要得益于它的三层式架构 – 第一层支持多种语言作为输入(例如 C, ObjectiveC, C++ 和 Haskell)，第二层是一个共享式的优化器(对 LLVM IR 做优化处理)，第三层是许多不同的目标平台(例如 Intel, ARM 和 PowerPC)。编译器前端主要进行语法分析，语义分析，生成中间代码。编译器后端会进行机器无关的代码优化，生成机器语言，并且进行机器相关的代码优化，根据不同的系统架构生成不同的机器码。</p>
+<p><img src="/res/LLVM/LLVMCompiler1.png"></p>
+<p>现在，Xcode 的默认编译器是 clang。本文中我们提到的编译器都表示 clang。clang 的功能是首先对 Objective-C 代码做分析检查，然后将其转换为低级的类汇编代码：LLVM Intermediate Representation(LLVM 中间表达码)。接着 LLVM 会执行相关指令将 LLVM IR 编译成目标平台上的本地字节码，这个过程的完成方式可以是即时编译 (Just-in-time)，或在编译的时候完成。而Clang 是一个C、C++、Objective-C和Objective-C++编程语言的编译器前端。它采用了底层虚拟机（LLVM）作为其后端。它的目标是提供一个GNU编译器套装（GCC）的替代品。Clang项目包括Clang前端和Clang静态分析器等。</p>
+<p>下图是iOS编译过程：<br><img src="/res/LLVM/iOSCompiler.png"></p>
+<span id="more"></span>
+<h2 id="使用llvm命令"><a href="#使用llvm命令" class="headerlink" title="使用llvm命令"></a>使用llvm命令</h2><p><em><strong>一、使用xcode自带</strong></em></p>
+<p>使用xcrun来调用：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xcrun clang -v</span><br><span class="line"><span class="comment">#Apple LLVM version 10.0.0 (clang-1000.11.45.5)</span></span><br><span class="line"><span class="comment">#Target: x86_64-apple-darwin17.7.0</span></span><br><span class="line"><span class="comment">#Thread model: posix</span></span><br><span class="line"><span class="comment">#InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin</span></span><br></pre></td></tr></table></figure>
+
+<p><em><strong>二、使用HomeBrew安装</strong></em></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.使用以下命令安装llvm</span></span><br><span class="line">brew install --with-toolchain llvm</span><br><span class="line"><span class="comment"># 若安装遇到问题 可以先升级brew试试</span></span><br><span class="line"><span class="comment">#   brew update 这会更新 Homebrew 自己</span></span><br><span class="line"><span class="comment">#   brew upgrade 升级所有可以升级的软件们</span></span><br></pre></td></tr></table></figure>
+
+<p>安装后可以使用 <code>brew info llvm</code> 检查信息。brew安装llvm后，不会直接添加命令的快捷引用，需要自己手动来完成。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看llvm的安装路径</span></span><br><span class="line">brew --prefix llvm</span><br><span class="line"><span class="comment"># 添加引用示例：</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export PATH=&quot;/usr/local/opt/llvm/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.bash_profile</span><br><span class="line"><span class="built_in">source</span> ~/.bash_profile</span><br></pre></td></tr></table></figure>
+
+<!-- https://embeddedartistry.com/blog/2017/2/20/installing-clangllvm-on-osx -->
+
+<p>这样之后就可以直接调用自己安装的llvm了：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">clang -v</span><br><span class="line"><span class="comment">#clang version 8.0.0 (tags/RELEASE_800/final)</span></span><br><span class="line"><span class="comment">#Target: x86_64-apple-darwin17.7.0</span></span><br><span class="line"><span class="comment">#Thread model: posix</span></span><br><span class="line"><span class="comment">#InstalledDir: /usr/local/opt/llvm/bin</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="编译器处理过程"><a href="#编译器处理过程" class="headerlink" title="编译器处理过程"></a>编译器处理过程</h2><p>在编译一个源文件时，编译器的处理过程分为几个阶段。要想查看编译 hello.m 源文件需要几个不同的阶段，上文中安装llvm后，我们可以让通过 clang 命令观察：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sunTongShengdeMacBook-Pro:asdasd suntongsheng$ clang -ccc-print-phases ViewController.m</span><br><span class="line">0: input, &quot;ViewController.m&quot;, objective-c</span><br><span class="line">1: preprocessor, &#123;0&#125;, objective-c-cpp-output</span><br><span class="line">2: compiler, &#123;1&#125;, ir</span><br><span class="line">3: backend, &#123;2&#125;, assembler</span><br><span class="line">4: assembler, &#123;3&#125;, object</span><br><span class="line">5: linker, &#123;4&#125;, image</span><br><span class="line">6: bind-arch, &quot;x86_64&quot;, &#123;5&#125;, image</span><br></pre></td></tr></table></figure>
+
+<p>可以看到clang将其分为 input、preprocessor 、compiler、backend、assembler、linker、bind-arch几个阶段。</p>
+<ul>
+<li>预处理阶段：符号化、宏定义展开头文件展开</li>
+<li>语法和语义分析阶段：将符号化后的内容转化为一棵解析树、解析树做语义分析 输出一棵抽象语法树</li>
+<li>生成代码和优化阶段：将 AST 转换为更低级的中间码 (LLVM IR)、对生成的中间码做优化、生成特定目标代码、输出汇编代码</li>
+<li>汇编器阶段：将汇编代码转换为目标对象文件。</li>
+<li>链接器：将多个目标对象文件合并为一个可执行文件 (或者一个动态库)</li>
+</ul>
+<h3 id="preprocessor-预处理"><a href="#preprocessor-预处理" class="headerlink" title="preprocessor 预处理"></a>preprocessor 预处理</h3><p>每当编源译文件的时候，编译器首先做的是一些预处理工作。具体表现为import头文件替换、macro宏展开、其他预编译指令，&#96;#这个符号是编译器预处理的标志。</p>
+<p><em><strong>一. 对头文件的处理：</strong></em></p>
+<p>例如，如果在源文件中出现下述代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>预处理器对这行代码的处理是用 Foundation.h 文件中的内容去替换这行代码，如果 Foundation.h 中也使用了类似的宏引入，则会按照同样的处理方式用各个宏对应的真正代码进行逐级替代。这也就是为什么人们主张头文件最好尽量少的去引入其他的类或库，因为引入的东西越多，编译器需要做的处理就越多</p>
+<p><strong>示例</strong>：假设我们写了一个简单的 C 程序 hello.c:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello llvm\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后给上面的代码执行以下预处理命令</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  -E  Only run the preprocessor</span></span><br><span class="line">clang -E hello.c &gt;&gt; hello.o</span><br></pre></td></tr></table></figure>
+
+<p>打开 hello.o ，发现有542行。但是如果在上述代码上加上 <code>#import &lt;Foundation/Foundation.h&gt;</code> ，hello.o 的行数暴增到9万多行。（当然对于这种情况引入了<a href="http://clang.llvm.org/docs/Modules.html">模块 - modules</a>功能）</p>
+<p>打开模块功能再试试：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-fmodules 允许modules的语言特性</span></span><br><span class="line">clang  -fmodules -E  hello.c &gt;&gt; hello.1o</span><br><span class="line"></span><br><span class="line"><span class="comment">#hello.1o的内容：</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 &quot;hello.c&quot;</span></span><br><span class="line"><span class="comment"># 1 &quot;&lt;built-in&gt;&quot; 1</span></span><br><span class="line"><span class="comment"># 1 &quot;&lt;built-in&gt;&quot; 3</span></span><br><span class="line"><span class="comment"># 361 &quot;&lt;built-in&gt;&quot; 3</span></span><br><span class="line"><span class="comment"># 1 &quot;&lt;command line&gt;&quot; 1</span></span><br><span class="line"><span class="comment"># 1 &quot;&lt;built-in&gt;&quot; 2</span></span><br><span class="line"><span class="comment"># 1 &quot;hello.c&quot; 2</span></span><br><span class="line"><span class="comment">#pragma clang module import Darwin.C.stdio /* clang -E: implicit import for #include &lt;stdio.h&gt; */</span></span><br><span class="line"></span><br><span class="line">int <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello llvm\n&quot;</span>);</span><br><span class="line">  <span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><em><strong>二、对于宏的处理</strong></em></p>
+<p>假设一段这样的代码:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hello.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAX(a,b) a &gt; b ? a : b</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">int</span> i = <span class="number">200</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;largest: %d\n&quot;</span>, MAX(i++,<span class="number">100</span>));</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;i: %d\n&quot;</span>, i);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>用 <code>clang -E hello.c</code> 进行宏展开的预处理结果是如下所示：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="type">int</span> i = <span class="number">200</span>;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;largest: %d\n&quot;</span>, i++ &gt; <span class="number">100</span> ? i++ : <span class="number">100</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;i: %d\n&quot;</span>, i);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>i++</code>被替换到了<code>a</code>中，而不是预想的 i++的值。</p>
+<h3 id="compiler-词法分析解析标记"><a href="#compiler-词法分析解析标记" class="headerlink" title="compiler 词法分析解析标记"></a>compiler 词法分析解析标记</h3><h4 id="一、词法分析-Lexical-Analysis"><a href="#一、词法分析-Lexical-Analysis" class="headerlink" title="一、词法分析-Lexical Analysis"></a>一、词法分析-Lexical Analysis</h4><p>在compiler阶段，首先代码文本都会从 string 转化成特殊的标记流。将代码切成一个个 token，比如大小括号，等于号还有字符串等。是计算机科学中将字符序列转换为标记序列的过程。 例如，下面这段程序：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hello.c</span></span><br><span class="line"><span class="type">int</span> main() &#123;</span><br><span class="line">  <span class="built_in">NSLog</span>(<span class="string">@&quot;hello, %@&quot;</span>, <span class="string">@&quot;world&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用 clang 命令 clang -Xclang -dump-tokens hello.m 来将上面代码的标记流导出：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#clang -Xclang -dump-tokens hello.c</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#控制台输出：</span></span><br><span class="line">int <span class="string">&#x27;int&#x27;</span>	 [StartOfLine]	Loc=&lt;hello.c:1:1&gt;</span><br><span class="line">identifier <span class="string">&#x27;main&#x27;</span>	 [LeadingSpace]	Loc=&lt;hello.c:1:5&gt;</span><br><span class="line">l_paren <span class="string">&#x27;(&#x27;</span>		Loc=&lt;hello.c:1:9&gt;</span><br><span class="line">r_paren <span class="string">&#x27;)&#x27;</span>		Loc=&lt;hello.c:1:10&gt;</span><br><span class="line">l_brace <span class="string">&#x27;&#123;&#x27;</span>	 [LeadingSpace]	Loc=&lt;hello.c:1:12&gt;</span><br><span class="line">identifier <span class="string">&#x27;NSLog&#x27;</span>	 [StartOfLine] [LeadingSpace]	Loc=&lt;hello.c:2:3&gt;</span><br><span class="line">l_paren <span class="string">&#x27;(&#x27;</span>		Loc=&lt;hello.c:2:8&gt;</span><br><span class="line">unknown <span class="string">&#x27;@&#x27;</span>		Loc=&lt;hello.c:2:9&gt;</span><br><span class="line">string_literal <span class="string">&#x27;&quot;hello, %@&quot;&#x27;</span>		Loc=&lt;hello.c:2:10&gt;</span><br><span class="line">comma <span class="string">&#x27;,&#x27;</span>		Loc=&lt;hello.c:2:21&gt;</span><br><span class="line">unknown <span class="string">&#x27;@&#x27;</span>	 [LeadingSpace]	Loc=&lt;hello.c:2:23&gt;</span><br><span class="line">string_literal <span class="string">&#x27;&quot;world&quot;&#x27;</span>		Loc=&lt;hello.c:2:24&gt;</span><br><span class="line">r_paren <span class="string">&#x27;)&#x27;</span>		Loc=&lt;hello.c:2:31&gt;</span><br><span class="line">semi <span class="string">&#x27;;&#x27;</span>		Loc=&lt;hello.c:2:32&gt;</span><br><span class="line"><span class="built_in">return</span> <span class="string">&#x27;return&#x27;</span>	 [StartOfLine] [LeadingSpace]	Loc=&lt;hello.c:3:3&gt;</span><br><span class="line">numeric_constant <span class="string">&#x27;0&#x27;</span>	 [LeadingSpace]	Loc=&lt;hello.c:3:10&gt;</span><br><span class="line">semi <span class="string">&#x27;;&#x27;</span>		Loc=&lt;hello.c:3:11&gt;</span><br><span class="line">r_brace <span class="string">&#x27;&#125;&#x27;</span>	 [StartOfLine]	Loc=&lt;hello.c:4:1&gt;</span><br><span class="line">eof <span class="string">&#x27;&#x27;</span>		Loc=&lt;hello.c:4:2&gt;</span><br></pre></td></tr></table></figure>
+
+<p>每一个标记都包含了对应的源码内容和其在源码中的位置,如果编译过程中遇到什么问题，clang 能够在源码中指出出错的具体位置。</p>
+<h4 id="二、语法分析-Semantic-Analysis"><a href="#二、语法分析-Semantic-Analysis" class="headerlink" title="二、语法分析 - Semantic Analysis"></a>二、语法分析 - Semantic Analysis</h4><p>之后上面的标记流会解析生成<a href="http://clang.llvm.org/docs/IntroductionToTheClangAST.html">抽象语法树</a>，我们可以使用 <code>clang -Xclang -ast-dump -fsyntax-only hello.c</code> 来展现解析这个过程</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clang -Xclang -ast-dump -fsyntax-only hello.c </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#控制台输出：</span></span><br><span class="line">hello.c:2:3: warning: implicit declaration of <span class="keyword">function</span> <span class="string">&#x27;NSLog&#x27;</span> is invalid <span class="keyword">in</span> C99 [-Wimplicit-function-declaration]</span><br><span class="line">  NSLog(@<span class="string">&quot;hello, %@&quot;</span>, @<span class="string">&quot;world&quot;</span>);</span><br><span class="line">  ^</span><br><span class="line">hello.c:2:9: error: expected expression</span><br><span class="line">  NSLog(@<span class="string">&quot;hello, %@&quot;</span>, @<span class="string">&quot;world&quot;</span>);</span><br><span class="line">        ^</span><br><span class="line">hello.c:2:23: error: expected expression</span><br><span class="line">  NSLog(@<span class="string">&quot;hello, %@&quot;</span>, @<span class="string">&quot;world&quot;</span>);</span><br><span class="line">                      ^</span><br><span class="line">TranslationUnitDecl 0x7fe1d2816c08 &lt;&lt;<span class="string">invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt;</span><br><span class="line">|-TypedefDecl 0x7fe1d28174a0 &lt;&lt;<span class="string">invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __int128_t <span class="string">&#x27;__int128&#x27;</span></span><br><span class="line">| `-BuiltinType 0x7fe1d28171a0 <span class="string">&#x27;__int128&#x27;</span></span><br><span class="line">|-TypedefDecl 0x7fe1d2817508 &lt;&lt;<span class="string">invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __uint128_t <span class="string">&#x27;unsigned __int128&#x27;</span></span><br><span class="line">| `-BuiltinType 0x7fe1d28171c0 <span class="string">&#x27;unsigned __int128&#x27;</span></span><br><span class="line">|-TypedefDecl 0x7fe1d28177b8 &lt;&lt;<span class="string">invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __NSConstantString <span class="string">&#x27;struct __NSConstantString_tag&#x27;</span></span><br><span class="line">| `-RecordType 0x7fe1d28175d0 <span class="string">&#x27;struct __NSConstantString_tag&#x27;</span></span><br><span class="line">|   `-Record 0x7fe1d2817558 <span class="string">&#x27;__NSConstantString_tag&#x27;</span></span><br><span class="line">|-TypedefDecl 0x7fe1d2817850 &lt;&lt;<span class="string">invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __builtin_ms_va_list <span class="string">&#x27;char *&#x27;</span></span><br><span class="line">| `-PointerType 0x7fe1d2817810 <span class="string">&#x27;char *&#x27;</span></span><br><span class="line">|   `-BuiltinType 0x7fe1d2816ca0 <span class="string">&#x27;char&#x27;</span></span><br><span class="line">|-TypedefDecl 0x7fe1d2817af8 &lt;&lt;<span class="string">invalid sloc&gt;&gt; &lt;invalid</span> sloc&gt; implicit __builtin_va_list <span class="string">&#x27;struct __va_list_tag [1]&#x27;</span></span><br><span class="line">| `-ConstantArrayType 0x7fe1d2817aa0 <span class="string">&#x27;struct __va_list_tag [1]&#x27;</span> 1 </span><br><span class="line">|   `-RecordType 0x7fe1d2817920 <span class="string">&#x27;struct __va_list_tag&#x27;</span></span><br><span class="line">|     `-Record 0x7fe1d28178a0 <span class="string">&#x27;__va_list_tag&#x27;</span></span><br><span class="line">`-FunctionDecl 0x7fe1d285d000 &lt;hello.c:1:1, line:4:1&gt; line:1:5 main <span class="string">&#x27;int ()&#x27;</span></span><br><span class="line">  `-CompoundStmt 0x7fe1d285d1f8 &lt;col:12, line:4:1&gt;</span><br><span class="line">    `-ReturnStmt 0x7fe1d285d1e8 &lt;line:3:3, col:10&gt;</span><br><span class="line">      `-IntegerLiteral 0x7fe1d285d1c8 &lt;col:10&gt; <span class="string">&#x27;int&#x27;</span> 0</span><br></pre></td></tr></table></figure>
+
+<p>在抽象语法树中的每个节点都标注了其对应源码中的位置，同样的，如果产生了什么问题，clang 可以定位到问题所在处的源码位置。</p>
+<h4 id="三、静态分析-Static-Analyzer"><a href="#三、静态分析-Static-Analyzer" class="headerlink" title="三、静态分析 - Static Analyzer"></a>三、静态分析 - Static Analyzer</h4><p>一旦编译器把源码生成了抽象语法树，编译器可以对这棵树做分析处理，以找出代码中的错误，比如类型检查：即检查程序中是否有类型错误。例如：如果代码中给某个对象发送了一个消息，编译器会检查这个对象是否实现了这个消息（函数、方法）。此外，clang 对整个程序还做了其它更高级的一些分析，以确保程序没有错误。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#命令行执行 通过clang -cc1 -analyzer-checker-help可以列出能调用的 checker，但这些checker并不是所有都是默认开启的</span></span><br><span class="line">clang -cc1 -analyzer-checker-help</span><br><span class="line">OVERVIEW: Clang Static Analyzer Checkers List</span><br><span class="line"></span><br><span class="line">USAGE: -analyzer-checker &lt;CHECKER or PACKAGE,...&gt;</span><br><span class="line"></span><br><span class="line">CHECKERS:</span><br><span class="line">  alpha.clone.CloneChecker        Reports similar pieces of code.</span><br><span class="line">  alpha.core.BoolAssignment       Warn about assigning non-&#123;0,1&#125; values to Boolean variables</span><br><span class="line">  alpha.core.CallAndMessageUnInitRefArg</span><br><span class="line">                                  Check <span class="keyword">for</span> logical errors <span class="keyword">for</span> <span class="keyword">function</span> calls and Objective-C message expressions (e.g., uninitialized arguments, null <span class="keyword">function</span> pointers, and pointer to undefined variables)</span><br><span class="line">  alpha.core.CastSize             Check when castin</span><br><span class="line">  ...</span><br></pre></td></tr></table></figure>
+
+<p>使用<a href="http://clang-analyzer.llvm.org.cn/scan-build.html">scan-build</a>可以从命令行运行分析器,类似如：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">scan-build xcodebuild -project asdasd.xcodeproj</span><br><span class="line">scan-build: Using <span class="string">&#x27;/usr/local/Cellar/llvm/8.0.0/bin/clang-8&#x27;</span> <span class="keyword">for</span> static analysis</span><br><span class="line">Build settings from <span class="built_in">command</span> line:</span><br><span class="line">    CLANG_ANALYZER_EXEC = /usr/local/Cellar/llvm/8.0.0/bin/clang-8</span><br><span class="line">    CLANG_ANALYZER_OTHER_FLAGS = </span><br><span class="line">    CLANG_ANALYZER_OUTPUT = plist-html</span><br><span class="line">    CLANG_ANALYZER_OUTPUT_DIR = /var/folders/s6/5jq8fd4x12v9blzt68qbv18m0000gn/T/scan-build-2019-04-18-141047-45509-1</span><br><span class="line">    RUN_CLANG_STATIC_ANALYZER = YES</span><br><span class="line"></span><br><span class="line">note: Using new build system</span><br><span class="line">note: Planning build</span><br><span class="line">note: Constructing build description</span><br><span class="line">Build system information</span><br><span class="line">error: Signing <span class="keyword">for</span> <span class="string">&quot;asdasd&quot;</span> requires a development team. Select a development team <span class="keyword">in</span> the project editor. (<span class="keyword">in</span> target <span class="string">&#x27;asdasd&#x27;</span>)</span><br><span class="line"></span><br><span class="line">** BUILD FAILED **</span><br><span class="line"></span><br><span class="line">scan-build: Removing directory <span class="string">&#x27;/var/folders/s6/5jq8fd4x12v9blzt68qbv18m0000gn/T/scan-build-2019-04-18-141047-45509-1&#x27;</span> because it contains no reports.</span><br><span class="line">scan-build: No bugs found.</span><br></pre></td></tr></table></figure>
+
+
+<p>关于静态分析更多可以查看 ：<a href="http://clang-analyzer.llvm.org.cn/">Clang 静态分析器</a></p>
+<!-- https://juejin.im/post/5a30ea0ff265da43094526f9 -->
+
+<h3 id="生成代码和优化阶段"><a href="#生成代码和优化阶段" class="headerlink" title="生成代码和优化阶段"></a>生成代码和优化阶段</h3><p><em><strong>一、生成 LLVM 代码</strong></em></p>
+<p>clang 完成代码的标记，解析和分析后，接着就会生成 LLVM 代码。下面继续看看hello.c：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;hello world\n&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要把这段代码编译成 LLVM 字节码（绝大多数情况下是二进制码格式），我们可以执行下面的命令：</p>
+<p><code>clang  -emit-llvm hello.c -c -o hello.bc</code></p>
+<p>接着用另一个命令来查看刚刚生成的二进制文件：</p>
+<p><code>llvm-dis &lt; hello.bc | less</code></p>
+<p>部分输出如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">; ModuleID = <span class="string">&#x27;&lt;stdin&gt;&#x27;</span></span><br><span class="line">source_filename = <span class="string">&quot;hello.c&quot;</span></span><br><span class="line">target datalayout = <span class="string">&quot;e-m:o-i64:64-f80:128-n8:16:32:64-S128&quot;</span></span><br><span class="line">target triple = <span class="string">&quot;x86_64-apple-macosx10.13.0&quot;</span></span><br><span class="line"></span><br><span class="line">@.str = private unnamed_addr constant [<span class="number">13</span> x i8] c<span class="string">&quot;hello world\0A\00&quot;</span>, align <span class="number">1</span></span><br><span class="line"></span><br><span class="line">; Function Attrs: noinline nounwind optnone ssp uwtable</span><br><span class="line">define i32 @main() #<span class="number">0</span> &#123;</span><br><span class="line">  %<span class="number">1</span> = alloca i32, align <span class="number">4</span></span><br><span class="line">  store i32 <span class="number">0</span>, i32* %<span class="number">1</span>, align <span class="number">4</span></span><br><span class="line">  %<span class="number">2</span> = call i32 (i8*, ...) @<span class="built_in">printf</span>(i8* getelementptr inbounds ([<span class="number">13</span> x i8], [<span class="number">13</span> x i8]* @.str, i32 <span class="number">0</span>, i32 <span class="number">0</span>))</span><br><span class="line">  ret i32 <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">declare i32 @<span class="built_in">printf</span>(i8*, ...) #<span class="number">1</span></span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+
+<p><em><strong>二、优化 LLVM 代码</strong></em></p>
+<p>LLVM 会去做些优化工作，在 Xcode 的编译设置里也可以设置优化级别-01，-03，-0s，还可以写些自己的 Pass，Pass就是LLVM系统转化和优化的工作的一个节点，每个节点做一些工作，这些工作加起来就构成了LLVM整个系统的优化和转化。官方有比较完整的 Pass 教程： <a href="https://releases.llvm.org/5.0.2/docs/WritingAnLLVMPass.html">Writing an LLVM Pass — LLVM 5 documentation</a> 。如果开启了 bitcode 苹果会做进一步的优化</p>
+<p><img src="/res/LLVM/xcode-optimize.png"></p>
+<p><em><strong>三、输出汇编代码</strong></em></p>
+<p>我们可以使用下面的命令让clang输出汇编代码：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#输入</span></span><br><span class="line"> clang -S -o - hello.c </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#输出</span></span><br><span class="line">	.section	__TEXT,__text,regular,pure_instructions <span class="comment"># .section 指令指定接下来会执行哪一个段</span></span><br><span class="line">	.macosx_version_min 10, 13</span><br><span class="line">	.globl	_main           <span class="comment"># .globl 指令说明 _main 是一个外部符号</span></span><br><span class="line">	.p2align	4, 0x90     <span class="comment"># .align 指令指出了后面代码的对齐方式 如果需要的话，用 0x90 补齐</span></span><br><span class="line">_main:                                  <span class="comment">## 接下来是 main 函数的头部：</span></span><br><span class="line">	.cfi_startproc          <span class="comment"># .cfi_startproc 指令通常用于函数的开始处</span></span><br><span class="line"><span class="comment">## %bb.0:</span></span><br><span class="line">	pushq	%rbp    <span class="comment"># rbp 寄存器 (基础指针寄存器 base pointer register)</span></span><br><span class="line">	.cfi_def_cfa_offset 16</span><br><span class="line">	.cfi_offset %rbp, -16</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	.cfi_def_cfa_register %rbp</span><br><span class="line">	subq	<span class="variable">$16</span>, %rsp</span><br><span class="line">	movl	<span class="variable">$0</span>, -4(%rbp)</span><br><span class="line">	leaq	L_.str(%rip), %rdi</span><br><span class="line">	movb	<span class="variable">$0</span>, %al</span><br><span class="line">	callq	_printf <span class="comment">#调用了 printf</span></span><br><span class="line">	xorl	%ecx, %ecx</span><br><span class="line">	movl	%eax, -8(%rbp)          <span class="comment">## 4-byte Spill</span></span><br><span class="line">	movl	%ecx, %eax</span><br><span class="line">	addq	<span class="variable">$16</span>, %rsp</span><br><span class="line">	popq	%rbp <span class="comment"># 与pushq对应</span></span><br><span class="line">	retq</span><br><span class="line">	.cfi_endproc <span class="comment"># 与 .cfi_startproc 相匹配，以此标记出 main() 函数结束</span></span><br><span class="line">                                        <span class="comment">## -- End function</span></span><br><span class="line">	.section	__TEXT,__cstring,cstring_literals <span class="comment"># __TEXT __cstring 开启了一个新的段。</span></span><br><span class="line">L_.str:       <span class="comment">#L_.str 标记运行在实际的代码中获取到字符串的一个指针                          ## @.str</span></span><br><span class="line">	.asciz	<span class="string">&quot;hello world\n&quot;</span> <span class="comment">#.asciz 指令告诉编译器输出一个以 ‘\0’ (null) 结尾的字符串。</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.subsections_via_symbolsv <span class="comment"># .subsections_via_symbols 指令是静态链接编辑器使用的。</span></span><br></pre></td></tr></table></figure>
+
+<p>具体的代码解读，有兴趣的同学可以到<a href="https://developer.apple.com/library/archive/documentation/DeveloperTools/Reference/Assembler/000-Introduction/introduction.html">苹果的 OS X Assembler Reference </a> 了解详细。</p>
+<!-- https://objccn.io/issue-6-3/ -->
+
+<h3 id="汇编器"><a href="#汇编器" class="headerlink" title="汇编器"></a>汇编器</h3><p>汇编器将可读的汇编代码转换为机器代码。它会创建一个目标对象文件，一般简称为 对象文件。这些文件以 .o 结尾。如果用 Xcode 构建应用程序，可以在工程的 derived data 目录中，Objects-normal 文件夹下找到这些文件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#例如 生成 main.o文件</span></span><br><span class="line">clang -fmodules -c main.c -o main.o</span><br></pre></td></tr></table></figure>
+
+<h3 id="链接器"><a href="#链接器" class="headerlink" title="链接器"></a>链接器</h3><p>链接器解决了目标文件和库之间的链接。例如上面汇编代码中 <code>callq   _printf</code>， <code>printf()</code> 是 libc 库中的一个函数。无论怎样，最后的可执行文件需要能需要知道 printf() 在内存中的具体位置：例如，_printf 的地址符号是什么。链接器会读取所有的目标文件 (此处只有一个) 和库 (此处是 libc)，并解决所有未知符号 (此处是 _printf) 的问题。然后将它们编码进最后的可执行文件中 （可以在 libc 中找到符号 _printf），接着链接器会输出可以运行的执行文件。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#生成 hello.out 的 Mach-O 二进制文件</span></span><br><span class="line">clang hello.c -o hello.out</span><br></pre></td></tr></table></figure>
+<p>关于<a href="https://developer.apple.com/library/archive/documentation/Performance/Conceptual/CodeFootprint/Articles/MachOOverview.html">Mach-O文件格式</a>有兴趣的同学可以通过apple文档来了解。</p>
+<p>这里说 hello.out 是可执行文件，可以通过<code>file</code>来判断:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">file hello.out</span><br><span class="line"><span class="comment">#输出</span></span><br><span class="line">hello.out: Mach-O 64-bit executable x86_64</span><br><span class="line"></span><br><span class="line"><span class="comment">#执行hello.out</span></span><br><span class="line">./hello.out</span><br><span class="line"><span class="comment">#输出 </span></span><br><span class="line">hello world</span><br></pre></td></tr></table></figure>
+
+<h2 id="编译多个文件"><a href="#编译多个文件" class="headerlink" title="编译多个文件"></a>编译多个文件</h2><p>之前上面我们的实验都是使用单个hello.c文件。现在我们通过多个文件情况 了解下汇编器和链接器 ,如下三个文件：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//File1.h:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Foo</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)run;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//File1.m:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;File1.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Foo</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)run</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>, <span class="built_in">NSFullUserName</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//File2.m:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;File1.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> main(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        Foo *foo = [[Foo alloc] init];</span><br><span class="line">        [foo run];</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面有三个文件，需要我们编译多个文件。我们需要让clang对输入每个文件生成对应的目标文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clang  -c Only run preprocess, compile, and assemble steps</span></span><br><span class="line"></span><br><span class="line">clang -c File1.m <span class="comment">#生成 File1.o</span></span><br><span class="line">clang -c File2.m <span class="comment">#生成 File2.o</span></span><br></pre></td></tr></table></figure>
+
+<p>这里我们加了<code>-c</code> 并没有编译头文件，现在我们来完成<code>链接器</code>这一步,将两个 .o 文件与Foundation库链接起来：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#  -Wl,&lt;arg&gt;               Pass the comma separated arguments in &lt;arg&gt; to the linker</span></span><br><span class="line">clang File1.o File2.o -Wl,`xcrun --show-sdk-path`/System/Library/Frameworks/Foundation.framework/Foundation</span><br><span class="line"><span class="comment"># 输出 a.out</span></span><br></pre></td></tr></table></figure>
+
+<p>现在我们可以运行 <code>a.out</code> 了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./a.out </span><br><span class="line">2019-04-16 20:49:35.070 a.out[71207:10299638] sunTongSheng</span><br></pre></td></tr></table></figure>
+
+<h3 id="符号表和链接"><a href="#符号表和链接" class="headerlink" title="符号表和链接"></a>符号表和链接</h3><p>File1 和 File2 都使用了 Foundation framework。 File2.o 目标文件使用了它的 autorelease pool，并间接的使用了 libobjc.dylib 中的 Objective-C 运行时。它需要运行时函数来进行消息的调用。所有的这些关联的东西都被形象的称之为符号。</p>
+<p>每个函数、全局变量和类等都是通过符号的形式来定义和使用的。当我们将目标文件链接为一个可执行文件时，链接器在目标文件和动态库之间对符号做了解析处理。</p>
+<p>可执行文件和目标文件有一个符号表，这个符号表规定了它们的符号。如果我们用 nm 工具观察一下 File2.o 目标文件，可以看到如下内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#nm : llvm symbol table dumper</span></span><br><span class="line">nm -nm File2.o</span><br><span class="line">                 (undefined) external _OBJC_CLASS_<span class="variable">$_Foo</span></span><br><span class="line">                 (undefined) external _objc_alloc</span><br><span class="line">                 (undefined) external _objc_autoreleasePoolPop</span><br><span class="line">                 (undefined) external _objc_autoreleasePoolPush</span><br><span class="line">                 (undefined) external _objc_msgSend</span><br><span class="line">0000000000000000 (__TEXT,__text) external _main</span><br></pre></td></tr></table></figure>
+
+<p>上面就是那个目标文件的所有符号。<em>OBJC_CLASS</em>$_Foo 是 Foo Objective-C 类的符号。该符号是 undefined, external 。External 的意思是指对于这个目标文件该类并不是私有的，相反，non-external 的符号则表示对于目标文件是私有的。我们的 File2.o 目标文件引用了类 Foo，不过这并没有实现它。因此符号表中将其标示为 undefined。接着是 4 个 Objective-C 运行时函数。它们同样是 undefined的，需要链接器进行符号解析。</p>
+<p>接下来是 _main 符号，它是表示 main() 函数，同样为 external，这是因为该函数需要被调用，所以应该为可见的。由于在 helloworld.o 文件中实现了 这个 main 函数。这个函数地址位于 0处，并且需要转入到 __TEXT,__text section。</p>
+<p>接下来看下 <code>File1.o</code>,看看有什么输出：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">nm -nm File1.o</span><br><span class="line">                 (undefined) external _NSFullUserName</span><br><span class="line">                 (undefined) external _NSLog</span><br><span class="line">                 (undefined) external _OBJC_CLASS_<span class="variable">$_NSObject</span></span><br><span class="line">                 (undefined) external _OBJC_METACLASS_<span class="variable">$_NSObject</span></span><br><span class="line">                 (undefined) external ___CFConstantStringClassReference</span><br><span class="line">                 (undefined) external __objc_empty_cache</span><br><span class="line">0000000000000000 (__TEXT,__text) non-external -[Foo run]</span><br><span class="line">0000000000000060 (__DATA,__objc_const) non-external l_OBJC_METACLASS_RO_<span class="variable">$_Foo</span></span><br><span class="line">00000000000000a8 (__DATA,__objc_const) non-external l_OBJC_<span class="variable">$_INSTANCE_METHODS_Foo</span></span><br><span class="line">00000000000000c8 (__DATA,__objc_const) non-external l_OBJC_CLASS_RO_<span class="variable">$_Foo</span></span><br><span class="line">0000000000000110 (__DATA,__objc_data) external _OBJC_METACLASS_<span class="variable">$_Foo</span></span><br><span class="line">0000000000000138 (__DATA,__objc_data) external _OBJC_CLASS_<span class="variable">$_Foo</span></span><br></pre></td></tr></table></figure>
+
+<p>File1.o 同样有 undefined 的符号。首先是使用了符号 <code>NSFullUserName()</code>，<code>NSLog()</code>和 <code>NSObject</code>。接着显示了 <code>_OBJC_CLASS_$_Foo</code> 已经定义了，并且对于 File1.o 是一个外部符号 , <code>File1.o</code> 包含了这个类的实现。</p>
+<p>最后先来同样看下 a.out 的输出：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">nm -nm a.out </span><br><span class="line">                 (undefined) external _NSFullUserName (from Foundation)</span><br><span class="line">                 (undefined) external _NSLog (from Foundation)</span><br><span class="line">                 (undefined) external _OBJC_CLASS_<span class="variable">$_NSObject</span> (from CoreFoundation)</span><br><span class="line">                 (undefined) external _OBJC_METACLASS_<span class="variable">$_NSObject</span> (from CoreFoundation)</span><br><span class="line">                 (undefined) external ___CFConstantStringClassReference (from CoreFoundation)</span><br><span class="line">                 (undefined) external __objc_empty_cache (from libobjc)</span><br><span class="line">                 (undefined) external _objc_alloc (from libobjc)</span><br><span class="line">                 (undefined) external _objc_autoreleasePoolPop (from libobjc)</span><br><span class="line">                 (undefined) external _objc_autoreleasePoolPush (from libobjc)</span><br><span class="line">                 (undefined) external _objc_msgSend (from libobjc)</span><br><span class="line">                 (undefined) external dyld_stub_binder (from libSystem)</span><br><span class="line">0000000100000000 (__TEXT,__text) [referenced dynamically] external __mh_execute_header</span><br><span class="line">0000000100000e90 (__TEXT,__text) non-external -[Foo run]</span><br><span class="line">0000000100000ec0 (__TEXT,__text) external _main</span><br><span class="line">0000000100001138 (__DATA,__objc_data) external _OBJC_METACLASS_<span class="variable">$_Foo</span></span><br><span class="line">0000000100001160 (__DATA,__objc_data) external _OBJC_CLASS_<span class="variable">$_Foo</span></span><br></pre></td></tr></table></figure>
+
+<p>通过<code>a.out</code>的符号表，我们可以观察链接器是如何解析所有符号表的。当我们将这两个目标文件和 Foundation framework (是一个动态库) 进行链接处理时，链接器会尝试解析所有的 undefined 符号。它可以解析 <em>OBJC_CLASS</em>$_Foo。另外，它将使用 Foundation framework。当链接器通过动态库 (此处是 Foundation framework) 解析成功一个符号时，它会在最终的链接图中记录这个符号是通过动态库进行解析的。链接器会记录输出文件是依赖于哪个动态链接库，并连同其路径一起进行记录。在我们的例子中，_NSFullUserName，_NSLog，<em>OBJC_CLASS</em>$_NSObject，_objc_autoreleasePoolPop 等符号都是遵循这个过程。</p>
+<p>虽然所有的 Foundation 和 Objective-C 运行时符号依旧是 undefined，不过现在的符号表中已经多了如何解析它们的信息，例如在哪个动态库中可以找到对应的符号。</p>
+<p>可执行文件同样知道去哪里找到所需库：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">otool -L a.out </span><br><span class="line">a.out:</span><br><span class="line">	/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation (compatibility version 300.0.0, current version 1560.12.0)</span><br><span class="line">	/usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1252.50.4)</span><br><span class="line">	/System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation (compatibility version 150.0.0, current version 1454.90.0)</span><br><span class="line">	/usr/lib/libobjc.A.dylib (compatibility version 1.0.0, current version 228.0.0)</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态链接器"><a href="#动态链接器" class="headerlink" title="动态链接器"></a>动态链接器</h3><p>在运行时，动态链接器dyld可以解析这些 <code>undefined</code> 符号，dyld将会确定好 <code>_NSFullUserName</code> 等符号，并指向它们在 <code>Foundation</code> 中的实现等。<br>上面提到文件符号表指向了需要的库，添加<code>DYLD_PRINT_LIBRARIES</code>环境变量可以打印出什么库被加载了：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="built_in">export</span> DYLD_PRINT_LIBRARIES=; ./a.out )</span><br><span class="line">dyld: loaded: /Users/suntongsheng/Desktop/tmp/asdasd/Test/./a.out</span><br><span class="line">dyld: loaded: /System/Library/Frameworks/Foundation.framework/Versions/C/Foundation</span><br><span class="line">dyld: loaded: /usr/lib/libSystem.B.dylib</span><br><span class="line">dyld: loaded: /System/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>比如可以针对 Foundation 运行 <code>nm</code>，并检查这些符号的定义情况：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nm -nm /System/Library/Frameworks/Foundation.framework/Foundation | grep NSFullUserName</span><br><span class="line">00000000000bb1be (__TEXT,__text) external _NSFullUserName</span><br></pre></td></tr></table></figure>
+
+<p>上面将会显示出在加载 Foundation 时，同时会加载的 70 个动态库。这是由于 Foundation 依赖于另外一些动态库。运行下面的命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun otool -L /System/Library/Frameworks/Foundation.framework/Foundation</span><br></pre></td></tr></table></figure>
+<p>可以看到 Foundation 关联的库。</p>
+<p><em><strong>动态链接器dyld 的共享缓存</strong></em></p>
+<p>当你构建一个真正的程序时，将会链接各种各样的库。它们又会依赖其他一些 framework 和 动态库。需要加载的动态库会非常多。而对于相互依赖的符号就更多了。可能将会有上千个符号需要解析处理，这将花费很长的时间：一般是好几秒钟。</p>
+<p>为了缩短这个处理过程所花费时间，在 OS X 和 iOS 上的动态链接器使用了共享缓存，共享缓存存于 &#x2F;var&#x2F;db&#x2F;dyld&#x2F;。对于每一种架构，操作系统都有一个单独的文件，文件中包含了绝大多数的动态库，这些库都已经链接为一个文件，并且已经处理好了它们之间的符号关系。当加载一个 Mach-O 文件 (一个可执行文件或者一个库) 时，动态链接器首先会检查 共享缓存 看看是否存在其中，如果存在，那么就直接从共享缓存中拿出来使用。每一个进程都把这个共享缓存映射到了自己的地址空间中。这个方法大大优化了 OS X 和 iOS 上程序的启动时间。</p>
+<h2 id="最后总结一下就是以下编译过程："><a href="#最后总结一下就是以下编译过程：" class="headerlink" title="最后总结一下就是以下编译过程："></a>最后总结一下就是以下编译过程：</h2><p><img src="/res/LLVM/llvm1.png"></p>
+<h2 id="Xcode-编译"><a href="#Xcode-编译" class="headerlink" title="Xcode 编译"></a>Xcode 编译</h2><p>以上说的是Clang如何编译C语言文件的过程，那么在Xcode里会经过哪些过程呢？</p>
+<p>我们可以简单新建一个单页面工程，Build后在Report Navigation视图中查看详细日志：</p>
+<p><img src="/res/LLVM/xcode.png"></p>
+<p>详细的步骤如下：</p>
+<ol>
+<li>创建文件夹</li>
+<li>把Entitlements.plist写入到DerivedData里，处理打包的时候需要的信息（比如application-identifier）。</li>
+<li>创建一些辅助文件，比如各种.hmap (headermap是帮助编译器找到头文件的辅助文件：存储这头文件到其物理路径的映射关系)</li>
+<li>编译.m文件，生成.o文件。</li>
+<li>链接动态库，o文件，生成一个mach o格式的可执行文件。</li>
+<li>编译assets，编译storyboard，链接storyboard</li>
+<li>对App签名</li>
+<li>生成 .app</li>
+</ol>
+<p>在 build 处理过程中，每个任务都会出现类似上面的这些 log 信息，我们就通过上面的 log 信息进一步了解详情。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/LLVM/" rel="tag"># LLVM</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/LLDB/LLDB_tutorial/" rel="prev" title="LLDB教程-命令篇">
+                  <i class="fa fa-angle-left"></i> LLDB教程-命令篇
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/LLDB/Mach-O_file/" rel="next" title="Mach-O文件格式字段简介">
+                  Mach-O文件格式字段简介 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

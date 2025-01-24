@@ -1,25 +1,410 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍下 wwdc 2018 Image and Graphics Best Practices 中图片处理解压相关知识点ref: Image and Graphics Best Practices  图片处理过程一张图片从磁盘中显示到屏幕上过程大致如下：从磁盘加载原始压缩的图片信息、解码二进制图片数据为位图、渲染图片最终绘制到屏幕上。    在实际的渲染过程中，UIImage负责解压Data B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS图片-最佳实践">
+<meta property="og:url" content="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="介绍下 wwdc 2018 Image and Graphics Best Practices 中图片处理解压相关知识点ref: Image and Graphics Best Practices  图片处理过程一张图片从磁盘中显示到屏幕上过程大致如下：从磁盘加载原始压缩的图片信息、解码二进制图片数据为位图、渲染图片最终绘制到屏幕上。    在实际的渲染过程中，UIImage负责解压Data B">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/imgBestP/imgBestP1.png">
+<meta property="og:image" content="https://developerdoc.com/res/imgBestP/imgBestP2.png">
+<meta property="og:image" content="https://developerdoc.com/res/imgBestP/imgBestP3.png">
+<meta property="og:image" content="https://developerdoc.com/res/imgBestP/imgBestP3.png">
+<meta property="og:image" content="https://developerdoc.com/res/imgBestP/imgBestP5.png">
+<meta property="og:image" content="https://developerdoc.com/res/imgBestP/imgBestP6.png">
+<meta property="og:image" content="https://developerdoc.com/res/imgBestP/imgBestP7.png">
+<meta property="article:published_time" content="2019-12-09T08:00:37.000Z">
+<meta property="article:modified_time" content="2020-01-15T09:30:19.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="图片">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/imgBestP/imgBestP1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/","path":"quick-start/图片/iOS图片-最佳实践/","title":"iOS图片-最佳实践"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS图片-最佳实践 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">图片处理过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Data-Buffer-Image-Buffer-Frame-Buffer"><span class="nav-number">1.1.</span> <span class="nav-text">Data Buffer &#x2F; Image Buffer &#x2F; Frame Buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Data-Buffer"><span class="nav-number">1.1.1.</span> <span class="nav-text">Data Buffer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Image-Buffer"><span class="nav-number">1.1.2.</span> <span class="nav-text">Image Buffer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Frame-Buffer"><span class="nav-number">1.1.3.</span> <span class="nav-text">Frame Buffer</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD%E5%92%8C%E8%A7%A3%E5%8E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">加载和解压</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#imageNamed-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">imageNamed: 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#imageWithData-%E6%96%B9%E6%B3%95"><span class="nav-number">1.2.2.</span> <span class="nav-text">imageWithData: 方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E8%83%BD%E9%81%BF%E5%85%8D%E7%BC%93%E5%AD%98%E5%91%A2%EF%BC%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">怎么能避免缓存呢？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.</span> <span class="nav-text">最佳实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E5%9B%BE%E4%BD%BF%E7%94%A8%E7%BC%A9%E7%95%A5%E5%9B%BE"><span class="nav-number">2.1.</span> <span class="nav-text">大图使用缩略图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%A7%E5%9B%BE%E4%BD%BF%E7%94%A8CATiledLayer"><span class="nav-number">2.2.</span> <span class="nav-text">大图使用CATiledLayer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E8%A7%A3%E5%8E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">异步加载解压</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8draw%E6%96%B9%E6%B3%95"><span class="nav-number">2.4.</span> <span class="nav-text">合理使用draw方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8Image-Assets"><span class="nav-number">2.5.</span> <span class="nav-text">推荐使用Image Assets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Advanced-Image-Effects"><span class="nav-number">2.6.</span> <span class="nav-text">Advanced Image Effects</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Drawing-Off-Screen"><span class="nav-number">2.7.</span> <span class="nav-text">Drawing Off-Screen</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS图片-最佳实践 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS图片-最佳实践
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-09 16:00:37" itemprop="dateCreated datePublished" datetime="2019-12-09T16:00:37+08:00">2019-12-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-01-15 17:30:19" itemprop="dateModified" datetime="2020-01-15T17:30:19+08:00">2020-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>介绍下 wwdc 2018 Image and Graphics Best Practices 中图片处理解压相关知识点<br>ref: <a href="https://developer.apple.com/videos/play/wwdc2018/219">Image and Graphics Best Practices</a></p>
+</blockquote>
+<h2 id="图片处理过程"><a href="#图片处理过程" class="headerlink" title="图片处理过程"></a>图片处理过程</h2><p>一张图片从磁盘中显示到屏幕上过程大致如下：从磁盘加载原始压缩的图片信息、解码二进制图片数据为位图、渲染图片最终绘制到屏幕上。</p>
+<!-- ![](/res/imgBestP/imgBestP1.png) -->
+<img src="/res/imgBestP/imgBestP1.png" width="80%"/>
+
+<p>在实际的渲染过程中，UIImage负责解压Data Buffer内容并申请buffer（Image Buffer）存储解压后的图片信息，然后UIImageView负责将Image Buffer 拷贝至 framebuffer，用于给显示硬件提供颜色信息。</p>
+<p>解压过程是一个大量占用CPU资源的工作，因此UIImage 会retain存储解压后信息的Image Buffer以便给重复的渲染工作提供信息，Image Buffer与图片的实际尺寸有关（理论值为height * width * 4 bytes），与图片文件大小无关。若是在TableView等列表中连续加载多张图片，便会引发连续的大块内存分配，这将对Memory和CPU带来沉重的负担。</p>
+<span id="more"></span>
+
+<h3 id="Data-Buffer-Image-Buffer-Frame-Buffer"><a href="#Data-Buffer-Image-Buffer-Frame-Buffer" class="headerlink" title="Data Buffer &#x2F; Image Buffer &#x2F; Frame Buffer"></a>Data Buffer &#x2F; Image Buffer &#x2F; Frame Buffer</h3><p>图片处理过程中会产生三种buffer</p>
+<h4 id="Data-Buffer"><a href="#Data-Buffer" class="headerlink" title="Data Buffer"></a>Data Buffer</h4><!-- ![](/res/imgBestP/imgBestP2.png) -->
+<img src="/res/imgBestP/imgBestP2.png" width="80%"/>
+Data Buffer存储了图片的元数据，我们常见的图片格式，jpeg，png等都是压缩图片格式。Data Buffer的内存大小就是源图片在磁盘中的大小。
+
+<h4 id="Image-Buffer"><a href="#Image-Buffer" class="headerlink" title="Image Buffer"></a>Image Buffer</h4><!-- ![](/res/imgBestP/imgBestP3.png) -->
+<img src="/res/imgBestP/imgBestP3.png" width="80%"/>
+Image Buffer存储的就是图片解码后的像素数据，也就是我们常说的位图。 Buffer中每一个元素描述的一个像素的颜色信息，buffer的size和图片的size成正相关关系。
+
+<h4 id="Frame-Buffer"><a href="#Frame-Buffer" class="headerlink" title="Frame Buffer"></a>Frame Buffer</h4><!-- ![](/res/imgBestP/imgBestP4.png) -->
+<img src="/res/imgBestP/imgBestP3.png" width="80%"/>
+
+<p>Frame Buffer 存储了app每帧的实际输出。在应用程序更新图层时，UIKit将window及其subviews渲染至framebuffer，这个framebuffer提供每个像素的信息以供显示硬件定时读取，读取的频率一般为60Hz，但在ipad上可提升至120Hz。</p>
+<h3 id="加载和解压"><a href="#加载和解压" class="headerlink" title="加载和解压"></a>加载和解压</h3><p><img src="/res/imgBestP/imgBestP5.png"></p>
+<p>一般使用imageNamed:或者imageWithData:从内存中加载图片生成UIImage的实例，此刻图片并不会解压，当 RunLoop 准备处理图片显示的事务（CATransaction）时，才进行解压，而这个解压过程是在主线程中的，这是导致卡顿的重要因素。</p>
+<p>解码后的图片内存占用会比原图大小大很多。ImageBuffer按照每个像素RGBA四个字节大小，一张1080p的图片解码后的位图大小是1920 * 1080 * 4 &#x2F; 1024 &#x2F; 1024，约7.9mb，而原图假设是jpg，压缩比1比20，大约350kb，可见解码后的内存占用是相当大的</p>
+<h4 id="imageNamed-方法"><a href="#imageNamed-方法" class="headerlink" title="imageNamed: 方法"></a>imageNamed: 方法</h4><p>通过 imageNamed 创建 UIImage 时，系统实际上只是在 Bundle 内查找到文件名，然后把这个文件名放到 UIImage 里返回，并没有进行实际的文件读取和解码。当 UIImage 第一次显示到屏幕上时，其内部的解码方法才会被调用，同时解码结果会保存到一个全局缓存去。</p>
+<p>值得注意的是，这些缓存都是全局的，并不会因为当前UIImage实例的释放而清除，在收到内存警告或者 APP 第一次进入后台才有可能会清除，而这个清除的时机和内容是系统决定的，我们无法干涉。</p>
+<h4 id="imageWithData-方法"><a href="#imageWithData-方法" class="headerlink" title="imageWithData: 方法"></a>imageWithData: 方法</h4><p>通过数据创建 UIImage 时，UIImage 底层是调用 ImageIO 的 CGImageSourceCreateWithData() 方法。该方法有个参数叫 ShouldCache，在 64 位的设备上，这个参数是默认开启的。这个图片也是同样在第一次显示到屏幕时才会被解码，随后解码数据被缓存到 CGImage 内部。与 imageNamed 创建的图片不同，如果这个图片被释放掉，其内部的解码数据也会被立刻释放。</p>
+<p><strong>两种加载方式的区别</strong> 从上面的分析可知，imageNamed:使用时会产生全局的内存占用，但是第二次使用同一张图片时性能很好；imageWithData:不会有全局的内存占用，但对于同一张图片每次加载和解压都会“从头开始”。由此可见，imageNamed:适合“小”且“使用频繁”的图片，imageWithData:适合“大”且“低频使用”的图片。</p>
+<h4 id="怎么能避免缓存呢？"><a href="#怎么能避免缓存呢？" class="headerlink" title="怎么能避免缓存呢？"></a>怎么能避免缓存呢？</h4><ol>
+<li>手动调用 CGImageSourceCreateWithData() 来创建图片，并把 ShouldCache 和 ShouldCacheImmediately 关掉。这么做会导致每次图片显示到屏幕时，解码方法都会被调用，造成很大的 CPU 占用。</li>
+<li>把图片用 CGContextDrawImage() 绘制到画布上，然后把画布的数据取出来当作图片。这也是常见的网络图片库的做法。</li>
+</ol>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><h3 id="大图使用缩略图"><a href="#大图使用缩略图" class="headerlink" title="大图使用缩略图"></a>大图使用缩略图</h3><p>值得注意的是，可能业务中需要载入一张很大的图片。这时，若还使用常规的方式加载会占用过多的内存；况且，若图片的像素过大（目前主流 iOS 设备最高支持 4096 x 4096 纹理尺寸），在显示的时候 CPU 和 GPU 都会消耗额外的资源来处理图片。可以采用imageIO api来生成缩略图</p>
+<p><img src="/res/imgBestP/imgBestP6.png"></p>
+<p>具体代码如下，指定显示区域大小</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">func downsample(imageAt imageURL:URL,to pointSize:<span class="built_in">CGSize</span>,scale:<span class="built_in">CGFloat</span>)-&gt;<span class="built_in">UIImage</span>&#123;</span><br><span class="line"><span class="comment">//设置kCGImageSourceShouldCache为false，避免缓存解码后的数据，64位设置上默认是开启缓存的</span></span><br><span class="line">    let imageSourceOptions = [kCGImageSourceShouldCache:<span class="literal">false</span>] as <span class="built_in">CFDictionary</span></span><br><span class="line">    let imageSouce = <span class="built_in">CGImageSourceCreateWithURL</span>(imageURL as <span class="built_in">CFURL</span>, imageSourceOptions)!</span><br><span class="line">    </span><br><span class="line">    let maxDimensionInPixels = max(pointSize.width,pointSize.height) * scale</span><br><span class="line"><span class="comment">//设置kCGImageSourceShouldCacheImmediately为true，避免在需要渲染的时候才做解码，默认选项是false    </span></span><br><span class="line">    let downsampleOptions =</span><br><span class="line">     [</span><br><span class="line">        kCGImageSourceCreateThumbnailFromImageAlways:<span class="literal">true</span>,</span><br><span class="line">        kCGImageSourceShouldCacheImmediately:<span class="literal">true</span>,</span><br><span class="line">        kCGImageSourceCreateThumbnailWithTransform:<span class="literal">true</span>,</span><br><span class="line">        kCGImageSourceThumbnailMaxPixelSize:maxDimensionInPixels</span><br><span class="line">     ] as <span class="built_in">CFDictionary</span></span><br><span class="line">    </span><br><span class="line">    let downsampledImage = <span class="built_in">CGImageSourceCreateThumbnailAtIndex</span>(imageSouce, <span class="number">0</span>, downsampleOptions)!</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIImage</span>(cgImage: downsampledImage)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其他缩略方法可以看<a href="../iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95">iOS图片-图片缩略方法</a></p>
+<h3 id="大图使用CATiledLayer"><a href="#大图使用CATiledLayer" class="headerlink" title="大图使用CATiledLayer"></a>大图使用CATiledLayer</h3><p>有些时候你可能需要绘制一个很大的图片，常见的例子就是一个高像素的照片或者是地球表面的详细地图。iOS应用通畅运行在内存受限的设备上，所以读取整个图片到内存中是不明智的。载入大图可能会相当地慢，那些对你看上去比较方便的做法（在主线程调用UIImage的-imageNamed:方法或者-imageWithContentsOfFile:方法）将会阻塞你的用户界面，至少会引起动画卡顿现象。</p>
+<p>能高效绘制在iOS上的图片也有一个大小限制。所有显示在屏幕上的图片最终都会被转化为OpenGL纹理，同时OpenGL有一个最大的纹理尺寸（通常是20482048，或40964096，这个取决于设备型号）。如果你想在单个纹理中显示一个比这大的图，即便图片已经存在于内存中了，你仍然会遇到很大的性能问题，因为Core Animation强制用CPU处理图片而不是更快的GPU（见第12章『速度的曲调』，和第13章『高效绘图』，它更加详细地解释了软件绘制和硬件绘制）。</p>
+<p>CATiledLayer为载入大图造成的性能问题提供了一个解决方案：将大图分解成小片然后将他们单独按需载入。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;ViewController.h&quot;</span></span></span><br><span class="line"><span class="meta">#import </span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIScrollView</span> *scrollView;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="variable language_">super</span> viewDidLoad];</span><br><span class="line">    <span class="comment">//add the tiled layer</span></span><br><span class="line">    <span class="built_in">CATiledLayer</span> *tileLayer = [<span class="built_in">CATiledLayer</span> layer];￼</span><br><span class="line">    tileLayer.frame = <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">2048</span>, <span class="number">2048</span>);</span><br><span class="line">    tileLayer.delegate = <span class="keyword">self</span>; [<span class="keyword">self</span>.scrollView.layer addSublayer:tileLayer];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//configure the scroll view</span></span><br><span class="line">    <span class="keyword">self</span>.scrollView.contentSize = tileLayer.frame.size;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//draw layer</span></span><br><span class="line">    [tileLayer setNeedsDisplay];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)drawLayer:(<span class="built_in">CATiledLayer</span> *)layer inContext:(<span class="built_in">CGContextRef</span>)ctx</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//determine tile coordinate</span></span><br><span class="line">    <span class="built_in">CGRect</span> bounds = <span class="built_in">CGContextGetClipBoundingBox</span>(ctx);</span><br><span class="line">    <span class="built_in">NSInteger</span> x = floor(bounds.origin.x / layer.tileSize.width);</span><br><span class="line">    <span class="built_in">NSInteger</span> y = floor(bounds.origin.y / layer.tileSize.height);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//load tile image</span></span><br><span class="line">    <span class="built_in">NSString</span> *imageName = [<span class="built_in">NSString</span> stringWithFormat: <span class="string">@&quot;Snowman_%02i_%02i&quot;</span>, x, y];</span><br><span class="line">    <span class="built_in">NSString</span> *imagePath = [[<span class="built_in">NSBundle</span> mainBundle] pathForResource:imageName ofType:<span class="string">@&quot;jpg&quot;</span>];</span><br><span class="line">    <span class="built_in">UIImage</span> *tileImage = [<span class="built_in">UIImage</span> imageWithContentsOfFile:imagePath];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//draw tile</span></span><br><span class="line">    <span class="built_in">UIGraphicsPushContext</span>(ctx);</span><br><span class="line">    [tileImage drawInRect:bounds];</span><br><span class="line">    <span class="built_in">UIGraphicsPopContext</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="异步加载解压"><a href="#异步加载解压" class="headerlink" title="异步加载解压"></a>异步加载解压</h3><p>对于加载过程，若文件过大或加载频繁影响了帧率（比如列表展示大图），可以使用异步方式加载图片，减少主线程的压力,解压是耗时的，而系统默认是在主线程执行，所以业界通常有一种做法是，异步强制解压，也就是在异步线程主动将二进制图片数据解压成位图数据，使用CGBitmapContextCreate(…)系列方法就能实现。代码大致如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let serialQueue = DispatchQueue(label: &quot;Decode queue&quot;)</span><br><span class="line">func collectionView(_ collectionView:UICollectionView,prefetcgItemAt indexPaths:[IndexPath])&#123;</span><br><span class="line">    //异步解压 生成缩略图</span><br><span class="line">    for indexPath in indexPaths&#123;</span><br><span class="line">        serialQueue.async &#123;</span><br><span class="line">            let downsampledImage = downsample(images[IndexPath])</span><br><span class="line">            DispatchQueue.main.async &#123;self.update(at:IndexPath.with:downsampledImage)&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="合理使用draw方法"><a href="#合理使用draw方法" class="headerlink" title="合理使用draw方法"></a>合理使用<code>draw</code>方法</h3><p>重载<code>draw</code>方法会导致内存爆涨。原因如下：</p>
+<p><img src="/res/imgBestP/imgBestP7.png"></p>
+<p>一旦你实现了<em>CALayerDelegate</em>协议中的<code>-drawLayer:inContext:</code>方法或者UIView中的<code>-drawRect:</code>方法（其实就是前者的包装方法），CALayer创建了一个合适尺寸的空寄宿图（尺寸由bounds和contentsScale决定）和一个Core Graphics的绘制上下文环境(Backing Store)，为绘制寄宿图做准备，它作为ctx参数传入。图层就创建了一个绘制上下文(Backing Store)，这个上下文需要的内存可从这个公式得出：图层宽 * 图层高* 4 字节，宽高的单位均为像素。以iphone6为例，750 * 1134 * 4 字节 ≈ 3.4 Mb 。</p>
+<p>总结下这种使用drawRect绘制方案的问题</p>
+<ol>
+<li>Backing Store的创建造成了不必要的内存开销</li>
+<li>UIImage先绘制到Backing Store，再渲染到frameBuffer，中间多了一层内存拷贝</li>
+<li>背景颜色不需要绘制到Backing Store，直接使用BackGroundColor绘制到FrameBuffer</li>
+</ol>
+<p>所以，正确的实现姿势是将这个大的view拆分成小的subview逐个实现。</p>
+<h3 id="推荐使用Image-Assets"><a href="#推荐使用Image-Assets" class="headerlink" title="推荐使用Image Assets"></a>推荐使用Image Assets</h3><p>基于名称和特效优化了查找效率，更快的查找图片<br>运行时，对内存的管理也有优化<br>App Slicing，app安装包瘦身。iOS 9 后会从 Image Assets 中保留设备支持的图片 （2x 或者 3x）<br>iOS 11 后的 Preserve Vector Data。支持矢量图的功能，放大也不会失真</p>
+<h3 id="Advanced-Image-Effects"><a href="#Advanced-Image-Effects" class="headerlink" title="Advanced Image Effects"></a>Advanced Image Effects</h3><p>对于图片的实时处理推荐使用CoreImage框架。<br>例如将一张图片的灰度值进行调整这样的操作，有滴小伙伴可能使用CoreGraphics获取图像的每个像素点数据，然后改变灰度值，最终生成目标图标，这种做法将大量gpu擅长的工作放在了cpu上处理，合理的做法是: 使用CoreImage的滤镜filter或者metal，OpenGL的shader，让图像处理的工作交给GPU去做。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">let sharedContext = <span class="built_in">CIContext</span>(options: [.useSoftwareRenderer : <span class="literal">false</span>])</span><br><span class="line">func coreImage_resize(oriImg:<span class="built_in">UIImage</span>,size:<span class="built_in">CGSize</span>) -&gt; <span class="built_in">UIImage</span>? &#123;</span><br><span class="line">    </span><br><span class="line">    guard  let cgImage = oriImg.cgImage <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">nil</span> &#125;</span><br><span class="line">    let scale = (Double)(size.width) / (Double)(oriImg.size.width)</span><br><span class="line">    let image = <span class="built_in">CIImage</span>(cgImage: cgImage)</span><br><span class="line">    </span><br><span class="line">    let filter = <span class="built_in">CIFilter</span>(name: <span class="string">&quot;CILanczosScaleTransform&quot;</span>)</span><br><span class="line">    filter?.setValue(image, forKey: kCIInputImageKey)</span><br><span class="line">    filter?.setValue(<span class="built_in">NSNumber</span>(value:scale), forKey: kCIInputScaleKey)</span><br><span class="line">    filter?.setValue(<span class="number">1.0</span>, forKey:kCIInputAspectRatioKey)</span><br><span class="line">    </span><br><span class="line">    guard let outputCIImage = filter?.outputImage,</span><br><span class="line">        let outputCGImage = sharedContext.createCGImage(outputCIImage,</span><br><span class="line">                                                        from: outputCIImage.extent)</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIImage</span>(cgImage: outputCGImage)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Drawing-Off-Screen"><a href="#Drawing-Off-Screen" class="headerlink" title="Drawing Off-Screen"></a>Drawing Off-Screen</h3><p>对于需要离屏渲染的场景推荐使用UIGraphicsImageRenderer替代UIGraphicsBeginImageContext，性能更好，并且支持广色域。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">func uikit_resize(oriImg:<span class="built_in">UIImage</span>?,size:<span class="built_in">CGSize</span>) -&gt; <span class="built_in">UIImage</span>?&#123;</span><br><span class="line">    let hasAlpha = <span class="literal">false</span></span><br><span class="line">    let scale: <span class="built_in">CGFloat</span> = <span class="number">0.0</span> <span class="comment">// Automatically use scale factor of main screen</span></span><br><span class="line"> </span><br><span class="line">    <span class="built_in">UIGraphicsBeginImageContextWithOptions</span>(size, !hasAlpha, scale)</span><br><span class="line">    oriImg!.draw(<span class="keyword">in</span>: <span class="built_in">CGRect</span>(origin: .zero, size: size))</span><br><span class="line">    </span><br><span class="line">    let resizedImage = <span class="built_in">UIGraphicsGetImageFromCurrentImageContext</span>()</span><br><span class="line">    <span class="built_in">UIGraphicsEndImageContext</span>()</span><br><span class="line">    <span class="keyword">return</span> resizedImage!</span><br><span class="line"></span><br><span class="line">    <span class="comment">//in iOS 10 UIGraphicsImageRenderer</span></span><br><span class="line"><span class="comment">//    let render  = UIGraphicsImageRenderer(size: size)</span></span><br><span class="line"><span class="comment">//    return render.image(actions: &#123; (context) in</span></span><br><span class="line"><span class="comment">//        oriImg?.draw(in: CGRect(origin: .zero, size: size))</span></span><br><span class="line"><span class="comment">//    &#125;)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/%E5%9B%BE%E7%89%87/" rel="tag"># 图片</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/" rel="prev" title="iOS图片-ImageIO介绍">
+                  <i class="fa fa-angle-left"></i> iOS图片-ImageIO介绍
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/" rel="next" title="iOS图片-位图信息与图片解码">
+                  iOS图片-位图信息与图片解码 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

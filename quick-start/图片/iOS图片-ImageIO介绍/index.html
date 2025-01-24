@@ -1,25 +1,407 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍下iOS中ImageIO的概览与应用Image I&#x2F;O Programming Guide  介绍 ImageIO框架提供了读取与写入图片数据的基本方法，使用它可以直接获取到图片文件的内容数据，ImageIO具有很多特性 Mac平台上最快的图像解码器和编码器 逐步加载图像的能力&#96;&#96;支持图像元数据 有效缓存 ImageIO框架中包含6个头文件:  ImageIO.CGImageAni">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS图片-ImageIO介绍">
+<meta property="og:url" content="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="介绍下iOS中ImageIO的概览与应用Image I&#x2F;O Programming Guide  介绍 ImageIO框架提供了读取与写入图片数据的基本方法，使用它可以直接获取到图片文件的内容数据，ImageIO具有很多特性 Mac平台上最快的图像解码器和编码器 逐步加载图像的能力&#96;&#96;支持图像元数据 有效缓存 ImageIO框架中包含6个头文件:  ImageIO.CGImageAni">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-12-06T07:40:01.000Z">
+<meta property="article:modified_time" content="2020-01-15T09:30:23.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="图片">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/","path":"quick-start/图片/iOS图片-ImageIO介绍/","title":"iOS图片-ImageIO介绍"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS图片-ImageIO介绍 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">获取支持的图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8-%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87-%E7%BC%A9%E7%95%A5%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">基本使用|获取图片 缩略图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%BC%A9%E7%95%A5%E5%9B%BE"><span class="nav-number">3.1.</span> <span class="nav-text">获取缩略图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B8%90%E8%BF%9B%E6%B8%B2%E6%9F%93%E5%A4%A7%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">渐进渲染大图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">5.</span> <span class="nav-text">读取图像格式元数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%98%BE%E7%A4%BAGIF"><span class="nav-number">6.</span> <span class="nav-text">显示GIF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8A%A8%E7%94%BB%E5%9B%BE%E7%89%87"><span class="nav-number">7.</span> <span class="nav-text">创建动画图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E7%BC%96%E7%A0%81-CGImageDestination"><span class="nav-number">8.</span> <span class="nav-text">图片编码 | CGImageDestination</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BACGImageDestination"><span class="nav-number">8.1.</span> <span class="nav-text">1. 创建CGImageDestination</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%B7%BB%E5%8A%A0%E5%9B%BE%E5%83%8F%E6%A0%BC%E5%BC%8F%E5%85%83%E6%95%B0%E6%8D%AE%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89%E5%92%8CCGImage"><span class="nav-number">8.2.</span> <span class="nav-text">2. 添加图像格式元数据（可选）和CGImage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BC%96%E7%A0%81%E5%BE%97%E5%88%B0NSData%EF%BC%8C%E6%B8%85%E7%90%86"><span class="nav-number">8.3.</span> <span class="nav-text">3. 编码得到NSData，清理</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS图片-ImageIO介绍 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS图片-ImageIO介绍
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-12-06 15:40:01" itemprop="dateCreated datePublished" datetime="2019-12-06T15:40:01+08:00">2019-12-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-01-15 17:30:23" itemprop="dateModified" datetime="2020-01-15T17:30:23+08:00">2020-01-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>介绍下iOS中ImageIO的概览与应用<br><a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/ImageIOGuide/imageio_intro/ikpg_intro.html#//apple_ref/doc/uid/TP40005462-CH201-TPXREF101">Image I&#x2F;O Programming Guide</a></p>
+</blockquote>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p> ImageIO框架提供了读取与写入图片数据的基本方法，使用它可以直接获取到图片文件的内容数据，ImageIO具有很多特性 <code>Mac平台上最快的图像解码器和编码器</code> <code>逐步加载图像的能力``支持图像元数据</code> <code>有效缓存</code> ImageIO框架中包含6个头文件:</p>
+<ol>
+<li>ImageIO.CGImageAnimation</li>
+<li>ImageIO.CGImageDestination 负责写入图片数据。</li>
+<li>ImageIO.CGImageMetadata 图片文件元数据类</li>
+<li>ImageIO.CGImageProperties 定义了框架中使用的字符串常量和宏。</li>
+<li>ImageIO.CGImageSource 负责读取图片数据。</li>
+<li>ImageIO.ImageIOBase 预处理逻辑</li>
+</ol>
+ <span id="more"></span>
+
+<h2 id="获取支持的图片格式"><a href="#获取支持的图片格式" class="headerlink" title="获取支持的图片格式"></a>获取支持的图片格式</h2><p>ImageIO 框架了解大多数常见的图像文件格式，例如JPEG，JPEG2000，RAW，TIFF，BMP和PNG。并非每个平台都支持所有格式<br>通过 CGImageSourceCopyTypeIdentifiers 和 CGImageDestinationCopyTypeIdentifiers 可以看到支持的图片格式。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回Image IO 支持的统一类型标识符（UTI）数组作为图像源。</span></span><br><span class="line">let mySourceTypes = <span class="built_in">CGImageSourceCopyTypeIdentifiers</span>()</span><br><span class="line"><span class="comment">//返回Image IO 支持的统一类型标识符（UTI）的数组作为图像目标。</span></span><br><span class="line">let myDestTypes = <span class="built_in">CGImageDestinationCopyTypeIdentifiers</span>()</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本使用-获取图片-缩略图"><a href="#基本使用-获取图片-缩略图" class="headerlink" title="基本使用|获取图片 缩略图"></a>基本使用|获取图片 缩略图</h2><p>在平时开发中，我们通常使用UIImage来读取图片，UIImage支持的图片包括png与jpg等，但是类似ico图标，UIImage默认是无法显示的，<br>可以通过ImageIO框架来在iOS系统中使用ico图标，示例如下</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">func getImage() -&gt; <span class="built_in">UIImage</span>? &#123;</span><br><span class="line">    guard let url = Bundle.main.url(forResource: <span class="string">&quot;image.ico&quot;</span>, withExtension: <span class="literal">nil</span>) <span class="keyword">else</span>&#123;<span class="keyword">return</span> <span class="literal">nil</span>&#125;</span><br><span class="line">    <span class="comment">//从URL创建图像源。</span></span><br><span class="line">    guard let imageSource = <span class="built_in">CGImageSourceCreateWithURL</span>(url as <span class="built_in">NSURL</span>, <span class="literal">nil</span>) <span class="keyword">else</span>&#123;<span class="keyword">return</span> <span class="literal">nil</span>&#125;</span><br><span class="line">    <span class="comment">//获取图片</span></span><br><span class="line">    guard let cgImage = <span class="built_in">CGImageSourceCreateImageAtIndex</span>(imageSource, <span class="number">0</span>, <span class="literal">nil</span>) <span class="keyword">else</span>&#123; <span class="keyword">return</span> <span class="literal">nil</span>&#125;</span><br><span class="line">    <span class="comment">//获取缩略图</span></span><br><span class="line">    let thumb = <span class="built_in">CGImageSourceCreateThumbnailAtIndex</span>(imageSource, <span class="number">0</span>, <span class="literal">nil</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIImage</span>(cgImage: cgImage)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="获取缩略图"><a href="#获取缩略图" class="headerlink" title="获取缩略图"></a>获取缩略图</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">func downsample(imageAt imageURL:URL,to pointSize:<span class="built_in">CGSize</span>,scale:<span class="built_in">CGFloat</span>)-&gt;<span class="built_in">UIImage</span>&#123;</span><br><span class="line">    let imageSourceOptions = [kCGImageSourceShouldCache:<span class="literal">false</span>] as <span class="built_in">CFDictionary</span></span><br><span class="line">    let imageSouce = <span class="built_in">CGImageSourceCreateWithURL</span>(imageURL as <span class="built_in">CFURL</span>, imageSourceOptions)!</span><br><span class="line">    </span><br><span class="line">    let maxDimensionInPixels = max(pointSize.width,pointSize.height) * scale</span><br><span class="line">    let downsampleOptions =</span><br><span class="line">     [</span><br><span class="line">        kCGImageSourceCreateThumbnailFromImageAlways:<span class="literal">true</span>,</span><br><span class="line">        kCGImageSourceShouldCacheImmediately:<span class="literal">true</span>,</span><br><span class="line">        kCGImageSourceCreateThumbnailWithTransform:<span class="literal">true</span>,</span><br><span class="line">        kCGImageSourceThumbnailMaxPixelSize:maxDimensionInPixels</span><br><span class="line">     ] as <span class="built_in">CFDictionary</span></span><br><span class="line">    </span><br><span class="line">    let downsampledImage = <span class="built_in">CGImageSourceCreateThumbnailAtIndex</span>(imageSouce, <span class="number">0</span>, downsampleOptions)!</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIImage</span>(cgImage: downsampledImage)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="渐进渲染大图"><a href="#渐进渲染大图" class="headerlink" title="渐进渲染大图"></a>渐进渲染大图</h2><p>渐进式解码（Progressive Decoding），即不需要完整的图像流数据，允许解码部分帧（大部分情况下，会是图像的部分区域），对部分使用了渐进式编码的格式（参考：<a href="https://en.wikipedia.org/wiki/Interlacing_(bitmaps)">渐进式编码</a>），则更可以解码出相对模糊但完整的图像。比如说，JPEG支持三种方式的渐进式编码，包括Baseline，interlaced，以及progressive</p>
+<p>使用ImageIO框架可以实现大图渐进渲染的效果，一般在对大图片进行网络请求时，可以获取一部分数据就加载一部分数据<br>创建一个空的CGImageSource，然后在每次收到数据的时候调用CGImageSourceUpdateData更新imageSource的数据，接着调用CGImageSourceCreateImageAtIndex获取最新的图片即可</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//demo使用计时器模拟</span></span><br><span class="line"><span class="keyword">class</span> ProgressiveLoadViewController : <span class="built_in">UIViewController</span>&#123;</span><br><span class="line">    </span><br><span class="line">    deinit &#123;</span><br><span class="line">        incrementTimer = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    private var data = Data()</span><br><span class="line">    private var progress: Int = <span class="number">0</span></span><br><span class="line">    private var incrementTimer: Timer? &#123;</span><br><span class="line">        didSet &#123;</span><br><span class="line">            oldValue?.invalidate()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    private var cgImageSource = <span class="built_in">CGImageSourceCreateIncremental</span>(<span class="literal">nil</span>)</span><br><span class="line">    </span><br><span class="line">    override func viewDidLoad() &#123;</span><br><span class="line">        guard let data = try? Data(contentsOf: URL(string: <span class="string">&quot;some url&quot;</span>)!) <span class="keyword">else</span> &#123;</span><br><span class="line">            print(<span class="string">&quot;failed to load image source&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>.data = data</span><br><span class="line">        <span class="keyword">self</span>.progress = <span class="number">0</span></span><br><span class="line">        <span class="comment">//要渐进显示的图片</span></span><br><span class="line">        guard let cgImage = <span class="built_in">CGImageSourceCreateImageAtIndex</span>(<span class="keyword">self</span>.cgImageSource, <span class="number">0</span>, <span class="literal">nil</span>) <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        let uiImage = <span class="built_in">UIImage</span>(cgImage: cgImage)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    override func viewWillAppear(_ animated: Bool) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">self</span>.incrementTimer = Timer.scheduledTimer(timeInterval: <span class="number">0.25</span>, target: <span class="keyword">self</span>,</span><br><span class="line">                                                   selector: <span class="meta">#selector(self.incrementImage), userInfo: nil, repeats: true)</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @objc func incrementImage()&#123;</span><br><span class="line">        <span class="keyword">self</span>.progress += <span class="number">500</span></span><br><span class="line">        let chunk = <span class="keyword">self</span>.data.prefix(<span class="keyword">self</span>.progress)</span><br><span class="line">        <span class="keyword">if</span> chunk.count == <span class="keyword">self</span>.data.count &#123;</span><br><span class="line">            <span class="keyword">self</span>.incrementTimer = <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGImageSourceUpdateData</span>(<span class="keyword">self</span>.cgImageSource, Data(chunk) as <span class="built_in">CFData</span>, chunk.count == <span class="keyword">self</span>.data.count)</span><br><span class="line">                </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="读取图像格式元数据"><a href="#读取图像格式元数据" class="headerlink" title="读取图像格式元数据"></a>读取图像格式元数据</h2><p>创建好CGImageSource之后，我们是可以立即解码。但是很多情况下，我们需要获取一些相关的图像信息，包括图像的格式，图像数量，EXIF元数据等。在真正解码之前，我们可以拿到这些数据，进行一些处理，之后再开始解码过程。</p>
+<p>其中，这些信息可以直接在CGImageSource上获取：</p>
+<ul>
+<li>图像格式：CGImageSourceGetType</li>
+<li>图像数量（动图）：CGImageSourceGetCount</li>
+</ul>
+<p>其他的，需要通过获取属性列表来查询。对于图像容器的属性（EXIF等），我们需要使用CGImageSourceCopyProperties即可，然后根据不同的Key去获取对应的信息。</p>
+<p>其实苹果还有一套CGImageSourceCopyMetadataAtIndex，对应的数据不是字典，而是一个CGImageMetadata，再通过其他方法去取。这套API使用起来也是可以的，读取数据和前者是完全兼容一致的，优点是能够进行自定义扩展（比如说你有非标准的图像信息想自己添加和删除）。一般来说使用前者就足够了。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">CGImageSourceCopyPropertiesAtIndex</span>方法都会返回一个字典，字典中可能包含如下有意义的键：</span><br><span class="line"></span><br><span class="line"><span class="comment">//TIFF信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyTIFFDictionary;</span><br><span class="line">/GIF信息字典</span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyGIFDictionary;</span><br><span class="line"><span class="comment">//JFIF信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyJFIFDictionary;</span><br><span class="line"><span class="comment">//EXif信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyExifDictionary;</span><br><span class="line"><span class="comment">//PNG信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyPNGDictionary;</span><br><span class="line"><span class="comment">//IPTC信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyIPTCDictionary;</span><br><span class="line"><span class="comment">//GPS信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyGPSDictionary;</span><br><span class="line"><span class="comment">//原始信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyRawDictionary;</span><br><span class="line"><span class="comment">//CIFF信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyCIFFDictionary;</span><br><span class="line"><span class="comment">//佳能相机信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyMakerCanonDictionary;</span><br><span class="line"><span class="comment">//尼康相机信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyMakerNikonDictionary;</span><br><span class="line"><span class="comment">//柯尼卡相机信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyMakerMinoltaDictionary;</span><br><span class="line"><span class="comment">//富士相机信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyMakerFujiDictionary;</span><br><span class="line"><span class="comment">//奥林巴斯相机信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyMakerOlympusDictionary;</span><br><span class="line"><span class="comment">//宾得相机信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyMakerPentaxDictionary;</span><br><span class="line"><span class="comment">//对应Photoshop相片的信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImageProperty8BIMDictionary;</span><br><span class="line"><span class="comment">//NDG信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyDNGDictionary ;</span><br><span class="line"><span class="comment">//ExifAux信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyExifAuxDictionary;</span><br><span class="line"><span class="comment">//OpenEXR信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyOpenEXRDictionary;</span><br><span class="line"><span class="comment">//Apple相机信息字典</span></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">CFStringRef</span> kCGImagePropertyMakerAppleDictionary ;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<h2 id="显示GIF"><a href="#显示GIF" class="headerlink" title="显示GIF"></a>显示GIF</h2><ol>
+<li>首先使用ImageIO库中的CGImageSource加载Gif文件。</li>
+<li>通过CGImageSource获取到Gif文件中的总的帧数，以及每一帧的显示时间。</li>
+<li>通过CAKeyframeAnimation来完成Gif动画的播放。</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">func getGif(url:URL)&#123;</span><br><span class="line">    guard let source = <span class="built_in">CGImageSourceCreateWithURL</span>(url as <span class="built_in">NSURL</span>, <span class="literal">nil</span>) <span class="keyword">else</span> &#123;<span class="keyword">return</span>;&#125;;</span><br><span class="line">    <span class="comment">//获取gif中图片的个数</span></span><br><span class="line">    let count = <span class="built_in">CGImageSourceGetCount</span>(source)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> <span class="number">0.</span>..count &#123;</span><br><span class="line">        let image = <span class="built_in">CGImageSourceCreateImageAtIndex</span>(source, index, <span class="literal">nil</span>)</span><br><span class="line">        <span class="comment">//获取图片信息</span></span><br><span class="line">        let info = <span class="built_in">CGImageSourceCopyProperties</span>(source, <span class="literal">nil</span>) as! <span class="built_in">NSDictionary</span></span><br><span class="line">        let width = info[kCGImagePropertyWidth]</span><br><span class="line">        let height = info[kCGImagePropertyHeight]</span><br><span class="line">        let timeDic = info[kCGImagePropertyGIFDictionary]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建动画图片"><a href="#创建动画图片" class="headerlink" title="创建动画图片"></a>创建动画图片</h2><ol>
+<li>首先，它创建一对字典来保存动画属性。第一个字典指定动画PNG在停止到最后一帧之前应重复其动画的时间。第二个字典指定序列中每个帧使用的帧延迟。</li>
+<li>创建图像目标之后，代码将设置目标图像的文件属性，然后一次添加一个帧。</li>
+<li>最后，CGImageDestinationFinalize调用该方法以完成动画PNG。</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">func createAnimatePng(fileURL:<span class="built_in">CFURL</span>,kUTTypePNG:<span class="built_in">CFString</span>,imageForFrame)&#123;</span><br><span class="line">    let loopCount = <span class="number">1</span></span><br><span class="line">    let frameCount = <span class="number">60</span></span><br><span class="line">     </span><br><span class="line">    var fileProperties = <span class="built_in">NSMutableDictionary</span>()</span><br><span class="line">    fileProperties.setObject(kCGImagePropertyPNGDictionary, forKey: <span class="built_in">NSDictionary</span>(dictionary: [kCGImagePropertyAPNGLoopCount: frameCount]))</span><br><span class="line">     </span><br><span class="line">    var frameProperties = <span class="built_in">NSMutableDictionary</span>()</span><br><span class="line">    frameProperties.setObject(kCGImagePropertyPNGDictionary, forKey: <span class="built_in">NSDictionary</span>(dictionary: [kCGImagePropertyAPNGDelayTime: <span class="number">1.0</span> / Double(frameCount)]))</span><br><span class="line">     </span><br><span class="line">    guard let destination = <span class="built_in">CGImageDestinationCreateWithURL</span>(fileURL, kUTTypePNG, frameCount, <span class="literal">nil</span>) <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Provide error handling here.</span></span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="built_in">CGImageDestinationSetProperties</span>(destination, fileProperties.copy() as? <span class="built_in">NSDictionary</span>)</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.&lt;frameCount &#123;</span><br><span class="line">        autoreleasepool &#123;</span><br><span class="line">            let radians = M_PI * <span class="number">2.0</span> * Double(i) / Double(frameCount)</span><br><span class="line">            guard let image = imageForFrame(size: <span class="built_in">CGSize</span>(width: <span class="number">300</span>, height: <span class="number">300</span>)) <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="built_in">CGImageDestinationAddImage</span>(destination, image, frameProperties)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">if</span> !<span class="built_in">CGImageDestinationFinalize</span>(destination) &#123;</span><br><span class="line">        <span class="comment">// Provide error handling here.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="图片编码-CGImageDestination"><a href="#图片编码-CGImageDestination" class="headerlink" title="图片编码 | CGImageDestination"></a>图片编码 | CGImageDestination</h2><p>imageIO中使用CGImageDestination对静态图的编码，基本可以分为以下步骤：</p>
+<ul>
+<li>创建CGImageDestination</li>
+<li>添加图像格式元数据（可选）和CGImage</li>
+<li>编码得到NSData，清理</li>
+</ul>
+<h3 id="1-创建CGImageDestination"><a href="#1-创建CGImageDestination" class="headerlink" title="1. 创建CGImageDestination"></a>1. 创建CGImageDestination</h3><p>CGImageDestination的创建也有三个接口，你需要提供一个输出的目标来输出解码后的数据。同时，由于编码需要提供文件格式，你需要指明对应编码的文件格式，用的是UTI Type。对于静态图来说，第三个参数的数量都写1即可。</p>
+<ul>
+<li>CGImageDestinationCreateWithData：指定一个可变二进制数据作为输出</li>
+<li>CGImageDestinationCreateWithURL：指定一个文件路径作为输出</li>
+<li>CGImageDestinationCreateWithDataConsumer：指定一个DataConsumer作为输出</li>
+</ul>
+<h3 id="2-添加图像格式元数据（可选）和CGImage"><a href="#2-添加图像格式元数据（可选）和CGImage" class="headerlink" title="2. 添加图像格式元数据（可选）和CGImage"></a>2. 添加图像格式元数据（可选）和CGImage</h3><p>接下来就是添加图像了，由于CGImage只是包含基本的图像信息，很多额外信息比如说EXIF都已经丢失了，如果我们需要，可以添加对应的元信息。不像解码那样提供了两个API分别获取元信息和图像。使用的接口是CGImageDestinationAddImage。</p>
+<p>当然，如果有自定义的元信息，可以通过另外的CGImageDestinationAddImageAndMetadata来添加CGImageMetadata，这个上面解码也说到过，这里就不解释了。</p>
+<p>此外，还有一个ImageIO最强大的功能，叫做CGImageDestinationAddImageFromSource（这个东西可以媲美vImageConvert_AnyToAny，后续教程会谈到），这个能够从一个任意的CGImageSource，添加一个图像帧到任意一个CGImageDestination。这个一般的用途，就是专门给图像转换器用的，比如说从图像格式A，转换到图像格式B。我们不需要先解码到A的UIImage，再通过编码到B的NSData，直接在中间就进行了转换。能够极大地提升转换效率（Image&#x2F;IO底层就是通过vImage，传的是Bitmap的引用，没有额外的消耗）。不过这篇教程侧重于Image&#x2F;IO的编码和解码，转换可以自行参考处理，不再详细说明了。</p>
+<h3 id="3-编码得到NSData，清理"><a href="#3-编码得到NSData，清理" class="headerlink" title="3. 编码得到NSData，清理"></a>3. 编码得到NSData，清理</h3><p>当添加完成所有需要编码的CGImage之后，最后一步，就是进行编码，得到图像格式的数据。这里直接用一个方法CGImageDestinationFinalize即可，编码得到的数据，会写入最早初始化时提供的Data或者DataConsumer。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/%E5%9B%BE%E7%89%87/" rel="tag"># 图片</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95/" rel="prev" title="iOS图片-图片缩略方法">
+                  <i class="fa fa-angle-left"></i> iOS图片-图片缩略方法
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" rel="next" title="iOS图片-最佳实践">
+                  iOS图片-最佳实践 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

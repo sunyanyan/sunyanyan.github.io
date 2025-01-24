@@ -1,25 +1,461 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="结合Instrument CoreAnimation分析影响性能的因素： 图层混合,光栅化,颜色格式,图片大小,离屏渲染 在使用UIKit的过程中，性能优化是永恒的话题。很多人都看过分析优化滑动性能的文章，但其中不少文章只介绍了优化方法却对背后的原理避而不谈，或者是晦涩难懂而且读者缺乏实践体验的机会。不妨思考一下下面的问题自己是否有一个清晰的认识：  为什么要把控件尽量设置成不透明的，如果是透明的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Instruments实践-解决卡顿 使你的界面保持流畅">
+<meta property="og:url" content="https://developerdoc.com/essay/Instruments/Instruments3/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="结合Instrument CoreAnimation分析影响性能的因素： 图层混合,光栅化,颜色格式,图片大小,离屏渲染 在使用UIKit的过程中，性能优化是永恒的话题。很多人都看过分析优化滑动性能的文章，但其中不少文章只介绍了优化方法却对背后的原理避而不谈，或者是晦涩难懂而且读者缺乏实践体验的机会。不妨思考一下下面的问题自己是否有一个清晰的认识：  为什么要把控件尽量设置成不透明的，如果是透明的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/9.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/15.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/16.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/t_UIKit%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%9622.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/t_UIKit%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%9623.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/17.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/20.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/18.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/19.png">
+<meta property="article:published_time" content="2019-03-06T03:36:24.000Z">
+<meta property="article:modified_time" content="2019-03-07T08:25:39.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/Instrument/9.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/Instruments/Instruments3/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/Instruments/Instruments3/","path":"essay/Instruments/Instruments3/","title":"Instruments实践-解决卡顿 使你的界面保持流畅"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Instruments实践-解决卡顿 使你的界面保持流畅 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%B1%82%E6%B7%B7%E5%90%88"><span class="nav-number">1.</span> <span class="nav-text">图层混合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%89%E6%A0%85%E5%8C%96"><span class="nav-number">2.</span> <span class="nav-text">光栅化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">颜色格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E5%A4%A7%E5%B0%8F"><span class="nav-number">4.</span> <span class="nav-text">图片大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A6%BB%E5%B1%8F%E6%B8%B2%E6%9F%93"><span class="nav-number">5.</span> <span class="nav-text">离屏渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%A1%E9%A1%BF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">卡顿的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E8%B5%84%E6%BA%90%E6%B6%88%E8%80%97%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">6.1.</span> <span class="nav-text">CPU 资源消耗原因和解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU-%E8%B5%84%E6%BA%90%E6%B6%88%E8%80%97%E5%8E%9F%E5%9B%A0%E5%92%8C%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">6.2.</span> <span class="nav-text">GPU 资源消耗原因和解决方案</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Instruments/Instruments3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Instruments实践-解决卡顿 使你的界面保持流畅 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Instruments实践-解决卡顿 使你的界面保持流畅
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-06 11:36:24" itemprop="dateCreated datePublished" datetime="2019-03-06T11:36:24+08:00">2019-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-07 16:25:39" itemprop="dateModified" datetime="2019-03-07T16:25:39+08:00">2019-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/Instruments/" itemprop="url" rel="index"><span itemprop="name">Instruments</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>结合Instrument CoreAnimation分析影响性能的因素： <strong>图层混合</strong>,<strong>光栅化</strong>,<strong>颜色格式</strong>,<strong>图片大小</strong>,<strong>离屏渲染</strong></p>
+<p>在使用UIKit的过程中，性能优化是永恒的话题。很多人都看过分析优化滑动性能的文章，但其中不少文章只介绍了优化方法却对背后的原理避而不谈，或者是晦涩难懂而且读者缺乏实践体验的机会。不妨思考一下下面的问题自己是否有一个清晰的认识：</p>
+<ol>
+<li>为什么要把控件尽量设置成不透明的，如果是透明的会有什么影响，如何检测这种影响？</li>
+<li>为什么cell中的图片，尽可能要使用正确的大小、格式，如果错误会有什么影响，如何检测这种影响？</li>
+<li>为什么设置阴影和圆角有可能影响滑动时流畅度？</li>
+<li>shouldRasterize和离屏渲染的关系是什么，何时应该使用？</li>
+</ol>
+<span id="more"></span>
+
+<img src='/res/Instrument/9.png' width='80%'/>
+
+<p>打开CoreAnimation可以看到主体的PFS数据和右边的Debug Options。</p>
+<p>我们知道任何屏幕总是有一个刷新率，比如iphone推荐的刷新率是60Hz，也就是说GPU每秒钟刷新屏幕60次，因此两次刷新之间的间隔为16.67ms。这段时间内屏幕内容保持不变，称为一帧(frame)，fps表示frames per second，也就是每秒钟显示多少帧画面。对于静止不变的内容，我们不需要考虑它的刷新率，但在执行动画或滑动时，fps的值直接反映出滑动的流畅程度。</p>
+<h2 id="图层混合"><a href="#图层混合" class="headerlink" title="图层混合"></a>图层混合</h2><p>首先我们要明白像素的概念，屏幕上每一个点都是一个像素，像素有R、G、B三种颜色构成(有时候还带有alpha值)。如果某一块区域上覆盖了多个layer,最后的显示效果受到这些layer的共同影响。举个例子，上层是蓝色(RGB&#x3D;0,0,1),透明度为50%，下层是红色(RGB&#x3D;1,0,0)。那么最终的显示效果是紫色(RGB&#x3D;0.5,0,0.5)。这种颜色的混合(blending)需要消耗一定的GPU资源，因为实际上可能不止只有两层。如果只想显示最上层的蓝色，可以把它的透明度设置为100%，这样GPU会忽略下面所有的layer，从而节约了很多不必要的运算。</p>
+<p>第一个调试选项”Color Blended Layers”正是用于检测哪里发生了图层混合，并用红色标记出来。因此我们需要尽可能减少看到的红色区域。一旦发现应该想法设法消除它。</p>
+<img src='/res/Instrument/15.png' width="40%"/>
+
+<p>解决办法如下：</p>
+<ol>
+<li>透明度设置为100%<ul>
+<li>如果某一块区域上覆盖了多个layer,最后的显示效果受到这些layer的共同影响。举个例子，上层是蓝色(RGB&#x3D;0,0,1),透明度为50%，下层是红色(RGB&#x3D;1,0,0)。那么最终的显示效果是紫色(RGB&#x3D;0.5,0,0.5)。这种颜色的混合(blending)需要消耗一定的GPU资源，因为实际上可能不止只有两层。如果只想显示最上层的蓝色，可以把它的透明度设置为100%，这样GPU会忽略下面所有的layer，从而节约了很多不必要的运算。</li>
+</ul>
+</li>
+<li>UIImageView的图片也不能含有alpha通道<ul>
+<li>图像自身的性质可能会对结果有影响</li>
+</ul>
+</li>
+<li>设置 backgroundColor 属性（如果不设置背景颜色，控件依然会被认为是透明的）<ul>
+<li>虽然在白色背景下，无法肉眼看到效果，但重新调试后我们可以发现label的红色消失了。也正是因为对背景颜色的不重视，它成了影响滑动性能的第一个杀手。</li>
+</ul>
+</li>
+<li>如果label文字有中文，依然会出现图层混合，这是因为此时label多了一个sublayer</li>
+</ol>
+<h2 id="光栅化"><a href="#光栅化" class="headerlink" title="光栅化"></a>光栅化</h2><p>第二个调试选项是**“Color Hits Green and Misses Red**”，它表示如果命中缓存则显示为绿色，否则显示为红色，显然绿色越多越好，红色越少越好。勾选这个选项后我们看到如下的场景：</p>
+<img src='/res/Instrument/16.png' width="40%"/>
+ 
+<p>光栅化是将一个layer预先渲染成位图(bitmap)，然后加入缓存中。如果对于阴影效果这样比较消耗资源的静态内容进行缓存，可以得到一定幅度的性能提升</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这一行代码表示将label的layer光栅化：</span></span><br><span class="line">label.layer.shouldRasterize = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>因为layer进行光栅化后渲染成位图放在缓存中。缓存中的对象有效期只有100ms，即如果在0.1s内没有被使用就会自动从缓存中清理出去。光栅化的缓存机制是一把双刃剑，先写入缓存再读取有可能消耗较多的时间。因此光栅化仅适用于较复杂的、静态的效果。 光栅化会导致离屏渲染</p>
+<p>所以我们做的第二个优化是注释掉下面这行代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//    label.layer.shouldRasterize = true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="颜色格式"><a href="#颜色格式" class="headerlink" title="颜色格式"></a>颜色格式</h2><p>像素在内存中的布局和它在磁盘中的存储方式并不相同。考虑一种简单的情况：每个像素有R、G、B和alpha四个值，每个值占用1字节，因此每个像素占用4字节的内存空间。一张1920*1080的照片(iPhone6 Plus的分辨率)一共有2,073,600个像素，因此占用了超过8Mb的内存。但是一张同样分辨率的PNG格式或JPEG格式的图片一般情况下不会有这么大。这是因为JPEG将像素数据进行了一种非常复杂且可逆的转化。</p>
+<p>当我们打开JPEG格式的图片时，CPU会进行一系列运算，将JPEG图片解压成像素数据。显然这个工作会消耗不少时间，所以不应该在滑动时进行，我们应该预先处理好图片。借用WWDC上的一页PPT来说明：</p>
+<p><img src="/res/Instrument/t_UIKit%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%9622.png"></p>
+<p>Commit Transaction和Decode在同一帧内进行，如果这两个操作的耗时超过16.67s，Draw Calls就会延迟到下一帧，从而导致fps值的降低。下面是Commit Transaction的详细流程：</p>
+<p><img src="/res/Instrument/t_UIKit%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%9623.png"></p>
+<p>在第三步的Prepare中，CPU主要处理两件事：</p>
+<ol>
+<li>把图片从PNG或JPEG等格式中解压出来，得到像素数据</li>
+<li>如果GPU不支持这种颜色各式，CPU需要进行格式转换</li>
+</ol>
+<p>使用core animation 的 <strong>Color Copied Images</strong>检测图片格式,确保图片颜色格式能被GPU支持</p>
+<h2 id="图片大小"><a href="#图片大小" class="headerlink" title="图片大小"></a>图片大小</h2><p>使用core animation 的第五个选项“<strong>Color Misaligned Images”</strong>。它表示如果图片需要缩放则标记为黄色，如果没有像素对齐则标记为紫色。勾选上这个选项并进行调试，可以看到如下场景：</p>
+<img src='/res/Instrument/17.png' width="40%"/>
+
+<p>图片如果需要缩放会占用一定时间，确保图片大小与frame一致，不要在滑动的时候缩放图片</p>
+<h2 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h2><p>开始调试并勾选“<strong>Color Offscreen-Rendered Yellow”</strong>，会看到这样的场景：</p>
+<img src='/res/Instrument/20.png' width="40%"/>
+
+<p>这表示产生了离屏渲染。离屏渲染表示渲染发生在屏幕之外，你可能认为这是一句废话。为了真正解释清楚什么是离屏渲染，我们先来看一下正常的渲染通道(Render-Pass)：</p>
+<img src='/res/Instrument/18.png'/> 
+
+<p>首先，OpenGL提交一个命令到Command Buffer，随后GPU开始渲染，渲染结果放到Render Buffer中，这是正常的渲染流程。但是有一些复杂的效果无法直接渲染出结果，它需要分步渲染最后再组合起来，比如添加一个蒙版(mask)：</p>
+<img src='/res/Instrument/19.png'/> 
+
+<p>在前两个渲染通道中，GPU分别得到了纹理(texture，也就是那个相机图标)和layer(蓝色的蒙版)的渲染结果。但这两个渲染结果没有直接放入Render Buffer中，也就表示这是离屏渲染。直到第三个渲染通道，才把两者组合起来放入Render Buffer中。离屏渲染意味着把渲染结果临时保存，等用到时再取出，因此相对于普通渲染更占用资源。</p>
+<p>以下情况可能会导致触发离屏渲染：</p>
+<ol>
+<li>重写drawRect方法</li>
+<li>有mask或者是阴影(layer.masksToBounds, layer.shadow*)，模糊效果也是一种mask</li>
+<li>layer.shouldRasterize &#x3D; true</li>
+</ol>
+<h2 id="卡顿的解决方案"><a href="#卡顿的解决方案" class="headerlink" title="卡顿的解决方案"></a>卡顿的解决方案</h2><p>CPU 和 GPU 不论哪个阻碍了显示流程，都会造成掉帧现象。所以开发时，也需要分别对 CPU 和 GPU 压力进行评估和优化。</p>
+<h3 id="CPU-资源消耗原因和解决方案"><a href="#CPU-资源消耗原因和解决方案" class="headerlink" title="CPU 资源消耗原因和解决方案"></a>CPU 资源消耗原因和解决方案</h3><p><strong>1. 对象创建：</strong></p>
+<p>对象的创建会分配内存、调整属性、甚至还有读取文件等操作，比较消耗 CPU 资源。尽量用轻量的对象代替重量的对象，可以对性能有所优化。比如 CALayer 比 UIView 要轻量许多，那么不需要响应触摸事件的控件，用 CALayer 显示会更加合适。如果对象不涉及 UI 操作，则尽量放到后台线程去创建，但可惜的是包含有 CALayer 的控件，都只能在主线程创建和操作。通过 Storyboard 创建视图对象时，其资源消耗会比直接通过代码创建对象要大非常多，在性能敏感的界面里，Storyboard 并不是一个好的技术选择。</p>
+<p>尽量推迟对象创建的时间，并把对象的创建分散到多个任务中去。尽管这实现起来比较麻烦，并且带来的优势并不多，但如果有能力做，还是要尽量尝试一下。如果对象可以复用，并且复用的代价比释放、创建新对象要小，那么这类对象应当尽量放到一个缓存池里复用。</p>
+<p>**2. 对象调整: **</p>
+<p>对象的调整也经常是消耗 CPU 资源的地方。这里特别说一下 CALayer：CALayer 内部并没有属性，当调用属性方法时，它内部是通过运行时 resolveInstanceMethod 为对象临时添加一个方法，并把对应属性值保存到内部的一个 Dictionary 里，同时还会通知 delegate、创建动画等等，非常消耗资源。UIView 的关于显示相关的属性（比如 frame&#x2F;bounds&#x2F;transform）等实际上都是 CALayer 属性映射来的，所以对 UIView 的这些属性进行调整时，消耗的资源要远大于一般的属性。对此你在应用中，应该尽量减少不必要的属性修改。</p>
+<p>当视图层次调整时，UIView、CALayer 之间会出现很多方法调用与通知，所以在优化性能时，应该尽量避免调整视图层次、添加和移除视图。</p>
+<p>**3. 对象销毁: **</p>
+<p>对象的销毁虽然消耗资源不多，但累积起来也是不容忽视的。通常当容器类持有大量对象时，其销毁时的资源消耗就非常明显。同样的，如果对象可以放到后台线程去释放，那就挪到后台线程去。这里有个小 Tip：把对象捕获到 block 中，然后扔到后台队列去随便发送个消息以避免编译器警告，就可以让对象在后台线程销毁了。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSArray</span> *tmp = <span class="keyword">self</span>.array;</span><br><span class="line"><span class="keyword">self</span>.array = <span class="literal">nil</span>;</span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, ^&#123;</span><br><span class="line">    [tmp <span class="keyword">class</span>];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>**4. 布局计算: **</p>
+<p>视图布局的计算是 App 中最为常见的消耗 CPU 资源的地方。如果能在后台线程提前计算好视图布局、并且对视图布局进行缓存，那么这个地方基本就不会产生性能问题了。</p>
+<p>不论通过何种技术对视图进行布局，其最终都会落到对 UIView.frame&#x2F;bounds&#x2F;center 等属性的调整上。上面也说过，对这些属性的调整非常消耗资源，所以尽量提前计算好布局，在需要时一次性调整好对应属性，而不要多次、频繁的计算和调整这些属性。</p>
+<p>**5. Autolayout: **</p>
+<p>Autolayout 是苹果本身提倡的技术，在大部分情况下也能很好的提升开发效率，但是 Autolayout 对于复杂视图来说常常会产生严重的性能问题。随着视图数量的增长，Autolayout 带来的 CPU 消耗会呈指数级上升。具体数据可以看这个文章：<a href="http://pilky.me/36/">http://pilky.me/36/</a>。 如果你不想手动调整 frame 等属性，你可以用一些工具方法替代（比如常见的 left&#x2F;right&#x2F;top&#x2F;bottom&#x2F;width&#x2F;height 快捷属性），或者使用 ComponentKit、AsyncDisplayKit 等框架。</p>
+<p>**6. 文本计算: **</p>
+<p>如果一个界面中包含大量文本（比如微博微信朋友圈等），文本的宽高计算会占用很大一部分资源，并且不可避免。如果你对文本显示没有特殊要求，可以参考下 UILabel 内部的实现方式：用 [NSAttributedString boundingRectWithSize:options:context:] 来计算文本宽高，用 -[NSAttributedString drawWithRect:options:context:] 来绘制文本。尽管这两个方法性能不错，但仍旧需要放到后台线程进行以避免阻塞主线程。</p>
+<p>如果你用 CoreText 绘制文本，那就可以先生成 CoreText 排版对象，然后自己计算了，并且 CoreText 对象还能保留以供稍后绘制使用。</p>
+<p><strong>7. 文本渲染:</strong></p>
+<p>屏幕上能看到的所有文本内容控件，包括 UIWebView，在底层都是通过 CoreText 排版、绘制为 Bitmap 显示的。常见的文本控件 （UILabel、UITextView 等），其排版和绘制都是在主线程进行的，当显示大量文本时，CPU 的压力会非常大。对此解决方案只有一个，那就是自定义文本控件，用 TextKit 或最底层的 CoreText 对文本异步绘制。尽管这实现起来非常麻烦，但其带来的优势也非常大，CoreText 对象创建好后，能直接获取文本的宽高等信息，避免了多次计算（调整 UILabel 大小时算一遍、UILabel 绘制时内部再算一遍）；CoreText 对象占用内存较少，可以缓存下来以备稍后多次渲染。</p>
+<p><strong>8. 图片的解码:</strong></p>
+<p>当你用 UIImage 或 CGImageSource 的那几个方法创建图片时，图片数据并不会立刻解码。图片设置到 UIImageView 或者 CALayer.contents 中去，并且 CALayer 被提交到 GPU 前，CGImage 中的数据才会得到解码。这一步是发生在主线程的，并且不可避免。如果想要绕开这个机制，常见的做法是在后台线程先把图片绘制到 CGBitmapContext 中，然后从 Bitmap 直接创建图片。目前常见的网络图片库都自带这个功能。</p>
+<p><strong>9. 图像的绘制:</strong></p>
+<p>图像的绘制通常是指用那些以 CG 开头的方法把图像绘制到画布中，然后从画布创建图片并显示这样一个过程。这个最常见的地方就是 [UIView drawRect:] 里面了。由于 CoreGraphic 方法通常都是线程安全的，所以图像的绘制可以很容易的放到后台线程进行。一个简单异步绘制的过程大致如下（实际情况会比这个复杂得多，但原理基本一致）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)display &#123;</span><br><span class="line">    <span class="built_in">dispatch_async</span>(backgroundQueue, ^&#123;</span><br><span class="line">        <span class="built_in">CGContextRef</span> ctx = <span class="built_in">CGBitmapContextCreate</span>(...);</span><br><span class="line">        <span class="comment">// draw in context...</span></span><br><span class="line">        <span class="built_in">CGImageRef</span> img = <span class="built_in">CGBitmapContextCreateImage</span>(ctx);</span><br><span class="line">        <span class="built_in">CFRelease</span>(ctx);</span><br><span class="line">        <span class="built_in">dispatch_async</span>(mainQueue, ^&#123;</span><br><span class="line">            layer.contents = img;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="GPU-资源消耗原因和解决方案"><a href="#GPU-资源消耗原因和解决方案" class="headerlink" title="GPU 资源消耗原因和解决方案"></a>GPU 资源消耗原因和解决方案</h3><p>相对于 CPU 来说，GPU 能干的事情比较单一：接收提交的纹理（Texture）和顶点描述（三角形），应用变换（transform）、混合并渲染，然后输出到屏幕上。通常你所能看到的内容，主要也就是纹理（图片）和形状（三角模拟的矢量图形）两类。</p>
+<p><strong>1. 纹理的渲染</strong></p>
+<p>所有的 Bitmap，包括图片、文本、栅格化的内容，最终都要由内存提交到显存，绑定为 GPU Texture。不论是提交到显存的过程，还是 GPU 调整和渲染 Texture 的过程，都要消耗不少 GPU 资源。当在较短时间显示大量图片时（比如 TableView 存在非常多的图片并且快速滑动时），CPU 占用率很低，GPU 占用非常高，界面仍然会掉帧。避免这种情况的方法只能是尽量减少在短时间内大量图片的显示，尽可能将多张图片合成为一张进行显示。</p>
+<p>当图片过大，超过 GPU 的最大纹理尺寸时，图片需要先由 CPU 进行预处理，这对 CPU 和 GPU 都会带来额外的资源消耗。目前来说，iPhone 4S 以上机型，纹理尺寸上限都是 4096×4096，更详细的资料可以看这里：iosres.com。所以，尽量不要让图片和视图的大小超过这个值。</p>
+<p><strong>2. 视图的混合 (Composing)</strong></p>
+<p>当多个视图（或者说 CALayer）重叠在一起显示时，GPU 会首先把他们混合到一起。如果视图结构过于复杂，混合的过程也会消耗很多 GPU 资源。为了减轻这种情况的 GPU 消耗，应用应当尽量减少视图数量和层次，并在不透明的视图里标明 opaque 属性以避免无用的 Alpha 通道合成。当然，这也可以用上面的方法，把多个视图预先渲染为一张图片来显示。</p>
+<p><strong>3. 图形的生成</strong></p>
+<p>CALayer 的 border、圆角、阴影、遮罩（mask），CASharpLayer 的矢量图形显示，通常会触发离屏渲染（offscreen rendering），而离屏渲染通常发生在 GPU 中。当一个列表视图中出现大量圆角的 CALayer，并且快速滑动时，可以观察到 GPU 资源已经占满，而 CPU 资源消耗很少。这时界面仍然能正常滑动，但平均帧数会降到很低。为了避免这种情况，可以尝试开启 CALayer.shouldRasterize 属性，但这会把原本离屏渲染的操作转嫁到 CPU 上去。对于只需要圆角的某些场合，也可以用一张已经绘制好的圆角图片覆盖到原本视图上面来模拟相同的视觉效果。最彻底的解决办法，就是把需要显示的图形在后台线程绘制为图片，避免使用圆角、阴影、遮罩等属性。</p>
+<!--iOS 保持界面流畅的技巧 https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/ -->
+<!--内存恶鬼drawRect https://bihongbo.com/2016/01/03/memoryGhostdrawRect/ -->
+<!-- UIKit性能调试 https://bestswifter.com/uikitxing-neng-diao-you-shi-zhan-jiang-jie/-->
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/Instruments/Instruments2/" rel="prev" title="Instruments使用">
+                  <i class="fa fa-angle-left"></i> Instruments使用
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E5%9B%9B%E6%9C%9F/" rel="next" title="GitHub精选分享第四期">
+                  GitHub精选分享第四期 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

@@ -1,87 +1,255 @@
-{% extends '_layout.swig' %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
 
-  {% block title %}{#
-  #}{% set page_title_suffix = ' | ' + title %}{#
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  #}{% if page.type === "categories" and not page.title %}{#
-    #}{{ __('title.category') + page_title_suffix }}{#
-  #}{% elif page.type === "tags" and not page.title %}{#
-    #}{{ __('title.tag') + page_title_suffix }}{#
-  #}{% elif page.type === "schedule" and not page.title %}{#
-    #}{{ __('title.schedule') + page_title_suffix }}{#
-  #}{% else %}{#
-    #}{{ page.title + page_title_suffix }}{#
-  #}{% endif %}{#
-#}{% endblock %}
+<link rel="stylesheet" href="/css/main.css">
 
-{% block page_class %}page-post-detail{% endblock %}
 
-{% block content %}
 
-  <div id="posts" class="posts-expand">
-    {##################}
-    {### PAGE BLOCK ###}
-    {##################}
-    <div class="post-block page">
-      {% include '_partials/page-header.swig' %}
-      {#################}
-      {### PAGE BODY ###}
-      {#################}
-      <div class="post-body{% if theme.han %} han-init-context{% endif %}{% if page.direction && page.direction.toLowerCase() === 'rtl' %} rtl{% endif %}">
-        {# tagcloud page support #}
-        {% if page.type === "tags" %}
-          <div class="tag-cloud">
-            <div class="tag-cloud-title">
-                {% set visibleTags = 0 %}
-                {% for tag in site.tags %}
-                  {% if tag.length %}
-                    {% set visibleTags += 1 %}
-                  {% endif %}
-                {% endfor %}
-                {{ _p('counter.tag_cloud', visibleTags) }}
-            </div>
-            <div class="tag-cloud-tags">
-              {{ tagcloud({min_font: 12, max_font: 30, amount: 300, color: true, start_color: '#ccc', end_color: '#111'}) }}
-            </div>
-          </div>
-        {% elif page.type === 'categories' %}
-          <div class="category-all-page">
-            <div class="category-all-title">
-                {% set visibleCategories = 0 %}
-                {% for cat in site.categories %}
-                  {% if cat.length %}
-                    {% set visibleCategories += 1 %}
-                  {% endif %}
-                {% endfor %}
-                {{ _p('counter.categories', visibleCategories) }}
-            </div>
-            <div class="category-all">
-              {{ list_categories() }}
-            </div>
-          </div>
-        {% elif page.type === 'schedule' %}
-          {% include 'schedule.swig' %}
-        {% else %}
-          {{ page.content }}
-        {% endif %}
-      </div>
-      {#####################}
-      {### END PAGE BODY ###}
-      {#####################}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="移动端 前端 跨平台">
+<meta property="og:type" content="website">
+<meta property="og:title" content="标签">
+<meta property="og:url" content="https://developerdoc.com/tags/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="移动端 前端 跨平台">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-06T13:08:47.000Z">
+<meta property="article:modified_time" content="2019-03-06T13:09:13.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://developerdoc.com/tags/">
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":false,"lang":"zh-CN","comments":"","permalink":"https://developerdoc.com/tags/index.html","path":"tags/index.html","title":"标签"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>标签 | 孙同生的博客
+</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
     </div>
-    {% include '_partials/breadcrumb.swig' %}
-    {######################}
-    {### END PAGE BLOCK ###}
-    {######################}
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(false) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner page posts-expand">
+
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN"><header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">标签
+</h1>
+
+<div class="post-meta-container">
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body"><div class="tag-cloud">
+  <div class="tag-cloud-title">
+    目前共计 22 个标签
+  </div>
+  <div class="tag-cloud-tags">
+    <a href="/tags/AFNetworking/" style="font-size: 19.71px;" class="tag-cloud-4">AFNetworking</a> <a href="/tags/AVFoundation/" style="font-size: 27.43px;" class="tag-cloud-9">AVFoundation</a> <a href="/tags/Babel/" style="font-size: 12px;" class="tag-cloud-0">Babel</a> <a href="/tags/D3/" style="font-size: 12px;" class="tag-cloud-0">D3</a> <a href="/tags/Electron/" style="font-size: 12px;" class="tag-cloud-0">Electron</a> <a href="/tags/LLDB/" style="font-size: 12px;" class="tag-cloud-0">LLDB</a> <a href="/tags/LLVM/" style="font-size: 12px;" class="tag-cloud-0">LLVM</a> <a href="/tags/Mach-O/" style="font-size: 12px;" class="tag-cloud-0">Mach-O</a> <a href="/tags/Python/" style="font-size: 17.14px;" class="tag-cloud-3">Python</a> <a href="/tags/React-Native/" style="font-size: 12px;" class="tag-cloud-0">React Native</a> <a href="/tags/Redux/" style="font-size: 12px;" class="tag-cloud-0">Redux</a> <a href="/tags/SDWebImage/" style="font-size: 24.86px;" class="tag-cloud-7">SDWebImage</a> <a href="/tags/Scrapy/" style="font-size: 14.57px;" class="tag-cloud-1">Scrapy</a> <a href="/tags/fishhook/" style="font-size: 14.57px;" class="tag-cloud-1">fishhook</a> <a href="/tags/iOS/" style="font-size: 30px;" class="tag-cloud-10">iOS</a> <a href="/tags/react/" style="font-size: 14.57px;" class="tag-cloud-1">react</a> <a href="/tags/vscode/" style="font-size: 12px;" class="tag-cloud-0">vscode</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 17.14px;" class="tag-cloud-3">前端</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" style="font-size: 19.71px;" class="tag-cloud-4">前端工程化</a> <a href="/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/" style="font-size: 12px;" class="tag-cloud-0">可视化</a> <a href="/tags/%E5%9B%BE%E7%89%87/" style="font-size: 22.29px;" class="tag-cloud-6">图片</a> <a href="/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91/" style="font-size: 12px;" class="tag-cloud-0">跨平台开发</a>
+  </div>
+</div>
+
+      </div>
+      
+      
+      
+    </div>
+
+    
+    
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

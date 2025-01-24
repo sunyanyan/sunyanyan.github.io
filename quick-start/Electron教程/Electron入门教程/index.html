@@ -1,25 +1,402 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。 Electron通过将 Chromium 和 Node.js合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。 相信大部分前端同学都听说或者了解过NodeJs 它是一个基于Chrome V8 引擎的JavaScript运行时， 而">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Electron入门教程">
+<meta property="og:url" content="https://developerdoc.com/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。 Electron通过将 Chromium 和 Node.js合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。 相信大部分前端同学都听说或者了解过NodeJs 它是一个基于Chrome V8 引擎的JavaScript运行时， 而">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/Electron/Electron_1.png">
+<meta property="og:image" content="https://developerdoc.com/res/Electron/Electron_2.png">
+<meta property="article:published_time" content="2018-11-21T07:58:50.000Z">
+<meta property="article:modified_time" content="2018-12-07T11:16:30.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="跨平台开发">
+<meta property="article:tag" content="Electron">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/Electron/Electron_1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/","path":"quick-start/Electron教程/Electron入门教程/","title":"Electron入门教程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Electron入门教程 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8E%E7%8E%B0%E6%9C%89React%E5%B7%A5%E7%A8%8B%E7%BB%93%E5%90%88"><span class="nav-number">2.</span> <span class="nav-text">与现有React工程结合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-Electron-%E9%85%8D%E7%BD%AE%E5%B9%B6%E5%90%AF%E5%8A%A8"><span class="nav-number">2.1.</span> <span class="nav-text">添加 Electron 配置并启动</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%92%8C%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">主进程和渲染进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">3.1.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%80-%E4%BD%BF%E7%94%A8ipc-renderer-%E5%92%8C-ipc-main"><span class="nav-number">3.1.1.</span> <span class="nav-text">一 使用ipc-renderer 和 ipc-main :</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8C-%E5%9C%A8%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%BD%BF%E7%94%A8remote%E6%A8%A1%E5%9D%97"><span class="nav-number">3.1.2.</span> <span class="nav-text">二 在渲染进程使用remote模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%89-%E5%9C%A8%E4%B8%BB%E8%BF%9B%E7%A8%8B%E5%90%91%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8BwebContents%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF"><span class="nav-number">3.1.3.</span> <span class="nav-text">三 在主进程向渲染进程webContents发送消息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B-%E6%B8%B2%E6%9F%93%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="nav-number">3.1.4.</span> <span class="nav-text">四 渲染进程之间的通信</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Electron入门教程 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Electron入门教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-21 15:58:50" itemprop="dateCreated datePublished" datetime="2018-11-21T15:58:50+08:00">2018-11-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-12-07 19:16:30" itemprop="dateModified" datetime="2018-12-07T19:16:30+08:00">2018-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/Electron%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Electron教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p><a href="https://electronjs.org/docs/tutorial/about">Electron</a>是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。 Electron通过将 <strong>Chromium</strong> 和 <strong>Node.js</strong>合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。</p>
+<p>相信大部分前端同学都听说或者了解过<a href="https://nodejs.org/zh-cn/">NodeJs</a> 它是一个基于<a href="https://v8.dev/">Chrome V8 引擎</a>的JavaScript运行时， 而 <a href="https://www.chromium.org/">Chromium</a> 是Google为发展自家浏览器Chrome而开启的开源浏览器项目，可以看成是是Chrome的先行版。大家较为熟悉的VS Code 和 Atom就是使用Electron来完成的。</p>
+<p>从开发的角度来看, Electron application 本质上是一个 Node. js 应用程序。可以让前端开发者让你使用纯 JavaScript 调用丰富的原生操作系统APIs来创造桌面应用~</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><blockquote>
+<p>确认你的网络可以访问github , 若访问受限参考 <a href="https://electronjs.org/docs/tutorial/installation">安装指南</a> 来了解如何用代理、镜像和自定义缓存</p>
+</blockquote>
+<p>你肯定已经已经安装好git和node了，那么只要：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 官网已经有 electron-quick-start 仓库克隆下来</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/electron/electron-quick-start</span><br><span class="line"><span class="comment"># 进入文件夹</span></span><br><span class="line"><span class="built_in">cd</span> electron-quick-start</span><br><span class="line"><span class="comment"># 安装依赖包并运行</span></span><br><span class="line">npm install &amp;&amp; npm start</span><br></pre></td></tr></table></figure>
+
+<p>然后你的第一个桌面应用就开启了！</p>
+<p><img src="/res/Electron/Electron_1.png"></p>
+<p>若你跟着一起实践到这里，肯定会发现界面有些许不同？我这里多了个调试界面，那么来看下代码看看。在Electron中main.js是入口文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.js</span></span><br><span class="line"><span class="keyword">const</span> &#123; app, <span class="title class_">BrowserWindow</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Keep a global reference of the window object, if you don&#x27;t, the window will</span></span><br><span class="line"><span class="comment">// be closed automatically when the JavaScript object is garbage collected.</span></span><br><span class="line"><span class="keyword">let</span> win</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">createWindow</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="comment">// 创建浏览器窗口。</span></span><br><span class="line">  win = <span class="keyword">new</span> <span class="title class_">BrowserWindow</span>(&#123; <span class="attr">width</span>: <span class="number">800</span>, <span class="attr">height</span>: <span class="number">600</span> &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 然后加载应用的 index.html。对应的index.html 就是初始界面。</span></span><br><span class="line">  win.<span class="title function_">loadFile</span>(<span class="string">&#x27;index.html&#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 打开开发者工具</span></span><br><span class="line">  win.<span class="property">webContents</span>.<span class="title function_">openDevTools</span>()</span><br><span class="line"></span><br><span class="line">  <span class="comment">//关于win 窗口的生命周期我们之后再研究……</span></span><br><span class="line">  <span class="comment">// 当 window 被关闭，这个事件会被触发。</span></span><br><span class="line">  win.<span class="title function_">on</span>(<span class="string">&#x27;closed&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 取消引用 window 对象，如果你的应用支持多窗口的话，</span></span><br><span class="line">    <span class="comment">// 通常会把多个 window 对象存放在一个数组里面，</span></span><br><span class="line">    <span class="comment">// 与此同时，你应该删除相应的元素。</span></span><br><span class="line">    win = <span class="literal">null</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关于 app 主进程的生命周期我们之后再研究……</span></span><br><span class="line"><span class="comment">// Electron 会在初始化后并准备</span></span><br><span class="line"><span class="comment">// 创建浏览器窗口时，调用这个函数。</span></span><br><span class="line"><span class="comment">// 部分 API 在 ready 事件触发后才能使用。</span></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;ready&#x27;</span>, createWindow)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当全部窗口关闭时退出。</span></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;window-all-closed&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 在 macOS 上，除非用户用 Cmd + Q 确定地退出，</span></span><br><span class="line">  <span class="comment">// 否则绝大部分应用及其菜单栏会保持激活。</span></span><br><span class="line">  <span class="keyword">if</span> (process.<span class="property">platform</span> !== <span class="string">&#x27;darwin&#x27;</span>) &#123;</span><br><span class="line">    app.<span class="title function_">quit</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">on</span>(<span class="string">&#x27;activate&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 在macOS上，当单击dock图标并且没有其他窗口打开时，</span></span><br><span class="line">  <span class="comment">// 通常在应用程序中重新创建一个窗口。</span></span><br><span class="line">  <span class="keyword">if</span> (win === <span class="literal">null</span>) &#123;</span><br><span class="line">    <span class="title function_">createWindow</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在这个文件中，你可以续写应用剩下主进程代码。</span></span><br><span class="line"><span class="comment">// 也可以拆分成几个文件，然后用 require 导入。</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="与现有React工程结合"><a href="#与现有React工程结合" class="headerlink" title="与现有React工程结合"></a>与现有React工程结合</h2><p>迫于不会Vue ，在这里介绍下React工程如何和Electron结合起来。</p>
+<span id="more"></span>
+<p>偷懒就直接使用 create-react-app 来创建react工程：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#若已安装 请忽略</span></span><br><span class="line">npm install -g create-react-app</span><br><span class="line">create-react-app react-electron</span><br><span class="line"><span class="built_in">cd</span> react-electron</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
+
+<h3 id="添加-Electron-配置并启动"><a href="#添加-Electron-配置并启动" class="headerlink" title="添加 Electron 配置并启动"></a>添加 Electron 配置并启动</h3><p><strong>一、</strong> 安装 Electron包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 react-electron 目录下安装 Electron 包</span></span><br><span class="line">npm install -save electron</span><br></pre></td></tr></table></figure>
+
+<p><strong>二、</strong> 添加main.js</p>
+<p>在 react-electron 目录下添加main.js ,直接使用上面 main.js的内容 ，然后</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//win.loadFile(&#x27;index.html&#x27;) 这一行替换为：</span></span><br><span class="line">win.<span class="title function_">loadFile</span>(<span class="string">&#x27;http://localhost:3000/&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这样就将入口界面指定到react的初始界面了。</p>
+<p><strong>三、</strong> 启动Electron！</p>
+<p>修改 package.json ,添加 main homepage字段，并添加electron-start命令：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">  <span class="string">&quot;main&quot;</span>: <span class="string">&quot;main.js&quot;</span>,</span><br><span class="line">  <span class="string">&quot;homepage&quot;</span>:<span class="string">&quot;.&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;start&quot;</span>: <span class="string">&quot;react-scripts start&quot;</span>,</span><br><span class="line">    <span class="string">&quot;build&quot;</span>: <span class="string">&quot;react-scriptsbuild&quot;</span>,</span><br><span class="line">    <span class="string">&quot;test&quot;</span>: <span class="string">&quot;react-scripts test --env=jsdom&quot;</span>,</span><br><span class="line">    <span class="string">&quot;eject&quot;</span>: <span class="string">&quot;react-scripts  eject&quot;</span>,</span><br><span class="line">    <span class="string">&quot;electron&quot;</span>: <span class="string">&quot;electron .&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>启动 Electron：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动react项目</span></span><br><span class="line">npm start</span><br><span class="line"><span class="comment"># 启动electron</span></span><br><span class="line">npm run electron</span><br></pre></td></tr></table></figure>
+<p><img src="/res/Electron/Electron_2.png"></p>
+<p>看到一篇 <a href="https://flaviocopes.com/react-electron/">文章 CREATE AN APP WITH ELECTRON AND REACT</a> 写create-react-app和Electron结合的不错,大家也可以参考这个。</p>
+<p><strong>四、在react中使用electron</strong></p>
+<p>直接在react中使用import electron会产生问题 <a href="https://github.com/electron/electron/issues/7300#issuecomment-285885725">issues&#x2F;7300</a>，可以写成这种形式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const electron = window.require(&#x27;electron&#x27;);</span><br><span class="line">const fs = electron.remote.require(&#x27;fs&#x27;);</span><br><span class="line">const ipcRenderer  = electron.ipcRenderer;</span><br></pre></td></tr></table></figure>
+
+<h2 id="主进程和渲染进程"><a href="#主进程和渲染进程" class="headerlink" title="主进程和渲染进程"></a>主进程和渲染进程</h2><p>Electron 与web应用的区别不是很大，在原web应用的基础上添加主线程交互代码后，甚至可以将一个线上web应用迅速的包装成为一个客户端应用! Electron并且内集成了 Nodejs，Nodejs 在主进程和渲染进程中都可以使用，这为我们提供了npm成千上万的模块。</p>
+<p>所以个人感觉应用Electron的重要在于理解主进程和渲染进程，和进程间的交互。其他API可以自己花点时间阅读文档。</p>
+<p>运行Electron入口文件的进程（也就是上文运行main.js的进程）被称为主进程，它控制着整个 App 的生命周期，从打开到关闭。 它也管理着系统原生元素比如菜单，菜单栏，Dock 栏，托盘等。 主进程负责创建 APP 的每个渲染进程。而且整个 Node API 都集成在里面；</p>
+<p>而在主进程创建的一个个web页面（对应上文中的win窗口）也都运行着自己的进程，即渲染进程，渲染进程各自独立，各自拥有自己的生命周期。与主进程不同的是，它能够同时存在多个而且运行在不一样的进程。而且它们也能够被隐藏。在通常的浏览器内，网页通常运行在一个沙盒的环境挡住并且不能够使用原生的资源。 然而 Electron 的用户在 Node.js 的 API 支持下可以在页面中和操作系统进行一些低级别的交互。</p>
+<h3 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h3><p>Electron提供了几种通信方式：</p>
+<h4 id="一-使用ipc-renderer-和-ipc-main"><a href="#一-使用ipc-renderer-和-ipc-main" class="headerlink" title="一 使用ipc-renderer 和 ipc-main :"></a>一 使用<a href="https://electronjs.org/docs/api/ipc-renderer">ipc-renderer</a> 和 <a href="https://electronjs.org/docs/api/ipc-main">ipc-main</a> :</h4><p>ipc-renderer 和 ipc-main 异步交互：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在渲染进程中：</span></span><br><span class="line"><span class="keyword">const</span> &#123;ipcRenderer&#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"><span class="comment">//发送asynchronous-message事件到主进程</span></span><br><span class="line">ipcRenderer.<span class="title function_">send</span>(<span class="string">&#x27;asynchronous-message&#x27;</span>, <span class="string">&#x27;ping&#x27;</span>)</span><br><span class="line"><span class="comment">//接收主进程的asynchronous-reply通知</span></span><br><span class="line">ipcRenderer.<span class="title function_">on</span>(<span class="string">&#x27;asynchronous-reply&#x27;</span>, <span class="function">(<span class="params">event, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;asynchronous-reply : args:&#x27;</span>,arg)</span><br><span class="line">  <span class="keyword">const</span> message = <span class="string">`Asynchronous message reply: <span class="subst">$&#123;arg&#125;</span>`</span></span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;async-reply&#x27;</span>).<span class="property">innerHTML</span> = message</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//在主进程中：</span></span><br><span class="line"><span class="keyword">const</span> &#123;ipcMain&#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"><span class="comment">//接收渲染进程的asynchronous-message通知</span></span><br><span class="line">ipcMain.<span class="title function_">on</span>(<span class="string">&#x27;asynchronous-message&#x27;</span>, <span class="function">(<span class="params">event, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//发送asynchronous-reply事件到渲染进程</span></span><br><span class="line">  event.<span class="property">sender</span>.<span class="title function_">send</span>(<span class="string">&#x27;asynchronous-reply&#x27;</span>, &#123;<span class="string">&#x27;ping&#x27;</span>:<span class="string">&#x27;pong&#x27;</span>,<span class="string">&#x27;num&#x27;</span>:<span class="string">&#x27;1&#x27;</span>&#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>ipc-renderer 和 ipc-main 同步交互：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在渲染进程中：</span></span><br><span class="line"><span class="keyword">const</span> &#123;ipcRenderer&#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> syncMsgBtn = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;sync-msg&#x27;</span>)</span><br><span class="line"></span><br><span class="line">syncMsgBtn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> reply = ipcRenderer.<span class="title function_">sendSync</span>(<span class="string">&#x27;synchronous-message&#x27;</span>, <span class="string">&#x27;ping&#x27;</span>)</span><br><span class="line">  <span class="keyword">const</span> message = <span class="string">`Synchronous message reply: <span class="subst">$&#123;reply&#125;</span>`</span></span><br><span class="line">  <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;sync-reply&#x27;</span>).<span class="property">innerHTML</span> = message</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//在主进程中：</span></span><br><span class="line"><span class="keyword">const</span> &#123;ipcMain&#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ipcMain.<span class="title function_">on</span>(<span class="string">&#x27;synchronous-message&#x27;</span>, <span class="function">(<span class="params">event, arg</span>) =&gt;</span> &#123;</span><br><span class="line">  event.<span class="property">returnValue</span> = <span class="string">&#x27;pong&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="二-在渲染进程使用remote模块"><a href="#二-在渲染进程使用remote模块" class="headerlink" title="二 在渲染进程使用remote模块"></a>二 在渲染进程使用remote模块</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在渲染进程打开提示对话框</span></span><br><span class="line"><span class="keyword">const</span> &#123;dialog&#125; = <span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>).<span class="property">remote</span></span><br><span class="line">dialog.<span class="title function_">showMessageBox</span>(options, <span class="function">(<span class="params">index</span>) =&gt;</span> &#123;</span><br><span class="line">      ....</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="三-在主进程向渲染进程webContents发送消息"><a href="#三-在主进程向渲染进程webContents发送消息" class="headerlink" title="三 在主进程向渲染进程webContents发送消息"></a>三 在主进程向渲染进程webContents发送消息</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">win.<span class="property">webContents</span>.<span class="title function_">send</span>(<span class="string">&#x27;ping&#x27;</span>, <span class="string">&#x27;whoooooooh!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="四-渲染进程之间的通信"><a href="#四-渲染进程之间的通信" class="headerlink" title="四 渲染进程之间的通信"></a>四 渲染进程之间的通信</h4><p>在两个网页（渲染进程）间共享数据最简单的方法是使用浏览器中已经实现的 HTML5 API。 其中比较好的方案是用 Storage API， localStorage，sessionStorage 或者 IndexedDB。</p>
+<p>你还可以用 Electron 内的 IPC 机制实现。将数据存在主进程的某个全局变量中，然后在多个渲染进程中使用 remote 模块来访问它。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在主进程中</span></span><br><span class="line"><span class="variable language_">global</span>.<span class="property">sharedObject</span> = &#123;</span><br><span class="line">  <span class="attr">someProperty</span>: <span class="string">&#x27;default value&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 在第一个页面中</span></span><br><span class="line"><span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>).<span class="property">remote</span>.<span class="title function_">getGlobal</span>(<span class="string">&#x27;sharedObject&#x27;</span>).<span class="property">someProperty</span> = <span class="string">&#x27;new value&#x27;</span></span><br><span class="line"><span class="comment">// 在第二个页面中</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="built_in">require</span>(<span class="string">&#x27;electron&#x27;</span>).<span class="property">remote</span>.<span class="title function_">getGlobal</span>(<span class="string">&#x27;sharedObject&#x27;</span>).<span class="property">someProperty</span>)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91/" rel="tag"># 跨平台开发</a>
+              <a href="/tags/Electron/" rel="tag"># Electron</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/Redux%E6%BA%90%E7%A0%81%E6%B5%85%E8%AF%BB/" rel="prev" title="Redux源码浅读">
+                  <i class="fa fa-angle-left"></i> Redux源码浅读
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/quick-start/Babel%E6%95%99%E7%A8%8B/Babel%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="next" title="Babel入门教程">
+                  Babel入门教程 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

@@ -758,13 +758,6 @@
 
   
   <url>
-    <loc>https://developerdoc.com/tags/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://developerdoc.com/tags/iOS/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -772,21 +765,7 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/tags/React-Native/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://developerdoc.com/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/Redux/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -814,7 +793,70 @@
   </url>
   
   <url>
+    <loc>https://developerdoc.com/tags/%E5%89%8D%E7%AB%AF/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://developerdoc.com/tags/vscode/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/React-Native/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/Redux/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/Babel/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/Python/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/Scrapy/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/%E5%9B%BE%E7%89%87/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/Electron/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -869,56 +911,7 @@
     <priority>0.2</priority>
   </url>
   
-  <url>
-    <loc>https://developerdoc.com/tags/Babel/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/Electron/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/Python/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/Scrapy/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/%E5%9B%BE%E7%89%87/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
 
-  
-  <url>
-    <loc>https://developerdoc.com/categories/essay/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>https://developerdoc.com/categories/%E9%87%8D%E5%AD%A6iOS/</loc>
@@ -928,14 +921,28 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/essay/%E8%AF%91%E6%96%87/</loc>
+    <loc>https://developerdoc.com/categories/quick-start/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/essay/%E8%BD%AC%E8%BD%BD/</loc>
+    <loc>https://developerdoc.com/categories/quick-start/create-react-app%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/quick-start/%E5%8F%AF%E8%A7%86%E5%8C%96D3%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/essay/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -943,6 +950,13 @@
   
   <url>
     <loc>https://developerdoc.com/categories/essay/React-Native/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/essay/%E8%AF%91%E6%96%87/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -963,7 +977,7 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/quick-start/</loc>
+    <loc>https://developerdoc.com/categories/essay/%E8%BD%AC%E8%BD%BD/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -977,28 +991,35 @@
   </url>
   
   <url>
+    <loc>https://developerdoc.com/categories/quick-start/Babel%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/iOS%E5%9B%BE%E7%89%87/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/quick-start/Electron%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://developerdoc.com/categories/essay/AFNetworking/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/create-react-app%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/APM/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/%E5%8F%AF%E8%A7%86%E5%8C%96D3%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1019,6 +1040,13 @@
   </url>
   
   <url>
+    <loc>https://developerdoc.com/categories/APM/</loc>
+    <lastmod>2025-01-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://developerdoc.com/categories/%E9%87%8D%E5%AD%A6iOS/Runtime/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
@@ -1027,34 +1055,6 @@
   
   <url>
     <loc>https://developerdoc.com/categories/essay/SDWebImage/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/Babel%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/Electron%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2025-01-24</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/iOS%E5%9B%BE%E7%89%87/</loc>
     <lastmod>2025-01-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

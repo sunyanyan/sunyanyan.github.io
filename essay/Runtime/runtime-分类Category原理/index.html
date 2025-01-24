@@ -1,25 +1,405 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="分类的实现原理，编译时的表现，运行时的加载原理参考文档: objc4-723  category的主要作用是为已经存在的类添加方法。可以把类的实现分开在几个不同的文件里面。 Category 结构体Category用Category_t结构体定义： 12345678typedef struct category_t &#123;    const char *name;&#x2F;&#x2F;类的名字    cla">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Category结构与原理">
+<meta property="og:url" content="https://developerdoc.com/essay/Runtime/runtime-%E5%88%86%E7%B1%BBCategory%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="分类的实现原理，编译时的表现，运行时的加载原理参考文档: objc4-723  category的主要作用是为已经存在的类添加方法。可以把类的实现分开在几个不同的文件里面。 Category 结构体Category用Category_t结构体定义： 12345678typedef struct category_t &#123;    const char *name;&#x2F;&#x2F;类的名字    cla">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-11-29T09:31:45.000Z">
+<meta property="article:modified_time" content="2019-03-07T09:44:12.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/Runtime/runtime-%E5%88%86%E7%B1%BBCategory%E5%8E%9F%E7%90%86/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/Runtime/runtime-%E5%88%86%E7%B1%BBCategory%E5%8E%9F%E7%90%86/","path":"essay/Runtime/runtime-分类Category原理/","title":"Category结构与原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Category结构与原理 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Category-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">1.</span> <span class="nav-text">Category 结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category-%E4%B8%8E-Extension"><span class="nav-number">2.</span> <span class="nav-text">Category 与 Extension</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category%E7%BC%96%E8%AF%91%E6%97%B6"><span class="nav-number">3.</span> <span class="nav-text">Category编译时</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%99%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84Category%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">写个简单的Category：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%84%B6%E5%90%8E%E4%BD%BF%E7%94%A8Clang%E5%91%BD%E4%BB%A4%E7%BC%96%E8%AF%91%E4%B8%8B%EF%BC%8C%E5%91%BD%E4%BB%A4%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">3.2.</span> <span class="nav-text">然后使用Clang命令编译下，命令如下：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8OneClass-app%E4%B8%AD%E6%89%BE%E5%88%B0%E7%9B%B8%E5%85%B3%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%EF%BC%9A"><span class="nav-number">3.3.</span> <span class="nav-text">在OneClass.app中找到相关的代码片段：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category%E8%BF%90%E8%A1%8C%E6%9C%9F%E5%8A%A0%E8%BD%BD"><span class="nav-number">4.</span> <span class="nav-text">Category运行期加载</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#objc-init-%E5%92%8C-map-images"><span class="nav-number">4.1.</span> <span class="nav-text">objc_init 和 map_images</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#read-images"><span class="nav-number">4.2.</span> <span class="nav-text">read_images</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#remethodizeClass-attachCategories"><span class="nav-number">4.3.</span> <span class="nav-text">remethodizeClass &amp;&amp; attachCategories</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Runtime/runtime-%E5%88%86%E7%B1%BBCategory%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Category结构与原理 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Category结构与原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-11-29 17:31:45" itemprop="dateCreated datePublished" datetime="2017-11-29T17:31:45+08:00">2017-11-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-07 17:44:12" itemprop="dateModified" datetime="2019-03-07T17:44:12+08:00">2019-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>分类的实现原理，编译时的表现，运行时的加载原理<br>参考文档: <a href="https://opensource.apple.com/tarballs/objc4/">objc4-723</a></p>
+</blockquote>
+<p>category的主要作用是为已经存在的类添加方法。可以把类的实现分开在几个不同的文件里面。</p>
+<h3 id="Category-结构体"><a href="#Category-结构体" class="headerlink" title="Category 结构体"></a>Category 结构体</h3><p>Category用Category_t结构体定义：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> category_t &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="type">char</span> *name;<span class="comment">//类的名字</span></span><br><span class="line">    classref_t cls;<span class="comment">//类</span></span><br><span class="line">    <span class="keyword">struct</span> method_list_t *instanceMethods;<span class="comment">//实例方法的列表</span></span><br><span class="line">    <span class="keyword">struct</span> method_list_t *classMethods;<span class="comment">//类方法的列表</span></span><br><span class="line">    <span class="keyword">struct</span> protocol_list_t *protocols;<span class="comment">//所有协议的列表</span></span><br><span class="line">    <span class="keyword">struct</span> property_list_t *instanceProperties;<span class="comment">//添加的所有属性</span></span><br><span class="line">&#125; category_t;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+
+<p>从category的定义也可以看出category的可为（可以添加实例方法，类方法，甚至可以实现协议，添加属性）和不可为（无法添加实例变量）。</p>
+<h3 id="Category-与-Extension"><a href="#Category-与-Extension" class="headerlink" title="Category 与 Extension"></a>Category 与 Extension</h3><p><strong>extension</strong>看起来很像一个匿名的category，但是extension和有名字的category几乎完全是两个东西。 extension在编译期决议，它就是类的一部分，在编译期和头文件里的@interface以及实现文件里的@implement一起形成一个完整的类，它伴随类的产生而产生，亦随之一起消亡。extension一般用来隐藏类的私有信息，你必须有一个类的源码才能为一个类添加extension，所以你无法为系统的类比如NSString添加extension。</p>
+<p>但是<strong>category</strong>则完全不一样，它是在运行期决议的。<br>就category和extension的区别来看，我们可以推导出一个明显的事实，extension可以添加实例变量，而category是无法添加实例变量的（因为在运行期，对象的内存布局已经确定，如果添加实例变量就会破坏类的内部布局，这对编译型语言来说是灾难性的）。</p>
+<h3 id="Category编译时"><a href="#Category编译时" class="headerlink" title="Category编译时"></a>Category编译时</h3><h4 id="写个简单的Category："><a href="#写个简单的Category：" class="headerlink" title="写个简单的Category："></a>写个简单的Category：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//.h</span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OneClass</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)oneMethod;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">OneClass</span>(<span class="title">OneCategory</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *oneCategoryProp;</span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)oneCategoryMethod;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//.m</span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;OneClass.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OneClass</span></span></span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)oneMethod&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot; oneMethod &quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">OneClass</span>(<span class="title">OneCategory</span>)</span></span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)oneCategoryMethod&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot; oneCategoryMethod &quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h4 id="然后使用Clang命令编译下，命令如下："><a href="#然后使用Clang命令编译下，命令如下：" class="headerlink" title="然后使用Clang命令编译下，命令如下："></a>然后使用Clang命令编译下，命令如下：</h4><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -rewrite-objc OneClass.m</span><br></pre></td></tr></table></figure>
+<p>然后得到一个3m多的OneClass.app文件……</p>
+<h4 id="在OneClass-app中找到相关的代码片段："><a href="#在OneClass-app中找到相关的代码片段：" class="headerlink" title="在OneClass.app中找到相关的代码片段："></a>在OneClass.app中找到相关的代码片段：</h4><blockquote>
+<p>生成了实例方法列表:</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">struct</span> <span class="comment">/*_method_list_t*/</span> &#123;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> entsize;  <span class="comment">// sizeof(struct _objc_method)</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> method_count;</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">_objc_method</span> method_list[<span class="number">1</span>];</span><br><span class="line">&#125; _OBJC_$_CATEGORY_INSTANCE_METHODS_OneClass_$_OneCategory __attribute__ ((used, <span class="built_in">section</span> (<span class="string">&quot;__DATA,__objc_const&quot;</span>))) = &#123;</span><br><span class="line">	<span class="built_in">sizeof</span>(_objc_method),</span><br><span class="line">	<span class="number">1</span>,</span><br><span class="line">	&#123;&#123;(<span class="keyword">struct</span> objc_selector *)<span class="string">&quot;oneCategoryMethod&quot;</span>, <span class="string">&quot;v16@0:8&quot;</span>, (<span class="type">void</span> *)_I_OneClass_OneCategory_oneCategoryMethod&#125;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>生成了属性列表：</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">struct</span> <span class="comment">/*_prop_list_t*/</span> &#123;</span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> entsize;  <span class="comment">// sizeof(struct _prop_t)</span></span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> count_of_properties;</span><br><span class="line">	<span class="keyword">struct</span> <span class="title class_">_prop_t</span> prop_list[<span class="number">1</span>];</span><br><span class="line">&#125; _OBJC_$_PROP_LIST_OneClass_$_OneCategory __attribute__ ((used, <span class="built_in">section</span> (<span class="string">&quot;__DATA,__objc_const&quot;</span>))) = &#123;</span><br><span class="line">	<span class="built_in">sizeof</span>(<span class="type">_prop_t</span>),</span><br><span class="line">	<span class="number">1</span>,</span><br><span class="line">	&#123;&#123;<span class="string">&quot;oneCategoryProp&quot;</span>,<span class="string">&quot;T@\&quot;NSString\&quot;,C,N&quot;</span>&#125;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>生成了category本身 ，并用前面的实例方法列表和属性方法列表初始化</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">struct</span> <span class="title class_">_category_t</span> _OBJC_$_CATEGORY_OneClass_$_OneCategory __attribute__ ((used, <span class="built_in">section</span> (<span class="string">&quot;__DATA,__objc_const&quot;</span>))) = </span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;OneClass&quot;</span>,</span><br><span class="line">	<span class="number">0</span>, <span class="comment">// &amp;OBJC_CLASS_$_OneClass,</span></span><br><span class="line">	(<span class="type">const</span> <span class="keyword">struct</span> <span class="type">_method_list_t</span> *)&amp;_OBJC_$_CATEGORY_INSTANCE_METHODS_OneClass_$_OneCategory,</span><br><span class="line">	<span class="number">0</span>,</span><br><span class="line">	<span class="number">0</span>,</span><br><span class="line">	(<span class="type">const</span> <span class="keyword">struct</span> <span class="type">_prop_list_t</span> *)&amp;_OBJC_$_PROP_LIST_OneClass_$_OneCategory,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>最后，编译器在DATA段下的objc_catlist section里保存了一个大小为1的category_t的数组L_OBJC_LABELCATEGORY$（当然，如果有多个category，会生成对应长度的数组），用于运行期category的加载。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="keyword">struct</span> <span class="title class_">_category_t</span> *L_OBJC_LABEL_CATEGORY_$ [<span class="number">1</span>] __attribute__((used, <span class="built_in">section</span> (<span class="string">&quot;__DATA, __objc_catlist,regular,no_dead_strip&quot;</span>)))= &#123;</span><br><span class="line">	&amp;_OBJC_$_CATEGORY_OneClass_$_OneCategory,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Category运行期加载"><a href="#Category运行期加载" class="headerlink" title="Category运行期加载"></a>Category运行期加载</h3><h4 id="objc-init-和-map-images"><a href="#objc-init-和-map-images" class="headerlink" title="objc_init 和 map_images"></a>objc_init 和 map_images</h4><p>在OC运行时入口方法<code>_objc_init</code>中（（在objc-os.mm文件中））：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> _objc_init(<span class="type">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">……</span><br><span class="line">	<span class="comment">//category被附加到类上面是在map_images的时候发生的</span></span><br><span class="line">	_dyld_objc_notify_register(&amp;map_images, load_images, unmap_image);</span><br><span class="line">……</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体点大概是这么个流程:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_objc_init  -&gt; map_images -&gt; map_images_nolock -&gt; _read_images</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="read-images"><a href="#read-images" class="headerlink" title="read_images"></a>read_images</h4><p><code>_objc_init</code>里面的调用的map_images最终会调用<strong>objc-runtime-new.mm</strong>里面的<code>_read_images</code>方法，而在<code>_read_images</code>方法的结尾，有以下的代码片段：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Discover categories. </span></span><br><span class="line"><span class="keyword">for</span> (EACH_HEADER) &#123;</span><br><span class="line">    <span class="comment">//catlist就是上节中讲到的编译器为我们准备的category_t数组</span></span><br><span class="line">    <span class="type">category_t</span> **catlist = </span><br><span class="line">        _getObjc2CategoryList(hi, &amp;count);</span><br><span class="line">    <span class="type">bool</span> hasClassProperties = hi-&gt;<span class="built_in">info</span>()-&gt;<span class="built_in">hasCategoryClassProperties</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line">        <span class="type">category_t</span> *cat = catlist[i];</span><br><span class="line">        Class cls = <span class="built_in">remapClass</span>(cat-&gt;cls);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!cls) &#123;</span><br><span class="line">            <span class="comment">// Category&#x27;s target class is missing (probably weak-linked).</span></span><br><span class="line">            <span class="comment">// Disavow any knowledge of this category.</span></span><br><span class="line">            catlist[i] = nil;</span><br><span class="line">            。。。</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Process this category. </span></span><br><span class="line">        <span class="comment">// First, register the category with its target class. </span></span><br><span class="line">        <span class="comment">// Then, rebuild the class&#x27;s method lists (etc) if </span></span><br><span class="line">        <span class="comment">// the class is realized.</span></span><br><span class="line">        <span class="comment">// 把category的实例方法、协议以及属性添加到类上</span></span><br><span class="line">        <span class="type">bool</span> classExists = NO;</span><br><span class="line">        <span class="keyword">if</span> (cat-&gt;instanceMethods ||  cat-&gt;protocols  </span><br><span class="line">            ||  cat-&gt;instanceProperties) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">addUnattachedCategoryForClass</span>(cat, cls, hi);</span><br><span class="line">            <span class="keyword">if</span> (cls-&gt;<span class="built_in">isRealized</span>()) &#123;</span><br><span class="line">                <span class="built_in">remethodizeClass</span>(cls);</span><br><span class="line">                classExists = YES;</span><br><span class="line">            &#125;</span><br><span class="line">            。。。</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//把category的类方法和协议添加到类的metaclass上</span></span><br><span class="line">        <span class="keyword">if</span> (cat-&gt;classMethods  ||  cat-&gt;protocols  </span><br><span class="line">            ||  (hasClassProperties &amp;&amp; cat-&gt;_classProperties)) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">addUnattachedCategoryForClass</span>(cat, cls-&gt;<span class="built_in">ISA</span>(), hi);</span><br><span class="line">            <span class="keyword">if</span> (cls-&gt;<span class="built_in">ISA</span>()-&gt;<span class="built_in">isRealized</span>()) &#123;</span><br><span class="line">                <span class="built_in">remethodizeClass</span>(cls-&gt;<span class="built_in">ISA</span>());</span><br><span class="line">            &#125;</span><br><span class="line">            。。。</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从代码中可以看到remethodizeClass处理添加事宜方法</p>
+<h4 id="remethodizeClass-attachCategories"><a href="#remethodizeClass-attachCategories" class="headerlink" title="remethodizeClass &amp;&amp; attachCategories"></a>remethodizeClass &amp;&amp; attachCategories</h4><p>既然remethodizeClass才是真正去处理添加事宜方法那么现在看一下remethodizeClass：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">remethodizeClass</span><span class="params">(Class cls)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    category_list *cats;</span><br><span class="line">    。。。</span><br><span class="line">    <span class="keyword">if</span> ((cats = <span class="built_in">unattachedCategoriesForClass</span>(cls, <span class="literal">false</span><span class="comment">/*not realizing*/</span>))) &#123;</span><br><span class="line">    	。。。       </span><br><span class="line">        <span class="built_in">attachCategories</span>(cls, cats, <span class="literal">true</span> <span class="comment">/*flush caches*/</span>);        </span><br><span class="line">        <span class="built_in">free</span>(cats);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>emmm 好像remethodizeClass也没干什么事，都交给了<code>attachCategories</code>方法了嘛，接下来看下attachCategories：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">static void </span><br><span class="line">attachCategories(Class cls, category_list *cats, bool flush_caches)</span><br><span class="line">&#123;</span><br><span class="line">    if (!cats) return;</span><br><span class="line">    if (PrintReplacedMethods) printReplacements(cls, cats);</span><br><span class="line"></span><br><span class="line">    bool isMeta = cls-&gt;isMetaClass();</span><br><span class="line"></span><br><span class="line">    // fixme rearrange to remove these intermediate allocations</span><br><span class="line">    method_list_t **mlists = (method_list_t **)</span><br><span class="line">        malloc(cats-&gt;count * sizeof(*mlists));</span><br><span class="line">    property_list_t **proplists = (property_list_t **)</span><br><span class="line">        malloc(cats-&gt;count * sizeof(*proplists));</span><br><span class="line">    protocol_list_t **protolists = (protocol_list_t **)</span><br><span class="line">        malloc(cats-&gt;count * sizeof(*protolists));</span><br><span class="line"></span><br><span class="line">    // Count backwards through cats to get newest categories first</span><br><span class="line">    int mcount = 0;</span><br><span class="line">    int propcount = 0;</span><br><span class="line">    int protocount = 0;</span><br><span class="line">    int i = cats-&gt;count;</span><br><span class="line">    bool fromBundle = NO;</span><br><span class="line">    while (i--) &#123;</span><br><span class="line">        auto&amp; entry = cats-&gt;list[i];</span><br><span class="line"></span><br><span class="line">        method_list_t *mlist = entry.cat-&gt;methodsForMeta(isMeta);</span><br><span class="line">        if (mlist) &#123;</span><br><span class="line">            mlists[mcount++] = mlist;</span><br><span class="line">            fromBundle |= entry.hi-&gt;isBundle();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        property_list_t *proplist = </span><br><span class="line">            entry.cat-&gt;propertiesForMeta(isMeta, entry.hi);</span><br><span class="line">        if (proplist) &#123;</span><br><span class="line">            proplists[propcount++] = proplist;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        protocol_list_t *protolist = entry.cat-&gt;protocols;</span><br><span class="line">        if (protolist) &#123;</span><br><span class="line">            protolists[protocount++] = protolist;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    auto rw = cls-&gt;data();</span><br><span class="line"></span><br><span class="line">    prepareMethodLists(cls, mlists, mcount, NO, fromBundle);</span><br><span class="line">    rw-&gt;methods.attachLists(mlists, mcount);</span><br><span class="line">    free(mlists);</span><br><span class="line">    if (flush_caches  &amp;&amp;  mcount &gt; 0) flushCaches(cls);</span><br><span class="line"></span><br><span class="line">    rw-&gt;properties.attachLists(proplists, propcount);</span><br><span class="line">    free(proplists);</span><br><span class="line"></span><br><span class="line">    rw-&gt;protocols.attachLists(protolists, protocount);</span><br><span class="line">    free(protolists);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个函数的主要作用是将 Category 中的方法、属性和协议整合到类（主类或元类）中，更新类的数据字段 data() 中 method_lists（或 method_list）、properties 和 protocols 的值。</p>
+<ul>
+<li>category的方法没有替换掉原来类已经有的方法，也就是说如果category和原来类都有methodA，那么category附加完成之后，类的方法列表里会有两个methodA</li>
+<li>category的方法被放到了新方法列表的前面，而原来类的方法被放到了新方法列表的后面，这也就是我们平常所说的category的方法会“覆盖”掉原来类的同名方法，这是因为运行时在查找方法的时候是顺着方法列表的顺序查找的，它只要一找到对应名字的方法，就会罢休。</li>
+<li><strong>怎么调用到原来类中被category覆盖掉的方法</strong>？对于这个问题，我们已经知道category其实并不是完全替换掉原来类的同名方法，只是category在方法列表的前面而已，所以我们只要顺着方法列表找到最后一个对应名字的方法，就可以调用原来类的方法</li>
+</ul>
+<hr>
+<ul>
+<li>参考资料<ul>
+<li><a href="http://opensource.apple.com/tarballs/objc4/">Apple Open Source : objc4-646.tar.gz</a></li>
+<li><a href="https://tech.meituan.com/DiveIntoCategory.html">https://tech.meituan.com/DiveIntoCategory.html</a></li>
+<li><a href="http://blog.leichunfeng.com/blog/2015/05/18/objective-c-category-implementation-principle/">http://blog.leichunfeng.com/blog/2015/05/18/objective-c-category-implementation-principle/</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/Runtime/runtime-%E5%AF%B9%E8%B1%A1%E5%85%B3%E8%81%94/" rel="prev" title="Runtime 对象关联原理">
+                  <i class="fa fa-angle-left"></i> Runtime 对象关联原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/RN%E4%B8%AD%E5%B8%83%E5%B1%80%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%86%99%E6%B3%95/" rel="next" title="RN中布局样式的写法">
+                  RN中布局样式的写法 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

@@ -1,25 +1,443 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="iOS 原生代码的编译调试，都是通过一遍又一遍地编译重启 APP来进行的。所以项目代码量越大，编译时间就越长。虽然我们可以将部分代码先编译成二进制集成到工程里，来避免每次都全量编译来加快编译速度，但即使这样，每次编译都还是需要重启App，需要再走一遍调试流程。  幸运的是，John Holdsworth 开发了一个叫做 InjectionIII 的工具可以动态地将 Swift 或 Objecti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="InjectionIII 使用原理介绍">
+<meta property="og:url" content="https://developerdoc.com/essay/injectIII/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="iOS 原生代码的编译调试，都是通过一遍又一遍地编译重启 APP来进行的。所以项目代码量越大，编译时间就越长。虽然我们可以将部分代码先编译成二进制集成到工程里，来避免每次都全量编译来加快编译速度，但即使这样，每次编译都还是需要重启App，需要再走一遍调试流程。  幸运的是，John Holdsworth 开发了一个叫做 InjectionIII 的工具可以动态地将 Swift 或 Objecti">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/1.png">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/2.png">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/3.gif">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/4.png">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/8.png">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/5.png">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/6.png">
+<meta property="og:image" content="https://developerdoc.com/res/InjectionIII/7.png">
+<meta property="article:published_time" content="2021-01-04T03:42:18.000Z">
+<meta property="article:modified_time" content="2021-01-16T08:34:21.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/InjectionIII/1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/injectIII/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/injectIII/","path":"essay/injectIII/","title":"InjectionIII 使用原理介绍"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>InjectionIII 使用原理介绍 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#InjectionIII%E4%B8%8B%E8%BD%BD%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">InjectionIII下载使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BDInjectionIII"><span class="nav-number">1.1.</span> <span class="nav-text">下载InjectionIII</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%B7%BB%E5%8A%A0%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">在项目中添加代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%90%E8%A1%8CInjectionIII-%E5%B9%B6%E9%80%89%E6%8B%A9%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">1.3.</span> <span class="nav-text">运行InjectionIII 并选择项目目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8InjectionIII-%E5%B9%B6%E6%B5%8B%E8%AF%95%E5%87%A0%E7%A7%8D%E5%9C%BA%E6%99%AF"><span class="nav-number">1.4.</span> <span class="nav-text">使用InjectionIII 并测试几种场景:</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#InjectionIII%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">InjectionIII原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A4%A7%E8%87%B4%E6%B5%81%E7%A8%8B%E6%A2%B3%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">大致流程梳理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91InjectionIII%E5%B7%A5%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">编译InjectionIII工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">2.3.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%88%9D%E5%A7%8B%E5%8C%96Server%E5%92%8CClient%E5%B9%B6%E9%80%9A%E8%BF%87Socket%E5%BB%BA%E7%AB%8B%E9%93%BE%E6%8E%A5"><span class="nav-number">2.3.1.</span> <span class="nav-text">一、初始化Server和Client并通过Socket建立链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E7%9B%91%E5%90%AC%E6%96%87%E4%BB%B6%E4%BF%AE%E6%94%B9"><span class="nav-number">2.3.2.</span> <span class="nav-text">二、监听文件修改</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E9%87%8D%E6%96%B0%E7%BC%96%E8%AF%91%E3%80%81%E6%89%93%E5%8C%85%E5%8A%A8%E6%80%81%E5%BA%93%E5%92%8C%E7%AD%BE%E5%90%8D"><span class="nav-number">2.3.3.</span> <span class="nav-text">三、重新编译、打包动态库和签名</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%8A%A0%E8%BD%BD%E5%8A%A8%E6%80%81%E5%BA%93%E8%BF%9B%E8%A1%8C%E6%96%B9%E6%B3%95%E6%9B%BF%E6%8D%A2"><span class="nav-number">2.3.4.</span> <span class="nav-text">四、加载动态库进行方法替换</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/injectIII/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="InjectionIII 使用原理介绍 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          InjectionIII 使用原理介绍
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-04 11:42:18" itemprop="dateCreated datePublished" datetime="2021-01-04T11:42:18+08:00">2021-01-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-01-16 16:34:21" itemprop="dateModified" datetime="2021-01-16T16:34:21+08:00">2021-01-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>iOS 原生代码的编译调试，都是通过一遍又一遍地编译重启 APP来进行的。所以项目代码量越大，编译时间就越长。虽然我们可以将部分代码先编译成二进制集成到工程里，来避免每次都全量编译来加快编译速度，但即使这样，每次编译都还是需要重启App，需要再走一遍调试流程。</p>
+</blockquote>
+<p>幸运的是，John Holdsworth 开发了一个叫做 InjectionIII 的工具可以动态地将 Swift 或 Objective-C 的代码在已运行的程序中执行，以加快调试速度，同时保证程序不用重启。</p>
+<span id="more"></span>
+
+<h3 id="InjectionIII下载使用"><a href="#InjectionIII下载使用" class="headerlink" title="InjectionIII下载使用"></a>InjectionIII下载使用</h3><h4 id="下载InjectionIII"><a href="#下载InjectionIII" class="headerlink" title="下载InjectionIII"></a>下载InjectionIII</h4><p>如果仅用于使用的话在mac appStore下载就可以了：</p>
+<img src="/res/InjectionIII/1.png" width="50%">
+
+<h4 id="在项目中添加代码"><a href="#在项目中添加代码" class="headerlink" title="在项目中添加代码"></a>在项目中添加代码</h4><p>在 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions 方法里添加如下代码</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">BOOL</span>)application:(<span class="built_in">UIApplication</span> *)application didFinishLaunchingWithOptions:(<span class="built_in">NSDictionary</span> *)launchOptions &#123;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">if</span> DEBUG</span></span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@&quot;/Applications/InjectionIII.app/Contents/Resources/iOSInjection.bundle&quot;</span>] load;</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//成功时控制台会打印：</span><br><span class="line">💉 Injection connected 👍</span><br><span class="line"></span><br><span class="line">//没有运行InjectionIII 控制台会打印</span><br><span class="line">💉 Injection loaded but could not connect. Is InjectionIII.app running?</span><br></pre></td></tr></table></figure>
+
+<h4 id="运行InjectionIII-并选择项目目录"><a href="#运行InjectionIII-并选择项目目录" class="headerlink" title="运行InjectionIII 并选择项目目录"></a>运行InjectionIII 并选择项目目录</h4><p>使用的时候会让你选择项目目录，InjectionIII 就是监控的这个目录，里面文件变动会有通知。</p>
+<img src="/res/InjectionIII/2.png" width="50%">
+
+<h4 id="使用InjectionIII-并测试几种场景"><a href="#使用InjectionIII-并测试几种场景" class="headerlink" title="使用InjectionIII 并测试几种场景:"></a>使用InjectionIII 并测试几种场景:</h4><p>你可以在在对应的VC控制器中实现 - (void)injected 编写代码，写完后，command+s 保存切执行代码，Injjection就开始编译修改过的文件为动态库，然后我们在Injected方法内做UI reload工作，即可重绘UI。</p>
+<p>也可以直接修改你想测试的VC代码，然后退出重进即可重载VC。</p>
+<p>测试一下四种场景： </p>
+<ul>
+<li>修改方法</li>
+<li>新增方法</li>
+<li>新增属性</li>
+<li>新增类</li>
+</ul>
+<p>其中 修改方法&#x2F;新增方法&#x2F;新增类 都可以动态修改</p>
+<p><img src="/res/InjectionIII/3.gif"></p>
+<p>而当动态添加属性时则会报错</p>
+<img src="/res/InjectionIII/4.png" width="50%">
+
+<p>我们很自然的想到因为不能向已有类动态添加属性，但是InjectionIII到底做了什么呢？让我们带着疑问来看看InjectionIII的原理</p>
+<blockquote>
+<p>没有看到效果的问题?</p>
+</blockquote>
+<ul>
+<li>确认 Injection 监听的目录和 Xcode 项目目录是否一致。</li>
+<li>再看下有没有保存成功，也就是针筒的颜色由绿色变成红色。</li>
+<li>确认上面那句话有没有打印，也就是说有没有真的运行这个工具。</li>
+<li>如果修改的是 cell &#x2F; item 上面的内容，需要上下滚动才能看到效果。</li>
+<li>如果修改的是一个普通页面的内容，最好是退出这个页面，再进入这个页面。</li>
+<li>确认 Xcode 的版本和启动时添加的代码是否匹配，Xcode10 需要 iOSInjection10.bundle 才能生效</li>
+</ul>
+<h3 id="InjectionIII原理"><a href="#InjectionIII原理" class="headerlink" title="InjectionIII原理"></a>InjectionIII原理</h3><h4 id="大致流程梳理"><a href="#大致流程梳理" class="headerlink" title="大致流程梳理"></a>大致流程梳理</h4><p><img src="/res/InjectionIII/8.png"></p>
+<ul>
+<li>InjectionIII 分为server 和 client部分，</li>
+<li>client部分在你的项目启动的时候会作为 bundle load 进去，server部分在Mac App那边，server 和 client 都会在后台发送和监听 Socket 消息，实现逻辑分别在 InjectionServer.mm 和 InjectionClient.mm 里的 runInBackground 方法里面。</li>
+<li>InjectionIII 会监听源代码文件的变化，如果文件被改动了，server 就会通过 Socket 通知 client 进行 rebuildClass 重新对该文件进行编译，打包成动态库，也就是 .dylib 文件。</li>
+<li>然后通过 dlopen 把动态库文件载入运行的 App 里，接下来 dlsym 会得到动态库的符号地址，然后就可以处理类的替换工作。</li>
+<li>当类的方法被替换后，我们就可以开始重新绘制界面了。整个过程无需重新编译和重载 App，使用动态库方式极速调试的目的就达成了。</li>
+</ul>
+<p>这里有一点需要说明一下，模拟器下iOS可加载Mac任意文件，而真机设备如果加载动态库，只能加载App.content目录下的，换句话说，这个工具只支持模拟器。</p>
+<h4 id="编译InjectionIII工程"><a href="#编译InjectionIII工程" class="headerlink" title="编译InjectionIII工程"></a>编译InjectionIII工程</h4><p>要了解一个工具，最好的方式当然直接看源码了。InjectionIII 的源代码链接如下：<a href="https://github.com/johnno1962/InjectionIII">https://github.com/johnno1962/InjectionIII</a>，可以下载下来对着源码分析。</p>
+<img src="/res/InjectionIII/5.png" width="50%">
+
+<p>下载&#x2F;clone InjectionIII 主工程代码，子工程 remote SwiftTrace XprobePlugin 也一并点进链接下载到对应目录。</p>
+<p>然后解决下证书问题 ，直接勾选 Automatically manage signing，同时选择一下团队，注意 InjectionIII 和 InjectionBundle 两个 target 都要选择好。就可以愉快的编译了~</p>
+<p>最后说一下，如果我们要用源码分析，当然要将源码编译起来，打断点看流程。这样的话就在 willFinishLaunchingWithOptions 里面加载的路径就要相应修改了，我这边是这样的。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">if</span> DEBUG</span></span><br><span class="line">    [[<span class="built_in">NSBundle</span> bundleWithPath:<span class="string">@&quot;/Users/suntongsheng/Library/Developer/Xcode/DerivedData/InjectionIII-aornltecfreqqwezgayglgjnnckg/Build/Products/Debug/InjectionIII.app/Contents/Resources/iOSInjection.bundle&quot;</span>] load];</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<h4 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h4><h5 id="一、初始化Server和Client并通过Socket建立链接"><a href="#一、初始化Server和Client并通过Socket建立链接" class="headerlink" title="一、初始化Server和Client并通过Socket建立链接"></a>一、初始化Server和Client并通过Socket建立链接</h5><p><code>Server端 即是InjectionIII工程中的Target-InjectionIII</code> 初始化调用 SimpleSocket 的 startServer 方法并传入端口号 在后台运行开启服务端socket 服务用于和客户端的通讯，并运行 InjectionServer 类的 runInBackground 方法进行初始化操作，弹出选择项目目录对话框，如果之前选择过的话就不会弹出。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span> (void)startServer:(<span class="type">NSString</span> <span class="operator">*</span>)address &#123;</span><br><span class="line">    <span class="type">NSLog</span>(@<span class="string">&quot; %s %p &quot;</span>,__func__,<span class="keyword">self</span>);</span><br><span class="line">    [<span class="keyword">self</span> performSelectorInBackground:<span class="meta">@selector</span>(runServer:) withObject:address];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="operator">+</span> (void)runServer:(<span class="type">NSString</span> <span class="operator">*</span>)address &#123;</span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">sockaddr_storage</span> serverAddr;</span><br><span class="line">    [<span class="keyword">self</span> parseV4Address:address into:<span class="operator">&amp;</span>serverAddr];</span><br><span class="line"></span><br><span class="line">    int serverSocket <span class="operator">=</span> [<span class="keyword">self</span> newSocket:serverAddr.ss_family];</span><br><span class="line">    <span class="keyword">if</span> (serverSocket <span class="operator">&lt;</span> <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bind(serverSocket, (<span class="keyword">struct</span> sockaddr <span class="operator">*</span>)<span class="operator">&amp;</span>serverAddr, serverAddr.ss_len) <span class="operator">&lt;</span> <span class="number">0</span>)</span><br><span class="line">        [<span class="keyword">self</span> error:@<span class="string">&quot;Could not bind service socket: %s&quot;</span>];</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (listen(serverSocket, <span class="number">5</span>) <span class="operator">&lt;</span> <span class="number">0</span>)</span><br><span class="line">        [<span class="keyword">self</span> error:@<span class="string">&quot;Service socket would not listen: %s&quot;</span>];</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="type">TRUE</span>) &#123;</span><br><span class="line">            <span class="keyword">struct</span> <span class="title class_">sockaddr_storage</span> clientAddr;</span><br><span class="line">            socklen_t addrLen <span class="operator">=</span> sizeof clientAddr;</span><br><span class="line"></span><br><span class="line">            int clientSocket <span class="operator">=</span> accept(serverSocket, (<span class="keyword">struct</span> sockaddr <span class="operator">*</span>)<span class="operator">&amp;</span>clientAddr, <span class="operator">&amp;</span>addrLen);</span><br><span class="line">            <span class="keyword">if</span> (clientSocket <span class="operator">&gt;</span> <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="meta">@autoreleasepool</span> &#123;</span><br><span class="line">                    <span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> <span class="operator">*</span>v4Addr <span class="operator">=</span> (<span class="keyword">struct</span> sockaddr_in <span class="operator">*</span>)<span class="operator">&amp;</span>clientAddr;</span><br><span class="line">                    <span class="type">NSLog</span>(@<span class="string">&quot;Connection from %s:%d<span class="subst">\n</span>&quot;</span>,</span><br><span class="line">                          inet_ntoa(v4Addr-&gt;sin_addr), ntohs(v4Addr-&gt;sin_port));</span><br><span class="line">                    [[[<span class="keyword">self</span> alloc] initSocket:clientSocket] run];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                [<span class="type">NSThread</span> sleepForTimeInterval:.<span class="number">5</span>];</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>Client端 即是InjectionIII工程中的Target-InjectionBundle</code> 会在我们的demo工程中加载，项目启动以后可以在控制台执行 image list -o -f 查看加载的动态库，可以看到 iOSInjection.bundle 确实已经以动态库的形式加载进来了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">image list -o -f</span><br><span class="line"></span><br><span class="line">[377] 0x0000000102b13000 /Users/suntongsheng/Library/Developer/Xcode/DerivedData/InjectionIII-aornltecfreqqwezgayglgjnnckg/Build/Products/Debug/InjectionIII.app/Contents/Resources/iOSInjection.bundle/iOSInjection</span><br></pre></td></tr></table></figure>
+<p>其初始化在InjectionClient 类的 +load 方法。在 InjectionClient 类的 +load 方法里会调用其 connectTo 方法传入对应的端口号来连接服务端的 socket 服务用于通讯，并运行其runInBackground 方法进行初始化操作。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span> (void)load &#123;</span><br><span class="line">    <span class="type">NSLog</span>(@<span class="string">&quot; %s %p &quot;</span>,__func__,<span class="keyword">self</span>);</span><br><span class="line">    <span class="comment">// connect to InjectionIII.app using socket</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="type">InjectionClient</span> <span class="operator">*</span>client <span class="operator">=</span> [<span class="keyword">self</span> connectTo:<span class="type">INJECTION_ADDRESS</span>])</span><br><span class="line">        [client run];</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        printf(<span class="string">&quot;💉 Injection loaded but could not connect. Is InjectionIII.app running?<span class="subst">\n</span>&quot;</span>);</span><br><span class="line">#ifndef __IPHONE_OS_VERSION_MIN_REQUIRED</span><br><span class="line">        printf(<span class="string">&quot;⚠️ For a macOS app you need to turn off the sandbox to connect. ⚠️<span class="subst">\n</span>&quot;</span>);</span><br><span class="line"><span class="keyword">#endif</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>InjectionIII 运行以后会在后台监听 socket 消息，每隔0.5秒检查一次是否有客户端连接过来，等我们app 启动以后加载了 iOSInjection.bundle，就会启动 client 跟 server 建立连接，然后就可以发送消息了。</p>
+<h5 id="二、监听文件修改"><a href="#二、监听文件修改" class="headerlink" title="二、监听文件修改"></a>二、监听文件修改</h5><p>当我们在调试工程中修改了代码并保存后，FileWatcher 会立即收到文件改变的回调，FileWatcher 使用 Mac OS 上的 FSEvents 框架实现，<code>FileWatcher</code> 中通过 <code>filesChanged</code> 告诉回调方法即<code>InjectionServer</code>中的<code>fileChangeHandler</code>方法</p>
+<p><img src="/res/InjectionIII/6.png"></p>
+<p>在<code>InjectionServer</code>方法中会判断是否为自动注入，如果是则执行 injectPending 方法，通过 socket 对客户端下发InjectionInject 代码注入命令并传入需要代码注入的文件名物理路径。如果不是自动注入那么就在控制台输出“xx文件已保存，输入ctrl-&#x3D;进行注入”告诉我们手动注入的触发方式。</p>
+<h5 id="三、重新编译、打包动态库和签名"><a href="#三、重新编译、打包动态库和签名" class="headerlink" title="三、重新编译、打包动态库和签名"></a>三、重新编译、打包动态库和签名</h5><p>文件修改后若是自动注入<code>injectPending</code>方法会调用 <code>recompileAndInject</code>方法实际上会调用 SwiftEval 单例的 rebuildClass 方法来进行修改文件的重新编译、打包动态库和签名：</p>
+<p>首先根据修改的类文件名在 Injection App 的沙盒路径生成对应的编译脚本，脚本命名为eval+数字，数字以100为基数，每次递增1。脚本生成调用方法如下图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">injectionNumber <span class="operator">+=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">let</span> tmpfile <span class="operator">=</span> <span class="type">URL</span>(fileURLWithPath: tmpDir)</span><br><span class="line">    .appendingPathComponent(<span class="string">&quot;eval<span class="subst">\(injectionNumber)</span>&quot;</span>).path</span><br><span class="line"><span class="keyword">let</span> logfile <span class="operator">=</span> <span class="string">&quot;<span class="subst">\(tmpfile)</span>.log&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">var</span> (compileCommand, sourceFile) <span class="operator">=</span> <span class="keyword">try</span> compileByClass[classNameOrFile] <span class="operator">??</span></span><br><span class="line">    findCompileCommand(logsDir: logsDir, classNameOrFile: classNameOrFile, tmpfile: tmpfile) <span class="operator">??</span></span><br><span class="line">    <span class="type">SwiftEval</span>.longTermCache[classNameOrFile].flatMap(&#123; (<span class="variable">$0</span> <span class="keyword">as!</span> <span class="type">String</span>, classNameOrFile) &#125;) <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> evalError(<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        Could not locate compile command for <span class="subst">\(classNameOrFile)</span>.</span></span><br><span class="line"><span class="string">        This could be due to one of the following:</span></span><br><span class="line"><span class="string">        1. Injection does not work with Whole Module Optimization.</span></span><br><span class="line"><span class="string">        2. There are restrictions on characters allowed in paths.</span></span><br><span class="line"><span class="string">        3. File paths in the simulator paths are case sensitive.</span></span><br><span class="line"><span class="string">        Try a build clean then rebuild to make logs available or</span></span><br><span class="line"><span class="string">        consult: &quot;<span class="subst">\(commandFile)</span>&quot;.</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中 findCompileCommand 为生成 sh 脚本的具体方法，主要是针对当前修改类设置对应的编译脚本命令。由于脚本太长，这里就不贴上来了，有兴趣的同学可以自行查看。</p>
+<p>使用改动类的编译脚本可以生成其.o文件，具体如下图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> toolchain <span class="operator">=</span> ((<span class="keyword">try!</span> <span class="type">NSRegularExpression</span>(pattern: <span class="string">&quot;<span class="subst">\\</span>s*(<span class="subst">\\</span>S+?<span class="subst">\\</span>.xctoolchain)&quot;</span>, options: []))</span><br><span class="line">    .firstMatch(in: compileCommand, options: [], range: <span class="type">NSMakeRange</span>(<span class="number">0</span>, compileCommand.utf16.count))<span class="operator">?</span></span><br><span class="line">    .range(at: <span class="number">1</span>)).flatMap &#123; compileCommand[<span class="variable">$0</span>] &#125; <span class="operator">??</span> <span class="string">&quot;<span class="subst">\(xcodeDev)</span>/Toolchains/XcodeDefault.xctoolchain&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> osSpecific: <span class="type">String</span></span><br><span class="line"><span class="keyword">if</span> compileCommand.contains(<span class="string">&quot;iPhoneSimulator.platform&quot;</span>) &#123;</span><br><span class="line">    osSpecific <span class="operator">=</span> <span class="string">&quot;-isysroot <span class="subst">\(xcodeDev)</span>/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk -mios-simulator-version-min=9.0 -L<span class="subst">\(toolchain)</span>/usr/lib/swift/iphonesimulator -undefined dynamic_lookup&quot;</span><span class="comment">// -Xlinker -bundle_loader -Xlinker \&quot;\(Bundle.main.executablePath!)\&quot;&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里针对模拟器环境进行脚本配置，配置完成后使用 clang 命令把对应的.o文件生成相同名字的动态库，具体如下图：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">guard</span> shell(command: <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    <span class="subst">\(xcodeDev)</span>/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -arch &quot;<span class="subst">\(arch)</span>&quot; -bundle <span class="subst">\(osSpecific)</span> -dead_strip -Xlinker -objc_abi_version -Xlinker 2 -fobjc-arc -fprofile-instr-generate <span class="subst">\&quot;</span><span class="subst">\(tmpfile)</span>.o<span class="subst">\&quot;</span> -L &quot;<span class="subst">\(frameworks)</span>&quot; -F &quot;<span class="subst">\(frameworks)</span>&quot; -rpath &quot;<span class="subst">\(frameworks)</span>&quot; -o <span class="subst">\&quot;</span><span class="subst">\(tmpfile)</span>.dylib<span class="subst">\&quot;</span> &gt;&gt;<span class="subst">\&quot;</span><span class="subst">\(logfile)</span><span class="subst">\&quot;</span> 2&gt;&amp;1</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span>) <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> evalError(<span class="string">&quot;Link failed, check <span class="subst">\(commandFile)</span><span class="subst">\n</span><span class="subst">\(<span class="keyword">try!</span> String(contentsOfFile: logfile))</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>过程中产生的产物如下：</p>
+<img src="/res/InjectionIII/7.png" width="50%">
+
+<p>苹果会对加载的动态库进行签名校验，所以下一步需要对这个动态库签名,由于签名需要使用 Xcode 环境，所以客户端是无法进行的，只能通过 socket 告诉服务端来进行操作。当服务端收到 InjectionSign 签名命令后会调用 SignerService 类的 codesignDylib 来对相应的动态库进行签名操作</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@implementation</span> <span class="type">SignerService</span></span><br><span class="line"></span><br><span class="line"><span class="operator">+</span> (<span class="type">BOOL</span>)codesignDylib:(<span class="type">NSString</span> <span class="operator">*</span>)dylib identity:(<span class="type">NSString</span> <span class="operator">*</span>)identity &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">NSString</span> <span class="operator">*</span>adhocSign <span class="operator">=</span> @<span class="string">&quot;-&quot;</span>;</span><br><span class="line">    <span class="type">NSString</span> <span class="operator">*</span>command <span class="operator">=</span> [<span class="type">NSString</span> stringWithFormat:@<span class="string">&quot;&quot;</span></span><br><span class="line">                         <span class="string">&quot;(export CODESIGN_ALLOCATE=/Applications/Xcode.app&quot;</span></span><br><span class="line">                         <span class="string">&quot;/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/codesign_allocate; &quot;</span></span><br><span class="line">                         <span class="string">&quot;if /usr/bin/file <span class="subst">\&quot;</span>%@<span class="subst">\&quot;</span> | grep &#x27; bundle &#x27; &gt;/dev/null;&quot;</span></span><br><span class="line">                         <span class="string">&quot;then /usr/bin/codesign --force -s <span class="subst">\&quot;</span>%@<span class="subst">\&quot;</span> <span class="subst">\&quot;</span>%@<span class="subst">\&quot;</span>;&quot;</span></span><br><span class="line">                         <span class="string">&quot;else exit 1; fi)&quot;</span>,</span><br><span class="line">                         dylib, identity <span class="operator">?</span>: adhocSign, dylib];</span><br><span class="line">    <span class="keyword">return</span> system(command.<span class="type">UTF8String</span>) <span class="operator">&gt;&gt;</span> <span class="number">8</span> <span class="operator">==</span> <span class="type">EXIT_SUCCESS</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="operator">-</span> (void)runInBackground &#123;</span><br><span class="line">    char __unused skip, buffer[<span class="number">1000</span>];</span><br><span class="line">    buffer[read(clientSocket, buffer, sizeof buffer<span class="operator">-</span><span class="number">1</span>)] <span class="operator">=</span> &#x27;\<span class="number">000</span>&#x27;;</span><br><span class="line">    <span class="type">NSString</span> <span class="operator">*</span>path <span class="operator">=</span> [[<span class="type">NSString</span> stringWithUTF8String:buffer] componentsSeparatedByString:@<span class="string">&quot; &quot;</span>][<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ([[<span class="keyword">self</span> <span class="keyword">class</span>] codesignDylib:path identity:<span class="literal">nil</span>]) &#123;</span><br><span class="line">        snprintf(buffer, sizeof buffer, <span class="string">&quot;HTTP/1.0 200 OK<span class="subst">\r</span><span class="subst">\n</span><span class="subst">\r</span><span class="subst">\n</span>&quot;</span>);</span><br><span class="line">        write(clientSocket, buffer, strlen(buffer));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>至此修改文件的重新编译、打包动态库和签名操作就全部完成了，接下来就是我们最熟悉的加载动态库进行方法替换了。</p>
+<h5 id="四、加载动态库进行方法替换"><a href="#四、加载动态库进行方法替换" class="headerlink" title="四、加载动态库进行方法替换"></a>四、加载动态库进行方法替换</h5><p>在生成动态库后 先使用dlopen方法把对应的动态库加载到当前运行的调试工程的进程中 并拿到返回的指针dl，然后使用dlsym拿到动态库的符号地址。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@objc</span> <span class="keyword">func</span> <span class="title function_">loadAndInject</span>(<span class="params">tmpfile</span>: <span class="type">String</span>, <span class="params">oldClass</span>: <span class="type">AnyClass</span>? <span class="operator">=</span> <span class="literal">nil</span>) <span class="keyword">throws</span> -&gt; [<span class="type">AnyClass</span>] &#123;</span><br><span class="line"></span><br><span class="line">    <span class="operator">...</span></span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> dl <span class="operator">=</span> dlopen(<span class="string">&quot;<span class="subst">\(tmpfile)</span>.dylib&quot;</span>, <span class="type">RTLD_NOW</span>) <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="operator">...</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> oldClass <span class="operator">!=</span> <span class="literal">nil</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="operator">...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// grep out symbols for classes being injected from object file</span></span><br><span class="line">        <span class="comment">//正常流程会走到这里</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">try</span> extractClasses(dl: dl, tmpfile: tmpfile)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Overridden by SwiftInjectionEval subclass for injection</span></span><br><span class="line"><span class="keyword">@objc</span> <span class="keyword">func</span> <span class="title function_">extractClasses</span>(<span class="params">dl</span>: <span class="type">UnsafeMutableRawPointer</span>,</span><br><span class="line">                          <span class="params">tmpfile</span>: <span class="type">String</span>) <span class="keyword">throws</span> -&gt; [<span class="type">AnyClass</span>] &#123;</span><br><span class="line">    <span class="keyword">guard</span> shell(command: <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">        <span class="subst">\(xcodeDev)</span>/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm <span class="subst">\(tmpfile)</span>.o | grep -E &#x27; S _OBJC_CLASS_<span class="subst">\\</span>$_| _(_T0|<span class="subst">\\</span>$S|<span class="subst">\\</span>$s).*CN$&#x27; | awk &#x27;&#123;print $3&#125;&#x27; &gt;<span class="subst">\(tmpfile)</span>.classes</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span>) <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> evalError(<span class="string">&quot;Could not list class symbols&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">var</span> classSymbolNames <span class="operator">=</span> (<span class="keyword">try?</span> <span class="type">String</span>(contentsOfFile: <span class="string">&quot;<span class="subst">\(tmpfile)</span>.classes&quot;</span>))<span class="operator">?</span>.components(separatedBy: <span class="string">&quot;<span class="subst">\n</span>&quot;</span>) <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> evalError(<span class="string">&quot;Could not load class symbol list&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    classSymbolNames.removeLast()</span><br><span class="line">    <span class="keyword">let</span> result <span class="operator">=</span>  <span class="type">Set</span>(classSymbolNames.compactMap &#123;</span><br><span class="line">        dlsym(dl, <span class="type">String</span>(<span class="variable">$0</span>.dropFirst())) &#125;)</span><br><span class="line">        .map &#123; <span class="built_in">unsafeBitCast</span>(<span class="variable">$0</span>, to: <span class="type">AnyClass</span>.<span class="keyword">self</span>) &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<p>如上代码所示，dlopen 会把 tmpfile 动态库文件载入运行的 App 里，返回指针 dl。回到测试工程使用 <code>lldb image list -o -f </code> 确实看到eval101.dylib 被加载进来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[408] 0x0000000111bfe000 /var/folders/tw/nl7v5_cd577bbdzfgxjy63bw0000gn/T/com.johnholdsworth.InjectionIII/eval101.dylib</span><br></pre></td></tr></table></figure>
+<p>接下来， dlsym 会得到 tmpfile 动态库的符号地址，然后就可以处理类的替换工作了。在拿到新类的符号地址后，我们把新类里所有的类方法和实例方法都替换到对应的旧类中，使用的是SwiftInjection 的 injection 方法，通过OC runtime 的class_replaceMethod把整个类的实现方法都替换了</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">func</span> <span class="title function_">injection</span>(<span class="params">swizzle</span> <span class="params">newClass</span>: <span class="type">AnyClass</span>?, <span class="params">onto</span> <span class="params">oldClass</span>: <span class="type">AnyClass</span>?) &#123;</span><br><span class="line">    <span class="keyword">var</span> methodCount: <span class="type">UInt32</span> <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> methods <span class="operator">=</span> class_copyMethodList(newClass, <span class="operator">&amp;</span>methodCount) &#123;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> <span class="operator">..&lt;</span> <span class="type">Int</span>(methodCount) &#123;</span><br><span class="line">            <span class="keyword">let</span> method <span class="operator">=</span> method_getName(methods[i])</span><br><span class="line">            <span class="keyword">var</span> replacement <span class="operator">=</span> method_getImplementation(methods[i])</span><br><span class="line">            <span class="keyword">if</span> traceInjection, <span class="keyword">let</span> tracer <span class="operator">=</span> <span class="type">SwiftTrace</span></span><br><span class="line">                .trace(name: injectedPrefix<span class="operator">+</span><span class="type">NSStringFromSelector</span>(method),</span><br><span class="line">                objcMethod: methods[i], objcClass: newClass,</span><br><span class="line">                original: autoBitCast(replacement)) &#123;</span><br><span class="line">                replacement <span class="operator">=</span> autoBitCast(tracer)</span><br><span class="line">            &#125;</span><br><span class="line">            class_replaceMethod(oldClass, method, replacement,</span><br><span class="line">                                method_getTypeEncoding(methods[i]))</span><br><span class="line">        &#125;</span><br><span class="line">        free(methods)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/APM/iOSAPM4/" rel="prev" title="iOS 性能监控4 网络监控-NSURLProtocol">
+                  <i class="fa fa-angle-left"></i> iOS 性能监控4 网络监控-NSURLProtocol
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/" rel="next" title="iOS App启动优化">
+                  iOS App启动优化 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

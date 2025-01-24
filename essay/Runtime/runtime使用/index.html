@@ -1,25 +1,480 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="主要包含 字典与模型互转 、对象关联、遍历变量、遍历方法、遍历协议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Runtime 使用">
+<meta property="og:url" content="https://developerdoc.com/essay/Runtime/runtime%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="主要包含 字典与模型互转 、对象关联、遍历变量、遍历方法、遍历协议">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-13T03:20:42.000Z">
+<meta property="article:modified_time" content="2019-03-07T09:27:57.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/Runtime/runtime%E4%BD%BF%E7%94%A8/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/Runtime/runtime%E4%BD%BF%E7%94%A8/","path":"essay/Runtime/runtime使用/","title":"Runtime 使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Runtime 使用 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E5%85%B8%E4%B8%8E%E6%A8%A1%E5%9E%8B%E4%BA%92%E8%BD%AC"><span class="nav-number">1.</span> <span class="nav-text">字典与模型互转</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%85%B3%E8%81%94"><span class="nav-number">2.</span> <span class="nav-text">对象关联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E5%8F%98%E9%87%8F"><span class="nav-number">3.</span> <span class="nav-text">遍历变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E5%BD%92%E6%A1%A3"><span class="nav-number">3.1.</span> <span class="nav-text">自动归档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%8F%98%E9%87%8F%E5%80%BC"><span class="nav-number">3.2.</span> <span class="nav-text">修改变量值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E5%B1%9E%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">遍历属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">遍历方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BA%A4%E6%8D%A2%E6%96%B9%E6%B3%95"><span class="nav-number">5.1.</span> <span class="nav-text">动态交换方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method-Swizzling-%E5%8E%9F%E7%90%86"><span class="nav-number">5.2.</span> <span class="nav-text">Method Swizzling 原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0%E6%96%B9%E6%B3%95"><span class="nav-number">5.3.</span> <span class="nav-text">动态添加方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E5%8D%8F%E8%AE%AE"><span class="nav-number">6.</span> <span class="nav-text">遍历协议</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Runtime/runtime%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Runtime 使用 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Runtime 使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-13 11:20:42" itemprop="dateCreated datePublished" datetime="2016-10-13T11:20:42+08:00">2016-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-07 17:27:57" itemprop="dateModified" datetime="2019-03-07T17:27:57+08:00">2019-03-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>主要包含 字典与模型互转 、对象关联、遍历变量、遍历方法、遍历协议</p>
+<span id="more"></span>
+
+<h2 id="字典与模型互转">字典与模型互转</h2>
+
+<p>字典转模型的时候：</p>
+<ol>
+<li>根据字典的 key 生成 setter 方法.</li>
+<li>使用 objc_msgSend 调用 setter 方法为 Model 的属性赋值（或者 KVC）.</li>
+</ol>
+<p>模型转字典的时候：</p>
+<ol>
+<li>调用 class_copyPropertyList 方法获取当前 Model 的所有属性.</li>
+<li>调用 property_getName 获取属性名称.</li>
+<li>根据属性名称生成 getter 方法.</li>
+<li>使用 objc_msgSend 调用 getter 方法获取属性值（或者 KVC）.</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;NSObject+KeyValues.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">KeyValues</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//字典转模型</span></span><br><span class="line">+(<span class="type">id</span>)objectWithKeyValues:(<span class="built_in">NSDictionary</span> *)aDictionary&#123;</span><br><span class="line">   <span class="type">id</span> objc = [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">   <span class="keyword">for</span> (<span class="built_in">NSString</span> *key <span class="keyword">in</span> aDictionary.allKeys) &#123;</span><br><span class="line">       <span class="type">id</span> value = aDictionary[key];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">/*判断当前属性是不是Model*/</span></span><br><span class="line">       objc_property_t property = class_getProperty(<span class="keyword">self</span>, key.UTF8String);</span><br><span class="line">       <span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">       objc_property_attribute_t *attributeList = property_copyAttributeList(property, &amp;outCount);</span><br><span class="line">       objc_property_attribute_t attribute = attributeList[<span class="number">0</span>];</span><br><span class="line">       <span class="built_in">NSString</span> *typeString = [<span class="built_in">NSString</span> stringWithUTF8String:attribute.value];</span><br><span class="line">       <span class="keyword">if</span> ([typeString isEqualToString:<span class="string">@&quot;@\&quot;TestModel\&quot;&quot;</span>]) &#123;</span><br><span class="line">           value = [<span class="keyword">self</span> objectWithKeyValues:value];</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">/**********************/</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">//生成setter方法，并用objc_msgSend调用</span></span><br><span class="line">       <span class="built_in">NSString</span> *methodName = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;set%@%@:&quot;</span>,[key substringToIndex:<span class="number">1</span>].uppercaseString,[key substringFromIndex:<span class="number">1</span>]];</span><br><span class="line">       SEL <span class="keyword">setter</span> = sel_registerName(methodName.UTF8String);</span><br><span class="line">       <span class="keyword">if</span> ([objc respondsToSelector:<span class="keyword">setter</span>]) &#123;</span><br><span class="line">           ((<span class="type">void</span> (*) (<span class="type">id</span>,SEL,<span class="type">id</span>)) objc_msgSend) (objc,<span class="keyword">setter</span>,value);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> objc;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//模型转字典</span></span><br><span class="line">-(<span class="built_in">NSDictionary</span> *)keyValuesWithObject&#123;</span><br><span class="line">   <span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   objc_property_t *propertyList = class_copyPropertyList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="built_in">NSMutableDictionary</span> *dict = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       objc_property_t property = propertyList[i];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//生成getter方法，并用objc_msgSend调用</span></span><br><span class="line">       <span class="keyword">const</span> <span class="type">char</span> *propertyName = property_getName(property);</span><br><span class="line">       SEL <span class="keyword">getter</span> = sel_registerName(propertyName);</span><br><span class="line">       <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:<span class="keyword">getter</span>]) &#123;</span><br><span class="line">           <span class="type">id</span> value = ((<span class="type">id</span> (*) (<span class="type">id</span>,SEL)) objc_msgSend) (<span class="keyword">self</span>,<span class="keyword">getter</span>);</span><br><span class="line">           </span><br><span class="line">           <span class="comment">/*判断当前属性是不是Model*/</span></span><br><span class="line">           <span class="keyword">if</span> ([value isKindOfClass:[<span class="keyword">self</span> <span class="keyword">class</span>]] &amp;&amp; value) &#123;</span><br><span class="line">               value = [value keyValuesWithObject];</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">/**********************/</span></span><br><span class="line">           </span><br><span class="line">           <span class="keyword">if</span> (value) &#123;</span><br><span class="line">               <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:propertyName];</span><br><span class="line">               [dict setObject:value forKey:key];</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       </span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> dict;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<h2 id="对象关联">对象关联</h2>
+
+<blockquote>
+<p>对已经存在的类在 Category 中添加自定义的属性：</p>
+</blockquote>
+<ul>
+<li>要取出被关联的对象使用 objc_getAssociatedObject 方法即可，</li>
+<li>要删除一个被关联的对象，使用 objc_setAssociatedObject 方法将对应的 key 设置成 nil 即可</li>
+<li>objc_removeAssociatedObjects 方法将会移除源对象中所有的关联对象.</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<p>为类别添加chineseName属性</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;XiaoMing+MutipleName.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XiaoMing</span> (<span class="title">MutipleName</span>)</span></span><br><span class="line"><span class="type">char</span> cName;</span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)setChineseName:(<span class="built_in">NSString</span> *) chineseName&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, &amp;cName, chineseName, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="built_in">NSString</span> *)chineseName&#123;</span><br><span class="line"><span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, &amp;cName);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
+<p>举个栗子，假如我们要给 UIButton 添加一个监听单击事件的 block 属性，新建 UIButton 的 Category，其.m文件如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;UIButton+ClickBlock.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="type">void</span> *associatedKey = <span class="string">&quot;associatedKey&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIButton</span> (<span class="title">ClickBlock</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Category中的属性，只会生成setter和getter方法，不会生成成员变量</span></span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)setClick:(clickBlock)click&#123;</span><br><span class="line">   objc_setAssociatedObject(<span class="keyword">self</span>, associatedKey, click, OBJC_ASSOCIATION_COPY_NONATOMIC);</span><br><span class="line">   [<span class="keyword">self</span> removeTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(buttonClick) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">   <span class="keyword">if</span> (click) &#123;</span><br><span class="line">       [<span class="keyword">self</span> addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(buttonClick) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(clickBlock)click&#123;</span><br><span class="line">   <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, associatedKey);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="type">void</span>)buttonClick&#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">self</span>.click) &#123;</span><br><span class="line">       <span class="keyword">self</span>.click();</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在代码中，就可以使用 UIButton 的属性来监听单击事件了：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">UIButton</span> *button = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</span><br><span class="line">button.frame = <span class="keyword">self</span>.view.bounds;</span><br><span class="line">[<span class="keyword">self</span>.view addSubview:button];</span><br><span class="line">button.click = ^&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;buttonClicked&quot;</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="遍历变量">遍历变量</h2>
+
+<ol>
+<li>使用 class_copyIvarList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 ivar_getName 方法获取成员变量的名称.</li>
+<li>通过 KVC 来读取 Model 的属性值</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Ivar *vars = class_copyIvarList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Ivar var = vars[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="type">char</span> *name = ivar_getName(var);</span><br><span class="line">       <span class="keyword">const</span> <span class="type">char</span> *type = ivar_getTypeEncoding(ivar);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 注意kvc的特性是，如果能找到key这个属性的setter方法，则调用setter方法</span></span><br><span class="line">       <span class="comment">// 如果找不到setter方法，则查找成员变量key或者成员变量_key，并且为其赋值</span></span><br><span class="line">       <span class="comment">// 所以这里不需要再另外处理成员变量名称的“_”前缀</span></span><br><span class="line">       <span class="type">id</span> value = [obj valueForKey:key];</span><br><span class="line">       <span class="comment">//对value做相应操作</span></span><br><span class="line">       ...</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自动归档">自动归档</h3>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;TestModel.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">TestModel</span></span></span><br><span class="line">- (<span class="type">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder&#123;</span><br><span class="line">   <span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Ivar *vars = class_copyIvarList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Ivar var = vars[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="type">char</span> *name = ivar_getName(var);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// 注意kvc的特性是，如果能找到key这个属性的setter方法，则调用setter方法</span></span><br><span class="line">       <span class="comment">// 如果找不到setter方法，则查找成员变量key或者成员变量_key，并且为其赋值</span></span><br><span class="line">       <span class="comment">// 所以这里不需要再另外处理成员变量名称的“_”前缀</span></span><br><span class="line">       <span class="type">id</span> value = [<span class="keyword">self</span> valueForKey:key];</span><br><span class="line">       [aCoder encodeObject:value forKey:key];</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder&#123;</span><br><span class="line">   <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="variable language_">super</span> init]) &#123;</span><br><span class="line">       <span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">       Ivar *vars = class_copyIvarList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">       <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">           Ivar var = vars[i];</span><br><span class="line">           <span class="keyword">const</span> <span class="type">char</span> *name = ivar_getName(var);</span><br><span class="line">           <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">           <span class="type">id</span> value = [aDecoder decodeObjectForKey:key];</span><br><span class="line">           [<span class="keyword">self</span> setValue:value forKey:key];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span>    </span><br></pre></td></tr></table></figure>
+
+<h3 id="修改变量值">修改变量值</h3>
+
+<ol>
+<li>使用 class_copyIvarList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 ivar_getName 方法获取成员变量的名称.</li>
+<li>通过 KVC 来读取 Model 的属性值</li>
+<li>修改对应的字段值 object_setIvar(id obj, Ivar ivar, id value)</li>
+</ol>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Ivar *vars = class_copyIvarList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Ivar var = vars[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="type">char</span> *name = ivar_getName(var);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">       </span><br><span class="line">       <span class="keyword">if</span> ([name isEqualToString:<span class="string">@&quot;_shuxingming&quot;</span>]) &#123;</span><br><span class="line">       object_setIvar(<span class="keyword">self</span>, var, <span class="string">@&quot;新的值&quot;</span>);</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">   &#125;</span><br><span class="line">        </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="遍历属性">遍历属性</h2>
+
+
+<ol>
+<li>通过class_copyPropertyList函数来获取属性列表，其中属性列表是使用@property声明的列表，对于直接使用声明为成员变量的，都不会出现在属性列表中，这也是正常的。</li>
+<li>我们通过runtime提供的property_getName函数来获取属性名称。</li>
+<li>若有获取属性的详细描述，可通过runtime提供的property_getAttributes函数来获取。</li>
+<li>若有获取属性中的objc_property_attribute_t列表，可以通过property_copyAttributeList函数来获取。</li>
+<li>若有获取单独的objc_property_attribute_t的name或者value，直接使用点语法即可，它是一个结构体。</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">objc_property_t *properties = class_copyPropertyList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">	objc_property_t property = properties[i];</span><br><span class="line">	<span class="comment">//获取属性名称</span></span><br><span class="line">	<span class="keyword">const</span> <span class="type">char</span> *name = property_getName(property);</span><br><span class="line">	<span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">const</span> <span class="type">char</span> *propertyAttributes = property_getAttributes(property);</span><br><span class="line">	<span class="built_in">NSLog</span>(<span class="string">@&quot;%s  %s&quot;</span>, propertyName, propertyAttributes);</span><br><span class="line">   </span><br><span class="line">	<span class="type">unsigned</span> <span class="type">int</span> count = <span class="number">0</span>;</span><br><span class="line">	objc_property_attribute_t *attrbutes = property_copyAttributeList(property, &amp;count);</span><br><span class="line">	<span class="keyword">for</span> (<span class="type">unsigned</span> <span class="type">int</span> j = <span class="number">0</span>; j &lt; count; ++j) &#123;</span><br><span class="line">	objc_property_attribute_t attribute = attrbutes[j];</span><br><span class="line">     </span><br><span class="line">	<span class="keyword">const</span> <span class="type">char</span> *name = attribute.name;</span><br><span class="line">	<span class="keyword">const</span> <span class="type">char</span> *value = attribute.value;</span><br><span class="line">	<span class="built_in">NSLog</span>(<span class="string">@&quot;name: %s   value: %s&quot;</span>, name, value);</span><br><span class="line">   		&#125;</span><br><span class="line">   </span><br><span class="line">   	free(attrbutes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="遍历方法">遍历方法</h2>
+
+<ol>
+<li>使用 class_copyMethodList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 method_getName 方法获取成员变量的名称.</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   Method *methods = class_copyMethodList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Method method = methods[i];</span><br><span class="line"><span class="comment">//获取方法</span></span><br><span class="line">SEL methodSEL = method_getName(method);</span><br><span class="line">       	<span class="keyword">const</span> <span class="type">char</span> *name = sel_getName(methodSEL);</span><br><span class="line">       	<span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line"><span class="comment">//获取方法的参数个数</span></span><br><span class="line"><span class="type">int</span> arguments = method_getNumberOfArguments(method);</span><br><span class="line"><span class="comment">// 获取方法的参数类型</span></span><br><span class="line"><span class="type">char</span> argName[<span class="number">512</span>] = &#123;&#125;;</span><br><span class="line"><span class="keyword">for</span> (<span class="type">unsigned</span> <span class="type">int</span> j = <span class="number">0</span>; j &lt; arguments; ++j) &#123;</span><br><span class="line">	method_getArgumentType(method, j, argName, <span class="number">512</span>);</span><br><span class="line">	<span class="built_in">NSLog</span>(<span class="string">@&quot;第%u个参数类型为：%s&quot;</span>, j, argName);</span><br><span class="line">	memset(argName, <span class="string">&#x27;\0&#x27;</span>, strlen(argName));</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">char</span> returnType[<span class="number">512</span>] = &#123;&#125;;</span><br><span class="line">   	method_getReturnType(method, returnType, <span class="number">512</span>);</span><br><span class="line">   	<span class="built_in">NSLog</span>(<span class="string">@&quot;返回值类型：%s&quot;</span>, returnType);</span><br><span class="line">   </span><br><span class="line">   	<span class="comment">// type encoding</span></span><br><span class="line">   	<span class="built_in">NSLog</span>(<span class="string">@&quot;TypeEncoding: %s&quot;</span>, method_getTypeEncoding(method));</span><br><span class="line">   	</span><br><span class="line">   &#125;</span><br><span class="line">   free(methods);</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态交换方法"><a href="#动态交换方法" class="headerlink" title="动态交换方法"></a>动态交换方法</h3><ol>
+<li><code>Method class_getInstanceMethod(Class cls, SEL name)</code> 找到方法实例</li>
+<li><code>void method_exchangeImplementations(Method m1, Method m2) </code> 交换方法</li>
+</ol>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(<span class="type">void</span>)answer&#123;</span><br><span class="line">Method m1 = class_getInstanceMethod([<span class="keyword">self</span>.xiaoMing <span class="keyword">class</span>], <span class="keyword">@selector</span>(firstSay));</span><br><span class="line">Method m2 = class_getInstanceMethod([<span class="keyword">self</span>.xiaoMing <span class="keyword">class</span>], <span class="keyword">@selector</span>(secondSay));</span><br><span class="line"></span><br><span class="line">method_exchangeImplementations(m1, m2);</span><br><span class="line"><span class="built_in">NSString</span> *secondName = [<span class="keyword">self</span>.xiaoMing firstSay];</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.nameTf.text = secondName;</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;XiaoMing:My name is %@&quot;</span>,secondName);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Method-Swizzling-原理"><a href="#Method-Swizzling-原理" class="headerlink" title="Method Swizzling 原理"></a>Method Swizzling 原理</h3><p>归根结底，都是偷换了selector的IMP</p>
+<ul>
+<li>method_exchangeImplementations 来交换2个方法中的IMP，</li>
+<li>利用 class_replaceMethod 来修改类，</li>
+<li>利用 method_setImplementation 来直接设置某个方法的IMP</li>
+</ul>
+<h3 id="动态添加方法"><a href="#动态添加方法" class="headerlink" title="动态添加方法"></a>动态添加方法</h3><ol>
+<li><code>void class_addMethods(Class, struct objc_method_list *)</code>添加多个方法</li>
+<li><code>BOOL class_addMethod(Class cls, SEL name, IMP imp, const char *types) </code>添加方法<ul>
+<li>(IMP)guessAnswer 意思是guessAnswer的地址指针;</li>
+<li>“v@:” 意思是，v代表无返回值void，如果是i则代表int；@代表 id sel; : 代表 SEL _cmd;“v@:@@” 意思是，两个参数的没有返回值。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<p>假设XiaoMing的中没有guess这个方法，后来被Runtime添加一个名字叫guess的方法，最终再调用guess方法做出相应。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(<span class="type">void</span>)answer&#123;</span><br><span class="line">class_addMethod([<span class="keyword">self</span>.xiaoMing <span class="keyword">class</span>], <span class="keyword">@selector</span>(guess), (IMP)guessAnswer, <span class="string">&quot;v@:&quot;</span>);</span><br><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.xiaoMing respondsToSelector:<span class="keyword">@selector</span>(guess)]) &#123;</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span>.xiaoMing performSelector:<span class="keyword">@selector</span>(guess)];</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;Sorry,I don&#x27;t know&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">self</span>.cityTf.text = <span class="string">@&quot;GuangTong&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> guessAnswer(<span class="type">id</span> <span class="keyword">self</span>,SEL _cmd)&#123;</span><br><span class="line"></span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;He is from GuangTong&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用：</p>
+<pre><code>`[self.xiaoMing performSelector:@selector(guess)];`
+</code></pre>
+<h2 id="遍历协议"><a href="#遍历协议" class="headerlink" title="遍历协议"></a>遍历协议</h2><ol>
+<li>使用 class_copyProtocolList 方法获取当前 Model 的所有成员变量.</li>
+<li>使用 protocol_getName 方法获取成员变量的名称.</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;objc/message.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">   _<span class="keyword">unsafe_unretained</span> Protocol **protocols = class_copyProtocolList([obj <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">   <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">       Protocol *protocol = protocols[i];</span><br><span class="line">       <span class="keyword">const</span> <span class="type">char</span> *name = protocol_getName(protocol);</span><br><span class="line">       <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+
+<!-- *    [Runtime全方位装逼指南](http://www.jianshu.com/p/efeb33712445)
+*    [谈Runtime机制和使用的整体化梳理](http://www.jianshu.com/p/8916ad5662a2)
+* [runtime属性与成员变量](http://www.henishuo.com/runtime-property-ivar/) -->
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/xcodebuild%E5%91%BD%E4%BB%A4/" rel="prev" title="xcodebuild命令">
+                  <i class="fa fa-angle-left"></i> xcodebuild命令
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/Runtime/runtime%E5%AE%9E%E8%B7%B5/" rel="next" title="Runtime 实践">
+                  Runtime 实践 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

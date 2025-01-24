@@ -1,25 +1,409 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="大家都知道js十分依赖浏览器（或Node环境），不同浏览器对js的支持不尽相同。现如今ECMAScrip标准的更新已经到了一年一次的节奏，Babel 就是为了解决这个问题 ，它可以将使用新标准的JavaScript代码转换为浏览器支持可以运行的JavsScript(ES5)代码。 12345678&#x2F;&#x2F;例如babel将这段代码[1, 2, 3].map(n &#x3D;&gt; n ** 2);&#x2F;&#x2F;转换为：&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Babel入门教程">
+<meta property="og:url" content="https://developerdoc.com/quick-start/Babel%E6%95%99%E7%A8%8B/Babel%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="大家都知道js十分依赖浏览器（或Node环境），不同浏览器对js的支持不尽相同。现如今ECMAScrip标准的更新已经到了一年一次的节奏，Babel 就是为了解决这个问题 ，它可以将使用新标准的JavaScript代码转换为浏览器支持可以运行的JavsScript(ES5)代码。 12345678&#x2F;&#x2F;例如babel将这段代码[1, 2, 3].map(n &#x3D;&gt; n ** 2);&#x2F;&#x2F;转换为：&amp;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/Babel/babel_1.png">
+<meta property="article:published_time" content="2018-11-22T03:28:17.000Z">
+<meta property="article:modified_time" content="2018-12-05T04:30:37.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="前端工程化">
+<meta property="article:tag" content="Babel">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/Babel/babel_1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/quick-start/Babel%E6%95%99%E7%A8%8B/Babel%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/quick-start/Babel%E6%95%99%E7%A8%8B/Babel%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/","path":"quick-start/Babel教程/Babel入门教程/","title":"Babel入门教程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Babel入门教程 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8webpack%E4%B8%AD%E9%85%8D%E7%BD%AEBabel"><span class="nav-number">1.</span> <span class="nav-text">在webpack中配置Babel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Babel%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">Babel模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-core"><span class="nav-number">2.1.</span> <span class="nav-text">babel-core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-cli"><span class="nav-number">2.2.</span> <span class="nav-text">babel-cli</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-runtime-babel-plugin-transform-runtime"><span class="nav-number">2.3.</span> <span class="nav-text">babel-runtime &#x2F; babel-plugin-transform-runtime</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#babel-standalone-%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E7%8E%AF%E5%A2%83-web%E5%B7%A5%E7%A8%8B%E4%B8%AD%E8%BF%90%E8%A1%8Cbabel"><span class="nav-number">2.4.</span> <span class="nav-text">@babel&#x2F;standalone 在浏览器环境&#x2F;web工程中运行babel</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Babel%E6%95%99%E7%A8%8B/Babel%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Babel入门教程 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Babel入门教程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-22 11:28:17" itemprop="dateCreated datePublished" datetime="2018-11-22T11:28:17+08:00">2018-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-12-05 12:30:37" itemprop="dateModified" datetime="2018-12-05T12:30:37+08:00">2018-12-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/" itemprop="url" rel="index"><span itemprop="name">quick-start</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/quick-start/Babel%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Babel教程</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>大家都知道js十分依赖浏览器（或Node环境），不同浏览器对js的支持不尽相同。现如今ECMAScrip标准的更新已经到了一年一次的节奏，<br>Babel 就是为了解决这个问题 ，它可以将使用新标准的JavaScript代码转换为浏览器支持可以运行的JavsScript(ES5)代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//例如babel将这段代码</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="title function_">map</span>(<span class="function"><span class="params">n</span> =&gt;</span> n ** <span class="number">2</span>);</span><br><span class="line"><span class="comment">//转换为：</span></span><br><span class="line"><span class="meta">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="title function_">map</span>(<span class="keyword">function</span> (<span class="params">n</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> n + <span class="number">1</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="在webpack中配置Babel"><a href="#在webpack中配置Babel" class="headerlink" title="在webpack中配置Babel"></a>在webpack中配置Babel</h2><blockquote>
+<p>假设在react项目配置webpack:</p>
+</blockquote>
+<p><strong>一、安装npm包：</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save-dev babel-loader babel-core babel-plugin-transform-runtime babel-preset-es2015 babel-preset-react webpack-preset-babel-stage-0</span><br></pre></td></tr></table></figure>
+
+<p><strong>二、在webpack配置文件中添加规则：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">module</span>: &#123;</span><br><span class="line">  <span class="attr">rules</span>: [</span><br><span class="line">    &#123; <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>, <span class="attr">loader</span>: <span class="string">&quot;babel-loader&quot;</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>**三、 在项目根目录创建名为<code>.babelrc</code>的文件，这是Babel的配置文件 **</p>
+<p>在配置文件中安装插件（plugins）或预设（presets，也就是一组插件）来指示 Babel 去做什么事情。在下面配置中：</p>
+<p><em>babel-preset-es2015</em> 打包了 es6 的特性；<br><em>babel-preset-stage-0</em> 打包处于 strawman 阶段的语法；<br><em>babel-preset-react</em> 打包react全家桶语法；</p>
+<p>Babel 几乎可以编译所有时新的 JavaScript 语法，但对于 APIs 来说却并非如此。例如： Promise、Set、Map 等新增对象，Object.assign、Object.entries等静态方法，<em>babel-plugin-transform-runtime</em>为了达成使用这些新API。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//.babelrc内容</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="string">&quot;presets&quot;</span>: [<span class="string">&quot;es2015&quot;</span>, <span class="string">&quot;stage-0&quot;</span>, <span class="string">&quot;react&quot;</span>],</span><br><span class="line">	<span class="string">&quot;plugins&quot;</span>: [<span class="string">&quot;transform-runtime&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Babel模块"><a href="#Babel模块" class="headerlink" title="Babel模块"></a>Babel模块</h2><span id="more"></span>
+
+<p>Babel6.0后将功能划分成了不同的模块，在 <a href="https://github.com/babel/babel/tree/master/packages">Babel packages</a> 仓库看到babel现在有哪些模块：</p>
+<p><img src="/res/Babel/babel_1.png"></p>
+<h3 id="babel-core"><a href="#babel-core" class="headerlink" title="babel-core"></a>babel-core</h3><blockquote>
+<p>参考 <a href="https://babeljs.io/docs/en/next/babel-core">babel-core doc</a></p>
+</blockquote>
+<p>babel-core是作为babel的核心存在，babel的核心api都在这个模块里面。babel-core把 js 代码分析成 ast ，方便各个插件分析语法进行相应的处理。有些新语法在低版本 js 中是不存在的，如箭头函数，rest 参数，函数默认值等，这种语言层面的不兼容只能通过将代码转为 ast，分析其语法后再转为低版本 js。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// npm install babel-core</span></span><br><span class="line"><span class="comment">// var babel = require(&quot;babel-core&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//用法：</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//babel.transform(code: string, options?: Object, callback: Function)</span></span><br><span class="line"><span class="comment">//字符串形式的 JavaScript 代码可以直接使用 babel.transform 来编译</span></span><br><span class="line">babel.<span class="title function_">transform</span>(<span class="string">&quot;code();&quot;</span>, options, <span class="keyword">function</span>(<span class="params">err, result</span>) &#123;</span><br><span class="line">  result.<span class="property">code</span>;</span><br><span class="line">  result.<span class="property">map</span>;</span><br><span class="line">  result.<span class="property">ast</span>;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//注意 ：可以在options中指定 preset 和 plugin</span></span><br><span class="line"><span class="comment">//      写法为： babel.transform(</span></span><br><span class="line"><span class="comment">//                  &quot;code();&quot;, </span></span><br><span class="line"><span class="comment">//                  &#123;presets: [&quot;react&quot;],&#125;, </span></span><br><span class="line"><span class="comment">//                  function(err, result)&#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//babel.transformFile(filename: string, options?: Object, callback: Function)</span></span><br><span class="line"><span class="comment">//编译文件</span></span><br><span class="line">babel.<span class="title function_">transformFile</span>(<span class="string">&quot;filename.js&quot;</span>, options, <span class="keyword">function</span>(<span class="params">err, result</span>) &#123;</span><br><span class="line">  result; <span class="comment">// =&gt; &#123; code, map, ast &#125;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//babel.transformFromAst(ast: Object, code?: string, options?: Object, callback: Function): FileNode | null</span></span><br><span class="line"><span class="comment">//将ast进行转译</span></span><br><span class="line"><span class="keyword">const</span> &#123; code, map, ast &#125; = babel.<span class="title function_">transformFromAst</span>(ast, code, options);</span><br></pre></td></tr></table></figure>
+
+<p>其中 <a href="https://babeljs.io/docs/en/next/options">options</a> 可以配置多项内容，包括Plugin和Preset配置，SourceMap配置等</p>
+<h3 id="babel-cli"><a href="#babel-cli" class="headerlink" title="babel-cli"></a>babel-cli</h3><blockquote>
+<p>参考 <a href="https://babeljs.io/docs/en/next/babel-cli">babel-cli doc</a></p>
+</blockquote>
+<p>Babel 的 CLI 是一种在命令行下使用 Babel 编译文件的简单方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//基本使用 （输出到控制台）</span></span><br><span class="line">npx babel script.<span class="property">js</span></span><br><span class="line"><span class="comment">//指定输出文件</span></span><br><span class="line">npx babel script.<span class="property">js</span> --out-file script-compiled.<span class="property">js</span></span><br></pre></td></tr></table></figure>
+
+<p>假设script.js长如下这样，直接在命令行执行 babel script.js，发现输出的代码好像没有转译……</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//script.js</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="title function_">map</span>(<span class="function"><span class="params">n</span> =&gt;</span> n ** <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> [a,,b] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Guy Fieri&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> place = <span class="string">&quot;Flavortown&quot;</span>;</span><br><span class="line"><span class="string">`Hello <span class="subst">$&#123;name&#125;</span>, ready for <span class="subst">$&#123;place&#125;</span>?`</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> yourTurn = <span class="string">&quot;Type some code in here!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    shorthand,</span><br><span class="line">    <span class="title function_">method</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">&quot;😀&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addAll</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="variable language_">arguments</span>).<span class="title function_">reduce</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b);</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>这和前面一样需要 配置 presets 和 plugins 信息。</p>
+<p>这时候有两种方式一种是和上文一样使用 .babelrc 配置文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 转换 ES2015+ 的 env preset</span></span><br><span class="line">npm install babel-preset-env --save-dev</span><br><span class="line"></span><br><span class="line"><span class="comment">//2. 创建一个 .babelrc 文件并启用一些插件</span></span><br><span class="line"><span class="comment">//.babelrc 文件信息：</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">&quot;presets&quot;</span>: [<span class="string">&quot;env&quot;</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这时候可以使用了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">npx babel script.<span class="property">js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//输出 可以看到箭头函数等一些新语法已经被转义了。</span></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="title function_">map</span>(<span class="keyword">function</span> (<span class="params">n</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Math</span>.<span class="title function_">pow</span>(n, <span class="number">2</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> _ref = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    a = _ref[<span class="number">0</span>],</span><br><span class="line">    b = _ref[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">&quot;Guy Fieri&quot;</span>;</span><br><span class="line"><span class="keyword">var</span> place = <span class="string">&quot;Flavortown&quot;</span>;</span><br><span class="line"><span class="string">&quot;Hello &quot;</span> + name + <span class="string">&quot;, ready for &quot;</span> + place + <span class="string">&quot;?&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> yourTurn = <span class="string">&quot;Type some code in here!&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">  <span class="attr">shorthand</span>: shorthand,</span><br><span class="line">  <span class="attr">method</span>: <span class="keyword">function</span> <span class="title function_">method</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;😀&quot;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addAll</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="variable language_">arguments</span>).<span class="title function_">reduce</span>(<span class="keyword">function</span> (<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另一种方式是直接在命令中指定presets</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1. 转换 ES2015+ 的 env preset</span></span><br><span class="line">npm install babel-preset-env --save-dev</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.指定present </span></span><br><span class="line"><span class="comment">//输出也和上文一样</span></span><br><span class="line">npx babel script.<span class="property">js</span> --presets=env</span><br></pre></td></tr></table></figure>
+
+<h3 id="babel-runtime-babel-plugin-transform-runtime"><a href="#babel-runtime-babel-plugin-transform-runtime" class="headerlink" title="babel-runtime &#x2F; babel-plugin-transform-runtime"></a>babel-runtime &#x2F; babel-plugin-transform-runtime</h3><p>Babel 几乎可以编译所有时新的 JavaScript 语法，但对于 APIs 来说却并非如此。例如： Promise、Set、Map 等新增对象，Object.assign、Object.entries等静态方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下列含有箭头函数的需要编译的代码：</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addAll</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="variable language_">arguments</span>).<span class="title function_">reduce</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a + b);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在上文中转义为：</span></span><br><span class="line"><span class="comment">//然而这段代码在浏览器中可能抛出 Uncaught TypeError: Array.from is not a function</span></span><br><span class="line"><span class="comment">//它依然无法随处可用因为不是所有的 JavaScript 环境都支持 Array.from</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addAll</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="title function_">from</span>(<span class="variable language_">arguments</span>).<span class="title function_">reduce</span>(<span class="keyword">function</span> (<span class="params">a, b</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在实现新的API的基础上有两种方式： <em>babel-polyfill</em>和 <strong>babel-runtime + babel-plugin-transform-runtime</strong>。</p>
+<p>这两者虽然都是模拟 es6 环境新增API，但实现方法完全不同。</p>
+<ul>
+<li><p>babel-polyfill 的做法是将全局对象通通污染一遍，比如想在 node 0.10 上用 Promise，调用 babel-polyfill 就会往 global 对象挂上 Promise 对象。</p>
+</li>
+<li><p>babel-runtime 的做法是自己手动引入 helper 函数， const Promise &#x3D; require(‘babel-runtime&#x2F;core-js&#x2F;promise’) 就可以引入 Promise。为了解决手动引入Helper函数的麻烦，babel 又开发了 babel-plugin-transform-runtime，这个模块会将我们的代码重写，如将 Promise 重写成 _Promise（只是打比方），然后引入_Promise helper 函数。这样就避免了重复打包代码和手动引入模块的痛苦。</p>
+</li>
+</ul>
+<h3 id="babel-standalone-在浏览器环境-web工程中运行babel"><a href="#babel-standalone-在浏览器环境-web工程中运行babel" class="headerlink" title="@babel&#x2F;standalone 在浏览器环境&#x2F;web工程中运行babel"></a>@babel&#x2F;standalone 在浏览器环境&#x2F;web工程中运行babel</h3><p>由于 Babel 本身的设计是基于 node.js 环境下运行使用的， 上面的例子都是在 Node.js环境中跑的，但是你头铁 一定要在浏览器环境中跑babel怎么办？</p>
+<p>答案就是使用 <code>@babel/standalone</code></p>
+<p>参考 <a href="https://github.com/babel/babel/issues/5268">https://github.com/babel/babel/issues/5268</a> <a href="https://babeljs.io/docs/en/next/babel-standalone.html">https://babeljs.io/docs/en/next/babel-standalone.html</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//npm i @babel/standalone @babel/core @babel/preset-react @babel/preset-env @babel/plugin-transform-runtime</span></span><br><span class="line"><span class="comment">//为什么写成这种require样式呢……@babel/standalone集成了很多插件 但是好像兼容性不好……</span></span><br><span class="line"><span class="keyword">const</span> babelCore = <span class="built_in">require</span>(<span class="string">&#x27;@babel/standalone&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> &#123;code&#125; = babelCore.<span class="title function_">transform</span>(</span><br><span class="line">    <span class="string">&#x27;(&#123;item&#125;) =&gt; &lt;Text&gt;&#123;item.key&#125;&lt;/Text&gt;&#x27;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;presets&#x27;</span>: [<span class="built_in">require</span>(<span class="string">&#x27;@babel/preset-react&#x27;</span>),<span class="built_in">require</span>(<span class="string">&#x27;@babel/preset-env&#x27;</span>)],</span><br><span class="line">        <span class="string">&#x27;plugins&#x27;</span>: [<span class="built_in">require</span>(<span class="string">&#x27;@babel/plugin-transform-runtime&#x27;</span>)]</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;code:&#x27;</span>,code);</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//npm i @babel/standalone </span></span><br><span class="line"><span class="keyword">const</span> babelCore = <span class="built_in">require</span>(<span class="string">&#x27;@babel/standalone&#x27;</span>);</span><br><span class="line"><span class="keyword">let</span> &#123;code&#125; = babelCore.<span class="title function_">transform</span>(</span><br><span class="line">    <span class="string">&#x27;(&#123;item&#125;) =&gt; &lt;Text&gt;&#123;item.key&#125;&lt;/Text&gt;&#x27;</span>,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;presets&#x27;</span>: [<span class="string">&#x27;react&#x27;</span>],</span><br><span class="line">    &#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;code:&#x27;</span>,code);</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag"># 前端工程化</a>
+              <a href="/tags/Babel/" rel="tag"># Babel</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/Electron%E6%95%99%E7%A8%8B/Electron%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="prev" title="Electron入门教程">
+                  <i class="fa fa-angle-left"></i> Electron入门教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%80%E6%9C%9F/" rel="next" title="GitHub精选分享第一期">
+                  GitHub精选分享第一期 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

@@ -1,25 +1,453 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Serialization 包括 AFURLResponseSerialization 和 AFURLRequestSerialization  AFURLResponseSerialization 是处理响应的模块，将请求返回的数据解析成对应的格式。而AFURLRequestSerialization的主要作用是修改请求（主要是 HTTP 请求）的头部，提供了一些语义明确的接口设置 HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFNetworking3源码阅读-Serialization">
+<meta property="og:url" content="https://developerdoc.com/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Serialization/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="Serialization 包括 AFURLResponseSerialization 和 AFURLRequestSerialization  AFURLResponseSerialization 是处理响应的模块，将请求返回的数据解析成对应的格式。而AFURLRequestSerialization的主要作用是修改请求（主要是 HTTP 请求）的头部，提供了一些语义明确的接口设置 HTTP">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-04-20T13:18:54.000Z">
+<meta property="article:modified_time" content="2018-11-23T02:36:45.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="AFNetworking">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Serialization/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Serialization/","path":"essay/AFNetworking/AFNetworking3源码阅读-Serialization/","title":"AFNetworking3源码阅读-Serialization"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>AFNetworking3源码阅读-Serialization | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AFURLResponseSerialization"><span class="nav-number">1.</span> <span class="nav-text">AFURLResponseSerialization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AFHTTPResponseSerializer"><span class="nav-number">1.1.</span> <span class="nav-text">AFHTTPResponseSerializer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AFURLResponseSerialization%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.1.</span> <span class="nav-text">AFURLResponseSerialization协议的实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AFJSONResponseSerializer"><span class="nav-number">1.2.</span> <span class="nav-text">AFJSONResponseSerializer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AFURLResponseSerialization%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="nav-number">1.2.1.</span> <span class="nav-text">AFURLResponseSerialization协议的实现：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AFURLRequestSerialization"><span class="nav-number">2.</span> <span class="nav-text">AFURLRequestSerialization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AFURLRequestSerialization-1"><span class="nav-number">2.2.</span> <span class="nav-text">AFURLRequestSerialization</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AFHTTPRequestSerializer"><span class="nav-number">2.3.</span> <span class="nav-text">AFHTTPRequestSerializer</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#AFURLRequestSerialization-%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.3.1.</span> <span class="nav-text">AFURLRequestSerialization 协议的实现</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-Serialization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="AFNetworking3源码阅读-Serialization | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AFNetworking3源码阅读-Serialization
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2017-04-20 21:18:54" itemprop="dateCreated datePublished" datetime="2017-04-20T21:18:54+08:00">2017-04-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-23 10:36:45" itemprop="dateModified" datetime="2018-11-23T10:36:45+08:00">2018-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/essay/AFNetworking/" itemprop="url" rel="index"><span itemprop="name">AFNetworking</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>Serialization 包括 <code>AFURLResponseSerialization</code> 和 <code>AFURLRequestSerialization</code></p>
+</blockquote>
+<p><strong>AFURLResponseSerialization</strong> 是处理响应的模块，将请求返回的数据解析成对应的格式。而<strong>AFURLRequestSerialization</strong>的主要作用是修改请求（主要是 HTTP 请求）的头部，提供了一些语义明确的接口设置 HTTP 头部字段。</p>
+<h2 id="AFURLResponseSerialization"><a href="#AFURLResponseSerialization" class="headerlink" title="AFURLResponseSerialization"></a>AFURLResponseSerialization</h2><blockquote>
+<p>AFURLResponseSerialization 是一个协议，协议的内容为：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="type">id</span>)responseObjectForResponse:(<span class="keyword">nullable</span> <span class="built_in">NSURLResponse</span> *)response</span><br><span class="line">                           data:(<span class="keyword">nullable</span> <span class="built_in">NSData</span> *)data</span><br><span class="line">                          error:(<span class="built_in">NSError</span> * _Nullable __autoreleasing *)error <span class="built_in">NS_SWIFT_NOTHROW</span>;</span><br></pre></td></tr></table></figure>
+<p>它的实现类为：</p>
+<ul>
+<li>AFURLResponseSerialization<ul>
+<li>AFHTTPResponseSerializer<ul>
+<li>AFJSONResponseSerializer</li>
+<li>AFXMLParserResponseSerializer</li>
+<li>AFXMLDocumentResponseSerializer</li>
+<li>AFPropertyListResponseSerializer</li>
+<li>AFImageResponseSerializer</li>
+<li>AFCompoundResponseSerializer</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>在文件中 所有类都遵循<strong>AFURLResponseSerialization</strong>，而<strong>AFHTTPResponseSerializer</strong>是其他类的基类。</p>
+<span id="more"></span>
+
+<h3 id="AFHTTPResponseSerializer"><a href="#AFHTTPResponseSerializer" class="headerlink" title="AFHTTPResponseSerializer"></a>AFHTTPResponseSerializer</h3><p><strong>初始化:</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)serializer &#123;</span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="variable language_">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.acceptableStatusCodes = [<span class="built_in">NSIndexSet</span> indexSetWithIndexesInRange:<span class="built_in">NSMakeRange</span>(<span class="number">200</span>, <span class="number">100</span>)];</span><br><span class="line">    <span class="keyword">self</span>.acceptableContentTypes = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为是对 HTTP 响应进行序列化，所以这里设置了 stringEncoding 为 NSUTF8StringEncoding 而且没有对接收的内容类型加以限制。<br>将 acceptableStatusCodes 设置为从 200 到 299 之间的状态码, 因为只有这些状态码表示获得了有效的响应。</p>
+<p><strong>验证响应的有效性:</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">BOOL</span>)validateResponse:(<span class="built_in">NSHTTPURLResponse</span> *)response</span><br><span class="line">                    data:(<span class="built_in">NSData</span> *)data</span><br><span class="line">                   error:(<span class="built_in">NSError</span> * __autoreleasing *)error</span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">BOOL</span> responseIsValid = <span class="literal">YES</span>;</span><br><span class="line">    <span class="built_in">NSError</span> *validationError = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (response &amp;&amp; [response isKindOfClass:[<span class="built_in">NSHTTPURLResponse</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.acceptableContentTypes &amp;&amp; ![<span class="keyword">self</span>.acceptableContentTypes containsObject:[response MIMEType]]) &#123;</span><br><span class="line">			#<span class="number">1</span>: 返回内容类型无效</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.acceptableStatusCodes &amp;&amp; ![<span class="keyword">self</span>.acceptableStatusCodes containsIndex:(<span class="built_in">NSUInteger</span>)response.statusCode] &amp;&amp; [response URL]) &#123;</span><br><span class="line">			#<span class="number">2</span>: 返回状态码无效</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (error &amp;&amp; !responseIsValid) &#123;</span><br><span class="line">        *error = validationError;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> responseIsValid;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个方法根据在初始化方法中初始化的属性 acceptableContentTypes 和 acceptableStatusCodes 来判断当前响应是否有效。</p>
+<h4 id="AFURLResponseSerialization协议的实现"><a href="#AFURLResponseSerialization协议的实现" class="headerlink" title="AFURLResponseSerialization协议的实现"></a>AFURLResponseSerialization协议的实现</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">id</span>)responseObjectForResponse:(<span class="built_in">NSURLResponse</span> *)response</span><br><span class="line">                           data:(<span class="built_in">NSData</span> *)data</span><br><span class="line">                          error:(<span class="built_in">NSError</span> *__autoreleasing *)error</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> validateResponse:(<span class="built_in">NSHTTPURLResponse</span> *)response data:data error:error];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用上面的方法对响应进行验证，然后返回数据</p>
+<h3 id="AFJSONResponseSerializer"><a href="#AFJSONResponseSerializer" class="headerlink" title="AFJSONResponseSerializer"></a>AFJSONResponseSerializer</h3><p><strong>初始化：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)serializer &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> serializerWithReadingOptions:(<span class="built_in">NSJSONReadingOptions</span>)<span class="number">0</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">instancetype</span>)serializerWithReadingOptions:(<span class="built_in">NSJSONReadingOptions</span>)readingOptions &#123;</span><br><span class="line">    AFJSONResponseSerializer *serializer = [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">    serializer.readingOptions = readingOptions;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> serializer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="variable language_">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">self</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.acceptableContentTypes = [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@&quot;application/json&quot;</span>, <span class="string">@&quot;text/json&quot;</span>, <span class="string">@&quot;text/javascript&quot;</span>, <span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相对AFHTTPResponseSerializer 设置了<strong>acceptableContentTypes</strong>；</p>
+<h4 id="AFURLResponseSerialization协议的实现："><a href="#AFURLResponseSerialization协议的实现：" class="headerlink" title="AFURLResponseSerialization协议的实现："></a>AFURLResponseSerialization协议的实现：</h4><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">id</span>)responseObjectForResponse:(<span class="built_in">NSURLResponse</span> *)response</span><br><span class="line">                           data:(<span class="built_in">NSData</span> *)data</span><br><span class="line">                          error:(<span class="built_in">NSError</span> *__autoreleasing *)error</span><br><span class="line">&#123;</span><br><span class="line">	<span class="number">1.</span> 验证请求</span><br><span class="line"></span><br><span class="line">	<span class="number">2.</span> 解决一个由只包含一个空格的响应引起的 bug</span><br><span class="line"></span><br><span class="line">	<span class="number">3.</span> 序列化 JSON</span><br><span class="line">	</span><br><span class="line">	<span class="number">4.</span> 移除 JSON 中的 null</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        *error = AFErrorWithUnderlyingError(serializationError, *error);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> responseObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>1. 验证请求</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (![<span class="keyword">self</span> validateResponse:(<span class="built_in">NSHTTPURLResponse</span> *)response data:data error:error]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!error || AFErrorOrUnderlyingErrorHasCodeInDomain(*error, <span class="built_in">NSURLErrorCannotDecodeContentData</span>, AFURLResponseSerializationErrorDomain)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用自身的validateResponse验证响应，<br>validateResponse:中如果content-type不满足，那么产生的validationError就是Domain为AFURLResponseSerializationErrorDomain，code为NSURLErrorCannotDecodeContentData，再用 <strong>AFErrorOrUnderlyingErrorHasCodeInDomain</strong>检验error 和domain，如果就是这两个值 就返回nil。</p>
+<p><strong>2. 解决一个由只包含一个空格的响应引起的 bug</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BOOL</span> isSpace = [data isEqualToData:[<span class="built_in">NSData</span> dataWithBytes:<span class="string">&quot; &quot;</span> length:<span class="number">1</span>]];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (data.length == <span class="number">0</span> || isSpace) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于’head :ok’，Rails返回的是一个空格 (这是Safari上的一个bug)，并且这样的JSON格式不会被NSJSONSerialization解析。如果是单个空格，就不解析<br>查看 <a href="https://github.com/rails/rails/issues/1742">Issues 1742</a></p>
+<p><strong>3.序列化 JSON</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSError</span> *serializationError = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">id</span> responseObject = [<span class="built_in">NSJSONSerialization</span> JSONObjectWithData:data options:<span class="keyword">self</span>.readingOptions error:&amp;serializationError];</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (!responseObject)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (error) &#123;</span><br><span class="line">        *error = AFErrorWithUnderlyingError(serializationError, *error);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用系统自带的NSJSONSerialization来解析NSData数据,如果serializationError不为空，那么最终的error其实就是serializationError</p>
+<p><strong>4. 移除 JSON 中的 null</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.removesKeysWithNullValues) &#123;</span><br><span class="line">    <span class="keyword">return</span> AFJSONObjectByRemovingKeysWithNullValues(responseObject, <span class="keyword">self</span>.readingOptions);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AFJSONObjectByRemovingKeysWithNullValues通过递归的方法，把JSON中NSDictionary的数据（不包括NSArray）中的对应value为空的key移除。</p>
+<h2 id="AFURLRequestSerialization"><a href="#AFURLRequestSerialization" class="headerlink" title="AFURLRequestSerialization"></a>AFURLRequestSerialization</h2><p>AFURLRequestSerialization 的主要工作是对发出的 HTTP 请求进行处理。</p>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[[AFHTTPRequestSerializer serializer] requestWithMethod:<span class="string">@&quot;GET&quot;</span> URLString:URLString parameters:parameters error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line">[[AFHTTPRequestSerializer serializer] requestWithMethod:<span class="string">@&quot;POST&quot;</span> URLString:URLString parameters:parameters error:<span class="literal">nil</span>];</span><br><span class="line"></span><br><span class="line">[[AFJSONRequestSerializer serializer] requestWithMethod:<span class="string">@&quot;POST&quot;</span> URLString:URLString parameters:parameters error:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="AFURLRequestSerialization-1"><a href="#AFURLRequestSerialization-1" class="headerlink" title="AFURLRequestSerialization"></a>AFURLRequestSerialization</h3><blockquote>
+<p>AFURLRequestSerialization 是一个协议</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="built_in">NSURLRequest</span> *)requestBySerializingRequest:(<span class="built_in">NSURLRequest</span> *)request</span><br><span class="line">                               withParameters:(<span class="keyword">nullable</span> <span class="type">id</span>)parameters</span><br><span class="line">                                        error:(<span class="built_in">NSError</span> * _Nullable __autoreleasing *)error <span class="built_in">NS_SWIFT_NOTHROW</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>它的实现类为：</p>
+<ul>
+<li>AFURLRequestSerialization<ul>
+<li>AFHTTPRequestSerializer<ul>
+<li>AFJSONRequestSerializer</li>
+<li>AFPropertyListRequestSerializer</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>AFHTTPRequestSerializer</strong>是所有类的基类，AFJSONRequestSerializer 和 AFPropertyListRequestSerializer继承了AFHTTPRequestSerializer。</p>
+<h3 id="AFHTTPRequestSerializer"><a href="#AFHTTPRequestSerializer" class="headerlink" title="AFHTTPRequestSerializer"></a>AFHTTPRequestSerializer</h3><p><strong>初始化：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)serializer &#123;</span><br><span class="line">    <span class="keyword">return</span> [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init&#123;</span><br><span class="line">	<span class="number">1.</span> 初始化参数, </span><br><span class="line">	<span class="number">2.</span> 设置HTTP 头部字段</span><br><span class="line">	<span class="number">3.</span> KVO</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>1. 初始化参数</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">self</span>.stringEncoding = <span class="built_in">NSUTF8StringEncoding</span>;</span><br><span class="line"><span class="keyword">self</span>.mutableHTTPRequestHeaders = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line"><span class="keyword">self</span>.requestHeaderModificationQueue = dispatch_queue_create(<span class="string">&quot;requestHeaderModificationQueue&quot;</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line"></span><br><span class="line"><span class="keyword">self</span>.HTTPMethodsEncodingParametersInURI = [<span class="built_in">NSSet</span> setWithObjects:<span class="string">@&quot;GET&quot;</span>, <span class="string">@&quot;HEAD&quot;</span>, <span class="string">@&quot;DELETE&quot;</span>, <span class="literal">nil</span>];</span><br><span class="line"><span class="keyword">self</span>.mutableObservedChangedKeyPaths = [<span class="built_in">NSMutableSet</span> set];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>初始化了一些参数 ,<strong>HTTPMethodsEncodingParametersInURI</strong>表示需要将的quey是拼接到url后面的的方法，就是<code>GET HEAD DELETE</code>，与此对应的<code>POST PUT</code>方法将query拼到http body中。<strong>mutableHTTPRequestHeaders</strong> 储存http头部信息。<strong>mutableObservedChangedKeyPaths</strong>保存需要键值观察的值。<br><strong>requestHeaderModificationQueue</strong> ？？</p>
+<p><strong>2. 设置HTTP 头部字段</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   <span class="built_in">NSMutableArray</span> *acceptLanguagesComponents = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">...</span><br><span class="line">[<span class="keyword">self</span> setValue:[acceptLanguagesComponents componentsJoinedByString:<span class="string">@&quot;, &quot;</span>] forHTTPHeaderField:<span class="string">@&quot;Accept-Language&quot;</span>];</span><br><span class="line">   </span><br><span class="line"><span class="built_in">NSString</span> *userAgent = <span class="literal">nil</span>;</span><br><span class="line">...</span><br><span class="line">[<span class="keyword">self</span> setValue:userAgent forHTTPHeaderField:<span class="string">@&quot;User-Agent&quot;</span>];</span><br></pre></td></tr></table></figure>
+
+<p>分别设置了<strong>acceptLanguagesComponents</strong>和<strong>userAgent</strong>信息。<br>其中<code>acceptLanguagesComponents </code>一般为:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">en;q=1</span><br></pre></td></tr></table></figure>
+<p>userAgent为:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[工程名字]/[工程版本] (iPhone; iOS <span class="number">10.2</span>; Scale/<span class="number">2.00</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>3.KVO</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">NSString</span> *keyPath <span class="keyword">in</span> AFHTTPRequestSerializerObservedKeyPaths()) &#123;</span><br><span class="line">       <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:<span class="built_in">NSSelectorFromString</span>(keyPath)]) &#123;</span><br><span class="line">           [<span class="keyword">self</span> addObserver:<span class="keyword">self</span> forKeyPath:keyPath options:<span class="built_in">NSKeyValueObservingOptionNew</span> context:AFHTTPRequestSerializerObserverContext];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>对一些属性进行 KVO，确保它们在改变后更新 NSMutableURLRequest 中对应的属性。其中<strong>AFHTTPRequestSerializerObservedKeyPaths</strong>为这些值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">//是否允许使用设备的蜂窝移动网络来创建request，默认为允许</span><br><span class="line">allowsCellularAccess, </span><br><span class="line">/* 创建的request所使用的缓存策略，默认使用`NSURLRequestUseProtocolCachePolicy`，该策略表示 </span><br><span class="line"> 如果缓存不存在，直接从服务端获取。如果缓存存在，会根据response中的Cache-Control字段判断</span><br><span class="line"> 下一步操作，如: Cache-Control字段为must-revalidata, 则 询问服务端该数据是否有更新，无更新话</span><br><span class="line"> 直接返回给用户缓存数据，若已更新，则请求服务端.*/</span><br><span class="line">cachePolicy, </span><br><span class="line">/**</span><br><span class="line"> 如果设置HTTPShouldHandleCookies为YES，就处理存储在NSHTTPCookieStore中的cookies</span><br><span class="line"> HTTPShouldHandleCookies表示是否应该给request设置cookie并随request一起发送出去</span><br><span class="line"> */</span><br><span class="line">HTTPShouldHandleCookies, </span><br><span class="line">/**</span><br><span class="line"> HTTPShouldUsePipelining表示receiver(理解为iOS客户端)的下一个信息是否必须等到上一个请求回复才能发送。</span><br><span class="line"> 如果为YES表示可以，NO表示必须等receiver收到先前的回复才能发送下个信息。</span><br><span class="line"> */</span><br><span class="line">HTTPShouldUsePipelining,</span><br><span class="line">    /**</span><br><span class="line">     设定request的network service类型. 默认是`NSURLNetworkServiceTypeDefault`.</span><br><span class="line">     这个network service是为了告诉系统网络层这个request使用的目的</span><br><span class="line">     比如NSURLNetworkServiceTypeVoIP表示的就这个request是用来请求网际协议通话技术(Voice over IP)。</span><br><span class="line"></span><br><span class="line">     系统能根据提供的信息来优化网络处理，从而优化电池寿命，网络性能等等</span><br><span class="line">     */</span><br><span class="line">networkServiceType,</span><br><span class="line">/**</span><br><span class="line"> 超时机制，默认60秒</span><br><span class="line"> */</span><br><span class="line">timeoutInterval</span><br></pre></td></tr></table></figure>
+
+<h4 id="AFURLRequestSerialization-协议的实现"><a href="#AFURLRequestSerialization-协议的实现" class="headerlink" title="AFURLRequestSerialization 协议的实现"></a>AFURLRequestSerialization 协议的实现</h4><p>初始化之后，如果调用了 - [AFHTTPSessionManager dataTaskWithHTTPMethod:URLString:parameters:uploadProgress:downloadProgress:success:failure:]，就会进入 AFHTTPRequestSerializer 的这一方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSMutableURLRequest</span> *)requestWithMethod:(<span class="built_in">NSString</span> *)method</span><br><span class="line">                                 URLString:(<span class="built_in">NSString</span> *)URLString</span><br><span class="line">                                parameters:(<span class="type">id</span>)parameters</span><br><span class="line">                                     error:(<span class="built_in">NSError</span> *__autoreleasing *)error</span><br></pre></td></tr></table></figure>
+<p>其中调用了AFURLRequestSerialization 协议的实现：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSURLRequest</span> *)requestBySerializingRequest:(<span class="built_in">NSURLRequest</span> *)request</span><br><span class="line">                               withParameters:(<span class="type">id</span>)parameters</span><br><span class="line">                                        error:(<span class="built_in">NSError</span> *__autoreleasing *)error&#123;</span><br><span class="line">                                        </span><br><span class="line"><span class="number">1.</span> 通过 HTTPRequestHeaders 字典设置头部字段</span><br><span class="line"><span class="number">2.</span> 将parameters转换为查询参数query</span><br><span class="line"><span class="number">3.</span> 将 query 添加到 URL 或者 HTTP body 中</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><strong>1.通过 HTTPRequestHeaders 字典设置头部字段</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.HTTPRequestHeaders enumerateKeysAndObjectsUsingBlock:^(<span class="type">id</span> field, <span class="type">id</span> value, <span class="type">BOOL</span> * __unused stop) &#123;</span><br><span class="line">     <span class="keyword">if</span> (![request valueForHTTPHeaderField:field]) &#123;</span><br><span class="line">         [mutableRequest setValue:value forHTTPHeaderField:field];</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;];</span><br></pre></td></tr></table></figure>
+<p><strong>2. 将parameters转换为查询参数query</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">query = AFQueryStringFromParameters(parameters);</span><br></pre></td></tr></table></figure>
+<p>AFQueryStringFromParameters (调用)-&gt; AFQueryStringPairsFromDictionary -&gt; AFQueryStringPairsFromKeyAndValue<br>其中AFQueryStringPairsFromKeyAndValue递归调用并解析，返回查询参数。</p>
+<p><strong>3. 将 query 添加到 URL 或者 HTTP body 中</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.HTTPMethodsEncodingParametersInURI containsObject:[[request HTTPMethod] uppercaseString]]) &#123;</span><br><span class="line">    <span class="keyword">if</span> (query &amp;&amp; query.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        mutableRequest.URL = [<span class="built_in">NSURL</span> URLWithString:[[mutableRequest.URL absoluteString] stringByAppendingFormat:mutableRequest.URL.query ? <span class="string">@&quot;&amp;%@&quot;</span> : <span class="string">@&quot;?%@&quot;</span>, query]];</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// #2864: an empty string is a valid x-www-form-urlencoded payload</span></span><br><span class="line">    <span class="keyword">if</span> (!query) &#123;</span><br><span class="line">        query = <span class="string">@&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (![mutableRequest valueForHTTPHeaderField:<span class="string">@&quot;Content-Type&quot;</span>]) &#123;</span><br><span class="line">        [mutableRequest setValue:<span class="string">@&quot;application/x-www-form-urlencoded&quot;</span> forHTTPHeaderField:<span class="string">@&quot;Content-Type&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    [mutableRequest setHTTPBody:[query dataUsingEncoding:<span class="keyword">self</span>.stringEncoding]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后这个方法会返回一个 NSMutableURLRequest。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/AFNetworking/" rel="tag"># AFNetworking</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/AFNetworking/AFNetworking3%E6%BA%90%E7%A0%81%E9%98%85%E8%AF%BB-NSURLSession/" rel="prev" title="AFNetworking3源码阅读-NSURLSession">
+                  <i class="fa fa-angle-left"></i> AFNetworking3源码阅读-NSURLSession
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E5%85%A5%E9%97%A8/" rel="next" title="Python爬虫教程-入门">
+                  Python爬虫教程-入门 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

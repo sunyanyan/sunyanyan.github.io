@@ -1,25 +1,387 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="CPUCPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。 wiki上比较全的iPhone CPU信息 : Apple-designed_processors) 相关系统原理iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 性能监控1 Cpu 和 Memory信息">
+<meta property="og:url" content="https://developerdoc.com/essay/APM/iOSAPM1/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="CPUCPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。 wiki上比较全的iPhone CPU信息 : Apple-designed_processors) 相关系统原理iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/apm/mach-task-thread-system.png">
+<meta property="article:published_time" content="2020-10-09T01:30:44.000Z">
+<meta property="article:modified_time" content="2020-10-13T11:37:05.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/apm/mach-task-thread-system.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/APM/iOSAPM1/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/APM/iOSAPM1/","path":"essay/APM/iOSAPM1/","title":"iOS 性能监控1 Cpu 和 Memory信息"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS 性能监控1 Cpu 和 Memory信息 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU"><span class="nav-number">1.</span> <span class="nav-text">CPU</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">相关系统原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%9A%84-CPU-%E5%8D%A0%E7%94%A8%E7%8E%87"><span class="nav-number">4.</span> <span class="nav-text">总的 CPU 占用率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E6%A0%B8%E6%95%B0"><span class="nav-number">5.</span> <span class="nav-text">CPU 核数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E9%A2%91%E7%8E%87"><span class="nav-number">6.</span> <span class="nav-text">CPU 频率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E7%B1%BB%E5%9E%8B"><span class="nav-number">7.</span> <span class="nav-text">CPU 类型</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/APM/iOSAPM1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS 性能监控1 Cpu 和 Memory信息 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS 性能监控1 Cpu 和 Memory信息
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-10-09 09:30:44" itemprop="dateCreated datePublished" datetime="2020-10-09T09:30:44+08:00">2020-10-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-10-13 19:37:05" itemprop="dateModified" datetime="2020-10-13T19:37:05+08:00">2020-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/APM/" itemprop="url" rel="index"><span itemprop="name">APM</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>6.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><p>CPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。</p>
+<p>wiki上比较全的iPhone CPU信息 : <a href="https://en.wikipedia.org/wiki/Apple-designed_processors">Apple-designed_processors</a>)</p>
+<h3 id="相关系统原理"><a href="#相关系统原理" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p>iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成，XNU（X is not UNIX） 是 Darwin 的内核，一个混合内核，由 Mach 微内核和 BSD 组成。Mach 内核是轻量级的平台，只能完成操作系统最基本的职责，如：进程和线程、虚拟内存管理、任务调度、进程通信和消息传递机制。其他的工作，如文件操作和设备访问，都是由 BSD 层实现。</p>
+<p>事实上，Mach 并不能识别 UNIX 中的所有进程，而是采用一种稍微不同的方式，使用了比进程更轻量级的概念：任务（Task）。经典的 UNIX 采用了自上而下的方式：最基本的对象是进程，然后进一步划分为一个或多个线程；Mach 则采用了自底向上的方式：最基本的单元是线程，一个或多个线程包含在一个任务中。</p>
+<ul>
+<li>线程<ul>
+<li>线程定义了 Mach 中最小的执行单元。线程表示的是底层的机器寄存器状态以及各种调度统计数据，其从设计上提供了调度所需要的大量信息。</li>
+</ul>
+</li>
+<li>任务<ul>
+<li>任务是一种容器对象，虚拟内存空间和其他资源都是通过这个容器对象管理的。这些资源包括设备和其他句柄。资源进一步被抽象为端口。因此，资源的共享实际上相当于允许对对应端口进行访问。</li>
+</ul>
+</li>
+</ul>
+<span id="more"></span>
+
+<p>严格来说，Mach 的任务并不是hi操作系统中所谓的进程，因为 Mach 作为一个微内核的操作系统，并没有提供“进程”的逻辑，而只提供了最基本的实现。在 BSD 模型中，这两个概念有一对一的简单映射，每个 BSD 进程（即 OS X 进程）都在底层关联了一个 Mach 任务对象。实现这种映射的方法是指定一个透明的指针 bsd_info，Mach 对 bsd_info 完全无知。Mach 将内核也用任务表示（全局范围称为 kernel_task），尽管该任务没有对应的 PID，但可以想象 PID 为 0。</p>
+<p>下图所示为权威著作《OS X Internal: A System Approach》中提供的 Mach OS X 中进程子系统组成的概念图。与 Mac OS X 类似，iOS 的线程技术也是基于 Mach 线程技术实现的。</p>
+<p><img src="/res/apm/mach-task-thread-system.png"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>上述提到线程表示的是底层的机器寄存器状态以及各种给调度统计数据。再来看 Mach 层中的 thread_basic_info 结构体的定义，其成员信息也证实了这一点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">thread_basic_info</span> &#123;</span><br><span class="line">        <span class="type">time_value_t</span>    user_time;      <span class="comment">// 用户运行时长</span></span><br><span class="line">        <span class="type">time_value_t</span>    system_time;    <span class="comment">// 系统运行时长</span></span><br><span class="line">        <span class="type">integer_t</span>       cpu_usage;      <span class="comment">// CPU 使用率</span></span><br><span class="line">        <span class="type">policy_t</span>        policy;         <span class="comment">// 调度策略</span></span><br><span class="line">        <span class="type">integer_t</span>       run_state;      <span class="comment">// 运行状态</span></span><br><span class="line">        <span class="type">integer_t</span>       flags;          <span class="comment">// 各种标记</span></span><br><span class="line">        <span class="type">integer_t</span>       suspend_count;  <span class="comment">// 暂停线程的计数</span></span><br><span class="line">        <span class="type">integer_t</span>       sleep_time;     <span class="comment">// 休眠时间</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>每个线程都有这个结构体，所以我们只需要定时去遍历每个线程，累加每个线程的 cpu_usage 字段的值，就可以得到当前 App 所在进程的 CPU 使用率。</p>
+<p>如下所示为 CPU 占用率 的代码实现：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取 CPU 使用率</span></span><br><span class="line">+ (CGFloat)appCpuUsage &#123;</span><br><span class="line">    <span class="type">kern_return_t</span> kr;</span><br><span class="line">    <span class="type">task_info_data_t</span> tinfo;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> task_info_count;</span><br><span class="line">    </span><br><span class="line">    task_info_count = TASK_INFO_MAX;</span><br><span class="line">    kr = <span class="built_in">task_info</span>(<span class="built_in">mach_task_self</span>(), MACH_TASK_BASIC_INFO, (<span class="type">task_info_t</span>)tinfo, &amp;task_info_count);</span><br><span class="line">    <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">thread_array_t</span>         thread_list;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> thread_count;</span><br><span class="line">    </span><br><span class="line">    <span class="type">thread_info_data_t</span>     thinfo;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> thread_info_count;</span><br><span class="line">    </span><br><span class="line">    <span class="type">thread_basic_info_t</span> basic_info_th;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// get threads in the task</span></span><br><span class="line">    kr = <span class="built_in">task_threads</span>(<span class="built_in">mach_task_self</span>(), &amp;thread_list, &amp;thread_count);</span><br><span class="line">    <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">long</span> total_time     = <span class="number">0</span>;</span><br><span class="line">    <span class="type">long</span> total_userTime = <span class="number">0</span>;</span><br><span class="line">    CGFloat total_cpu   = <span class="number">0</span>;</span><br><span class="line">    <span class="type">int</span> j;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// for each thread</span></span><br><span class="line">    <span class="keyword">for</span> (j = <span class="number">0</span>; j &lt; (<span class="type">int</span>)thread_count; j++) &#123;</span><br><span class="line">        thread_info_count = THREAD_INFO_MAX;</span><br><span class="line">        kr = <span class="built_in">thread_info</span>(thread_list[j], THREAD_BASIC_INFO,</span><br><span class="line">                         (<span class="type">thread_info_t</span>)thinfo, &amp;thread_info_count);</span><br><span class="line">        <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        basic_info_th = (<span class="type">thread_basic_info_t</span>)thinfo;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (!(basic_info_th-&gt;flags &amp; TH_FLAGS_IDLE)) &#123;</span><br><span class="line">            total_time     = total_time + basic_info_th-&gt;user_time.seconds + basic_info_th-&gt;system_time.seconds;</span><br><span class="line">            total_userTime = total_userTime + basic_info_th-&gt;user_time.microseconds + basic_info_th-&gt;system_time.microseconds;</span><br><span class="line">            total_cpu      = total_cpu + basic_info_th-&gt;cpu_usage / (<span class="type">float</span>)TH_USAGE_SCALE * kMaxPercent;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    kr = <span class="built_in">vm_deallocate</span>(<span class="built_in">mach_task_self</span>(), (<span class="type">vm_offset_t</span>)thread_list, thread_count * <span class="built_in">sizeof</span>(<span class="type">thread_t</span>));</span><br><span class="line">    <span class="built_in">assert</span>(kr == KERN_SUCCESS);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> total_cpu;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代码中使用 task_threads API 调用获取指定的 task 的线程列表。task_threads 将 target_task 任务中的所有线程保存在 act_list 数组中，数组包含 act_listCnt 个条目。上述源码中，在调用 task_threads API 时，target_task 参数传入的是 mach_task_self()，表示获取当前的 Mach task。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">kern_return_t</span> <span class="title">task_threads</span></span></span><br><span class="line"><span class="function"><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="type">task_t</span> target_task,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="type">thread_act_array_t</span> *act_list,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="type">mach_msg_type_number_t</span> *act_listCnt</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>在获取到线程列表后，代码中使用 thread_info API 调用获取指定线程的线程信息。thread_info 查询 flavor 指定的线程信息，将信息返回到长度为 thread_info_outCnt 字节的 thread_info_out 缓存区中。上述源码，在调用 thread_info API 时，flavor 参数传入的是 THREAD_BASIC_INFO，使用这个类型会返回线程的基本信息，即 thread_basic_info_t 结构体。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">kern_return_t</span> <span class="title">thread_info</span></span></span><br><span class="line"><span class="function"><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="type">thread_act_t</span> target_act,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="type">thread_flavor_t</span> flavor,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="type">thread_info_t</span> thread_info_out,</span></span></span><br><span class="line"><span class="params"><span class="function">	<span class="type">mach_msg_type_number_t</span> *thread_info_outCnt</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>上述源码的最后，使用 vm_deallocate API 以防止出现内存泄露。</p>
+<h3 id="总的-CPU-占用率"><a href="#总的-CPU-占用率" class="headerlink" title="总的 CPU 占用率"></a>总的 CPU 占用率</h3><p>使用 <code>host_statistics</code> 函数拿到 host_cpu_load_info 的值，这个结构体的成员变量 cpu_ticks 包含了 CPU 运行的时钟脉冲的数量，cpu_ticks 是一个数组，里面分别包含了 CPU_STATE_USER, CPU_STATE_SYSTEM, CPU_STATE_IDLE 和 CPU_STATE_NICE 模式下的时钟脉冲。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">+ (CGFloat)cpuUsage &#123;</span><br><span class="line">    <span class="type">kern_return_t</span> kr;</span><br><span class="line">    <span class="type">mach_msg_type_number_t</span> count;</span><br><span class="line">    <span class="type">static</span> <span class="type">host_cpu_load_info_data_t</span> previous_info = &#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    <span class="type">host_cpu_load_info_data_t</span> info;</span><br><span class="line">    </span><br><span class="line">    count = HOST_CPU_LOAD_INFO_COUNT;</span><br><span class="line">    </span><br><span class="line">    kr = <span class="built_in">host_statistics</span>(<span class="built_in">mach_host_self</span>(), HOST_CPU_LOAD_INFO, (<span class="type">host_info_t</span>)&amp;info, &amp;count);</span><br><span class="line">    <span class="keyword">if</span> (kr != KERN_SUCCESS) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="type">natural_t</span> user   = info.cpu_ticks[CPU_STATE_USER] - previous_info.cpu_ticks[CPU_STATE_USER];</span><br><span class="line">    <span class="type">natural_t</span> nice   = info.cpu_ticks[CPU_STATE_NICE] - previous_info.cpu_ticks[CPU_STATE_NICE];</span><br><span class="line">    <span class="type">natural_t</span> system = info.cpu_ticks[CPU_STATE_SYSTEM] - previous_info.cpu_ticks[CPU_STATE_SYSTEM];</span><br><span class="line">    <span class="type">natural_t</span> idle   = info.cpu_ticks[CPU_STATE_IDLE] - previous_info.cpu_ticks[CPU_STATE_IDLE];</span><br><span class="line">    <span class="type">natural_t</span> total  = user + nice + system + idle;</span><br><span class="line">    previous_info    = info;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> (user + nice + system) * <span class="number">100.0</span> / total;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码通过计算 info 和 previous_info 的差值，分别得到在这几个模式下的 cpu_ticks，除 idle 以外都属于 CPU 被占用的情况，最后就能求出 CPU 的占用率。</p>
+<h3 id="CPU-核数"><a href="#CPU-核数" class="headerlink" title="CPU 核数"></a>CPU 核数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+ (NSUInteger)cpuNumber &#123;</span><br><span class="line">    <span class="keyword">return</span> [NSProcessInfo processInfo].activeProcessorCount;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="CPU-频率"><a href="#CPU-频率" class="headerlink" title="CPU 频率"></a>CPU 频率</h3><p>CPU 频率，就是 CPU 的时钟频率， 是 CPU 运算时的工作的频率（1秒内发生的同步脉冲数）的简称。单位是 Hz，它决定移动设备的运行速度。</p>
+<p>由于安全性考虑，苹果已经禁止访问内核变量来获取 CPU 频率。现实现方法是通过硬编码方式获取 CPU 频率，新机发布需更新。</p>
+<p>我们通过硬编码的方式，建立一张机型和 CPU 主频的映射表，然后根据机型找到对应的 CPU 主频即可。</p>
+<p>可以在其中找到对应机型cpu的对应 : <a href="https://en.wikipedia.org/wiki/Apple-designed_processors">Apple-designed_processors</a></p>
+<h3 id="CPU-类型"><a href="#CPU-类型" class="headerlink" title="CPU 类型"></a>CPU 类型</h3><p>我们知道 iPhone 使用的处理器架构都是 ARM 的，而 ARM 又分为 ARMV7、ARMV7S 和 ARM64等。而想要获取设备具体的处理器架构则需要使用 NXGetLocalArchInfo() 函数。这个函数的返回值是 NXArchInfo 结构体类型，如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *name;</span><br><span class="line">    <span class="type">cpu_type_t</span> cputype;</span><br><span class="line">    <span class="type">cpu_subtype_t</span> cpusubtype;</span><br><span class="line">    <span class="keyword">enum</span> <span class="title class_">NXByteOrder</span> byteorder;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *description;</span><br><span class="line">&#125; NXArchInfo;</span><br></pre></td></tr></table></figure>
+
+<p>NXArchInfo 结构体成员变量中就包含我们需要的信息：cputype 和 cpusubtype，这两个变量类型的定义在 mach&#x2F;machine.h 头文件中给出，本质上都是 int 类型 typedef 得到的。</p>
+<p>根据 mach&#x2F;machine.h 头文件给出的 CPU 架构类型的定义，可以很容易建立起各 CPU 架构到其对应描述的映射关系，代码实现如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">+ (NSInteger)cpuType &#123;</span><br><span class="line">    <span class="keyword">return</span> (NSInteger)<span class="built_in">NXGetLocalArchInfo</span>()-&gt;cputype;</span><br><span class="line">&#125;</span><br><span class="line">+ (NSInteger)cpuSubtype &#123;</span><br><span class="line">    <span class="keyword">return</span> (NSInteger)<span class="built_in">NXGetLocalArchInfo</span>()-&gt;cpusubtype;</span><br><span class="line">&#125;</span><br><span class="line">- (NSString *)p_stringFromCpuType:(NSInteger)cpuType &#123;</span><br><span class="line">    <span class="keyword">switch</span> (cpuType) &#123;</span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_VAX:          <span class="keyword">return</span> @<span class="string">&quot;VAX&quot;</span>;          </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_MC680x0:      <span class="keyword">return</span> @<span class="string">&quot;MC680x0&quot;</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_X86:          <span class="keyword">return</span> @<span class="string">&quot;X86&quot;</span>;          </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_X86_64:       <span class="keyword">return</span> @<span class="string">&quot;X86_64&quot;</span>;       </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_MC98000:      <span class="keyword">return</span> @<span class="string">&quot;MC98000&quot;</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_HPPA:         <span class="keyword">return</span> @<span class="string">&quot;HPPA&quot;</span>;         </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_ARM:          <span class="keyword">return</span> @<span class="string">&quot;ARM&quot;</span>;          </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_ARM64:        <span class="keyword">return</span> @<span class="string">&quot;ARM64&quot;</span>;        </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_MC88000:      <span class="keyword">return</span> @<span class="string">&quot;MC88000&quot;</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_SPARC:        <span class="keyword">return</span> @<span class="string">&quot;SPARC&quot;</span>;        </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_I860:         <span class="keyword">return</span> @<span class="string">&quot;I860&quot;</span>;         </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_POWERPC:      <span class="keyword">return</span> @<span class="string">&quot;POWERPC&quot;</span>;      </span><br><span class="line">        <span class="keyword">case</span> CPU_TYPE_POWERPC64:    <span class="keyword">return</span> @<span class="string">&quot;POWERPC64&quot;</span>;    </span><br><span class="line">        <span class="keyword">default</span>:                    <span class="keyword">return</span> @<span class="string">&quot;Unknown&quot;</span>;      </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">- (NSString *)cpuTypeString &#123;</span><br><span class="line">    <span class="keyword">if</span> (!_cpuTypeString) &#123;</span><br><span class="line">        _cpuTypeString = [self p_stringFromCpuType:[[self <span class="keyword">class</span>] cpuType]];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _cpuTypeString;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSString *)cpuSubtypeString &#123;</span><br><span class="line">    <span class="keyword">if</span> (!_cpuSubtypeString) &#123;</span><br><span class="line">        _cpuSubtypeString = [NSString stringWithUTF8String:<span class="built_in">NXGetLocalArchInfo</span>()-&gt;description];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _cpuSubtypeString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>经测试发现 NXArchInfo 结构体成员变量 description 包含的就是 CPU 架构的详尽信息，所以可以用它作为 cpuSubtypeString，当然也可以自己建立 cpuSubtype 的映射关系。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/" rel="prev" title="iOS图片-像素操作">
+                  <i class="fa fa-angle-left"></i> iOS图片-像素操作
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/APM/iOSAPM2/" rel="next" title="iOS 性能监控2 Memory信息">
+                  iOS 性能监控2 Memory信息 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

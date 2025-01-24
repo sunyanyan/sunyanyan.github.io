@@ -1,25 +1,414 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="fishhook简介C 语言往往会给我们留下不可修改的这一印象,而 fishhook 是一个由 facebook 开源的第三方框架，其主要作用就是动态修改 C 语言函数实现。 这个框架的代码其实非常的简单，只包含两个文件：fishhook.c 以及 fishhook.h；两个文件所有的代码加起来也不超过 300 行。不过它的实现原理是非常有意思并且精妙的 fishhook 提供非常简单的两个接口以">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mach-O应用 fishhook动态修改C函数">
+<meta property="og:url" content="https://developerdoc.com/essay/LLDB/Mach-O_fishhook/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="fishhook简介C 语言往往会给我们留下不可修改的这一印象,而 fishhook 是一个由 facebook 开源的第三方框架，其主要作用就是动态修改 C 语言函数实现。 这个框架的代码其实非常的简单，只包含两个文件：fishhook.c 以及 fishhook.h；两个文件所有的代码加起来也不超过 300 行。不过它的实现原理是非常有意思并且精妙的 fishhook 提供非常简单的两个接口以">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/MachO/fishhook1.png">
+<meta property="og:image" content="https://developerdoc.com/res/MachO/fishhook2.png">
+<meta property="og:image" content="https://developerdoc.com/res/MachO/fishhook3.png">
+<meta property="og:image" content="https://developerdoc.com/res/MachO/fishhook4.png">
+<meta property="og:image" content="https://developerdoc.com/res/MachO/fishhook5.png">
+<meta property="article:published_time" content="2019-04-29T12:10:20.000Z">
+<meta property="article:modified_time" content="2019-05-08T02:29:30.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="fishhook">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/MachO/fishhook1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/LLDB/Mach-O_fishhook/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/LLDB/Mach-O_fishhook/","path":"essay/LLDB/Mach-O_fishhook/","title":"Mach-O应用 fishhook动态修改C函数"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Mach-O应用 fishhook动态修改C函数 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#fishhook%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">fishhook简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fishhook-%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">fishhook 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5"><span class="nav-number">2.1.</span> <span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PIC%EF%BC%88Position-independent-code"><span class="nav-number">2.2.</span> <span class="nav-text">PIC（Position-independent code)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dyld-%E5%8A%A0%E8%BD%BD%E5%9B%9E%E8%B0%83"><span class="nav-number">2.3.</span> <span class="nav-text">dyld 加载回调</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fishhook-%E6%98%AF%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%BE%E5%88%B0%E5%AF%B9%E5%BA%94%E6%8C%87%E9%92%88%E5%9C%A8%E7%AC%A6%E5%8F%B7%E8%A1%A8%E4%B8%AD%E7%9A%84%E5%81%8F%E7%A7%BB%E5%80%BC%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">fishhook 是如何根据字符串找到对应指针在符号表中的偏移值的</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/LLDB/Mach-O_fishhook/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Mach-O应用 fishhook动态修改C函数 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mach-O应用 fishhook动态修改C函数
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-29 20:10:20" itemprop="dateCreated datePublished" datetime="2019-04-29T20:10:20+08:00">2019-04-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-05-08 10:29:30" itemprop="dateModified" datetime="2019-05-08T10:29:30+08:00">2019-05-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="fishhook简介"><a href="#fishhook简介" class="headerlink" title="fishhook简介"></a>fishhook简介</h2><p>C 语言往往会给我们留下不可修改的这一印象,而 <a href="https://github.com/facebook/fishhook">fishhook</a> 是一个由 facebook 开源的第三方框架，其主要作用就是<strong>动态修改 C 语言函数实现</strong>。</p>
+<p>这个框架的代码其实非常的简单，只包含两个文件：fishhook.c 以及 fishhook.h；两个文件所有的代码加起来也不超过 300 行。不过它的实现原理是非常有意思并且精妙的</p>
+<p>fishhook 提供非常简单的两个接口以及一个结构体：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rebinding</span> &#123;</span></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span> *name;</span><br><span class="line">	<span class="type">void</span> *replacement;</span><br><span class="line">	<span class="type">void</span> **replaced;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rebind_symbols</span><span class="params">(<span class="keyword">struct</span> rebinding rebindings[], <span class="type">size_t</span> rebindings_nel)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">rebind_symbols_image</span><span class="params">(<span class="type">void</span> *header,<span class="type">intptr_t</span> slide,</span></span><br><span class="line"><span class="params"><span class="keyword">struct</span> rebinding rebindings[],</span></span><br><span class="line"><span class="params"><span class="type">size_t</span> rebindings_nel)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以从 fishhook 提供的demo中上手实践一下,这里的demo对 <code>close</code> 进行修改:</p>
+<span id="more"></span>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//main.m</span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;UIKit/UIKit.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;AppDelegate.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="string">&quot;dlfcn.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;fishhook.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//声明一个与原函数签名相同的函数指针,用保存原始的函数的地址</span></span><br><span class="line"><span class="keyword">static</span> <span class="type">int</span> (*orig_close)(<span class="type">int</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//新的close</span></span><br><span class="line"><span class="type">int</span> my_close(<span class="type">int</span> fd) &#123;</span><br><span class="line">    printf(<span class="string">&quot;做一些额外操作\n&quot;</span>);</span><br><span class="line">    printf(<span class="string">&quot;调用原 close(%d)\n&quot;</span>, fd);</span><br><span class="line">    <span class="comment">//调用的 orig_close 其实相当于执行原 close</span></span><br><span class="line">    <span class="keyword">return</span> orig_close(fd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> main(<span class="type">int</span> argc, <span class="type">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">struct</span> rebinding closeBind;</span><br><span class="line">        <span class="comment">//函数的名称</span></span><br><span class="line">        closeBind.name = <span class="string">&quot;close&quot;</span>;</span><br><span class="line">        <span class="comment">//新的函数地址</span></span><br><span class="line">        closeBind.replacement = my_close;</span><br><span class="line">        <span class="comment">//保存原始函数地址的变量的指针</span></span><br><span class="line">        closeBind.replaced = (<span class="type">void</span> *)&amp;orig_close;</span><br><span class="line">        <span class="comment">//定义数组</span></span><br><span class="line">        <span class="keyword">struct</span> rebinding rebs[] = &#123;closeBind&#125;;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         对符号进行重绑定 arg1 : 存放rebinding结构体的数组 arg2 : 数组的长度</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        rebind_symbols(rebs, <span class="number">1</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 开始测试:</span></span><br><span class="line">        <span class="type">int</span> fd = open(argv[<span class="number">0</span>], O_RDONLY);</span><br><span class="line">        uint32_t magic_number = <span class="number">0</span>;</span><br><span class="line">        read(fd, &amp;magic_number, <span class="number">4</span>);</span><br><span class="line">        printf(<span class="string">&quot;Mach-O Magic Number: %x \n&quot;</span>, magic_number);</span><br><span class="line">        close(fd);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后查看输出的信息可以看到 在对符号进行重绑定之后，所有调用 <code>close</code> 函数的地方实际上都会执行 <code>my_close</code> 的实现，也就完成了对 <code>close</code> 的修改。</p>
+<p>那么 fishhook 是如何做到的呢？</p>
+<h2 id="fishhook-原理"><a href="#fishhook-原理" class="headerlink" title="fishhook 原理"></a>fishhook 原理</h2><p>fishhook 是 FaceBook 开源的可以动态修改 MachO 符号表的工具。fishhook 的强大之处在于它可以 HOOK 系统的静态 C 函数。</p>
+<p>大家都知道 OC 的方法之所以可以 HOOK 是因为它的运行时特性，OC 的方法调用在底层都是 msg_send（id,SEL）的形式，这为我们提供了交换方法实现（IMP）的机会，但 C 函数在编译链接时就确定了函数指针的地址偏移量（Offset），这个偏移量在编译好的可执行文件中是固定的。既然 C 函数的指针地址是相对固定且不可修改的，那么 fishhook 又是怎么实现 对 C 函数的 HOOK 呢？<strong>其实内部&#x2F;自定义的 C 函数 fishhook 也 HOOK 不了，它只能HOOK Mach-O 外部（共享缓存库中）的函数</strong>。</p>
+<p>现在先来看一下以下这几个知识点:</p>
+<h3 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a>动态链接</h3><p>动态链接就是负责将各种各样程序需要的镜像加载到程序运行的内存空间中，这个过程发生的时间非常早： <em>在 objc 运行时初始化之前</em> 。</p>
+<p>先来看一个简单的demo为例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// helloFishhook.m</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">hello_world</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Hello, World!\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> * argv[])</span> &#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;Hello, World!\n&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如我们在 <a href="/essay/LLDB/iOS_Compiler/">iOS编译过程</a> 中实践的一样 ，先用clang编译一下，再用<code>nm</code>命令查看符号:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#clang helloFishhook.m</span></span><br><span class="line"><span class="comment">#nm -nm a.out </span></span><br><span class="line">                 (undefined) external _printf (from libSystem)</span><br><span class="line">                 (undefined) external dyld_stub_binder (from libSystem)</span><br><span class="line">0000000100000000 (__TEXT,__text) [referenced dynamically] external __mh_execute_header</span><br><span class="line">0000000100000f30 (__TEXT,__text) external _hello_world</span><br><span class="line">0000000100000f50 (__TEXT,__text) external _main</span><br></pre></td></tr></table></figure>
+
+<p>可以看到自己写的方法 <code>_hello_world</code> ,它包含一个内存地址以及 __TEXT 段。也就是说手写的一些函数，在编译之后，其地址并不是未定义的</p>
+<p>与之对比的是看到 <code>_printf</code> 这个符号是未定义的(undefined),<code>dyld_stub_binder</code> 会在目标符号（例如 printf）被调用时，将其链接到指定的动态链接库 libSystem，再执行 printf 的实现</p>
+<p>每一个镜像中的 __DATA 端都包含两个与动态链接有关的表，其中一个是 __nl_symbol_ptr，另一个是 <code>__la_symbol_ptr</code>：</p>
+<ul>
+<li><code>__nl_symbol_ptr</code> 中的 non-lazy 符号是在动态链接库绑定的时候进行加载的</li>
+<li><code>__la_symbol_ptr</code> 中的符号会在该符号被第一次调用时，通过 dyld 中的 dyld_stub_binder 过程来进行加载</li>
+</ul>
+<p>了解这两点的区别，你也大概可以猜出 fishhook 为什么能替换原C函数了。</p>
+<h3 id="PIC（Position-independent-code"><a href="#PIC（Position-independent-code" class="headerlink" title="PIC（Position-independent code)"></a>PIC（Position-independent code)</h3><p>为什么 printf 是未定义的？</p>
+<p>ASLR技术：是一种针对缓冲区溢出的安全保护技术，通过对堆、栈、共享库映射等线性区布局的随机化，通过增加攻击者预测目的地址的难度。对于我们APP而言，它保证每次MachO文件加载的时候是随机地址  <strong>这个我们可以通过LLDB指令的image list去查看</strong></p>
+<p>苹果采用了PIC（Position-independent code）技术成功让 C 的底层也能有动态的表现：</p>
+<ul>
+<li>编译时在 Mach-O 文件 _DATA 段的符号表中为每一个被引用的系统 C 函数建立一个指针（8字节的数据，放的全是0），这个指针用于动态绑定时重定位到共享库中的函数实现。</li>
+<li>在运行时当系统 C 函数被第一次调用时会动态绑定一次，然后将 Mach-O 中的 _DATA 段符号表中对应的指针，指向外部函数（其在共享库中的实际内存地址）。</li>
+</ul>
+<p>fishhook 正是利用了 PIC 技术做了这么两个操作：</p>
+<ul>
+<li>将指向系统方法（外部函数）的指针重新进行绑定指向内部函数&#x2F;自定义 C 函数。</li>
+<li>将内部函数的指针在动态链接时指向系统方法的地址。</li>
+</ul>
+<p>这样就把系统方法与自己定义的方法进行了交换，达到 HOOK 系统 C 函数（共享库中的）的目的。</p>
+<h3 id="dyld-加载回调"><a href="#dyld-加载回调" class="headerlink" title="dyld 加载回调"></a>dyld 加载回调</h3><p>在 dyld 加载镜像时，会执行注册过的回调函数; 对于每一个已经存在的镜像，当它被动态链接时，都会执行回调 </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> (*func)(<span class="type">const</span> <span class="keyword">struct</span> mach_header* mh, <span class="type">intptr_t</span> vmaddr_slide)</span><br></pre></td></tr></table></figure>
+
+<p>传入文件的 <code>mach_header</code> 以及一个虚拟内存地址 <code>intptr_t</code>。</p>
+<p>dyld 通过更新 Mach-O 二进制文件 __DATA 段中的一些指针来绑定 lazy 和 non-lazy 的符号；</p>
+<p>而 fishhook 先确定某一个符号在 __DATA 段中的位置，<strong>然后保存原符号对应的函数指针，并使用新的函数指针覆盖原有符号的函数指针，实现重绑定。</strong></p>
+<h2 id="fishhook-是如何根据字符串找到对应指针在符号表中的偏移值的"><a href="#fishhook-是如何根据字符串找到对应指针在符号表中的偏移值的" class="headerlink" title="fishhook 是如何根据字符串找到对应指针在符号表中的偏移值的"></a>fishhook 是如何根据字符串找到对应指针在符号表中的偏移值的</h2><p>直接上fishhook 的 README 中的流程图：</p>
+<img src="/res/MachO/fishhook1.png" width="60%"/>
+
+<p>这张图初看很复杂，不过它演示的是寻找符号的过程，我们根据这张图来分析一下这个过程：</p>
+<ol>
+<li>从 __DATA 段中的 lazy 符号指针表中查找某个符号，获得这个符号的偏移量 1061，然后在每一个 section_64 中查找 reserved1，通过这两个值找到 Indirect Symbol Table 中符号对应的条目</li>
+<li>在 Indirect Symbol Table 找到符号表指针以及对应的索引 16343 之后，就需要访问符号表</li>
+<li>然后通过符号表中的偏移量，获取字符串表中的符号 <code>_close</code></li>
+</ol>
+<p>图示中，1061 是间接符号表的偏移量，*（偏移量+间接符号地址）&#x3D;16343，即符号表偏移量。符号表中每一个结构都是一个 nlist 结构体，其中包含字符表偏移量。通过字符表偏移量最终确定函数指针。</p>
+<p>fishhook 就是对间接符号表的偏移量动的手脚，提供一个假的 nlist 结构体，从而达到 hook 的目的。</p>
+<p>上面的流程图其实已经显示的很清楚了，这里我们重新来走一遍，一步步找到其在 MachO 文件里对应指针的偏移值，大致步骤如下：</p>
+<p><strong>1.在 String Table 中找到该字符串在 Symbols Table -&gt; Symbols 中的位置：</strong></p>
+<p><img src="/res/MachO/fishhook2.png"></p>
+<p>用 0x9832 - 0x9780 &#x3D; 0xB2</p>
+<p><strong>2.在 Symbols Table -&gt; Symbols 中找到Data &#x3D; 0xB2 的符号，其对应的 offset 值 0x16F 就是该符号在 Dynamic Symbols Table -&gt; Indirect Symbols 表中的 Data 值</strong></p>
+<p><img src="/res/MachO/fishhook3.png"></p>
+<p><strong>3.在 Dynamic Symbols Table -&gt; Indirect Symbols 表中找到 Data 值为 0x16F 的符号，其位于该表中的位置（第一个）就是它在懒加载表中对应的位置。</strong></p>
+<p><img src="/res/MachO/fishhook4.png"></p>
+<p><strong>4.懒加载表中对应位置的 Offset 值就是该指针最终的偏移量：</strong></p>
+<p><img src="/res/MachO/fishhook5.png"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/fishhook/" rel="tag"># fishhook</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/LLDB/Mach-O_file/" rel="prev" title="Mach-O文件格式字段简介">
+                  <i class="fa fa-angle-left"></i> Mach-O文件格式字段简介
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/LLDB/fishhook_code_analyze/" rel="next" title="fishhook源码学习">
+                  fishhook源码学习 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

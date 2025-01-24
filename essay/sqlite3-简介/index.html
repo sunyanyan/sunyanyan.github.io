@@ -1,25 +1,397 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="使用在iOS中操作SQLite数据库可以分为以下几步（注意先在项目中导入libsqlite3框架）：  添加libsqlite3.tbd 打开数据库，利用sqlite3_open()打开数据库会指定一个数据库文件保存路径，如果文件存在则直接打开，否则创建并打开。打开数据库会得到一个sqlite3类型的对象，后面需要借助这个对象进行其他操作 执行SQL语句，执行SQL语句又包括有返回值的语句和无返回">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sqlite3-简介.md">
+<meta property="og:url" content="https://developerdoc.com/essay/sqlite3-%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="使用在iOS中操作SQLite数据库可以分为以下几步（注意先在项目中导入libsqlite3框架）：  添加libsqlite3.tbd 打开数据库，利用sqlite3_open()打开数据库会指定一个数据库文件保存路径，如果文件存在则直接打开，否则创建并打开。打开数据库会得到一个sqlite3类型的对象，后面需要借助这个对象进行其他操作 执行SQL语句，执行SQL语句又包括有返回值的语句和无返回">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-10T02:49:42.000Z">
+<meta property="article:modified_time" content="2019-07-31T03:19:23.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/sqlite3-%E7%AE%80%E4%BB%8B/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/sqlite3-%E7%AE%80%E4%BB%8B/","path":"essay/sqlite3-简介/","title":"sqlite3-简介.md"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>sqlite3-简介.md | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0framework"><span class="nav-number">1.1.</span> <span class="nav-text">添加framework</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%EF%BC%9A"><span class="nav-number">1.2.</span> <span class="nav-text">打开&#x2F;创建数据库：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.</span> <span class="nav-text">执行语句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%8F%92%E5%85%A5%E3%80%81%E4%BF%AE%E6%94%B9%E3%80%81%E5%88%A0%E9%99%A4%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.</span> <span class="nav-text">执行插入、修改、删除语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.2.</span> <span class="nav-text">执行查询语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%B4%E6%98%8E"><span class="nav-number">3.</span> <span class="nav-text">说明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">一些方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sqlite3%E6%95%B0%E6%8D%AE%E5%BA%93%E6%89%93%E5%BC%80%E6%97%B6%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%E5%8F%8A%E5%85%B6%E6%89%80%E4%BB%A3%E8%A1%A8%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">3.2.</span> <span class="nav-text">sqlite3数据库打开时的返回值及其所代表的含义:</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/sqlite3-%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="sqlite3-简介.md | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          sqlite3-简介.md
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-10 10:49:42" itemprop="dateCreated datePublished" datetime="2016-10-10T10:49:42+08:00">2016-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-07-31 11:19:23" itemprop="dateModified" datetime="2019-07-31T11:19:23+08:00">2019-07-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>在iOS中操作SQLite数据库可以分为以下几步（注意先在项目中导入libsqlite3框架）：</p>
+<ol>
+<li>添加libsqlite3.tbd</li>
+<li>打开数据库，利用sqlite3_open()打开数据库会指定一个数据库文件保存路径，如果文件存在则直接打开，否则创建并打开。打开数据库会得到一个sqlite3类型的对象，后面需要借助这个对象进行其他操作</li>
+<li>执行SQL语句，执行SQL语句又包括有返回值的语句和无返回值语句。<ul>
+<li>对于无返回值的语句（如增加、删除、修改等）直接通过sqlite3_exec()函数执行；</li>
+<li>对于有返回值的语句则首先通过sqlite3_prepare_v2()进行sql语句评估（语法检测），然后通过sqlite3_step()依次取出查询结果的每一行数据，对于每行数据都可以通过对应的sqlite3_column_类型()方法获得对应列的数据，如此反复循环直到遍历完成。当然，最后需要释放句柄。</li>
+</ul>
+</li>
+</ol>
+<span id="more"></span>
+
+<p>在整个操作过程中无需管理数据库连接，对于嵌入式SQLite操作是持久连接（尽管可以通过sqlite3_close()关闭），不需要开发人员自己释放连接。纵观整个操作过程，其实与其他平台的开发没有明显的区别，较为麻烦的就是数据读取，在iOS平台中使用C进行数据读取采用了游标的形式，每次只能读取一行数据，较为麻烦。</p>
+<h3 id="添加framework"><a href="#添加framework" class="headerlink" title="添加framework"></a>添加framework</h3><p>需要添加libsqlite3.tbd（老版本xocde中叫libsqlite3.dylib）</p>
+<h3 id="打开-创建数据库："><a href="#打开-创建数据库：" class="headerlink" title="打开&#x2F;创建数据库："></a>打开&#x2F;创建数据库：</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) sqlite3 *database;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">-(<span class="type">BOOL</span>)openDb:(<span class="built_in">NSString</span> *)dbname&#123;</span><br><span class="line">   <span class="comment">//取得数据库保存路径，通常保存沙盒Documents目录</span></span><br><span class="line">   <span class="built_in">NSString</span> *directory=[<span class="built_in">NSSearchPathForDirectoriesInDomains</span>(<span class="built_in">NSDocumentDirectory</span>, <span class="built_in">NSUserDomainMask</span>, <span class="literal">YES</span>) firstObject];</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@&quot;数据库db储存路径 ： %@&quot;</span>,directory);</span><br><span class="line">   <span class="built_in">NSString</span> *filePath=[directory stringByAppendingPathComponent:dbname];</span><br><span class="line">   <span class="comment">//如果有数据库则直接打开，否则创建并打开（注意filePath是ObjC中的字符串，需要转化为C语言字符串类型）</span></span><br><span class="line">   <span class="keyword">if</span> (SQLITE_OK ==sqlite3_open(filePath.UTF8String, &amp;_database)) &#123;</span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@&quot;数据库打开成功!&quot;</span>);</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">   &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@&quot;数据库打开失败!&quot;</span>);</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行语句"><a href="#执行语句" class="headerlink" title="执行语句"></a>执行语句</h2><h3 id="执行插入、修改、删除语句"><a href="#执行插入、修改、删除语句" class="headerlink" title="执行插入、修改、删除语句"></a>执行插入、修改、删除语句</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="type">BOOL</span>)executeNonQuery:(<span class="built_in">NSString</span> *)sql&#123;</span><br><span class="line">   <span class="type">char</span> *error;</span><br><span class="line">   <span class="comment">//单步执行sql语句，用于插入、修改、删除</span></span><br><span class="line">   <span class="keyword">if</span> (SQLITE_OK!=sqlite3_exec(_database, sql.UTF8String, <span class="literal">NULL</span>, <span class="literal">NULL</span>,&amp;error)) &#123;</span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@&quot;执行SQL语句过程中发生错误！错误信息：%s&quot;</span>,error);</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="执行查询语句"><a href="#执行查询语句" class="headerlink" title="执行查询语句"></a>执行查询语句</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">-(<span class="built_in">NSArray</span> *)executeQuery:(<span class="built_in">NSString</span> *)sql&#123;</span><br><span class="line">   <span class="built_in">NSMutableArray</span> *rows=[<span class="built_in">NSMutableArray</span> array];<span class="comment">//数据行</span></span><br><span class="line">   </span><br><span class="line">   <span class="comment">//评估语法正确性</span></span><br><span class="line">   sqlite3_stmt *stmt;</span><br><span class="line">   <span class="comment">//检查语法正确性</span></span><br><span class="line">   <span class="keyword">if</span> (SQLITE_OK==sqlite3_prepare_v2(_database, sql.UTF8String, <span class="number">-1</span>, &amp;stmt, <span class="literal">NULL</span>)) &#123;</span><br><span class="line">       <span class="comment">//单步执行sql语句</span></span><br><span class="line">       <span class="keyword">while</span> (SQLITE_ROW==sqlite3_step(stmt)) &#123;</span><br><span class="line">           <span class="type">int</span> columnCount= sqlite3_column_count(stmt);</span><br><span class="line">           <span class="built_in">NSMutableDictionary</span> *dic=[<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">           <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>; i&lt;columnCount; i++) &#123;</span><br><span class="line">               <span class="keyword">const</span> <span class="type">char</span> *name= sqlite3_column_name(stmt, i);<span class="comment">//取得列名</span></span><br><span class="line">               <span class="keyword">const</span> <span class="type">unsigned</span> <span class="type">char</span> *value= sqlite3_column_text(stmt, i);<span class="comment">//取得某列的值</span></span><br><span class="line">               dic[[<span class="built_in">NSString</span> stringWithUTF8String:name]]=[<span class="built_in">NSString</span> stringWithUTF8String:(<span class="keyword">const</span> <span class="type">char</span> *)value];</span><br><span class="line">           &#125;</span><br><span class="line">           [rows addObject:dic];</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">//释放句柄</span></span><br><span class="line">   sqlite3_finalize(stmt);</span><br><span class="line">   </span><br><span class="line">   <span class="keyword">return</span> rows;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><h3 id="一些方法："><a href="#一些方法：" class="headerlink" title="一些方法："></a>一些方法：</h3><ul>
+<li>sqlite3          *db, 数据库句柄，跟文件句柄FILE很类似</li>
+<li>sqlite3_stmt      *stmt, 这个相当于ODBC的Command对象，用于保存编译好的SQL语句</li>
+<li>sqlite3_open(),   打开数据库，没有数据库时创建。</li>
+<li>sqlite3_exec(),   执行非查询的sql语句</li>
+<li>sqlite3_step(), 在调用sqlite3_prepare后，使用这个函数在记录集中移动。</li>
+<li>sqlite3_close(), 关闭数据库文件</li>
+<li>还有一系列的函数，用于从记录集字段中获取数据，如<ul>
+<li>sqlite3_column_text(), 取text类型的数据。</li>
+<li>sqlite3_column_blob（），取blob类型的数据</li>
+<li>sqlite3_column_int(), 取int类型的数据</li>
+</ul>
+</li>
+</ul>
+<h3 id="sqlite3数据库打开时的返回值及其所代表的含义"><a href="#sqlite3数据库打开时的返回值及其所代表的含义" class="headerlink" title="sqlite3数据库打开时的返回值及其所代表的含义:"></a>sqlite3数据库打开时的返回值及其所代表的含义:</h3><ul>
+<li>SQLITE_OK&#x3D;0 返回成功</li>
+<li>SQLITE_FULL&#x3D;13 数据库满，插入失败</li>
+<li>SQLITE_ERROR&#x3D;1 Sql错误或错误的数据库</li>
+<li>SQLITE_CANTOPEN&#x3D;14 不能打开数据库文件</li>
+<li>SQLITE_INTERNAL&#x3D;2 Sqlite的内部逻辑错误</li>
+<li>SQLITE_PROTOCOL&#x3D;15 数据库锁定协议错误</li>
+<li>SQLITE_PERM&#x3D;3 拒绝访问</li>
+<li>SQLITE_EMPTY&#x3D;16 数据库表为空</li>
+<li>SQLITE_ABORT&#x3D;4 回调函数请求中断</li>
+<li>SQLITE_SCHEMA&#x3D;17 数据库模式改变</li>
+<li>SQLITE_BUSY&#x3D;5 数据库文件被锁</li>
+<li>SQLITE_TOOBIG&#x3D;18 一个表数据行过多</li>
+<li>SQLITE_LOCKED&#x3D;6 数据库中的一个表被锁</li>
+<li>SQLITE_CONSTRAINT&#x3D;19 由于约束冲突而中止</li>
+<li>SQLITE_NOMEN&#x3D;7 内存分配失败</li>
+<li>SQLITE_MISMATCH&#x3D;20 数据类型不匹配</li>
+<li>SQLITE_READONLY&#x3D;8 试图对一个只读数据库进行写操作</li>
+<li>SQLITE_MISUSE&#x3D;21 数据库错误使用</li>
+<li>SQLITE_INTERRUPT&#x3D;9 由sqlite_interrupt()结束操作</li>
+<li>SQLITE_NOLFS&#x3D;22 使用主机操作系统不支持的特性</li>
+<li>SQLITE_IOERR&#x3D;10 磁盘I&#x2F;O发生错误</li>
+<li>SQLITE_AUTH&#x3D;23 非法授权</li>
+<li>SQLITE_CORRUPT&#x3D;11 数据库磁盘镜像畸形</li>
+<li>SQLITE_FORMAT&#x3D;24 辅助数据库格式错误</li>
+<li>SQLITE_NOTFOUND&#x3D;12（Internal Only）表或记录不存在</li>
+<li>SQLITE_NOTADB&#x3D;26 打开的不是一个数据库文件</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/NSRunloop%E7%AE%80%E4%BB%8B/" rel="prev" title="NSRunloop简介.md">
+                  <i class="fa fa-angle-left"></i> NSRunloop简介.md
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/Runtime/Method-Swizzling/" rel="next" title="Method-Swizzling使用">
+                  Method-Swizzling使用 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

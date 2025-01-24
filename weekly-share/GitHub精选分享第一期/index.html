@@ -1,25 +1,362 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录这周值得分享的事，主要是GitHub精选 前端相关~ 向你的Hexo里放上一只萌萌哒二次元看板娘!  可以在hexo博客右下角添加live2D角色看板娘列表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub精选分享第一期">
+<meta property="og:url" content="https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%80%E6%9C%9F/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="记录这周值得分享的事，主要是GitHub精选 前端相关~ 向你的Hexo里放上一只萌萌哒二次元看板娘!  可以在hexo博客右下角添加live2D角色看板娘列表">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://huaji8.top/img/hexo%E7%9A%84live2d%E6%8F%92%E4%BB%B6/live2d%20z16.jpg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/800/1*lMBu87MtEsVFqqbfMum-kA.png">
+<meta property="og:image" content="https://tech.meituan.com/img/shanghanyang/03.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lllyasviel/style2paints/master/temps/show/5.jpg">
+<meta property="og:image" content="http://mmbiz.qpic.cn/mmbiz_png/KmXPKA19gW9RgiagIibfo1J7QcMtpOpVmrnM15s2ynV7Vbd2QnRrhibUYWFibSicaJTSNYxVyxHoxQO9tfN7OXWOM2A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta property="og:image" content="https://developerdoc.com/res/weeklyshare/DeepLearning-500-questions.png">
+<meta property="article:published_time" content="2018-11-23T06:41:14.000Z">
+<meta property="article:modified_time" content="2018-11-27T15:35:23.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://huaji8.top/img/hexo%E7%9A%84live2d%E6%8F%92%E4%BB%B6/live2d%20z16.jpg">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%80%E6%9C%9F/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%80%E6%9C%9F/","path":"weekly-share/GitHub精选分享第一期/","title":"GitHub精选分享第一期"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GitHub精选分享第一期 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%91%E4%BD%A0%E7%9A%84Hexo%E9%87%8C%E6%94%BE%E4%B8%8A%E4%B8%80%E5%8F%AA%E8%90%8C%E8%90%8C%E5%93%92%E4%BA%8C%E6%AC%A1%E5%85%83%E7%9C%8B%E6%9D%BF%E5%A8%98"><span class="nav-number">1.</span> <span class="nav-text">向你的Hexo里放上一只萌萌哒二次元看板娘!</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-JavaScript-works"><span class="nav-number">2.</span> <span class="nav-text">How JavaScript works</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%97%B6%E9%A2%84%E6%B8%B2%E6%9F%93%EF%BC%9A%E7%BD%91%E9%A1%B5%E9%A6%96%E5%B8%A7%E4%BC%98%E5%8C%96%E5%AE%9E%E8%B7%B5"><span class="nav-number">3.</span> <span class="nav-text">构建时预渲染：网页首帧优化实践</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#style2paints-%E8%87%AA%E5%8A%A8%E4%B8%8A%E8%89%B2"><span class="nav-number">4.</span> <span class="nav-text">style2paints 自动上色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%8A%A9%E5%8A%9B%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%EF%BC%9A%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90GUI%E5%9B%BE%E4%BB%A3%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">深度学习助力前端开发：自动生成GUI图代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0500%E9%97%AE"><span class="nav-number">6.</span> <span class="nav-text">深度学习500问</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%80%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GitHub精选分享第一期 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GitHub精选分享第一期
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-11-23 14:41:14" itemprop="dateCreated datePublished" datetime="2018-11-23T14:41:14+08:00">2018-11-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-11-27 23:35:23" itemprop="dateModified" datetime="2018-11-27T23:35:23+08:00">2018-11-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">每周分享</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>873</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>记录这周值得分享的事，主要是GitHub精选 前端相关~</p>
+<h3 id="向你的Hexo里放上一只萌萌哒二次元看板娘"><a href="#向你的Hexo里放上一只萌萌哒二次元看板娘" class="headerlink" title="向你的Hexo里放上一只萌萌哒二次元看板娘!"></a><a href="https://github.com/EYHN/hexo-helper-live2d">向你的Hexo里放上一只萌萌哒二次元看板娘!</a></h3><p><a href="https://github.com/EYHN/hexo-helper-live2d"><img src="https://huaji8.top/img/hexo%E7%9A%84live2d%E6%8F%92%E4%BB%B6/live2d%20z16.jpg"></a></p>
+<blockquote class="blockquote-center">
+<p>可以在hexo博客右下角添加live2D角色<br><a href="https://huaji8.top/post/live2d-plugin-2.0/">看板娘列表</a></p>
+
+</blockquote>
+
+<span id="more"></span>
+
+<h3 id="How-JavaScript-works"><a href="#How-JavaScript-works" class="headerlink" title="How JavaScript works"></a><a href="https://blog.sessionstack.com/tagged/tutorial">How JavaScript works</a></h3><p><a href="https://blog.sessionstack.com/tagged/tutorial"><img src="https://cdn-images-1.medium.com/max/800/1*lMBu87MtEsVFqqbfMum-kA.png"></a></p>
+<p>系列博客包含：语言引擎，运行时和调用栈概述；如何在 V8 引擎中书写最优代码的 5 条小技巧；内存管理及如何处理 4 类常见的内存泄漏；事件循环及异步编程的出现和 5 种更好的 async&#x2F;await 编程方式；深入理解 WebSockets 和带有 SSE 机制的HTTP&#x2F;2 以及正确的使用姿势；WebAssembly 对比 JavaScript 及其使用场景；Web Workers 分类及 5 个使用场景；Service Workers，生命周期及其使用场景；网页消息推送通知机制；使用 MutationObserver 监测 DOM 变化；渲染引擎及性能优化小技巧；解析，语法抽象树及最小化解析时间的 5 条小技巧 ……</p>
+<h3 id="构建时预渲染：网页首帧优化实践"><a href="#构建时预渲染：网页首帧优化实践" class="headerlink" title="构建时预渲染：网页首帧优化实践"></a><a href="https://tech.meituan.com/first_contentful_paint_practice.html">构建时预渲染：网页首帧优化实践</a></h3><p><a href="https://tech.meituan.com/first_contentful_paint_practice.html"><img src="https://tech.meituan.com/img/shanghanyang/03.png"></a></p>
+<blockquote class="blockquote-center">
+<p>美团技术团队在“首屏白屏”问题上的优化实践</p>
+
+</blockquote>
+
+<h3 id="style2paints-自动上色"><a href="#style2paints-自动上色" class="headerlink" title="style2paints 自动上色"></a><a href="https://github.com/lllyasviel/style2paints">style2paints 自动上色</a></h3><p><a href="https://github.com/lllyasviel/style2paints"><img src="https://raw.githubusercontent.com/lllyasviel/style2paints/master/temps/show/5.jpg"></a></p>
+<p>AI 漫画稿在线上色工具，通过人工智能，将线稿的风格转换为彩色漫画风格。该项目同时提供了在线体验网站根据不同的涂色风格，获得各种上色图片。特别值得关注的是该项目由苏州大学发布，是中国科研机构在本列表中排名最高的项目。</p>
+<h3 id="深度学习助力前端开发：自动生成GUI图代码"><a href="#深度学习助力前端开发：自动生成GUI图代码" class="headerlink" title="深度学习助力前端开发：自动生成GUI图代码"></a><a href="https://github.com/tonybeltramelli/pix2code">深度学习助力前端开发：自动生成GUI图代码</a></h3><p><a href="https://github.com/tonybeltramelli/pix2code"><img src="http://mmbiz.qpic.cn/mmbiz_png/KmXPKA19gW9RgiagIibfo1J7QcMtpOpVmrnM15s2ynV7Vbd2QnRrhibUYWFibSicaJTSNYxVyxHoxQO9tfN7OXWOM2A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1"></a></p>
+<p>哥本哈根的一家初创公司 UIzard Technologies 训练了一个神经网络，能够把图形用户界面的截图转译成代码行，成功为开发者们分担了部分网站设计流程。令人惊叹的是，同一个模型能跨平台工作，包括 iOS、Android 和 Web 界面，从目前的研发水平来看，该算法的准确率达到了 77%。 详细可以看这篇文章<a href="https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650728064&idx=1&sn=adb744e599299916faa23545c2ab436e&chksm=871b22feb06cabe83ba0e3268a7a8c0c486cf6f42427ab41814e69242f919b25bc7de06ea258&scene=21#wechat_redirect">机器之心-深度学习助力前端开发：自动生成GUI图代码（附试用地址）</a></p>
+<h3 id="深度学习500问"><a href="#深度学习500问" class="headerlink" title="深度学习500问"></a><a href="https://github.com/scutan90/DeepLearning-500-questions">深度学习500问</a></h3><p><a href="https://github.com/scutan90/DeepLearning-500-questions"><img src="/res/weeklyshare/DeepLearning-500-questions.png"></a></p>
+<p>深度学习500问，以问答形式对常用的概率知识、线性代数、机器学习、深度学习、计算机视觉等热点问题进行阐述，以帮助自己及有需要的读者。 全书分为18个章节，近30万字。由于水平有限，书中不妥之处恳请广大读者批评指正。 未完待续…..</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/Babel%E6%95%99%E7%A8%8B/Babel%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B/" rel="prev" title="Babel入门教程">
+                  <i class="fa fa-angle-left"></i> Babel入门教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/(%E8%BD%AC)%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E7%8E%B0%E4%BB%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B9%95%E5%90%8E/" rel="next" title="(转)浏览器的工作原理-现代浏览器幕后">
+                  (转)浏览器的工作原理-现代浏览器幕后 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

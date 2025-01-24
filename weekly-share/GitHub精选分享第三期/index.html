@@ -1,25 +1,390 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="记录这周看到值得分享的事，本期就分享点前端可视化相关吧~ lianjia-scrawler 链家二手房租房在线数据，存量房交易服务平台数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub精选分享第三期">
+<meta property="og:url" content="https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%89%E6%9C%9F/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="记录这周看到值得分享的事，本期就分享点前端可视化相关吧~ lianjia-scrawler 链家二手房租房在线数据，存量房交易服务平台数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/XuefengHuang/lianjia-scrawler/raw/master/screenshots/homepage_1.png">
+<meta property="og:image" content="https://camo.githubusercontent.com/722a5cc12c7d40231ebeb8ca6facdc8547e2abf7/68747470733a2f2f64336a732e6f72672f6c6f676f2e737667">
+<meta property="og:image" content="https://antv.alipay.com/assets/image/home/g2/case3.png">
+<meta property="og:image" content="https://github.com/apache/incubator-echarts/raw/master/asset/logo.png?raw=true">
+<meta property="og:image" content="https://threejs.org/files/projects/infinitown.png">
+<meta property="og:image" content="https://shop.highsoft.com/media/highsoft/highchart-in-laptop-960x552-optimized.png">
+<meta property="og:image" content="https://leafletjs.com/docs/images/logo.png">
+<meta property="og:image" content="https://jgraph.github.io/mxgraph/docs/images/mxgraph_logo.gif">
+<meta property="article:published_time" content="2018-12-07T15:06:57.000Z">
+<meta property="article:modified_time" content="2019-03-06T03:19:10.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/XuefengHuang/lianjia-scrawler/raw/master/screenshots/homepage_1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%89%E6%9C%9F/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%89%E6%9C%9F/","path":"weekly-share/GitHub精选分享第三期/","title":"GitHub精选分享第三期"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GitHub精选分享第三期 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#lianjia-scrawler-%E9%93%BE%E5%AE%B6%E4%BA%8C%E6%89%8B%E6%88%BF%E7%A7%9F%E6%88%BF%E5%9C%A8%E7%BA%BF%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%AD%98%E9%87%8F%E6%88%BF%E4%BA%A4%E6%98%93%E6%9C%8D%E5%8A%A1%E5%B9%B3%E5%8F%B0%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">lianjia-scrawler 链家二手房租房在线数据，存量房交易服务平台数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D3-%E4%B8%80%E4%B8%AA%E5%9F%BA%E4%BA%8Eweb%E6%A0%87%E5%87%86%E7%9A%84JavaScript%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93"><span class="nav-number">2.</span> <span class="nav-text">D3 一个基于web标准的JavaScript可视化库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#G2-%E4%B8%80%E5%A5%97%E5%9F%BA%E4%BA%8E%E5%8F%AF%E8%A7%86%E5%8C%96%E7%BC%96%E7%A0%81%E7%9A%84%E5%9B%BE%E5%BD%A2%E8%AF%AD%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">G2 一套基于可视化编码的图形语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#echarts-%E4%B8%80%E4%B8%AA%E4%BD%BF%E7%94%A8JavaScript%E5%AE%9E%E7%8E%B0%E7%9A%84%E5%BC%80%E6%BA%90%E5%8F%AF%E8%A7%86%E5%8C%96%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">echarts 一个使用JavaScript实现的开源可视化库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#three-js-JavaScript-3D-library"><span class="nav-number">5.</span> <span class="nav-text">three.js JavaScript 3D library</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#highcharts-HTML5%E4%BA%A4%E4%BA%92%E6%80%A7%E5%9B%BE%E8%A1%A8%E5%BA%93"><span class="nav-number">6.</span> <span class="nav-text">highcharts HTML5交互性图表库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Leaflet-%E4%BA%92%E5%8A%A8%E5%9C%B0%E5%9B%BE"><span class="nav-number">7.</span> <span class="nav-text">Leaflet 互动地图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mxgraph"><span class="nav-number">8.</span> <span class="nav-text">mxgraph </span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/weekly-share/GitHub%E7%B2%BE%E9%80%89%E5%88%86%E4%BA%AB%E7%AC%AC%E4%B8%89%E6%9C%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GitHub精选分享第三期 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GitHub精选分享第三期
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-07 23:06:57" itemprop="dateCreated datePublished" datetime="2018-12-07T23:06:57+08:00">2018-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-06 11:19:10" itemprop="dateModified" datetime="2019-03-06T11:19:10+08:00">2019-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/" itemprop="url" rel="index"><span itemprop="name">每周分享</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>记录这周看到值得分享的事，本期就分享点前端可视化相关吧~</p>
+<h3 id="lianjia-scrawler-链家二手房租房在线数据，存量房交易服务平台数据"><a href="#lianjia-scrawler-链家二手房租房在线数据，存量房交易服务平台数据" class="headerlink" title="lianjia-scrawler 链家二手房租房在线数据，存量房交易服务平台数据"></a><a href="https://github.com/XuefengHuang/lianjia-scrawler">lianjia-scrawler 链家二手房租房在线数据，存量房交易服务平台数据</a></h3><span id="more"></span>
+<p><a href="https://github.com/XuefengHuang/lianjia-scrawler"><img src="https://github.com/XuefengHuang/lianjia-scrawler/raw/master/screenshots/homepage_1.png" width="50%" /></a></p>
+<blockquote class="blockquote-center">
+<p>该项目提供一个链家网全国房源爬虫工具，数据存储目前支持Mysql,Sqlite和Postgres。非常方便转化成csv等格式文件。<br>详细数据分析教程 <a href="http://www.ershoufangdata.com/">http://www.ershoufangdata.com</a></p>
+
+</blockquote>
+
+
+<h3 id="D3-一个基于web标准的JavaScript可视化库"><a href="#D3-一个基于web标准的JavaScript可视化库" class="headerlink" title="D3 一个基于web标准的JavaScript可视化库"></a><a href="https://github.com/d3/d3">D3 一个基于web标准的JavaScript可视化库</a></h3><p><a href="https://github.com/d3/d3"><img src="https://camo.githubusercontent.com/722a5cc12c7d40231ebeb8ca6facdc8547e2abf7/68747470733a2f2f64336a732e6f72672f6c6f676f2e737667"></a></p>
+<blockquote class="blockquote-center">
+<p>D3 (或者叫 D3.js )是一个基于 web 标准的 JavaScript 可视化库.<br>D3 可以借助 SVG, Canvas 以及 HTML 将你的数据生动的展现出来.<br>D3 结合了强大的可视化交互技术以及数据驱动 DOM 的技术结合起来,<br>让你可以借助于现代浏览器的强大功能自由的对数据进行可视化。</p>
+
+</blockquote>
+
+<h3 id="G2-一套基于可视化编码的图形语法"><a href="#G2-一套基于可视化编码的图形语法" class="headerlink" title="G2 一套基于可视化编码的图形语法"></a><a href="https://github.com/antvis/g2">G2 一套基于可视化编码的图形语法</a></h3><p><a href="https://github.com/antvis/g2"><img src="https://antv.alipay.com/assets/image/home/g2/case3.png"></a></p>
+<blockquote class="blockquote-center">
+<p>G2 是一套基于可视化编码的图形语法，<br>以数据驱动，具有高度的易用性和扩展性，<br>用户无需关注各种繁琐的实现细节，一条语句即可构建出各种各样的可交互的统计图表</p>
+
+</blockquote>
+
+<h3 id="echarts-一个使用JavaScript实现的开源可视化库"><a href="#echarts-一个使用JavaScript实现的开源可视化库" class="headerlink" title="echarts 一个使用JavaScript实现的开源可视化库"></a><a href="https://github.com/apache/incubator-echarts">echarts 一个使用JavaScript实现的开源可视化库</a></h3><p><a href="https://github.com/apache/incubator-echarts"><img src="https://github.com/apache/incubator-echarts/raw/master/asset/logo.png?raw=true" alt=" "></a></p>
+<blockquote class="blockquote-center">
+<p>ECharts，一个使用 JavaScript 实现的开源可视化库，<br>可以流畅的运行在 PC 和移动设备上，<br>兼容当前绝大部分浏览器（IE8&#x2F;9&#x2F;10&#x2F;11，Chrome，Firefox，Safari等），<br>底层依赖轻量级的矢量图形库 ZRender，提供直观，交互丰富，可高度个性化定制的数据可视化图表。</p>
+
+</blockquote>
+
+<h3 id="three-js-JavaScript-3D-library"><a href="#three-js-JavaScript-3D-library" class="headerlink" title="three.js JavaScript 3D library"></a><a href="https://github.com/mrdoob/three.js">three.js JavaScript 3D library</a></h3><p><a href="https://github.com/mrdoob/three.js"><img src="https://threejs.org/files/projects/infinitown.png" alt=" "></a></p>
+<blockquote class="blockquote-center">
+<p>three.js是JavaScript编写的WebGL第三方库。提供了非常多的3D显示功能。T<br>hree.js 是一款运行在浏览器中的 3D 引擎，<br>你可以用它创建各种三维场景，包括了摄影机、光影、材质等各种对象。<br>你可以在它的主页上看到许多精采的演示。</p>
+
+</blockquote>
+
+<h3 id="highcharts-HTML5交互性图表库"><a href="#highcharts-HTML5交互性图表库" class="headerlink" title="highcharts HTML5交互性图表库"></a><a href="https://github.com/highcharts/highcharts">highcharts HTML5交互性图表库</a></h3><p><a href="https://github.com/highcharts/highcharts"><img src="https://shop.highsoft.com/media/highsoft/highchart-in-laptop-960x552-optimized.png" alt=" "></a></p>
+<blockquote class="blockquote-center">
+<p>兼容 IE6+、完美支持移动端、图表类型丰富、方便快捷的 HTML5 交互性图表库</p>
+
+</blockquote>
+
+<h3 id="Leaflet-互动地图"><a href="#Leaflet-互动地图" class="headerlink" title="Leaflet 互动地图"></a><a href="https://github.com/Leaflet/Leaflet">Leaflet 互动地图</a></h3><p><a href="https://github.com/Leaflet/Leaflet"><img src="https://leafletjs.com/docs/images/logo.png" alt=" "></a></p>
+<blockquote class="blockquote-center">
+<p>Leaflet 是一个为建设移动设备友好的互动地图,而开发的现代的、开源的 JavaScript 库</p>
+
+</blockquote>
+
+<h3 id="mxgraph"><a href="#mxgraph" class="headerlink" title="mxgraph "></a><a href="https://github.com/jgraph/mxgraph">mxgraph </a></h3><p><a href="https://github.com/jgraph/mxgraph"><img src="https://jgraph.github.io/mxgraph/docs/images/mxgraph_logo.gif" alt=" "></a></p>
+<blockquote class="blockquote-center">
+<p>mxGraph客户端功能是 一个JavaScript库，<br>通过浏览器与您的图表显示和交互，提供通常所需的所有应用程序 功能以及方便添加自定义功能的高扩展性。<br>mxGraph是专为使用客户端 - 服务器架构而设计，<br>其中的JavaScript库负责与服务器通信交流以及更新图表的状态信息</p>
+
+</blockquote>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/(%E8%AF%91)how-does-react-tell-a-class-from-a-function/" rel="prev" title="(译)React是如何区分Class和Function？">
+                  <i class="fa fa-angle-left"></i> (译)React是如何区分Class和Function？
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/quick-start/d3-tutorials-quickstart/" rel="next" title="可视化D3教程-快速开始">
+                  可视化D3教程-快速开始 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

@@ -1,25 +1,407 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍下常见的几种对图片的像素级操作1.修改颜色 2. 颜色空间变化 3.lsb 隐藏信息 4. 颜色混合  5. 马赛克  介绍在 iOS图片-位图信息与图片解码 中介绍了位图信息中像素 颜色空间等概念。这次来实践一下如何对图片的像素进行操作。位图又被叫做点阵图像，也就是说位图包含了一大堆的像素点信息，这些像素点就是该图片中的点，有了图片中每个像素点的信息，我们就知道如何对图片进行像素级操作了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS图片-像素操作">
+<meta property="og:url" content="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="介绍下常见的几种对图片的像素级操作1.修改颜色 2. 颜色空间变化 3.lsb 隐藏信息 4. 颜色混合  5. 马赛克  介绍在 iOS图片-位图信息与图片解码 中介绍了位图信息中像素 颜色空间等概念。这次来实践一下如何对图片的像素进行操作。位图又被叫做点阵图像，也就是说位图包含了一大堆的像素点信息，这些像素点就是该图片中的点，有了图片中每个像素点的信息，我们就知道如何对图片进行像素级操作了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/Share.png">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/sample1ResultImg.png">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/rgb_cs.png">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/grey_cs.png">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/LSB.png">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/qrResult_1.png">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/colorMix.png">
+<meta property="og:image" content="https://developerdoc.com/res/iOSImg/msk.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5806025-9188b291498651e7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/720/format/webp">
+<meta property="article:published_time" content="2020-01-13T13:07:46.000Z">
+<meta property="article:modified_time" content="2020-01-20T08:52:42.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="图片">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/iOSImg/Share.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/","path":"quick-start/图片/iOS图片-像素操作/","title":"iOS图片-像素操作"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS图片-像素操作 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87%E4%BF%AE%E6%94%B9%E4%B8%BA%E8%93%9D%E8%89%B2"><span class="nav-number">2.</span> <span class="nav-text">将一张图片修改为蓝色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%83%8F%E7%B4%A0%E6%A0%BC%E5%BC%8F%E8%89%B2%E5%BD%A9%E7%A9%BA%E9%97%B4%E5%8F%98%E4%B8%BA%E7%81%B0%E8%89%B2"><span class="nav-number">3.</span> <span class="nav-text">像素格式色彩空间变为灰色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSB%E6%96%B9%E5%BC%8F%E9%9A%90%E8%97%8F%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%88%B0%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%89%87"><span class="nav-number">4.</span> <span class="nav-text">LSB方式隐藏二维码到一张图片</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JPEG%E5%8E%8B%E7%BC%A9"><span class="nav-number">4.1.</span> <span class="nav-text">JPEG压缩</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E8%89%B2%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">混色模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A9%AC%E8%B5%9B%E5%85%8B"><span class="nav-number">6.</span> <span class="nav-text">马赛克</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E5%8F%96%E4%B8%BB%E8%89%B2%E8%B0%83"><span class="nav-number">7.</span> <span class="nav-text">提取主色调</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS图片-像素操作 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS图片-像素操作
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-13 21:07:46" itemprop="dateCreated datePublished" datetime="2020-01-13T21:07:46+08:00">2020-01-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-01-20 16:52:42" itemprop="dateModified" datetime="2020-01-20T16:52:42+08:00">2020-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>介绍下常见的几种对图片的像素级操作<br>1.修改颜色 2. 颜色空间变化 3.lsb 隐藏信息 4. 颜色混合  5. 马赛克</p>
+</blockquote>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在 <a href="../iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/">iOS图片-位图信息与图片解码</a> 中介绍了位图信息中像素 颜色空间等概念。这次来实践一下如何对图片的像素进行操作。位图又被叫做点阵图像，也就是说位图包含了一大堆的像素点信息，这些像素点就是该图片中的点，有了图片中每个像素点的信息，我们就知道如何对图片进行像素级操作了。</p>
+<h2 id="将一张图片修改为蓝色"><a href="#将一张图片修改为蓝色" class="headerlink" title="将一张图片修改为蓝色"></a>将一张图片修改为蓝色</h2><p>由于在iOS开发中使用的位图大部分是32位RGBA模式，所以我们先说下这种模式的简单图像处理。<br>首先我们需要知道什么是32位RGBA模式的位图。32位就表示一个这种模式位图的一个像素所占内存为32位，也就是4个字节的长度。R、G、B、A分别代表red，green，blue和alpha，也就是颜色组成的三原色与透明度值。RGBA每一个占用一个字节的内存。<br>知道了上面这些，我们就有了思路：通过改变每一个像素中的RGBA值来进行一些位图图像的处理了。</p>
+ <span id="more"></span>
+
+<p>示例代码 效果如下: </p>
+<p>将原图片 <img src="/res/iOSImg/Share.png"> 转换为蓝色图片<br><img src="/res/iOSImg/sample1ResultImg.png"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例1 将一张图片变为蓝色</span></span><br><span class="line"><span class="built_in">UIImage</span>* sampleImg1 = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;share.png&quot;</span>];</span><br><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">    <span class="built_in">UIImage</span>* sample1ResultImg = [<span class="keyword">self</span>.class sample1With:sampleImg1];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;示例1 将一张图片变为蓝色 END&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">UIImage</span>*)sample1With:(<span class="built_in">UIImage</span>*)originImg</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</span><br><span class="line">    <span class="built_in">NSUInteger</span> bytesPerPixel = <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">NSUInteger</span> bitsPerComponent = <span class="number">8</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//定义最高32位整形指针 *inputPixels</span></span><br><span class="line">    <span class="built_in">UInt32</span> * inputPixels;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//转换图片为CGImageRef,获取参数：长宽高，每个像素的字节数（4），每个R的比特数</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> inputCGImage = [originImg <span class="built_in">CGImage</span>];</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputWidth = <span class="built_in">CGImageGetWidth</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputHeight = <span class="built_in">CGImageGetHeight</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputBytesPerRow = bytesPerPixel * inputWidth;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开辟内存区域,指向首像素地址</span></span><br><span class="line">    inputPixels = (<span class="built_in">UInt32</span> *)calloc(inputHeight * inputWidth, <span class="keyword">sizeof</span>(<span class="built_in">UInt32</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据指针，前面的参数，创建像素层</span></span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(inputPixels, inputWidth, inputHeight,</span><br><span class="line">                                                 bitsPerComponent, inputBytesPerRow, colorSpace,</span><br><span class="line">                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//根据目前像素在界面绘制图像</span></span><br><span class="line">    <span class="built_in">CGContextDrawImage</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, inputWidth, inputHeight), inputCGImage);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//像素处理</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; inputHeight; j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; inputWidth; i++) &#123;</span><br><span class="line">            <span class="comment">//原图 像素rgba信息</span></span><br><span class="line">            <span class="built_in">UInt32</span> * currentPixel = inputPixels + (j * inputWidth) + i;</span><br><span class="line">            <span class="built_in">UInt32</span> color = *currentPixel;</span><br><span class="line">            <span class="built_in">UInt32</span> thisR,thisG,thisB,thisA;</span><br><span class="line">            thisR=R(color);</span><br><span class="line">            thisG=G(color);</span><br><span class="line">            thisB=B(color);</span><br><span class="line">            thisA=A(color);</span><br><span class="line"><span class="comment">//            NSLog(@&quot;r %d,g %d,b %d,a %d&quot;,thisR,thisG,thisB,thisA);</span></span><br><span class="line">            <span class="keyword">if</span>(thisA)&#123;<span class="comment">//透明不处理 其他变为蓝色</span></span><br><span class="line">                thisR = <span class="number">0</span>;</span><br><span class="line">                thisG = <span class="number">0</span>;</span><br><span class="line">                thisB = <span class="number">255</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            *currentPixel = RGBAMake(thisR, thisG, thisB, thisA);</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建新图</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> newCGImage = <span class="built_in">CGBitmapContextCreateImage</span>(context);</span><br><span class="line">    <span class="built_in">UIImage</span> * processedImage = [<span class="built_in">UIImage</span> imageWithCGImage:newCGImage];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//释放</span></span><br><span class="line">    <span class="built_in">CGImageRelease</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(context);</span><br><span class="line">    free(inputPixels);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> processedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="像素格式色彩空间变为灰色"><a href="#像素格式色彩空间变为灰色" class="headerlink" title="像素格式色彩空间变为灰色"></a>像素格式色彩空间变为灰色</h2><p>iOS 支持的组合不多 <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_context/dq_context.html#//apple_ref/doc/uid/TP30001066-CH203-BCIBHHBB">Supported Pixel Formats</a></p>
+<p>这里尝试将像素格式色彩空间变为灰色 示例代码 效果如下: </p>
+<p>将原图片  <img src="/res/iOSImg/rgb_cs.png" style="width:80%"/> 转换为灰色颜色空间图片 <img src="/res/iOSImg/grey_cs.png" style="width:80%"/></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例2 像素格式 颜色空间变为灰色</span></span><br><span class="line"><span class="built_in">UIImage</span>* sampleImg2 = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;channel.png&quot;</span>];</span><br><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">    <span class="built_in">UIImage</span>* sample1ResultImg = [<span class="keyword">self</span>.class sample2With:sampleImg2];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;示例2 颜色空间变化 END&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...其他同上例</span></span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceGray</span>();</span><br><span class="line">    <span class="built_in">NSUInteger</span> bytesPerPixel = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">NSUInteger</span> bitsPerComponent = <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(inputPixels, inputWidth, inputHeight,</span><br><span class="line">                                                 bitsPerComponent, inputBytesPerRow, colorSpace,</span><br><span class="line">                                                 kCGImageAlphaOnly);</span><br><span class="line"><span class="comment">//去掉像素处理部分</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="LSB方式隐藏二维码到一张图片"><a href="#LSB方式隐藏二维码到一张图片" class="headerlink" title="LSB方式隐藏二维码到一张图片"></a>LSB方式隐藏二维码到一张图片</h2><p><a href="https://zh.wikipedia.org/wiki/%E6%9C%80%E4%BD%8E%E6%9C%89%E6%95%88%E4%BD%8D">LSB</a>，最低有效位，英文是Least Significant Bit 。我们知道图像像素一般是由RGB三原色（即红绿蓝）组成的，每一种颜色占用8位，0x00~0xFF，即一共有256种颜色，一共包含了256的3次方的颜色，颜色太多，而人的肉眼能区分的只有其中一小部分，这导致了当我们修改RGB颜色分量中最低的二进制位的时候，我们的肉眼是区分不出来的。</p>
+<p>鉴于LSB想法，一张普通的二维码图片只有黑色和白色。那么对于RGBA的图片 可以修改R的最低位。0表示白色 1表示黑色，这样处理后肉眼看不出原图修改的痕迹。</p>
+<p>示例代码 效果如下: </p>
+<p>左图是原图 右图是经过LSB操作的图，肉眼完全看不出区别</p>
+<p><img src="/res/iOSImg/LSB.png"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例3 在一张图片中使用lsb方式隐藏二维码 。</span></span><br><span class="line"><span class="comment">//例子里简单处理了 原图和二维码大小相同</span></span><br><span class="line"><span class="built_in">UIImage</span>* oriImg = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;channel.png&quot;</span>];</span><br><span class="line"><span class="built_in">UIImage</span>* qrImg = [<span class="keyword">self</span>.class createQRForAlreadySpliceString:<span class="string">@&quot;一些信息&quot;</span> size:<span class="built_in">CGSizeMake</span>(<span class="number">300</span>, <span class="number">300</span>)];</span><br><span class="line"><span class="built_in">dispatch_async</span>(dispatch_get_global_queue(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">    <span class="comment">//将二维码图片信息藏入原图 得到result</span></span><br><span class="line">    <span class="built_in">UIImage</span>* result = [<span class="keyword">self</span> handleImage:oriImg hideQrImage:qrImg];</span><br><span class="line">    <span class="comment">//从result中解析得到二维码</span></span><br><span class="line">    <span class="built_in">UIImage</span>* qrResult = [<span class="keyword">self</span> handleHideImage:result];</span><br><span class="line"></span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;end&quot;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MARK: 图片处理 隐藏二维码图片</span></span><br><span class="line">- (<span class="built_in">UIImage</span>*)handleImage:(<span class="built_in">UIImage</span>*)originImg hideQrImage:(<span class="built_in">UIImage</span>*)qrImg</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</span><br><span class="line">    <span class="built_in">NSUInteger</span> bytesPerPixel = <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">NSUInteger</span> bitsPerComponent = <span class="number">8</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//定义最高32位整形指针 *inputPixels</span></span><br><span class="line">    <span class="built_in">UInt32</span> * inputPixels;</span><br><span class="line">    <span class="built_in">UInt32</span> * inputQRPixels;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//转换图片为CGImageRef,获取参数：长宽高，每个像素的字节数（4），每个R的比特数</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> inputCGImage = [originImg <span class="built_in">CGImage</span>];</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputWidth = <span class="built_in">CGImageGetWidth</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputHeight = <span class="built_in">CGImageGetHeight</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputBytesPerRow = bytesPerPixel * inputWidth;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGImageRef</span> inputQRCGImage = [qrImg <span class="built_in">CGImage</span>];</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputQRWidth = <span class="built_in">CGImageGetWidth</span>(inputQRCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputQRHeight = <span class="built_in">CGImageGetHeight</span>(inputQRCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputQRBytesPerRow = bytesPerPixel * inputQRWidth;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//开辟内存区域,指向首像素地址</span></span><br><span class="line">    inputPixels = (<span class="built_in">UInt32</span> *)calloc(inputHeight * inputWidth, <span class="keyword">sizeof</span>(<span class="built_in">UInt32</span>));</span><br><span class="line">    inputQRPixels = (<span class="built_in">UInt32</span> *)calloc(inputQRHeight * inputQRWidth, <span class="keyword">sizeof</span>(<span class="built_in">UInt32</span>));</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//根据指针，前面的参数，创建像素层</span></span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(inputPixels, inputWidth, inputHeight,</span><br><span class="line">                                                 bitsPerComponent, inputBytesPerRow, colorSpace,</span><br><span class="line">                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextRef</span> qrcontext = <span class="built_in">CGBitmapContextCreate</span>(inputQRPixels, inputQRWidth, inputQRHeight,</span><br><span class="line">                                                 bitsPerComponent, inputQRBytesPerRow, colorSpace,</span><br><span class="line">                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);</span><br><span class="line">    <span class="comment">//根据目前像素在界面绘制图像</span></span><br><span class="line">    <span class="built_in">CGContextDrawImage</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, inputWidth, inputHeight), inputCGImage);</span><br><span class="line">    <span class="built_in">CGContextDrawImage</span>(qrcontext, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, inputQRWidth, inputQRHeight), inputQRCGImage);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//像素处理</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; inputHeight; j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; inputWidth; i++) &#123;</span><br><span class="line">            <span class="comment">//原图</span></span><br><span class="line">            <span class="built_in">UInt32</span> * currentPixel = inputPixels + (j * inputWidth) + i;</span><br><span class="line">            <span class="built_in">UInt32</span> color = *currentPixel;</span><br><span class="line">            <span class="built_in">UInt32</span> thisR,thisG,thisB,thisA;</span><br><span class="line">            thisR=R(color);</span><br><span class="line">            thisG=G(color);</span><br><span class="line">            thisB=B(color);</span><br><span class="line">            thisA=A(color);</span><br><span class="line"><span class="comment">//            NSLog(@&quot;r %d,g %d,b %d,a %d&quot;,thisR,thisG,thisB,thisA);</span></span><br><span class="line">            <span class="comment">//二维码</span></span><br><span class="line">            <span class="built_in">UInt32</span> * currentQRPixel = inputQRPixels + (j * inputWidth) + i;</span><br><span class="line">            <span class="built_in">UInt32</span> qrcolor = *currentQRPixel;</span><br><span class="line">            <span class="built_in">UInt32</span> qrthisR,qrthisG,qrthisB,qrthisA;</span><br><span class="line">            qrthisR=R(qrcolor);</span><br><span class="line">            qrthisG=G(qrcolor);</span><br><span class="line">            qrthisB=B(qrcolor);</span><br><span class="line">            qrthisA=A(qrcolor);</span><br><span class="line">            <span class="comment">//透明度0信息会丢失</span></span><br><span class="line">            <span class="keyword">if</span>(thisA == <span class="number">0</span>)&#123;</span><br><span class="line">                thisA = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//像素最低位处理</span></span><br><span class="line">            <span class="keyword">if</span>(qrthisR &lt; <span class="number">128</span>)&#123;<span class="comment">//二维码白色 设置最低位为0</span></span><br><span class="line">                thisR ^= (thisR &amp; ( <span class="number">1</span> &lt;&lt; <span class="number">0</span>) ) ^ (<span class="number">0</span> &lt;&lt; <span class="number">0</span>) ;</span><br><span class="line"><span class="comment">//                thisA = 255;</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;<span class="comment">//二维码黑色 设置最低位为1</span></span><br><span class="line">                thisR ^= (thisR &amp; ( <span class="number">1</span> &lt;&lt; <span class="number">0</span>) ) ^ (<span class="number">1</span> &lt;&lt; <span class="number">0</span>) ;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            *currentPixel = RGBAMake(thisR, thisG, thisB, thisA);</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建新图</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> newCGImage = <span class="built_in">CGBitmapContextCreateImage</span>(context);</span><br><span class="line">    <span class="built_in">UIImage</span> * processedImage = [<span class="built_in">UIImage</span> imageWithCGImage:newCGImage];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//释放</span></span><br><span class="line">    <span class="built_in">CGImageRelease</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(context);</span><br><span class="line">    free(inputPixels);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGImageRelease</span>(inputQRCGImage);</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(qrcontext);</span><br><span class="line">    free(inputQRPixels);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> processedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//MARK: 图片处理 解析二维码</span></span><br><span class="line">- (<span class="built_in">UIImage</span>*)handleHideImage:(<span class="built_in">UIImage</span>*)originImg</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> colorSpace = <span class="built_in">CGColorSpaceCreateDeviceRGB</span>();</span><br><span class="line">    <span class="built_in">NSUInteger</span> bytesPerPixel = <span class="number">4</span>;</span><br><span class="line">    <span class="built_in">NSUInteger</span> bitsPerComponent = <span class="number">8</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//定义最高32位整形指针 *inputPixels</span></span><br><span class="line">    <span class="built_in">UInt32</span> * inputPixels;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//转换图片为CGImageRef,获取参数：长宽高，每个像素的字节数（4），每个R的比特数</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> inputCGImage = [originImg <span class="built_in">CGImage</span>];</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputWidth = <span class="built_in">CGImageGetWidth</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputHeight = <span class="built_in">CGImageGetHeight</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">NSUInteger</span> inputBytesPerRow = bytesPerPixel * inputWidth;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//开辟内存区域,指向首像素地址</span></span><br><span class="line">    inputPixels = (<span class="built_in">UInt32</span> *)calloc(inputHeight * inputWidth, <span class="keyword">sizeof</span>(<span class="built_in">UInt32</span>));</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//根据指针，前面的参数，创建像素层</span></span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(inputPixels, inputWidth, inputHeight,</span><br><span class="line">                                                 bitsPerComponent, inputBytesPerRow, colorSpace,</span><br><span class="line">                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);</span><br><span class="line"> </span><br><span class="line">    <span class="comment">//根据目前像素在界面绘制图像</span></span><br><span class="line">    <span class="built_in">CGContextDrawImage</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, inputWidth, inputHeight), inputCGImage);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">//像素处理</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; inputHeight; j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; inputWidth; i++) &#123;</span><br><span class="line">            <span class="comment">//原图</span></span><br><span class="line">            <span class="built_in">UInt32</span> * currentPixel = inputPixels + (j * inputWidth) + i;</span><br><span class="line">            <span class="built_in">UInt32</span> color = *currentPixel;</span><br><span class="line">            <span class="built_in">UInt32</span> thisR,thisG,thisB,thisA;</span><br><span class="line">            thisR=R(color);</span><br><span class="line">            thisG=G(color);</span><br><span class="line">            thisB=B(color);</span><br><span class="line">            thisA=A(color);</span><br><span class="line"> </span><br><span class="line">            <span class="comment">//像素最低位处理</span></span><br><span class="line">            <span class="type">int</span> tag = (thisR &gt;&gt; <span class="number">0</span>) &amp; <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span>(tag == <span class="number">0</span>)&#123;<span class="comment">//最低位为0 白色</span></span><br><span class="line">                thisR=<span class="number">255</span>;</span><br><span class="line">                thisG=<span class="number">255</span>;</span><br><span class="line">                thisB=<span class="number">255</span>;</span><br><span class="line">                thisA=<span class="number">255</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;<span class="comment">//最低位为1 黑色</span></span><br><span class="line">                thisR=<span class="number">0</span>;</span><br><span class="line">                thisG=<span class="number">0</span>;</span><br><span class="line">                thisB=<span class="number">0</span>;</span><br><span class="line">                thisA=<span class="number">255</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            *currentPixel = RGBAMake(thisR, thisG, thisB, thisA);</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建新图</span></span><br><span class="line">    <span class="built_in">CGImageRef</span> newCGImage = <span class="built_in">CGBitmapContextCreateImage</span>(context);</span><br><span class="line">    <span class="built_in">UIImage</span> * processedImage = [<span class="built_in">UIImage</span> imageWithCGImage:newCGImage];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//释放</span></span><br><span class="line">    <span class="built_in">CGImageRelease</span>(inputCGImage);</span><br><span class="line">    <span class="built_in">CGColorSpaceRelease</span>(colorSpace);</span><br><span class="line">    <span class="built_in">CGContextRelease</span>(context);</span><br><span class="line">    free(inputPixels);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> processedImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然LSB的方式也能隐藏文字等其他信息。与之类似的想法还有 可以根据容差进行信息的隐藏。</p>
+<p>若是有两张图片，则对两张图片的每一个像素点进行对比，设置一个容差的阈值α，超出这个阈值的像素点RGB值设置为(255,255,255),若是没超过阈值，则设置该像素点的RGB值为(0,0,0)。因此，通过调整不同的α值，可以使对比生成的图片呈现不同的画面。比如两张图完全一样，设置阈值α为任何值，最后得到的对比图都只会是全黑。若两张图每一个像素点都不同，阈值α设置为1，则对比图将是全白。如果将隐藏信息附加到某些像素点上，这时调整阈值α即可看到隐藏信息。</p>
+<h3 id="JPEG压缩"><a href="#JPEG压缩" class="headerlink" title="JPEG压缩"></a>JPEG压缩</h3><p>目前例子中有个比较大的问题就是，经过LSB操作后的图片是需要无损的才能 解析出数据来。假设图片经过JPEG压缩后 如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将二维码图片信息藏入原图 得到result</span></span><br><span class="line"><span class="built_in">UIImage</span>* result = [<span class="keyword">self</span> handleImage:oriImg hideQrImage:qrImg];</span><br><span class="line"><span class="built_in">NSData</span>* resultData = <span class="built_in">UIImageJPEGRepresentation</span>(result, <span class="number">0.9</span>);</span><br><span class="line">result = [<span class="built_in">UIImage</span> imageWithData:resultData];</span><br><span class="line"><span class="comment">//从result中解析得到二维码</span></span><br><span class="line"><span class="built_in">UIImage</span>* qrResult = [<span class="keyword">self</span> handleHideImage:result];</span><br></pre></td></tr></table></figure>
+<p>则qrResult会得到如下图：</p>
+<p><img src="/res/iOSImg/qrResult_1.png"></p>
+<p>这是由于JPEG图像格式使用离散余弦变换（Discrete Cosine Transform，DCT）函数来压缩图像，而这个图像压缩方法的核心是：通过识别每个8×8像素块中相邻像素中的重复像素来减少显示图像所需的位数，并使用近似估算法降低其冗余度。因此，我们可以把DCT看作一个用于执行压缩的近似计算方法。因为丢失了部分数据，例子中最低位信息其实已经被改变。</p>
+<h2 id="混色模式"><a href="#混色模式" class="headerlink" title="混色模式"></a>混色模式</h2><p>在PS 的混色模式中我们可以看到可以选项，混合模式的基本原理就是取A层任意一个像素a [R1, G1, B1]，与B层对应位置的像素b [R2, G2, B2] 进行数学运算，得到c [R3, G3, B3]。有兴趣可以看下 <a href="https://zhuanlan.zhihu.com/p/23905865">一篇文章彻底搞清PS混合模式的原理</a></p>
+<p>基于这种想法 我们可以模拟下PS的混合模式：</p>
+<p><img src="/res/iOSImg/colorMix.png"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">    <span class="comment">// 像素处理</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; inputHeight; j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; inputWidth; i++) &#123;</span><br><span class="line">            <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">                <span class="built_in">UInt32</span> *currentPixel = inputPixels + (j * inputWidth) + i;</span><br><span class="line">                <span class="built_in">UInt32</span> color = *currentPixel;</span><br><span class="line">                <span class="built_in">UInt32</span> thisR,thisG,thisB,thisA;</span><br><span class="line">                <span class="comment">// 这里直接移位获得RBGA的值,以及输出写的非常好！</span></span><br><span class="line">                thisR = R(color);</span><br><span class="line">                thisG = G(color);</span><br><span class="line">                thisB = B(color);</span><br><span class="line">                thisA = A(color);</span><br><span class="line">                </span><br><span class="line">                <span class="built_in">UInt32</span> newR,newG,newB;</span><br><span class="line">                newR = [<span class="keyword">self</span> SoftLight:thisR];</span><br><span class="line">                newG = [<span class="keyword">self</span> SoftLight:thisG];</span><br><span class="line">                newB = [<span class="keyword">self</span> SoftLight:thisB];</span><br><span class="line">                </span><br><span class="line">                *currentPixel = RGBAMake(newR,</span><br><span class="line">                                         newG,</span><br><span class="line">                                         newB,</span><br><span class="line">                                         thisA);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//...    </span></span><br></pre></td></tr></table></figure>
+
+<p>Color Burn 颜色加深：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">int</span>)ColorBurn:(<span class="type">int</span>)originValue &#123;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//    C=A-(A反相×B反相)/B</span></span><br><span class="line"><span class="comment">//    如果上层越暗，则下层获取的光越少，加深效果越明显。</span></span><br><span class="line"><span class="comment">//    【如果上层为全黑色，则下层颜色值不是255的像素全变成0】，</span></span><br><span class="line"><span class="comment">//    如果上层为全白色，则根本不会影响下层。</span></span><br><span class="line"><span class="comment">//    结果最亮的地方不会高于下层的像素值。</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> bValue = <span class="number">64</span>;</span><br><span class="line">    <span class="type">int</span> resultValue = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">    resultValue = originValue - (<span class="number">255</span> - originValue) * (<span class="number">255</span> - bValue) / bValue;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (resultValue &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        resultValue = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (resultValue &gt; <span class="number">255</span>) &#123;</span><br><span class="line">        resultValue = <span class="number">255</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resultValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Color Dodge 颜色减淡：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">int</span>)ColorDodge:(<span class="type">int</span>)originValue &#123;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//C=A+(A×B)/B反相</span></span><br><span class="line"><span class="comment">//该模式和上一个模式刚好相反。</span></span><br><span class="line"><span class="comment">//该模式下，上层的亮度决定了下层的暴露程度。</span></span><br><span class="line"><span class="comment">//如果上层越亮，下层获取的光越多，也就是越亮。</span></span><br><span class="line"><span class="comment">//如果上层是纯黑色，也就是没有亮度，则根本不会影响下层，</span></span><br><span class="line"><span class="comment">//【如果上层是纯白色，则下层颜色值不是0的像素全变成255】。</span></span><br><span class="line"><span class="comment">//结果最黑的地方不会低于下层的像素值。</span></span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> bValue = <span class="number">128</span>;</span><br><span class="line">    <span class="type">int</span> resultValue = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">    resultValue = originValue + originValue * bValue / (<span class="number">255</span> - bValue);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (resultValue &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        resultValue = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (resultValue &gt; <span class="number">255</span>) &#123;</span><br><span class="line">        resultValue = <span class="number">255</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resultValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Hard Light 强光：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">int</span>)HardLight:(<span class="type">int</span>)originValue &#123;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//B&lt;=128则 C=(A×B)/128</span></span><br><span class="line"><span class="comment">//B&gt;128则 C=255-(A反相×B反相)/128</span></span><br><span class="line"><span class="comment">//该模式完全相对应于Overlay（叠加）模式下，两个图层进行次序交换的情况。</span></span><br><span class="line"><span class="comment">//如过上层的颜色高于50%灰，则下层越亮，反之越暗。</span></span><br><span class="line"><span class="comment">//【如果将上层图层设为叠加，下层设为强光，则改变图层顺序不影响结果。】</span></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> bValue = <span class="number">64</span>;</span><br><span class="line">    <span class="type">int</span> resultValue = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span>(bValue &lt;= <span class="number">128</span>)&#123;</span><br><span class="line">        resultValue =   originValue * bValue / <span class="number">128</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        resultValue = <span class="number">255</span> - (<span class="number">255</span> - originValue) * (<span class="number">255</span> - bValue) / <span class="number">128</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">if</span> (resultValue &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        resultValue = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (resultValue &gt; <span class="number">255</span>) &#123;</span><br><span class="line">        resultValue = <span class="number">255</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resultValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发现一篇文章 <a href="https://juejin.im/post/5cd17612f265da037a3d0183">iOS——隐形水印的实现和『颜色加深』算法</a> 文中说用 颜色加深来显示隐形水印，但是我换了几张图片实践了一下 效果不理想。有兴趣的同学可以自己实践下。</p>
+<h2 id="马赛克"><a href="#马赛克" class="headerlink" title="马赛克"></a>马赛克</h2><p>简单马赛克核心算法的大概原理就是把某一个点的颜色赋值给它周围的指定区域，这个区域大小可以我们自己来定义。</p>
+<p>按照这种想法可以做到：</p>
+<p><img src="/res/iOSImg/msk.png"></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//...</span></span><br><span class="line">    <span class="comment">//像素处理</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="number">0</span>; j &lt; inputHeight; j++) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; inputWidth; i++) &#123;</span><br><span class="line">            <span class="comment">//原图 像素rgba信息</span></span><br><span class="line">            <span class="built_in">UInt32</span> * currentPixel = inputPixels + (j * inputWidth) + i;</span><br><span class="line"> </span><br><span class="line">    </span><br><span class="line">            <span class="type">float</span> markP = <span class="number">10</span>;<span class="comment">//10x10区域</span></span><br><span class="line">            <span class="built_in">NSUInteger</span> centerX = <span class="number">0</span> , centerY = <span class="number">0</span>;</span><br><span class="line">            centerX =  floor(i/markP)*markP + <span class="number">0.5</span>*markP;</span><br><span class="line">            centerX = centerX &gt;= (inputWidth<span class="number">-1</span>) ? (inputWidth<span class="number">-1</span>) : centerX;</span><br><span class="line">            centerY =  floor(j/markP)*markP + <span class="number">0.5</span>*markP;</span><br><span class="line">            centerY = centerY &gt;= (inputHeight<span class="number">-1</span>) ? (inputHeight<span class="number">-1</span>) : centerY;</span><br><span class="line">            <span class="built_in">UInt32</span> * centerPixel = inputPixels + (centerY * inputWidth) + centerX;</span><br><span class="line">            <span class="built_in">UInt32</span> centerColor = *centerPixel;</span><br><span class="line">            <span class="built_in">UInt32</span> centerR,centerG,centerB,centerA;</span><br><span class="line">            centerR=R(centerColor);</span><br><span class="line">            centerG=G(centerColor);</span><br><span class="line">            centerB=B(centerColor);</span><br><span class="line">            centerA=A(centerColor);</span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            </span><br><span class="line">            *currentPixel = RGBAMake(centerR, centerG, centerB, centerA);</span><br><span class="line">            </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//...    </span></span><br></pre></td></tr></table></figure>
+
+<h2 id="提取主色调"><a href="#提取主色调" class="headerlink" title="提取主色调"></a>提取主色调</h2><p>ref:<br><a href="https://github.com/tangdiforx/iOSPalette">iOS-palette</a><br><a href="https://developer.android.com/reference/android/support/v7/palette/package-summary">android-palette</a><br><a href="https://github.com/google/palette.js">js-palette</a></p>
+<p>遍历一遍图片的所有像素信息，然后统计一下哪个RGB值最多，不就是主色调嘛？但是人眼和冷冰冰的数据还是存在差异的。 Palette通过饱和度筛选 颜色区域解决颜色分散来选出主色调。参考<a href="https://www.jianshu.com/p/01df6010dded">iOS图片精确提取主色调算法iOS-Palette</a></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/5806025-9188b291498651e7.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/720/format/webp"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+              <a href="/tags/%E5%9B%BE%E7%89%87/" rel="tag"># 图片</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/" rel="prev" title="iOS图片-位图信息与图片解码">
+                  <i class="fa fa-angle-left"></i> iOS图片-位图信息与图片解码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/APM/iOSAPM1/" rel="next" title="iOS 性能监控1 Cpu 和 Memory信息">
+                  iOS 性能监控1 Cpu 和 Memory信息 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

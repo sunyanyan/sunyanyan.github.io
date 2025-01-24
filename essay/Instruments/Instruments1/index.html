@@ -1,25 +1,465 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Instruments 是什么Instruments 是 Xcode 的一个工具集，为我们提供了强大的程序性能分析及测试能力。使用 Instruments 你可以做下面这些事：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Instruments介绍">
+<meta property="og:url" content="https://developerdoc.com/essay/Instruments/Instruments1/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="Instruments 是什么Instruments 是 Xcode 的一个工具集，为我们提供了强大的程序性能分析及测试能力。使用 Instruments 你可以做下面这些事：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/instrument1.png">
+<meta property="article:published_time" content="2019-02-25T12:27:44.000Z">
+<meta property="article:modified_time" content="2019-03-06T13:11:44.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/Instrument/instrument1.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/Instruments/Instruments1/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/Instruments/Instruments1/","path":"essay/Instruments/Instruments1/","title":"Instruments介绍"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Instruments介绍 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Instruments-%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">Instruments 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E7%9C%8B%E4%B8%80%E4%B8%8B%E5%BC%80%E5%A7%8B%E6%A8%A1%E6%9D%BF%E3%80%82"><span class="nav-number">2.</span> <span class="nav-text">我们看一下开始模板。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E9%9D%A2%E7%9C%8B%E4%B8%80%E4%B8%8B%E8%BF%99%E4%BA%9B%E5%B7%A5%E5%85%B7%E6%98%AF%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%E7%9A%84%E3%80%82"><span class="nav-number">3.</span> <span class="nav-text">下面看一下这些工具是怎么使用的。</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Instruments/Instruments1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Instruments介绍 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Instruments介绍
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-02-25 20:27:44" itemprop="dateCreated datePublished" datetime="2019-02-25T20:27:44+08:00">2019-02-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-03-06 21:11:44" itemprop="dateModified" datetime="2019-03-06T21:11:44+08:00">2019-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/Instruments/" itemprop="url" rel="index"><span itemprop="name">Instruments</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><img src='/res/Instrument/instrument1.png' width='80%'/>
+
+<h2 id="Instruments-是什么"><a href="#Instruments-是什么" class="headerlink" title="Instruments 是什么"></a>Instruments 是什么</h2><p><a href="https://help.apple.com/instruments/mac/current/">Instruments</a> 是 Xcode 的一个工具集，为我们提供了强大的程序性能分析及测试能力。使用 Instruments 你可以做下面这些事：</p>
+<span id="more"></span>
+<ol>
+<li>检查一个或多个应用或进程的行为。</li>
+<li>检查设备相关的功能，比如：Wi-Fi、蓝牙等。</li>
+<li>在真机或模拟器上进行性能测试。</li>
+<li>创建自定义的 DTrace 来分析系统以及应用的各种行为。</li>
+<li>跟踪源码中的问题。</li>
+<li>对 App 进行性能分析。</li>
+<li>查找 App 中的内存问题，比如：内存泄露(Leaked memory)、废弃内存(Abandoned memory)、僵尸(zombies)等。</li>
+<li>给出程序优化的建议。</li>
+<li>进行系统级别的问题定位。</li>
+<li>通过脚本记录一个用户行为序列，从而可以通过运行脚本对你的 iOS 应用进行可重复多次的自动化测试。</li>
+<li>保存测试配置模板以供复用。</li>
+</ol>
+<h2 id="我们看一下开始模板。"><a href="#我们看一下开始模板。" class="headerlink" title="我们看一下开始模板。"></a>我们看一下开始模板。</h2><table>
+<thead>
+<tr>
+<th>项目           模板</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1.Blank</td>
+<td>创建一个空的模板，你可以自定义的添加各种工具。</td>
+</tr>
+<tr>
+<td>2.Activity Monitor</td>
+<td>可以只用这个模板，研究系统工作负载和虚拟内存大小的关系</td>
+</tr>
+<tr>
+<td>3.Allocations</td>
+<td>将Allocations和VM跟踪器加到跟踪文档中，使用该工具可以监视内存和对象的内存分配方式和情况。</td>
+</tr>
+<tr>
+<td>4.CocoaLayout</td>
+<td>是一种Cocoa布局工具 ，可以应用于iOS模拟器和Cocoa桌面应用，但是不能和连接的iOS设备一起使用。观察NSLayoutConstraint对象的改变，帮助我们判断什么时间什么地点的constraint是否合理</td>
+</tr>
+<tr>
+<td>5.Core Animation</td>
+<td>将CoreAnimation加入到跟踪文档中，可以测量ios设备上每秒的CoreAnimation帧数，这可以帮助你理解内容是如何渲染到屏幕上的，（图形性能）这个模块显示程序显卡性能以及CPU使用情况。</td>
+</tr>
+<tr>
+<td>6.CoreData</td>
+<td>将CoreData数据提取、缓存缺失和存储加入到跟踪文档中，使用这个工具可以检测应用程序中数据的存储交互。</td>
+</tr>
+<tr>
+<td>7.Counters</td>
+<td>收集使用时间或基于事件的抽样方法的性能监控计数器（PMC）事件。</td>
+</tr>
+<tr>
+<td>8.Energy Log</td>
+<td>耗电量监控，将Energy Diagnostics, CPU Activity, Display Brightness, Sleep&#x2F;Wake, Bluetooth, WiFi, and GPS instruments加入到跟踪文档中进行检测。</td>
+</tr>
+<tr>
+<td>9.File Activity</td>
+<td>将File Activity, Reads&#x2F;Writes, File Attributes, and Directory I&#x2F;O instruments 加入到跟踪文档中，只用这个模板可以让你检查系统文件的使用情况，可以检查文件的打开、关闭、读和写操作，同时也可以检测文件系统本身的改变，包括权限和所有权发生的改变。</td>
+</tr>
+<tr>
+<td>10.Leaks</td>
+<td>将the Allocations and Leaks instruments加入到模板中，使用这个模板可以帮助你检测内存的泄漏。</td>
+</tr>
+<tr>
+<td>11.Metal System Trace</td>
+<td>它是是apple 2014年在ios平台上推出的高效底层的3D图形API，它通过减少驱动层的API调用CPU的消耗提高渲染效率。</td>
+</tr>
+<tr>
+<td>12.Network</td>
+<td>用链接工具分析你的程序如何使用TCP&#x2F;IP和UDP&#x2F;IP链接。</td>
+</tr>
+<tr>
+<td>13.OpenGL ES Analysis</td>
+<td>将OpenGL ES Analyzer and OpenGL ES Driver加入到模板中，这个模块测量分析OpenGL ES活动正确性检测以及表现问题，提供解决建议。</td>
+</tr>
+<tr>
+<td>14.System Trace</td>
+<td>系统跟踪，通过显示当前被调度线程提供综合的系统表现，显示从用户到系统的转换代码通过两个系统调用或内存操作。</td>
+</tr>
+<tr>
+<td>15.System Usage</td>
+<td>这个模板记录关于文件读写，sockets，I&#x2F;O系统活动， 输入输出。</td>
+</tr>
+<tr>
+<td>16.Time Profile</td>
+<td>执行对系统的CPU上运行的进程低负载时间为基础采样。</td>
+</tr>
+<tr>
+<td>17. Zombies</td>
+<td>测量一般的内存使用，专注于检测过度释放的野指针对象，也提供对象分配统计，以及主动分配的内存地址历史。</td>
+</tr>
+</tbody></table>
+<h2 id="下面看一下这些工具是怎么使用的。"><a href="#下面看一下这些工具是怎么使用的。" class="headerlink" title="下面看一下这些工具是怎么使用的。"></a>下面看一下这些工具是怎么使用的。</h2><p><em><strong>定位内存问题</strong></em></p>
+<ul>
+<li>内存不合理引用，检测重复操作内存是否持续增长 Allocations每次操作后，点击mark generations button，会设置一个flag，然后查看每个迭代的详细数据。</li>
+<li>内存泄漏Leaks，内存泄漏使用Leaks检测，如果对象发生内存泄漏，detail panel 中会看到对象的retain release历史记录，如果非对象发生内存泄漏，就会看到malloc和free的调用历史。</li>
+<li>野指针Zombies，Zombie问题，引用retaincount为0的对象，使用Debug模式，将环境变量NSZombieEnabled设为true。</li>
+</ul>
+<p><em><strong>检测I&#x2F;O活动</strong></em></p>
+<p>检测iOS app如何使用TCP&#x2F;IP和UDP&#x2F;IP，与connections Instruments一起使用，检测app发送和接收的包数目。</p>
+<p><em><strong>图像性能检测</strong></em></p>
+<ul>
+<li>core animation graphics 用来检测帧频率</li>
+<li>OpenGL activity</li>
+<li>GPU Driver</li>
+</ul>
+<p><em><strong>CPU使用</strong></em></p>
+<ul>
+<li>Performance Monitor Counters。</li>
+<li>电量：Energry 跟踪电量、CPU、网络、显示亮度、睡眠&#x2F;唤醒、蓝牙、wifi、GPS。可以全天开启Energry Diagnostics Log模式，在开发手机设备中，（重启或关机会丢失该数据），数据收集结束后，将log数据传到PC上。</li>
+<li>线程使用Multicore Trace Template，分析多核性能，线程状态、调度队列、块使用情况。Multicore Trace Template包含Thread states和dispatch Instruments。</li>
+<li>Timer Profiler Trace Template检测内核使用情况。</li>
+</ul>
+<p><em><strong>自动化测试</strong></em></p>
+<p>UI automation Automation instrument 工具允许你让 iOS 应用的用户界面测试自动化。自动化界面测试可以让你：</p>
+<ul>
+<li>省去关键人员和释放其他工作资源</li>
+<li>执行更多综合测试</li>
+<li>开发可重复的回归测试</li>
+<li>减少程序错误</li>
+<li>提高开发周期，产品更新</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/quick-start/ReLearning-iOS/" rel="prev" title="重学iOS-知识树大纲">
+                  <i class="fa fa-angle-left"></i> 重学iOS-知识树大纲
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/CoreLocation/" rel="next" title="CoreLocation 教程">
+                  CoreLocation 教程 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

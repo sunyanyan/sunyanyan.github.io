@@ -1,25 +1,393 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="介绍一下使用查看 CPU 性能 、图形性能和内存性能,要执行Instruments需要先在Xcode 中对当前的项目做 Profile (Command-I ：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Instruments使用">
+<meta property="og:url" content="https://developerdoc.com/essay/Instruments/Instruments2/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="介绍一下使用查看 CPU 性能 、图形性能和内存性能,要执行Instruments需要先在Xcode 中对当前的项目做 Profile (Command-I ：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/2.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/3.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/4.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/5.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/6.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/7.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/8.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/9.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/10.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/11.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/12.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/13.png">
+<meta property="og:image" content="https://developerdoc.com/res/Instrument/14.png">
+<meta property="article:published_time" content="2019-03-06T02:25:49.000Z">
+<meta property="article:modified_time" content="2019-03-06T13:12:17.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/Instrument/2.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/Instruments/Instruments2/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/Instruments/Instruments2/","path":"essay/Instruments/Instruments2/","title":"Instruments使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Instruments使用 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%BD%A2%E6%80%A7%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">图形性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%80%A7%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">内存性能</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Instruments/Instruments2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Instruments使用 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Instruments使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2019-03-06 10:25:49 / 修改时间：21:12:17" itemprop="dateCreated datePublished" datetime="2019-03-06T10:25:49+08:00">2019-03-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/Instruments/" itemprop="url" rel="index"><span itemprop="name">Instruments</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>介绍一下使用<code>查看 CPU 性能</code> 、<code>图形性能</code>和<code>内存性能</code>,要执行Instruments需要先在Xcode 中对当前的项目做 Profile (Command-I ：</p>
+<img src='/res/Instrument/2.png' width='80%'/>
+<span id="more"></span>
+这时就会打开 Profiling Template 选项对话框：
+<img src='/res/Instrument/3.png' width='80%'/>
+## 查看 CPU 性能
+
+<p><strong>1、</strong> 选择 Time Profiler 这个模板，并点击 Choose 按钮。<br><img src='/res/Instrument/4.png' width='20%'/></p>
+<p><strong>2、</strong> 进入 Instruments 后，选择正确的设备和应用程序：<br><img src='/res/Instrument/5.png' width='80%'/></p>
+<p>**3、**点击红色按钮运行后，就能得到 CPU 性能的结果了：<br><img src='/res/Instrument/6.png' width='80%'/></p>
+<p>**4、**我们还能在时间轴面板里面去选择一段时间来查看该时间段里更为细节的 CPU 性能<br><img src='/res/Instrument/7.png' width='80%'/></p>
+<p>从这个结果中，我们可以看到不同的线程以及方法调用占用的时间，从而可以评估出 CPU 性能的瓶颈和优化方向。</p>
+<p>**5、**除此之外，我们还能在 Instruments 选择使用 Counters、Activity Monitor、System Trace 等 Profiling Template 对程序做 CPU 性能考量。</p>
+<p>**6、**需要注意的是，有时候如果你使用 Instruments 查看调用堆栈时可能看到的都是地址而不是函数名，这样就不太好定位问题了。这时候你可以把相关项目的 Build Settings - Debug Information Format 的 Debug 和 Release 都设置为 DWARF with dSYM File，这样就能将对应的堆栈信息符号化显示了。</p>
+<h2 id="图形性能"><a href="#图形性能" class="headerlink" title="图形性能"></a>图形性能</h2><p>关于图形性能方面，我们平时最关注的应该就是「帧率」这个概念了。在 Instruments 中，我们可以使用 <code>Core Animation</code> + <code>Time Profiler</code> 来评估图形性能。使用步骤如下：</p>
+<p>**1、**同「CPU 占用性能测试」一样，先在 Xcode 中对当前的项目执行 Profile (Command-I ，并在打开的对话框中选择 Core Animaiton 这个模板：<br><img src='/res/Instrument/8.png' width='20%'/><br>**2、**进入 Instruments 后，选择正确的设备和应用程序。</p>
+<p>**3、**点击红色按钮运行应用程序，随着我们操作 App 界面，就可以看到帧率的变化和数据了：</p>
+<img src='/res/Instrument/9.png' width='80%'/>
+在滑动屏幕时，帧率越高表示性能越好，帧率过低则意味着屏幕可能会出现卡顿。
+
+<p>**4、**在右下角面板的 Display Settings 区域，我们可以看到多个 Debug Options：</p>
+<ul>
+<li><code>Color Blended Layers</code>，这个选项选项基于渲染程度对屏幕中的混合区域进行绿到红的高亮显示，<strong>越红表示性能越差</strong>，会对帧率等指标造成较大的影响。红色通常是由于多个半透明图层叠加引起。</li>
+<li><code>Color Hits Green and Misses Red</code>，当 UIView.layer.shouldRasterize &#x3D; YES 时，耗时的图片绘制会被缓存，并当做一个简单的扁平图片来呈现。这时候，如果页面的其他区块(比如 UITableViewCell 的复用’ width&#x3D;’80%’&#x2F;&gt;使用缓存直接命中，就显示绿色，反之，如果不命中，这时就显示红色。<strong>红色越多，性能越差</strong>。因为栅格化生成缓存的过程是有开销的，如果缓存能被大量命中和有效使用，则总体上会降低开销，反之则意味着要频繁生成新的缓存，这会让性能问题雪上加霜。</li>
+<li><code>Color Copied Images</code>，对于 GPU 不支持的色彩格式的图片只能由 CPU 来处理，把这样的图片标为蓝色。<strong>蓝色越多，性能越差</strong>。因为，我们不希望在滚动视图的时候，由 CPU 来处理图片，这样可能会对主线程造成阻塞。</li>
+<li><code>Color Immediately</code>，通常 Core Animation Instruments 以每毫秒 10 次的频率更新图层调试颜色。对某些效果来说，这显然太慢了。这个选项就可以用来设置每帧都更新（可能会影响到渲染性能，而且会导致帧率测量不准，所以不要一直都设置它）。</li>
+<li><code>Color Misaligned Images</code>，这个选项检查了图片是否被缩放，以及像素是否对齐。被放缩的图片会被标记为黄色，像素不对齐则会标注为紫色。<strong>黄色、紫色越多，性能越差。</strong></li>
+<li><code>Color Offscreen-Rendered Yellow</code>，这个选项会把那些离屏渲染的图层显示为黄色。<strong>黄色越多，性能越差</strong>。这些显示为黄色的图层很可能需要用 shadowPath 或者 shouldRasterize 来优化。</li>
+<li><code>Color OpenGL Fast Path Blue</code>，这个选项会把任何直接使用 OpenGL 绘制的图层显示为蓝色。<strong>蓝色越多，性能越好</strong>。如果仅仅使用 UIKit 或者 Core Animation 的 API，那么不会有任何效果。如果使用 GLKView 或者 CAEAGLLayer&#96;，那如果不显示蓝色块的话就意味着你正在强制 CPU 渲染额外的纹理，而不是绘制到屏幕。</li>
+<li><code>Flash Updated Regions</code>，这个选项会把重绘的内容显示为黄色。不该出现的<strong>黄色越多，性能越差</strong>。通常我们希望只是更新的部分被标记完黄色。</li>
+</ul>
+<p>我们可以使用这些选项，来监测更加具体的图形性能。</p>
+<p>**5、**我们还可以选择使用 OpenGL ES Analysis、GPU Driver 等模板来监测图形相关性能。</p>
+<h2 id="内存性能"><a href="#内存性能" class="headerlink" title="内存性能"></a>内存性能</h2><p>Instruments 可以帮我们了解到应用程序使用内存的几个方面：</p>
+<ul>
+<li><strong>全局内存使用情况(Overall Memory Use</strong>: 从全局的角度监测应用程序的内存使用情况，捕捉非预期的或大幅度的内存增长。</li>
+<li>**内存泄露(Leaked memory **: 未被你的程序引用，同时也不能被使用或释放的内存。</li>
+<li>**废弃内存(Abandoned memory **: 被你的程序引用，但是没什么卵用的内存。<br>僵尸对象(Zombies’ width&#x3D;’80%’&#x2F;&gt;: 僵尸对象指的是对应的内存已经被释放并且不再会使用到，但是你的程序却在某处依然有指向它的引用。在 iOS 中有一个 NSZombie 机制，这个是为了内存调试的目的而设计的一种机制。在这个机制下，当你 NSZombieEnabled 为 YES 时，当一个对应的引用计数减为 0 时，这个对象不会被释放，当这个对象再收到任何消息时，它会记录一条 warning，而不是直接崩溃，以方便我们进行程序调试。<br>这里我们介绍下查找内存泄露的过程：</li>
+</ul>
+<p>**1、**同「CPU 占用性能测试」一样，先在 Xcode 中对当前的项目执行 Profile (Command-I ，并在打开的对话框中选择 Leaks 这个模板：<br><img src='/res/Instrument/10.png' width='20%'/></p>
+<p>**2、**进入 Instruments 后，选择正确的设备和应用程序。</p>
+<p>**3、**点击红色按钮运行应用程序，我们可以看到如下界面：<br><img src='/res/Instrument/11.png' width='80%'/></p>
+<p>**4、**在 Display Settings 中勾选 <code>Invert Call Tree</code> 和 <code>Hide System Libraries</code> 或其他选项可以过滤显示的数据。<br><img src='/res/Instrument/12.png' width='80%'/></p>
+<p>**5、**在导航栏的筛选框中，我们可以输入关键字来筛选数据。<br><img src='/res/Instrument/13.png' width='80%'/></p>
+<p>**6、**在实际使用中，我们进入一个页面后再退出，发现相关的内存分配没有清空，这时候就发生内存泄露了。我们查看更细节的调用信息，追踪到可能造成内存泄露的代码位置：<br><img src='/res/Instrument/14.png' width='80%'/><br>**7、**我们还可以使用 Activity Monitor、Allocations、Zombies 等模板来针对性地做内存监测。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/CoreLocation/" rel="prev" title="CoreLocation 教程">
+                  <i class="fa fa-angle-left"></i> CoreLocation 教程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/Instruments/Instruments3/" rel="next" title="Instruments实践-解决卡顿 使你的界面保持流畅">
+                  Instruments实践-解决卡顿 使你的界面保持流畅 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

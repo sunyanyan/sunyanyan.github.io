@@ -1,25 +1,463 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="优化指标itunes connect上有两种包大小显示：“Download Size”，“Install Size”。“Download Size”即下载包大小，超过150M需要使用无线网下载的限制就是这个大小（现在已经放宽到200M）；“Install Size”即安装后占用的磁盘空间大小，在appstore上显示的也是这个大小，用户往往会误认为这是下载安装包消耗的流量大小。所以一开始我们就将“">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS安装包瘦身">
+<meta property="og:url" content="https://developerdoc.com/essay/ios-business/ipa_size/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="优化指标itunes connect上有两种包大小显示：“Download Size”，“Install Size”。“Download Size”即下载包大小，超过150M需要使用无线网下载的限制就是这个大小（现在已经放宽到200M）；“Install Size”即安装后占用的磁盘空间大小，在appstore上显示的也是这个大小，用户往往会误认为这是下载安装包消耗的流量大小。所以一开始我们就将“">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://developerdoc.com/res/ios-business/assets-img.png">
+<meta property="article:published_time" content="2022-06-07T08:53:25.000Z">
+<meta property="article:modified_time" content="2024-06-13T03:04:35.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/ios-business/assets-img.png">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/ios-business/ipa_size/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/ios-business/ipa_size/","path":"essay/ios-business/ipa_size/","title":"iOS安装包瘦身"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS安装包瘦身 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%8C%87%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">优化指标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Asset-Catalog%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E8%AE%A1%E7%AE%97"><span class="nav-number">2.</span> <span class="nav-text">Asset Catalog中的文件大小计算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#App-Slicing"><span class="nav-number">2.1.</span> <span class="nav-text">App Slicing</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E7%9A%84%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E8%AE%A1%E7%AE%97"><span class="nav-number">3.</span> <span class="nav-text">其他的资源文件大小计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">可执行文件优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%BB%E9%99%A4%E7%AC%A6%E5%8F%B7%E4%BF%A1%E6%81%AF"><span class="nav-number">4.1.</span> <span class="nav-text">去除符号信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E7%94%A8%E7%B1%BB%E6%97%A0%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">无用类无用方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%BA%93%E7%BB%9F%E8%AE%A1"><span class="nav-number">4.3.</span> <span class="nav-text">静态库统计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARC%E8%BD%ACMRC"><span class="nav-number">4.4.</span> <span class="nav-text">ARC转MRC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB-%E6%96%B9%E6%B3%95%E5%90%8D%E9%95%BF%E5%BA%A6"><span class="nav-number">4.5.</span> <span class="nav-text">类&#x2F;方法名长度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E4%BC%98%E5%8C%96"><span class="nav-number">5.</span> <span class="nav-text">资源文件优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%97%A0%E7%94%A8%E5%9B%BE%E7%89%87%E7%AD%9B%E6%9F%A5"><span class="nav-number">5.1.</span> <span class="nav-text">无用图片筛查</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#iconfont"><span class="nav-number">5.2.</span> <span class="nav-text">iconfont</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xcode%E7%BC%96%E8%AF%91%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">xcode编译参数优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7"><span class="nav-number">7.</span> <span class="nav-text">工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="nav-number">8.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ios-business/ipa_size/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS安装包瘦身 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS安装包瘦身
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-07 16:53:25" itemprop="dateCreated datePublished" datetime="2022-06-07T16:53:25+08:00">2022-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-13 11:04:35" itemprop="dateModified" datetime="2024-06-13T11:04:35+08:00">2024-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/iOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="优化指标"><a href="#优化指标" class="headerlink" title="优化指标"></a>优化指标</h3><p>itunes connect上有两种包大小显示：“Download Size”，“Install Size”。“Download Size”即下载包大小，超过150M需要使用无线网下载的限制就是这个大小（现在已经放宽到200M）；“Install Size”即安装后占用的磁盘空间大小，在appstore上显示的也是这个大小，用户往往会误认为这是下载安装包消耗的流量大小。所以一开始我们就将“Install Size”作为了优化指标。“Install Size”减小后，“Download Size”自然也会减小。</p>
+<span id="more"></span>
+
+<h3 id="Asset-Catalog中的文件大小计算"><a href="#Asset-Catalog中的文件大小计算" class="headerlink" title="Asset Catalog中的文件大小计算"></a>Asset Catalog中的文件大小计算</h3><p>Assest.car 做为 Asset Catalog 的编译产物，我们怎么获取到car文件中的图片大小呢？在以前查iOS9，P3格式图片问题的时候我们用过苹果提供的assetutil工具，使用assetutil就能获取到图片信息描述：</p>
+<p><code>sudo xcrun --sdk iphoneos assetutil --info xxx/Assets.car &gt; xxx/Assets.json</code></p>
+<p>Assets.json 中的图片详细数据如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;AssetType&quot; : &quot;Image&quot;,</span><br><span class="line">    &quot;BitsPerComponent&quot; : 8,</span><br><span class="line">    &quot;ColorModel&quot; : &quot;RGB&quot;,</span><br><span class="line">    &quot;Colorspace&quot; : &quot;srgb&quot;,</span><br><span class="line">    &quot;Compression&quot; : &quot;lzvn&quot;,</span><br><span class="line">    &quot;Encoding&quot; : &quot;ARGB&quot;,</span><br><span class="line">    &quot;Idiom&quot; : &quot;universal&quot;,</span><br><span class="line">    &quot;Image Type&quot; : &quot;kCoreThemeOnePartScale&quot;,</span><br><span class="line">    &quot;Name&quot; : &quot;1001&quot;, //xxx.imageset 的文件名</span><br><span class="line">    &quot;NameIdentifier&quot; : 11584,</span><br><span class="line">    &quot;Opaque&quot; : false,</span><br><span class="line">    &quot;PixelHeight&quot; : 48,</span><br><span class="line">    &quot;PixelWidth&quot; : 72,</span><br><span class="line">    &quot;RenditionName&quot; : &quot;1001@3x.png&quot;,//工程文件中的实际图片名</span><br><span class="line">    &quot;Scale&quot; : 3,</span><br><span class="line">    &quot;SHA1Digest&quot; : &quot;E34FCAC314E26DE7FF30442AA33E436B242AA4BA&quot;,</span><br><span class="line">    &quot;SizeOnDisk&quot; : 800,//占用的磁盘大小，Asset Catalog中的图片编译后的大小取该值。</span><br><span class="line">    &quot;Template Mode&quot; : &quot;automatic&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<p>最终我们使用SizeOnDisk 字段来获取图片大小。使用SizeOnDisk计算精度很高（所有图片的SizeOnDisk相加和car文件大小误差在1M以内）。</p>
+<p>一个Asset Catalog的图片在Assets.car中实际上根据不同设备有4张对应的图片，大小不同，但名字相同。而cartool解压出的图片大小为其中某一张，这样大小计算就不太准确了。所以放弃原先使用cartool，改用assetutil。</p>
+<h4 id="App-Slicing"><a href="#App-Slicing" class="headerlink" title="App Slicing"></a>App Slicing</h4><p>比如企业包不经过appslicing：<br><img src="/res/ios-business/assets-img.png"><br>App在打包过程中，会将同一张图片采用适合各个不同架构的压缩方式将图片压缩,并存储到asset.car中.</p>
+<p>App Slicing只会对在Asset Catalog的资源文件进行分发，而放在根目录，bundle中的资源文件不会分发，所以在统计模块所使用资源文件之前我们需要注意到这个特性。如果以通用包来统计模块使用的资源文件大小、数量，其实并不能真正反映此模块对整个安装包大小的影响。所以我们决定使用单个设备来衡量资源文件使用情况。目前我们选择iPhone X，iOS11设备做为参考标准。 要统计单个设备的资源文件使用情况，一个方式是使用adhoc包导出支持单个设备的安装包统计，不过这样的方式需要每次集成后都需要单独打包，因为现在ci并不会出支持单个设备的包。后来我们发现assetutil除了可以导出car文件信息之外，还可以从通用包car文件导出指定设备的car文件，入参较多，经过尝试iPhone X的如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo xcrun --sdk iphoneos assetutil --idiom phone --subtype 570 --scale 3 --display-gamut srgb --graphicsclass MTL2,2 --graphicsclassfallbacks MTL1,2:GLES2,0 --memory 1 --hostedidioms car,watch xxx/Assets.car -o xxx/thinning_assets.car</span><br></pre></td></tr></table></figure>
+
+<p>从上文知道car以外的资源文件不会分发，获取指定设备的car文件后我们就可以计算出模块所用资源文件大小，数量。</p>
+<h3 id="其他的资源文件大小计算"><a href="#其他的资源文件大小计算" class="headerlink" title="其他的资源文件大小计算"></a>其他的资源文件大小计算</h3><p>其他的文件大小计算方式相对简单，苹果的APFS文件系统的最小存储单元为4KB，即使只有几十字节大小的文件，占用的空间也是4KB。对于安装包里面的独立文件我们使用4KB对齐的方式进行大小计算，有些大点的文件磁盘占用空间并不是4的整数倍，但大小相近，影响不大： Math.ceil(size&#x2F;4000.0)4，size为文件实际大小，单位字节; 在 MB、KB、Byte 之间的换也是对齐 Apple 使用的是 1000 而不是 1024（即1MB &#x3D; 1000 KB &#x3D; 10001000 Byte）。</p>
+<h3 id="可执行文件优化"><a href="#可执行文件优化" class="headerlink" title="可执行文件优化"></a>可执行文件优化</h3><ul>
+<li>使用strip -x命令处理动态库。</li>
+<li>无用类和无用方法 。结合 linkMap映射出无用的方法和类归属的组件，并且初步量化大小。因为基础组件中的无用方法和类，不能确定是否被非商城的 App 使用，只能对业务组件优化，考虑到涉及组件众多，并且收益和工程量不成正比，并且删除方法风险比较大，将无用方法和类优化的优先级降低。</li>
+<li>内置的ReactNative业务 JDReact提供了预置和后装两种发布方式，而为了用户体验，大部分业务模块都选择使用预置包的方式。时间一长，文件的数量就越来越多。由于文件系统的4K对齐，对包大小的影响也是非常大。对内置的ReactNative业务优化如下：<ul>
+<li>推动流量相对较低的模块（三级及三级以上页面）转后装方式；</li>
+<li>根据资源文件使用规范，推动业务整改； 这部分的工作量主要在和业务方的沟通，经过部分模块转后装后，瘦身效果也是很明显。</li>
+</ul>
+</li>
+<li>extension 在ipa包中我们也注意到了PlugIns目录,这里主要存放一些插件，比如today extension，share extension等，虽然这些插件在整个ipa包中的大小占比不大，但是我们还是决定梳理下有没有优化点。梳理后发现这些插件对于一些基础类库（网络框架，图片加载框架等）的使用都是以拷贝代码的方式加到工程中。我们知道这些类库完全可以和主app共享，因为主app中这些库是以动态库的形式使用的。经过优化后，成功的将today extension的大小减少了0.9M（嗯~蚊子虽小…）。</li>
+</ul>
+<h4 id="去除符号信息"><a href="#去除符号信息" class="headerlink" title="去除符号信息"></a>去除符号信息</h4><ul>
+<li>Strip Linked Product &#x2F; Deployment Postprocessing &#x2F; Symbols Hidden by Default 在release版本应该设为yes，可以去除不必要的调试符号。Symbols Hidden by Default会把所有符号都定义成”private extern”，详细信息见官方文档。</li>
+<li>这些选项目前都是XCode里release的默认选项，但旧版XCode生成的项目可能不是，可以检查一下。其他优化还可以参考官方文档—<a href="https://developer.apple.com/library/archive/documentation/Performance/Conceptual/CodeFootprint/CodeFootprint.html">Introduction to Code Size Performance Guidelines</a></li>
+</ul>
+<h4 id="无用类无用方法"><a href="#无用类无用方法" class="headerlink" title="无用类无用方法"></a>无用类无用方法</h4><p>扫描无用代码的基本思路都是查找已经使用的方法&#x2F;类和所有的类&#x2F;方法，然后从所有的类&#x2F;方法当中剔除已经使用的方法&#x2F;类剩下的基本都是无用的类&#x2F;方法，但是由于 Objective-C 是动态语言，可以使用字符串来调用类和方法，所以检查结果一般都不是特别准确，需要二次确认。目前市面上的扫描的思路大致可以分为 3 种：</p>
+<ul>
+<li>基于 Clang 扫描</li>
+<li>基于可执行文件扫描</li>
+<li>基于源码扫描</li>
+</ul>
+<blockquote>
+<p>重构重复代码</p>
+</blockquote>
+<p>重复代码堆积太多，不仅意味着 Bad Code Smell，我们的包大小也会受到影响，我们可以使用 PMD 来检查项目中的重复代码，并且做选择性的重构。</p>
+<blockquote>
+<p>jd做法</p>
+</blockquote>
+<p>无用类通过 otool 逆向Mach-O文件 __DATA.__objc_classlist段和__DATA.__objc_classrefs 段获取所有 OC 类和被引用的类，两个集合差值为无用类集合，</p>
+<ul>
+<li>结合 nm -nm 得到地址和对应类名符号化无用类类名；根据商城的限制做过滤，规则如下：</li>
+<li>otool 逆向 __DATA.__objc_nlclslist 获取实现 load 方法的类过滤（RN与原生的桥接类、Swizzle Method 类）；</li>
+<li>通过 otool 逆向 __TEXT.__cstring 获取所有字符串常量，过滤通过 NSClassFromString 调用的；</li>
+<li>子类实例化，父类没有实例化，父类不会出现在中 __objc_classrefs，通过 otool -oV 逆向出类的继承关系，过滤出子类被实例化（NSClassFromString 调用），父类没有实例化（NSClassFromString 调用）的类；</li>
+<li>过滤使用 Plist 文件引用的类；</li>
+</ul>
+<p>无用方法 通过 otool 逆向 __DATA.__objc_selrefs 段获取使用到的方法，通过 otool -oV 获取实现的所有方法取差值。然后过滤掉 setter、getter、系统方法和协议、自定义的协议、sel 调用。</p>
+<h4 id="静态库统计"><a href="#静态库统计" class="headerlink" title="静态库统计"></a>静态库统计</h4><p>项目里会引入很多第三方静态库，如果能知道这些第三方库在可执行文件里占用的大小，就可以评估是否值得去找替代方案去掉这个第三方库。我们可以从linkmap中统计出这个信息，可以通过linkmap统计每个.o目标文件占用的体积和每个.a静态库占用的体积</p>
+<h4 id="ARC转MRC"><a href="#ARC转MRC" class="headerlink" title="ARC转MRC"></a>ARC转MRC</h4><p>有人提出用ARC写的代码编译出来的可执行文件是会比用MRC大的，原因大致是ARC代码会在某些情况多出一些retain和release的指令，例如调用一个方法，它返回的对象会被retain，退出作用域后会被release，MRC就不需要，汇编指令变多，机器码变多，可执行文件就变大了。还有其他细节实现的区别，先不纠结了。</p>
+<p>那用ARC究竟会增大多少体积？我觉得从汇编指令的增多减少去算是很难算准确的，这东西涉及细节太多，还是得从统计的角度计算。做了几个对比试验，统计了几个同时支持ARC&#x2F;MRC的开源项目在开启&#x2F;关闭ARC的情况下__TEXT代码段的大小对比。只对比__TEXT代码段是因为：</p>
+<p>ARC对可执行文件大小的影响几乎都是在代码段ARC大概会使代码段增加10%的size，考虑代码段占可执行文件大约有80%，估计对整个可执行文件的影响会是8%。</p>
+<p>可以评估一下8%的体积下降是不是值得把项目里某些模块改成MRC，这样程序的维护成本上升了，一般不到特殊情况不建议这么做。</p>
+<h4 id="类-方法名长度"><a href="#类-方法名长度" class="headerlink" title="类&#x2F;方法名长度"></a>类&#x2F;方法名长度</h4><p>观察linkmap可以发现每个类和方法名都在__cstring段里都存了相应的字符串值，所以类和方法名的长短也是对可执行文件大小是有影响的，原因还是object-c的动态特性，因为需要通过类&#x2F;方法名反射找到这个类&#x2F;方法进行调用，object-c对象模型会把类&#x2F;方法名字符串都保存下来。</p>
+<p>对此我们可以考虑在编译前把所有类和方法名进行混淆，跟压缩js一样，把长名字替换成短名字，这样做的好处除了缩小体积外，还对安全性有很大提升，别人拿到可执行文件对它class-dump出来的结果都是混淆后的类和方法名，就无法从类和方法名中猜出某个方法是做什么的，就难以挂钩子进行hack。不过这样做有个缺点，就是crash堆栈反解出来的堆栈方法名会是混淆后的，需要再加一层混淆-&gt;原名的转换，实现和使用成本有点高。</p>
+<p>实际上这部分占用的长度比较小，中型项目也就几百K，对安全性要求高的情况可以试试。</p>
+<h3 id="资源文件优化"><a href="#资源文件优化" class="headerlink" title="资源文件优化"></a>资源文件优化</h3><p>这也是一期优化通过改造 Assets.car 中的 183 张图片能优化了近 30M 原因，千万不要将大图随意拖到工程中。 结合上文中负优化规律，改造处理方案如下：</p>
+<ul>
+<li>无用文件删除 <ul>
+<li>现在应该没有APP需要支持iPhone4以下的机型了，所以1X的图片可以全部删掉。3X的图片是保留还是删掉看具体情况。</li>
+</ul>
+</li>
+<li>重复文件删除</li>
+<li>大文件压缩 apng<ul>
+<li>不能转下载的使用压缩过的jpg格式图片。</li>
+<li>不能使用jpg的图片经过压缩后( 主要是tinypng有损压缩)后放到 bundle 中使用。</li>
+</ul>
+</li>
+<li>图片管理方式规范<ul>
+<li>优先转网络下载，使用默认图&#x2F;纯色兜底，如楼层背景图；</li>
+</ul>
+</li>
+<li>资源压缩<ul>
+<li>首先是<em>图片压缩</em>，ImageOptim&#x2F;TinyPNG&#x2F;ImageAlapha 工具可以实现无损压缩。<ul>
+<li>其实在我们使用这些图片的时候,我们其实是用的一些图片,但是像图片的创建日期,创建人之类的信息其实在我们项目中是没有用到的.这些信息我们可以通过一些工具进行删除,这里给大家推荐款工具ImageOptim.另外关于图片，建议使用Apple推荐的.xcassets来管理，它会把里边的所有png格式的图片压缩成一个Assets.car文件，压缩比率比其他方式管理图片要高。不过测试发现jpg图片不会在Assets.car文件里。</li>
+</ul>
+</li>
+<li>尽量使用<em>8-bit图片</em><ul>
+<li>使用8-bit的PNG图片，比32-bit的图片能减少4倍的压缩率。由于8-bit的图片支持最多256种不同的颜色，所以8-bit的图片一般只应该用于一小部分的颜se图片。例如灰度图片最好使用8-bit。</li>
+</ul>
+</li>
+<li><em>音频的压缩</em><ul>
+<li>参考WWDC中的<a href="https://developer.apple.com/videos/play/wwdc2011/404/">Audio Development for Games</a>，里面介绍了如何有效的处理音频。常规来说，我们要使用AAC或MP3来压缩音频，并且可以尝试降低一下音频的比特率。有时候44.1khz的采样是没有必要的，稍微低一点的比特率也不会降低音频的质量。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="无用图片筛查"><a href="#无用图片筛查" class="headerlink" title="无用图片筛查"></a>无用图片筛查</h4><p>通过分析安装包中使用图片可分为三类文件：</p>
+<ul>
+<li>可执行文件；</li>
+<li>可读文件（.plist、.js、.html）；</li>
+<li>不可读文件（.nib、.storyboardc）；</li>
+</ul>
+<p>可执行文件通过 otool -v -s __TEXT __cstring 获取可执行文件中的 __TEXT.__cstring 段。__cstring 包含了可执行文件中的字符串常量（源码中的 @“xxx” 字符串）；</p>
+<h4 id="iconfont"><a href="#iconfont" class="headerlink" title="iconfont"></a>iconfont</h4><p>即使经过了图片转下载，无用图片删除，但是工程中的图片数量还是极为可观，其中各种各样的icon图标占了不少的数量。为了进一步减少图片数量，我们引入了iconfont方案， iconfont优点：</p>
+<ul>
+<li>矢量，缩放不失真。</li>
+<li>可以设置颜色。</li>
+<li>接入成本低，不需要引入额外的类库。</li>
+</ul>
+<p>iconfont 可以解决因为icon大小，颜色不同而重新切图的窘境。从京东内部的quark平台了解到目前已经可以很好的支持iconfont，我们在一个模块就找到了55个icon并且成功转成了iconfont。不难看出iconfont是一个能减少图片数量的好方案。</p>
+<blockquote>
+<p>注意： Apple 为了在优化 iPhone 设备读取 png 图片速度，将 png 转换成 CgBI 非标准的 png 格式<br>Apple自动优化： • 放在根目录下png格式的图片。 • 放在Asset Catalog中的png，jpg格式的图片，其中jpg会转成png。<br>不会处理： 放在根目录下的jpg， bundle中的png不会被优化</p>
+</blockquote>
+<h3 id="xcode编译参数优化"><a href="#xcode编译参数优化" class="headerlink" title="xcode编译参数优化"></a>xcode编译参数优化</h3><ul>
+<li>Generate Debug Symbols</li>
+<li>Asset Catalog Compiler</li>
+<li>Dead Code Stripping</li>
+<li>Apple Clang - Code Generation - Optimization Level</li>
+<li>Strip Symbol Information</li>
+<li>Exceptions - 去掉异常支持，Enable C++ Exceptions和Enable Objective-C Exceptions设为NO</li>
+</ul>
+<h3 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h3><p>无用物品扫描 <a href="https://github.com/tinymind/LSUnusedResources">https://github.com/tinymind/LSUnusedResources</a></p>
+<p>重复文件：<a href="https://github.com/arsenetar/dupeguru">https://github.com/arsenetar/dupeguru</a></p>
+<p>图片压缩 : <a href="https://github.com/ImageOptim/ImageOptim">https://github.com/ImageOptim/ImageOptim</a></p>
+<p>linkmap: <a href="https://github.com/huanxsd/LinkMap">https://github.com/huanxsd/LinkMap</a></p>
+<p>查找相似代码 <a href="https://github.com/startry/SameCodeFinder">https://github.com/startry/SameCodeFinder</a></p>
+<p>无用代码 无用imoprt <a href="https://github.com/dblock/fui">https://github.com/dblock/fui</a> </p>
+<p><a href="http://blog.lessfun.com/blog/2015/09/02/find-unused-resources-in-xcode-project/">查找XCode工程中没被使用的图片资源</a></p>
+<h3 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h3><p>干货！京东商城iOS App瘦身实践<br>干货|今日头条iOS端安装包大小优化<br><a href="https://www.jianshu.com/p/c94dedef90b7">https://www.jianshu.com/p/c94dedef90b7</a><br><a href="https://www.cnblogs.com/wdsunny/p/7486617.html">https://www.cnblogs.com/wdsunny/p/7486617.html</a><br><a href="https://mp.weixin.qq.com/s/J_XYpIfDeeWJBlk9sRQMAA">https://mp.weixin.qq.com/s/J_XYpIfDeeWJBlk9sRQMAA</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/" rel="prev" title="iOS App启动优化">
+                  <i class="fa fa-angle-left"></i> iOS App启动优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/ios-business/ipaAnylize/" rel="next" title="ipa包体分析脚本">
+                  ipa包体分析脚本 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

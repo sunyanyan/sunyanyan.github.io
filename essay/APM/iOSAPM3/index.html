@@ -1,25 +1,351 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="FPSFPS（Frames Per Second）是指画面每秒传输的帧数。每秒帧数越多，所显示的动画就越流畅，一般只要保持 FPS 在 50-60，App 就会有流畅的体验，反之会感觉到卡顿。 相关系统原理CADisplayLink 是一个能让我们以和屏幕刷新率相同的频率将内容画到屏幕上的定时器。 一旦 CADisplayLink 以特定的模式注册到 runloop 之后，每当屏幕需要刷新时，ru">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 性能监控3 FPS与卡顿">
+<meta property="og:url" content="https://developerdoc.com/essay/APM/iOSAPM3/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="FPSFPS（Frames Per Second）是指画面每秒传输的帧数。每秒帧数越多，所显示的动画就越流畅，一般只要保持 FPS 在 50-60，App 就会有流畅的体验，反之会感觉到卡顿。 相关系统原理CADisplayLink 是一个能让我们以和屏幕刷新率相同的频率将内容画到屏幕上的定时器。 一旦 CADisplayLink 以特定的模式注册到 runloop 之后，每当屏幕需要刷新时，ru">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-13T09:09:27.000Z">
+<meta property="article:modified_time" content="2020-10-13T11:48:49.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/APM/iOSAPM3/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/APM/iOSAPM3/","path":"essay/APM/iOSAPM3/","title":"iOS 性能监控3 FPS与卡顿"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>iOS 性能监控3 FPS与卡顿 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#FPS"><span class="nav-number">1.</span> <span class="nav-text">FPS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">相关系统原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%9B%91%E6%8E%A7%E5%8D%A1%E9%A1%BF"><span class="nav-number">4.</span> <span class="nav-text">如何监控卡顿</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">5.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/APM/iOSAPM3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="iOS 性能监控3 FPS与卡顿 | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          iOS 性能监控3 FPS与卡顿
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-10-13 17:09:27 / 修改时间：19:48:49" itemprop="dateCreated datePublished" datetime="2020-10-13T17:09:27+08:00">2020-10-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/APM/" itemprop="url" rel="index"><span itemprop="name">APM</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="FPS"><a href="#FPS" class="headerlink" title="FPS"></a>FPS</h3><p>FPS（Frames Per Second）是指画面每秒传输的帧数。每秒帧数越多，所显示的动画就越流畅，一般只要保持 FPS 在 50-60，App 就会有流畅的体验，反之会感觉到卡顿。</p>
+<h3 id="相关系统原理"><a href="#相关系统原理" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p><code>CADisplayLink</code> 是一个能让我们以和屏幕刷新率相同的频率将内容画到屏幕上的定时器。</p>
+<p>一旦 CADisplayLink 以特定的模式注册到 runloop 之后，每当屏幕需要刷新时，runloop 就会调用 CADisplayLink 绑定的 target 上的 selector，此时 target 可以读取到 CADisplayLink 的每次调用的时间戳，用来准备下一帧显示需要的数据。如：一个视频应用使用时间戳来计算下一帧要显示的视频数据。</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><p>现阶段，常用的 FPS 监控几乎都是基于 CADisplayLink 实现的。</p>
+<span id="more"></span>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swift</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">FPSMonitor</span>: NSObject &#123;</span><br><span class="line">    <span class="keyword">private</span> var timer: Timer?</span><br><span class="line">    <span class="keyword">private</span> var link: CADisplayLink?</span><br><span class="line">    <span class="keyword">private</span> var count: UInt = <span class="number">0</span></span><br><span class="line">    <span class="keyword">private</span> var lastTime: TimeInterval = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    func <span class="built_in">enableMonitor</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> link == nil &#123;</span><br><span class="line">            link = <span class="built_in">CADisplayLink</span>(target: self, selector: <span class="meta">#selector(fpsInfoCalculate(_:)))</span></span><br><span class="line">            link?.<span class="built_in">add</span>(to: RunLoop.main, forMode: .common)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            link?.isPaused = <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    func <span class="built_in">disableMonitor</span>() &#123;</span><br><span class="line">        <span class="keyword">if</span> let link = link &#123;</span><br><span class="line">            link.isPaused = <span class="literal">true</span></span><br><span class="line">            link.<span class="built_in">invalidate</span>()</span><br><span class="line">            self.link = nil</span><br><span class="line">            lastTime = <span class="number">0</span></span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    @objc</span><br><span class="line">    func <span class="built_in">fpsInfoCalculate</span>(_ link: CADisplayLink) &#123;</span><br><span class="line">        <span class="keyword">if</span> lastTime == <span class="number">0</span> &#123;</span><br><span class="line">            lastTime = link.timestamp</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        let delta = link.timestamp - lastTime</span><br><span class="line">        <span class="keyword">if</span> delta &gt;= <span class="number">1</span> &#123;</span><br><span class="line">            <span class="comment">// 间隔超过 1 秒</span></span><br><span class="line">            lastTime = link.timestamp</span><br><span class="line">            let fps = <span class="built_in">Double</span>(count) / delta</span><br><span class="line">            count = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">            let intFps = <span class="built_in">Int</span>(fps + <span class="number">0.5</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;帧率：\(intFps)&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CADisplayLink 实现的 FPS 在生产场景中只有指导意义，不能代表真实的 FPS。因为基于 CADisplayLink 实现的 FPS 无法完全检测出当前 Core Animation 的性能情况，只能检测出当前 RunLoop 的帧率。</p>
+<h3 id="如何监控卡顿"><a href="#如何监控卡顿" class="headerlink" title="如何监控卡顿"></a>如何监控卡顿</h3><p>那怎么监控应用的卡顿情况？通常有以下两种方案</p>
+<ul>
+<li>FPS 监控：这是最容易想到的一种方案，如果帧率越高意味着界面越流畅，上文也给出了计算 FPS 的实现方式，通过一段连续的 FPS 计算丢帧率来衡量当前页面绘制的质量。<ul>
+<li>FPS 的刷新频率非常快，并且容易发生抖动，因此直接通过比较 FPS 来侦测卡顿是比较困难的；此外，主线程卡顿监控也会发生抖动，所以微信读书团队给出一种综合方案，结合主线程监控、FPS 监控，以及 CPU 使用率等指标，作为判断卡顿的标准。Bugly 的卡顿检测也是基于这套标准。</li>
+</ul>
+</li>
+<li>线程卡顿监控：这是业内常用的一种检测卡顿的方法，通过开辟一个子线程来监控主线程的 RunLoop，当两个状态区域之间的耗时大于阈值时，就记为发生一次卡顿。美团的移动端性能监控方案 Hertz 采用的就是这种方式</li>
+</ul>
+<p>主线程卡顿监控的实现思路：开辟一个子线程，然后实时计算 kCFRunLoopBeforeSources 和 kCFRunLoopAfterWaiting 两个状态区域之间的耗时是否超过某个阀值，来断定主线程的卡顿情况，可以将这个过程想象成操场上跑圈的运动员，我们会每隔一段时间间隔去判断是否跑了一圈，如果发现在指定时间间隔没有跑完一圈，则认为在消息处理的过程中耗时太多，视为主线程卡顿。</p>
+<h3 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h3><p>我们可以通过 CFRunLoopObserverRef 实时获取 NSRunLoop 的状态。具体使用方法如下：</p>
+<p>首先创建一个 CFRunLoopObserverContext 观察者 observer。然后将观察者 observer 添加到主线程 RunLoop 的 kCFRunLoopCommonModes 模式下进行观察。</p>
+<p>然后，创建一个持续的子线程专门用来监控主线程的 RunLoop 状态。为了让计算更精确，需要让子线程更及时的获知主线程 RunLoop 状态变化，dispatch_semaphore_t 是一个不错的选择。另外，卡顿需要覆盖多次连续短时间卡顿和单次长时间卡顿两种情景，所以判定条件也需要做适当优化。优化后的代码实现如下所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">static</span> <span class="type">void</span> <span class="title">runLoopObserverCallBack</span><span class="params">(CFRunLoopObserverRef observer, CFRunLoopActivity activity, <span class="type">void</span> *info)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    MyClass *object = (__bridge MyClass*)info;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 记录状态值</span></span><br><span class="line">    object-&gt;activity = activity;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 发送信号</span></span><br><span class="line">    <span class="type">dispatch_semaphore_t</span> semaphore = moniotr-&gt;semaphore;</span><br><span class="line">    <span class="built_in">dispatch_semaphore_signal</span>(semaphore);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)registerObserver</span><br><span class="line">&#123;</span><br><span class="line">    CFRunLoopObserverContext context = &#123;<span class="number">0</span>,(__bridge <span class="type">void</span>*)self,<span class="literal">NULL</span>,<span class="literal">NULL</span>&#125;;</span><br><span class="line">    CFRunLoopObserverRef observer = <span class="built_in">CFRunLoopObserverCreate</span>(kCFAllocatorDefault,</span><br><span class="line">                                                            kCFRunLoopAllActivities,</span><br><span class="line">                                                            YES,</span><br><span class="line">                                                            <span class="number">0</span>,</span><br><span class="line">                                                            &amp;runLoopObserverCallBack,</span><br><span class="line">                                                            &amp;context);</span><br><span class="line">    <span class="built_in">CFRunLoopAddObserver</span>(<span class="built_in">CFRunLoopGetMain</span>(), observer, kCFRunLoopCommonModes);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建信号</span></span><br><span class="line">    semaphore = <span class="built_in">dispatch_semaphore_create</span>(<span class="number">0</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在子线程监控时长</span></span><br><span class="line">    <span class="built_in">dispatch_async</span>(<span class="built_in">dispatch_get_global_queue</span>(<span class="number">0</span>, <span class="number">0</span>), ^&#123;</span><br><span class="line">        <span class="keyword">while</span> (YES)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 假定连续5次超时50ms认为卡顿(当然也包含了单次超时250ms)</span></span><br><span class="line">            <span class="type">long</span> st = <span class="built_in">dispatch_semaphore_wait</span>(semaphore, <span class="built_in">dispatch_time</span>(DISPATCH_TIME_NOW, <span class="number">50</span>*NSEC_PER_MSEC));</span><br><span class="line">            <span class="keyword">if</span> (st != <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span> (activity==kCFRunLoopBeforeSources || activity==kCFRunLoopAfterWaiting)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (++timeoutCount &lt; <span class="number">5</span>)</span><br><span class="line">                        <span class="keyword">continue</span>;</span><br><span class="line">                    <span class="comment">// 检测到卡顿，进行卡顿上报</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            timeoutCount = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/APM/iOSAPM2/" rel="prev" title="iOS 性能监控2 Memory信息">
+                  <i class="fa fa-angle-left"></i> iOS 性能监控2 Memory信息
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/APM/iOSAPM4/" rel="next" title="iOS 性能监控4 网络监控-NSURLProtocol">
+                  iOS 性能监控4 网络监控-NSURLProtocol <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

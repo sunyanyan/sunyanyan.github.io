@@ -1,25 +1,531 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha256-dABdfBfUoC8vJUBOwGVdm8L9qlMWaHTIfXt+7GnZCIo=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"developerdoc.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.22.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="OS X 10.8或iOS 6以及之后版本中使用，Dispatch Queue将会由ARC自动管理,不需要手动释放  队列 分为串行队列和并发队列">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCD相关.md">
+<meta property="og:url" content="https://developerdoc.com/essay/GCD/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="OS X 10.8或iOS 6以及之后版本中使用，Dispatch Queue将会由ARC自动管理,不需要手动释放  队列 分为串行队列和并发队列">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-10T02:49:37.000Z">
+<meta property="article:modified_time" content="2019-08-01T12:54:02.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta name="twitter:card" content="summary">
 
 
-{% block content %}
+<link rel="canonical" href="https://developerdoc.com/essay/GCD/">
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://developerdoc.com/essay/GCD/","path":"essay/GCD/","title":"GCD相关.md"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>GCD相关.md | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+<link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">孙同生的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">为美好的世界献上祝福</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">队列</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.1.</span> <span class="nav-text">提交任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%96%E6%B6%88%E4%BB%BB%E5%8A%A1"><span class="nav-number">1.2.</span> <span class="nav-text">取消任务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-group"><span class="nav-number">2.</span> <span class="nav-text">dispatch_group</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%82%E5%81%9C%E5%92%8C%E6%81%A2%E5%A4%8D"><span class="nav-number">2.1.</span> <span class="nav-text">暂停和恢复</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-barrier-async"><span class="nav-number">3.</span> <span class="nav-text">dispatch barrier async</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%A1%E5%8F%B7%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">信号量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">计时器</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">SunTongSheng</p>
+  <div class="site-description" itemprop="description">移动端 前端 跨平台</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/GCD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="SunTongSheng">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="GCD相关.md | 孙同生的博客">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          GCD相关.md
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2016-10-10 10:49:37" itemprop="dateCreated datePublished" datetime="2016-10-10T10:49:37+08:00">2016-10-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-08-01 20:54:02" itemprop="dateModified" datetime="2019-08-01T20:54:02+08:00">2019-08-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>OS X 10.8或iOS 6以及之后版本中使用，Dispatch Queue将会由ARC自动管理,不需要手动释放</p>
+</blockquote>
+<h2 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h2><blockquote>
+<p>分为串行队列和并发队列</p>
+</blockquote>
+<span id="more"></span>
+
+<ul>
+<li>将多个任务提交给串行队列，多个任务只能按顺序执行，前一个任务执行完，才能开始下一个任务</li>
+<li>将多个任务交给并发队列，并发队列可以按FIFO的顺序启动多个任务，任务完成顺序按任务和系统决定</li>
+</ul>
+<blockquote>
+<p>获取队列：</p>
+</blockquote>
+<ul>
+<li>dispatch_get_main_queue() <ul>
+<li>获取主线程关联串行队列</li>
+</ul>
+</li>
+<li>dispatch_get_current_queue()<ul>
+<li>获取当前执行代码所在队列</li>
+</ul>
+</li>
+<li>dispatch_get_global_queue(long identifier, unsigned long flags)<ul>
+<li>获取系统的全局并发队列</li>
+<li>第一个参数接受一下四个优先级<ul>
+<li>DISPATCH_QUEUE_PRIORITY_HIGH:         </li>
+<li>DISPATCH_QUEUE_PRIORITY_DEFAULT:       </li>
+<li>DISPATCH_QUEUE_PRIORITY_LOW:           </li>
+<li>DISPATCH_QUEUE_PRIORITY_BACKGROUND:</li>
+</ul>
+</li>
+<li>第二个参数一般传入0</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>创建队列：</p>
+</blockquote>
+<ul>
+<li>dispatch_queue_create(const char *label, dispatch_queue_attr_t attr)<ul>
+<li>第一个参数表示队列对应字符串标签</li>
+<li>第二个参数指定队列类型，分为：<ul>
+<li>DISPATCH_QUEUE_SERIAL  串行</li>
+<li>DISPATCH_QUEUE_CONCURRENT 并发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>获取队列相关信息</p>
+</blockquote>
+<ul>
+<li>dispatch_queue_get_label(dispatch_queue_t queue);<ul>
+<li>获取队列对应的标签</li>
+</ul>
+</li>
+</ul>
+<h3 id="提交任务"><a href="#提交任务" class="headerlink" title="提交任务"></a>提交任务</h3><ul>
+<li>dispatch_async(dispatch_queue_t queue, dispatch_block_t block);<ul>
+<li>将代码块以异步方式提交给指定队列</li>
+</ul>
+</li>
+<li>dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);<ul>
+<li>将代码块以同步方式提交给指定队列</li>
+<li><strong>先后提交的两个代码块（即使提交给并发队列），前一个执行完才会执行下一个</strong></li>
+</ul>
+</li>
+<li>dispatch_after(dispatch_time_t when, dispatch_queue_t queue, dispatch_block_t block);<ul>
+<li>将代码块以异步方式提交给指定队列,并在dispatch_time指定的时间开始执行</li>
+</ul>
+</li>
+<li>dispatch_apply(size_t iterations, dispatch_queue_t queue, void (^block)(size_t));<ul>
+<li>将代码块以异步方式提交给指定队列,重复执行代码</li>
+<li>第一个参数指定重复几次</li>
+<li>第三个参数 block代码块的 size_t表示当前正在执行第几次</li>
+</ul>
+</li>
+<li>dispatch_once(dispatch_once_t *predicate, dispatch_block_t block);<ul>
+<li>在任务提交给队列，在应用的某个生命周期内只执行一次</li>
+<li>第一个参数表示代码块是否已经执行过</li>
+</ul>
+</li>
+</ul>
+<h3 id="取消任务"><a href="#取消任务" class="headerlink" title="取消任务"></a>取消任务</h3><p><code>dispatch_block_cancel</code>。 iOS8之后可以调用dispatch_block_cancel来取消（需要注意必须用dispatch_block_create创建dispatch_block_t）<br>代码示例：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)gcdBlockCancel&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">&quot;com.gcdtest.www&quot;</span>, DISPATCH_QUEUE_CONCURRENT);</span><br><span class="line">    </span><br><span class="line">    dispatch_block_t block1 = dispatch_block_create(<span class="number">0</span>, ^&#123;</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;block1 %@&quot;</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    dispatch_block_t block2 = dispatch_block_create(<span class="number">0</span>, ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;block2 %@&quot;</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    dispatch_block_t block3 = dispatch_block_create(<span class="number">0</span>, ^&#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;block3 %@&quot;</span>,[<span class="built_in">NSThread</span> currentThread]);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">dispatch_async</span>(queue, block1);</span><br><span class="line">    <span class="built_in">dispatch_async</span>(queue, block2);</span><br><span class="line">    dispatch_block_cancel(block3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="dispatch-group"><a href="#dispatch-group" class="headerlink" title="dispatch_group"></a>dispatch_group</h2><ul>
+<li><p>void dispatch_group_notify(dispatch_group_t group,<br>  dispatch_queue_t queue,<br>  dispatch_block_t block); </p>
+<ul>
+<li>group中所有代码块执行完之后执行</li>
+</ul>
+</li>
+<li><p>long dispatch_group_wait(dispatch_group_t group, dispatch_time_t timeout);</p>
+<ul>
+<li>返回值表示经过指定的等待时间，属于这个group的任务是否已经全部执行完，如果是则返回0，否则返回非0。 </li>
+<li>第一个参数表示等待的group </li>
+<li>第二个参数则表示等待时间，有两个特殊值<ul>
+<li>DISPATCH_TIME_NOW 表示立刻检查属于这个group的任务是否已经完成</li>
+<li>DISPATCH_TIME_FOREVER 表示一直等到属于这个group的任务全部完成。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>)</span><br><span class="line">let group = dispatch_group_create()</span><br><span class="line"></span><br><span class="line">dispatch_group_async(group, globalQueue) &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">   println(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">dispatch_group_async(group, globalQueue) &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">   println(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">dispatch_group_async(group, globalQueue) &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">   println(<span class="string">&quot;3&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">dispatch_group_notify(group, globalQueue) &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">   println(<span class="string">&quot;completed&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出的顺序与添加进队列的顺序无关，因为队列是Concurrent Dispatch Queue，但“completed”的输出一定是在最后的	</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">let globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>)</span><br><span class="line">let group = dispatch_group_create()</span><br><span class="line"></span><br><span class="line">dispatch_group_async(group, globalQueue) &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">   println(<span class="string">&quot;1&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">dispatch_group_async(group, globalQueue) &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">   println(<span class="string">&quot;2&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line">dispatch_group_async(group, globalQueue) &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">   println(<span class="string">&quot;3&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用dispatch_group_wait函数</span></span><br><span class="line">dispatch_group_wait(group, DISPATCH_TIME_FOREVER)</span><br><span class="line">println(<span class="string">&quot;completed&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="暂停和恢复"><a href="#暂停和恢复" class="headerlink" title="暂停和恢复"></a>暂停和恢复</h3><blockquote>
+<p>这些函数不会影响到队列中已经执行的任务，队列暂停后，已经添加到队列中但还没有执行的任务不会执行，直到队列被恢复</p>
+</blockquote>
+<ul>
+<li>dispatch_suspend(queue) &#x2F;&#x2F;暂停某个队列  </li>
+<li>dispatch_resume(queue)  &#x2F;&#x2F;恢复某个队列</li>
+</ul>
+<h2 id="dispatch-barrier-async"><a href="#dispatch-barrier-async" class="headerlink" title="dispatch barrier async"></a>dispatch barrier async</h2><p>我们知道数据在写入时，不能在其他线程读取或写入。但是多个线程同时读取数据是没有问题的。所以我们可以把读取任务放入并行队列，把写入任务放入串行队列，并且保证写入任务执行过程中没有读取任务可以执行。</p>
+<p>这样的需求比较常见，GCD提供了一个非常简单的解决办法——dispatch_barrier_async</p>
+<p>假设我们有四个读取任务，在第二三个任务之间有一个写入任务，代码大概是这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let queue = dispatch_queue_create(<span class="string">&quot;com.gcd.kt&quot;</span>, DISPATCH_QUEUE_CONCURRENT)</span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, block1_for_reading)  </span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, block2_for_reading)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">   	这里插入写入任务，比如：</span></span><br><span class="line"><span class="comment">   	dispatch_async(queue, block_for_writing)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, block3_for_reading)  </span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, block4_for_reading) </span><br></pre></td></tr></table></figure>
+
+<p>如果代码这样写，由于这几个block是并发执行，就有可能在前两个block中读取到已经修改了的数据。如果是有多写入任务，那问题更严重，可能会有数据竞争。</p>
+<p>如果使用dispatch_barrier_async函数，代码就可以这么写：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dispatch_async</span>(queue, block1_for_reading)  </span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, block2_for_reading)</span><br><span class="line"></span><br><span class="line">dispatch_barrier_async(queue, block_for_writing)</span><br><span class="line"></span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, block3_for_reading)  </span><br><span class="line"><span class="built_in">dispatch_async</span>(queue, block4_for_reading)</span><br></pre></td></tr></table></figure>
+
+<p>dispatch_barrier_async会把并行队列的运行周期分为这三个过程：</p>
+<ol>
+<li>首先等目前追加到并行队列中所有任务都执行完成</li>
+<li>开始执行dispatch_barrier_async中的任务，这时候即使向并行队列提交任务，也不会执行</li>
+<li>dispatch_barrier_async中的任务执行完成后，并行队列恢复正常。</li>
+</ol>
+<p>总的来说，dispatch_barrier_async起到了“承上启下”的作用。它保证此前的任务都先于自己执行，此后的任务也迟于自己执行。正如barrier的含义一样，它起到了一个栅栏、或是分水岭的作用。</p>
+<p>这样一来，使用并行队列和dispatc_barrier_async方法，就可以高效的进行数据和文件读写了。</p>
+<h2 id="信号量"><a href="#信号量" class="headerlink" title="信号量"></a>信号量</h2><p><strong>dispatch_semaphore</strong></p>
+<p>首先介绍一下信号量(semaphore)的概念。信号量是持有计数的信号，不过这么解释等于没解释。我们举个生活中的例子来看看。</p>
+<p>假设有一个房子，它对应进程的概念，房子里的人就对应着线程。一个进程可以包括多个线程。这个房子(进程)有很多资源，比如花园、客厅等，是所有人(线程)共享的。</p>
+<p>但是有些地方，比如卧室，最多只有两个人能进去睡觉。怎么办呢，在卧室门口挂上两把钥匙。进去的人(线程)拿着钥匙进去，没有钥匙就不能进去，出来的时候把钥匙放回门口。</p>
+<p>这时候，门口的钥匙数量就称为信号量(Semaphore)。很明显，信号量为0时需要等待，信号量不为零时，减去1而且不等待。</p>
+<p>dispatch_semaphore 与他相关的共有三个函数，分别是</p>
+<ul>
+<li>dispatch_semaphore_create，</li>
+<li>dispatch_semaphore_signal，</li>
+<li>dispatch_semaphore_wait。</li>
+</ul>
+<p>下面我们逐一介绍三个函数：</p>
+<blockquote>
+<p>dispatch_semaphore_create的声明为：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　dispatch_semaphore_t  dispatch_semaphore_create(<span class="type">long</span> value);</span><br></pre></td></tr></table></figure>
+
+<p>传入的参数为long，输出一个dispatch_semaphore_t类型且值为value的信号量。</p>
+<p>值得注意的是，这里的传入的参数value必须大于或等于0，否则dispatch_semaphore_create会返回NULL。</p>
+<blockquote>
+<p>dispatch_semaphore_signal的声明为：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="type">long</span> dispatch_semaphore_signal(dispatch_semaphore_t dsema)</span><br></pre></td></tr></table></figure>
+
+<p>  这个函数会使传入的信号量dsema的值加1； </p>
+<blockquote>
+<p>dispatch_semaphore_wait的声明为：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　<span class="type">long</span> dispatch_semaphore_wait(dispatch_semaphore_t dsema, dispatch_time_t timeout)；</span><br></pre></td></tr></table></figure>
+
+<p>这个函数会使传入的信号量dsema的值减1；这个函数的作用是这样的，如果dsema信号量的值大于0，该函数所处线程就继续执行下面的语句，并且将信号量的值减1；</p>
+<p>如果desema的值为0，那么这个函数就阻塞当前线程等待timeout（注意timeout的类型为dispatch_time_t，不能直接传入整形或float型数），如果等待的期间desema的值被dispatch_semaphore_signal函数加1了，且该函数（即dispatch_semaphore_wait）所处线程获得了信号量，那么就继续向下执行并将信号量减1。</p>
+<p>如果等待期间没有获取到信号量或者信号量的值一直为0，那么等到timeout时，其所处线程自动执行其后语句。</p>
+<p>　　</p>
+<blockquote>
+<p>返回值</p>
+</blockquote>
+<p>dispatch_semaphore_signal的返回值为long类型，当返回值为0时表示当前并没有线程等待其处理的信号量，其处理的信号量的值加1即可。当返回值不为0时，表示其当前有（一个或多个）线程等待其处理的信号量，并且该函数唤醒了一个等待的线程（当线程有优先级时，唤醒优先级最高的线程；否则随机唤醒）。</p>
+<p>dispatch_semaphore_wait的返回值也为long型。当其返回0时表示在timeout之前，该函数所处的线程被成功唤醒。当其返回不为0时，表示timeout发生。</p>
+<blockquote>
+<p>设置timeout时，</p>
+</blockquote>
+<p>比较有用的两个宏：</p>
+<ul>
+<li>DISPATCH_TIME_NOW　　表示当前；</li>
+<li>DISPATCH_TIME_FOREVER　　表示遥远的未来；</li>
+</ul>
+<p>一般可以直接设置timeout为这两个宏其中的一个，或者自己创建一个dispatch_time_t类型的变量。</p>
+<blockquote>
+<p>dispatch_time的声明如下：</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">　　dispatch_time_t dispatch_time(dispatch_time_t when, int64_t delta)；</span><br></pre></td></tr></table></figure>
+
+<p>创建dispatch_time_t类型的变量有两种方法，dispatch_time和dispatch_walltime。其参数when需传入一个dispatch_time_t类型的变量，和一个delta值。表示when加delta时间就是timeout的时间。</p>
+<p>例如：dispatch_time_t  t &#x3D; dispatch_time(DISPATCH_TIME_NOW, 1<em>1000</em>1000*1000);表示当前时间向后延时一秒为timeout的时间。</p>
+<p>我们来看一个完整的例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">var semaphore = dispatch_semaphore_create(<span class="number">1</span>)  </span><br><span class="line">let queue = dispatch_queue_create(<span class="string">&quot;com.gcd.kt&quot;</span>, DISPATCH_QUEUE_CONCURRENT)  </span><br><span class="line">var array: [Int] = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1.</span>.<span class="number">.100000</span> &#123;  </span><br><span class="line">	<span class="built_in">dispatch_async</span>(queue, &#123; () -&gt; Void <span class="keyword">in</span></span><br><span class="line">       <span class="comment">/*</span></span><br><span class="line"><span class="comment">           某个线程执行到这里，如果信号量值为1，那么wait方法返回1，开始执行接下来的操作。</span></span><br><span class="line"><span class="comment">           与此同时，因为信号量变为0，其它执行到这里的线程都必须等待</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">       dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)</span><br><span class="line"></span><br><span class="line">       <span class="comment">/*</span></span><br><span class="line"><span class="comment">           执行了wait方法后，信号量的值变成了0。可以进行接下来的操作。</span></span><br><span class="line"><span class="comment">           这时候其它线程都得等待wait方法返回。</span></span><br><span class="line"><span class="comment">           可以对array修改的线程在任意时刻都只有一个，可以安全的修改array</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">       array.append(i)</span><br><span class="line"></span><br><span class="line">       <span class="comment">/*</span></span><br><span class="line"><span class="comment">           排他操作执行结束，记得要调用signal方法，把信号量的值加1。</span></span><br><span class="line"><span class="comment">           这样，如果有别的线程在等待wait函数返回，就由最先等待的线程执行。</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">       dispatch_semaphore_signal(semaphore)</span><br><span class="line">   &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//设置时间间隔 1秒</span></span><br><span class="line">uint64_t interval = <span class="built_in">NSEC_PER_SEC</span>;</span><br><span class="line"><span class="comment">//开启一个专门执行timer的GCD回调队列</span></span><br><span class="line"><span class="built_in">dispatch_queue_t</span> queue = dispatch_queue_create(<span class="string">&quot;myqueue&quot;</span>, <span class="number">0</span>);</span><br><span class="line"><span class="comment">//创建timer</span></span><br><span class="line">dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, <span class="number">0</span>, <span class="number">0</span>, queue);</span><br><span class="line"><span class="comment">//配置timer 最后一个参数表示精准度， 0为最精准</span></span><br><span class="line">dispatch_source_set_timer(_timer, dispatch_time(DISPATCH_TIME_NOW, <span class="number">0</span>), interval, <span class="number">0</span>);</span><br><span class="line"><span class="comment">//设置回调</span></span><br><span class="line">__block <span class="type">int</span> timeCount = <span class="number">0</span>;</span><br><span class="line">dispatch_source_set_event_handler(_timer, ^&#123;</span><br><span class="line">    DLog(<span class="string">@&quot;计时开始&quot;</span>);</span><br><span class="line">    timeCount ++;</span><br><span class="line">    <span class="keyword">if</span>(timeCount &gt;= <span class="number">6</span>)&#123;</span><br><span class="line">        DLog(<span class="string">@&quot; da &quot;</span>);</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(timeCount &gt;= <span class="number">10</span>)&#123;</span><br><span class="line">    	<span class="comment">//结束计时</span></span><br><span class="line">        dispatch_source_cancel(_timer);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//dispatch_source默认为suspend状态，需要手动resume</span></span><br><span class="line">dispatch_resume(_timer);</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"># iOS</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/essay/NSOperation-%E7%AE%80%E4%BB%8B/" rel="prev" title="NSOperation-简介.md">
+                  <i class="fa fa-angle-left"></i> NSOperation-简介.md
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/essay/NSRunloop%E7%AE%80%E4%BB%8B/" rel="next" title="NSRunloop简介.md">
+                  NSRunloop简介.md <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2025</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">499k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:34</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/sidebar.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
