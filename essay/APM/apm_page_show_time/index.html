@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,26 +118,26 @@
 
 
   <meta name="description" content="今天聊一下页面加载时间的检测。  viewDidappear viewIsAppearing 监听某个元素渲染完时间">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="页面加载时间">
 <meta property="og:url" content="https://developerdoc.com/essay/APM/apm_page_show_time/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="今天聊一下页面加载时间的检测。  viewDidappear viewIsAppearing 监听某个元素渲染完时间">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-06-19T09:11:48.440Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-18T12:59:13.000Z">
+<meta property="article:modified_time" content="2024-06-19T09:11:48.440Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="页面加载时间">
-<meta name="twitter:description" content="今天聊一下页面加载时间的检测。  viewDidappear viewIsAppearing 监听某个元素渲染完时间">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/APM/apm_page_show_time/">
+  <link rel="canonical" href="https://developerdoc.com/essay/APM/apm_page_show_time/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -295,7 +295,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -412,7 +414,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -472,7 +474,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.2k</span>
+                <span title="本文字数">1.9k</span>
               
 
               
@@ -486,7 +488,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -512,7 +514,8 @@
 <li>viewIsAppearing</li>
 <li>监听某个元素渲染完时间</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
+
 <h3 id="viewDidappear"><a href="#viewDidappear" class="headerlink" title="viewDidappear"></a>viewDidappear</h3><p>比较简单的衡量方法都是，计算从 <code>viewDidload</code> 到 <code>viewDidAppear</code>时间。</p>
 <p>如果衡量标准是从 上一个页面点击开始 到 当前页面展示完毕。可以稍微将衡量方法该为 <strong>记录点击事件</strong> 到 <code>viewDidAppear</code> 时间。<br>或者为了 hook 方便 改为 从 <code>UIViewController init</code> 到 <code>UIViewController viewDidAppear</code>时间。</p>
 <p>最终都是到viewdidAppear的时间，但是这种计算遇到页面比较复杂，或者使用push动画的页面就比较尴尬了。</p>
@@ -579,7 +582,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/essay/ios-business/iOS弹窗管理/" rel="prev" title="iOS window弹窗管理">
+              <a href="/essay/ios-business/iOS%E5%BC%B9%E7%AA%97%E7%AE%A1%E7%90%86/" rel="prev" title="iOS window弹窗管理">
                 iOS window弹窗管理 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -643,7 +646,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -654,9 +659,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -713,9 +718,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -725,7 +728,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -772,7 +775,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -815,7 +820,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#viewDidappear"><span class="nav-number">1.</span> <span class="nav-text">viewDidappear</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viewIsAppearing"><span class="nav-number">2.</span> <span class="nav-text">viewIsAppearing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听某个元素渲染完时间"><span class="nav-number">3.</span> <span class="nav-text">监听某个元素渲染完时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#viewDidappear"><span class="nav-number">1.</span> <span class="nav-text">viewDidappear</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viewIsAppearing"><span class="nav-number">2.</span> <span class="nav-text">viewIsAppearing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E6%9F%90%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B8%B2%E6%9F%93%E5%AE%8C%E6%97%B6%E9%97%B4"><span class="nav-number">3.</span> <span class="nav-text">监听某个元素渲染完时间</span></a></li></ol></div>
             
 
           </div>
@@ -835,7 +840,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -847,7 +852,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -856,7 +861,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

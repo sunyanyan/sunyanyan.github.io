@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,28 +118,29 @@
 
 
   <meta name="description" content="是不是厌倦了每次新建web项目繁琐的配置，想不想只用10秒搭建就搭建一个完整的react项目？">
-<meta name="keywords" content="前端工程化,react">
 <meta property="og:type" content="article">
 <meta property="og:title" content="create-react-app教程-使用篇">
-<meta property="og:url" content="https://developerdoc.com/quick-start/create-react-app教程-使用篇/index.html">
+<meta property="og:url" content="https://developerdoc.com/quick-start/create-react-app%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8%E7%AF%87/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="是不是厌倦了每次新建web项目繁琐的配置，想不想只用10秒搭建就搭建一个完整的react项目？">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://developerdoc.com/res/create-react-app/1.svg">
-<meta property="og:updated_time" content="2019-03-06T03:20:48.000Z">
+<meta property="article:published_time" content="2018-11-28T14:27:04.000Z">
+<meta property="article:modified_time" content="2019-03-06T03:20:48.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="react">
+<meta property="article:tag" content="前端工程化">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="create-react-app教程-使用篇">
-<meta name="twitter:description" content="是不是厌倦了每次新建web项目繁琐的配置，想不想只用10秒搭建就搭建一个完整的react项目？">
 <meta name="twitter:image" content="https://developerdoc.com/res/create-react-app/1.svg">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/quick-start/create-react-app教程-使用篇/">
+  <link rel="canonical" href="https://developerdoc.com/quick-start/create-react-app教程-使用篇/"/>
 
 
 
@@ -189,7 +190,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -297,7 +298,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -349,7 +352,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/create-react-app教程-使用篇/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/create-react-app%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8%E7%AF%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -414,7 +417,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -432,7 +435,7 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quick-start/create-react-app教程/" itemprop="url" rel="index"><span itemprop="name">create-react-app教程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quick-start/create-react-app%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">create-react-app教程</span></a></span>
 
                 
                 
@@ -447,8 +450,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/create-react-app教程-使用篇/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/create-react-app教程-使用篇/" itemprop="commentCount"></span>
+                <a href="/quick-start/create-react-app%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8%E7%AF%87/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/create-react-app%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8%E7%AF%87/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -456,7 +459,7 @@
 
           
           
-             <span id="/quick-start/create-react-app教程-使用篇/" class="leancloud_visitors" data-flag-title="create-react-app教程-使用篇">
+             <span id="/quick-start/create-react-app%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8%E7%AF%87/" class="leancloud_visitors" data-flag-title="create-react-app教程-使用篇">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -481,7 +484,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.3k</span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -495,7 +498,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">11 分钟</span>
               
             </div>
           
@@ -518,7 +521,9 @@
         <blockquote>
 <p>是不是厌倦了每次新建web项目繁琐的配置，想不想只用10秒搭建就搭建一个完整的react项目？ </p>
 </blockquote>
-<p><img src="/res/create-react-app/1.svg" alt><br><a id="more"></a><br>create-react-app 分为两个部分</p>
+<p><img src="/res/create-react-app/1.svg"></p>
+<span id="more"></span>
+<p>create-react-app 分为两个部分</p>
 <ul>
 <li>其中 <code>create-react-app</code>是创建单页面的react脚手架项目脚本 ；</li>
 <li>而<code>react-scripts</code>则管理着工程的依赖。</li>
@@ -526,35 +531,40 @@
 <p>如果我们手动创建react web应用程序的时候,要自己通过 npm 或者 yarn 安装项目的全部依赖，再写webpack.config.js,一系列复杂的配置,搭建好开发环境后写src源代码。使用 create-react-app 去自动构建你的app程序, 你的项目无需配置，也没有复杂的目录结构，只有你构建应用所需的文件。省去了很多精力，最适合快速上手一个demo了。</p>
 <h2 id="create-react-app-使用"><a href="#create-react-app-使用" class="headerlink" title="create-react-app 使用"></a>create-react-app 使用</h2><p>先来看看如何十秒上手create-react-app!</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//my-app 是你要创建的web单页面项目名字</span></span><br><span class="line">npx create-react-app my-app</span><br><span class="line"><span class="comment">//npx 需要 npm 5.2+ </span></span><br><span class="line">cd my-app</span><br><span class="line">npm start</span><br></pre></td></tr></table></figure>
-<p>输入上述命令后，打开 <a href="http://localhost:3000/" target="_blank" rel="noopener">http://localhost:3000/</a> 就可以看到初始页面了~</p>
+<p>输入上述命令后，打开 <a href="http://localhost:3000/">http://localhost:3000/</a> 就可以看到初始页面了~</p>
 <h3 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h3><p>接着上面的命令，可以看到生成了如下文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">my-app</span><br><span class="line">├── README.md</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── .gitignore</span><br><span class="line">├── public</span><br><span class="line">│   ├── favicon.ico</span><br><span class="line">│   ├── index.html</span><br><span class="line">│   └── manifest.json</span><br><span class="line">└── src</span><br><span class="line">    ├── App.css</span><br><span class="line">    ├── App.js</span><br><span class="line">    ├── App.test.js</span><br><span class="line">    ├── index.css</span><br><span class="line">    ├── index.js</span><br><span class="line">    ├── logo.svg</span><br><span class="line">    └── serviceWorker.js</span><br></pre></td></tr></table></figure>
-<p>public/index.html 是页面模板,src/index.js 则是入口JS文件</p>
-<p>其中<code>src</code>目录和 <code>public</code>目录需要注意下。只有在<code>src</code>目录下的文件才会被webpack编译，js和css文件都建议放在此处；而<code>public</code>文件夹则存放着被 public/index.html使用的资源。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">my-app</span><br><span class="line">├── README.md</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── .gitignore</span><br><span class="line">├── public</span><br><span class="line">│   ├── favicon.ico</span><br><span class="line">│   ├── index.html</span><br><span class="line">│   └── manifest.json</span><br><span class="line">└── src</span><br><span class="line">    ├── App.css</span><br><span class="line">    ├── App.js</span><br><span class="line">    ├── App.test.js</span><br><span class="line">    ├── index.css</span><br><span class="line">    ├── index.js</span><br><span class="line">    ├── logo.svg</span><br><span class="line">    └── serviceWorker.js</span><br></pre></td></tr></table></figure>
+
+<p>public&#x2F;index.html 是页面模板,src&#x2F;index.js 则是入口JS文件</p>
+<p>其中<code>src</code>目录和 <code>public</code>目录需要注意下。只有在<code>src</code>目录下的文件才会被webpack编译，js和css文件都建议放在此处；而<code>public</code>文件夹则存放着被 public&#x2F;index.html使用的资源。</p>
 <h3 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h3><p>对于喜欢手动创建web项目的人来说，没有webpack的配置很是不习惯啊！我就是要手动配置webpack怎么办？</p>
-<p>那就是使用 <a href="https://github.com/timarney/react-app-rewired" target="_blank" rel="noopener">https://github.com/timarney/react-app-rewired</a> 使用<code>react-app-rewired</code> 需要三步：</p>
+<p>那就是使用 <a href="https://github.com/timarney/react-app-rewired">https://github.com/timarney/react-app-rewired</a> 使用<code>react-app-rewired</code> 需要三步：</p>
 <p><strong>1)</strong> 安装 react-app-rewired</p>
  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-app-rewired --save-dev</span><br></pre></td></tr></table></figure>
+
 <p><strong>2)</strong> 在项目根目录创建 <code>config-overrides.js</code>文件</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* config-overrides.js */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> <span class="title">override</span>(<span class="params">config, env</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//console.log('原webpack配置 config:',config)</span></span><br><span class="line">  <span class="comment">//在这里修改config就行</span></span><br><span class="line">  <span class="comment">//console.log('修改后webpack配置 config:',config)</span></span><br><span class="line">  <span class="keyword">return</span> config;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/* config-overrides.js */</span></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> <span class="title function_">override</span>(<span class="params">config, env</span>) &#123;</span><br><span class="line">  <span class="comment">//console.log(&#x27;原webpack配置 config:&#x27;,config)</span></span><br><span class="line">  <span class="comment">//在这里修改config就行</span></span><br><span class="line">  <span class="comment">//console.log(&#x27;修改后webpack配置 config:&#x27;,config)</span></span><br><span class="line">  <span class="keyword">return</span> config;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>3）</strong> 修改package.json中script:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/* package.json */</span></span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line"><span class="comment">//   "start": "react-scripts start",</span></span><br><span class="line">   <span class="string">"start"</span>: <span class="string">"react-app-rewired start"</span>,</span><br><span class="line"><span class="comment">//    "build": "react-scripts build",</span></span><br><span class="line">   <span class="string">"build"</span>: <span class="string">"react-app-rewired build"</span>,</span><br><span class="line"><span class="comment">//   "test": "react-scripts test --env=jsdom",</span></span><br><span class="line">   <span class="string">"test"</span>: <span class="string">"react-app-rewired test --env=jsdom"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/* package.json */</span></span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line"><span class="comment">//   &quot;start&quot;: &quot;react-scripts start&quot;,</span></span><br><span class="line">   <span class="string">&quot;start&quot;</span>: <span class="string">&quot;react-app-rewired start&quot;</span>,</span><br><span class="line"><span class="comment">//    &quot;build&quot;: &quot;react-scripts build&quot;,</span></span><br><span class="line">   <span class="string">&quot;build&quot;</span>: <span class="string">&quot;react-app-rewired build&quot;</span>,</span><br><span class="line"><span class="comment">//   &quot;test&quot;: &quot;react-scripts test --env=jsdom&quot;,</span></span><br><span class="line">   <span class="string">&quot;test&quot;</span>: <span class="string">&quot;react-app-rewired test --env=jsdom&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="那么如何查看create-react-app自带的依赖配置呢？"><a href="#那么如何查看create-react-app自带的依赖配置呢？" class="headerlink" title="那么如何查看create-react-app自带的依赖配置呢？"></a>那么如何查看<code>create-react-app</code>自带的依赖配置呢？</h4><p>答案就是使用<code>npm run eject</code> 。<code>npm run eject</code>的作用就是将原有隐藏的依赖（比如Webpack, Babel, ESLint等）暴露出来， 请注意这是不可逆的行为。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//npm run eject执行后 项目下多了这样的文件</span><br><span class="line">//我的create-react-app版本为1.5.2</span><br><span class="line">|-config</span><br><span class="line">    |-jest</span><br><span class="line">        |-cssTransform.js</span><br><span class="line">        |-fileTransform.js</span><br><span class="line">    |-env.js</span><br><span class="line">    |-paths.js</span><br><span class="line">    |-webpack.config.dev.js</span><br><span class="line">    |-webpack.config.prod.js</span><br><span class="line">    |-webpackDevServer.config.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//npm run eject执行后 项目下多了这样的文件</span><br><span class="line">//我的create-react-app版本为1.5.2</span><br><span class="line">|-config</span><br><span class="line">    |-jest</span><br><span class="line">        |-cssTransform.js</span><br><span class="line">        |-fileTransform.js</span><br><span class="line">    |-env.js</span><br><span class="line">    |-paths.js</span><br><span class="line">    |-webpack.config.dev.js</span><br><span class="line">    |-webpack.config.prod.js</span><br><span class="line">    |-webpackDevServer.config.js</span><br></pre></td></tr></table></figure>
+
 <p>查看 <code>webpack.config.dev.js</code> 和 <code>webpack.config.prod.js</code> 支持的支持的依赖大致有：</p>
 <ul>
 <li>React, JSX, ES6, TypeScript 和 Flow 语法支持<ul>
-<li><a href="https://facebook.github.io/react/docs/introducing-jsx.html" target="_blank" rel="noopener">JSX</a>, </li>
-<li><a href="https://facebook.github.io/create-react-app/docs/adding-flow" target="_blank" rel="noopener">Flow</a></li>
-<li><a href="https://facebook.github.io/create-react-app/docs/adding-typescript" target="_blank" rel="noopener">TypeScript</a>.</li>
+<li><a href="https://facebook.github.io/react/docs/introducing-jsx.html">JSX</a>, </li>
+<li><a href="https://facebook.github.io/create-react-app/docs/adding-flow">Flow</a></li>
+<li><a href="https://facebook.github.io/create-react-app/docs/adding-typescript">TypeScript</a>.</li>
 </ul>
 </li>
 <li>ES6以外的特性<ul>
-<li><a href="https://github.com/rwaldron/exponentiation-operator" target="_blank" rel="noopener">Exponentiation Operator</a> (ES2016).</li>
-<li><a href="https://github.com/tc39/ecmascript-asyncawait" target="_blank" rel="noopener">Async/await</a> (ES2017).</li>
-<li><a href="https://github.com/tc39/proposal-object-rest-spread" target="_blank" rel="noopener">Object Rest/Spread Properties</a> (ES2018).</li>
-<li><a href>Dynamic import() </a>(stage 3 proposal)</li>
-<li><a href="https://github.com/tc39/proposal-class-public-fields" target="_blank" rel="noopener">Class Fields and Static Properties</a> (part of stage 3 proposal).</li>
+<li><a href="https://github.com/rwaldron/exponentiation-operator">Exponentiation Operator</a> (ES2016).</li>
+<li><a href="https://github.com/tc39/ecmascript-asyncawait">Async&#x2F;await</a> (ES2017).</li>
+<li><a href="https://github.com/tc39/proposal-object-rest-spread">Object Rest&#x2F;Spread Properties</a> (ES2018).</li>
+<li><a href="">Dynamic import() </a>(stage 3 proposal)</li>
+<li><a href="https://github.com/tc39/proposal-class-public-fields">Class Fields and Static Properties</a> (part of stage 3 proposal).</li>
 </ul>
 </li>
 <li>通过Autoprefixer 帮你的css文件自动添加浏览器兼容前缀</li>
@@ -566,15 +576,19 @@
 <h3 id="使用sass样式"><a href="#使用sass样式" class="headerlink" title="使用sass样式"></a>使用sass样式</h3><p>在create-react-app中使用 Sass需要以下步骤：</p>
 <p><strong>1)</strong> 安装 <code>node-sass</code></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install node-sass --save</span><br><span class="line"><span class="comment"># or</span></span><br><span class="line">yarn add node-sass</span><br></pre></td></tr></table></figure>
+
 <p>现在你可以重命名 <code>src/App.css</code> 为 <code>src/App.scss</code>然后在 <code>src/App.js</code>中更新为 <code>import src/App.scss</code> ,.scss 或 .sass 后缀的文件会自动被编译。</p>
-<h3 id="使用-Bootstrap"><a href="#使用-Bootstrap" class="headerlink" title="使用 Bootstrap"></a>使用 Bootstrap</h3><p>你可以尝试使用下<a href="https://reactstrap.github.io/" target="_blank" rel="noopener">reactstrap</a>, 这是一个流行的整合bootstrap和react的库。</p>
+<h3 id="使用-Bootstrap"><a href="#使用-Bootstrap" class="headerlink" title="使用 Bootstrap"></a>使用 Bootstrap</h3><p>你可以尝试使用下<a href="https://reactstrap.github.io/">reactstrap</a>, 这是一个流行的整合bootstrap和react的库。</p>
 <p><strong>1）</strong> 安装</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install --save reactstrap bootstrap@4</span><br><span class="line"><span class="comment">#or</span></span><br><span class="line">yarn add bootstrap@4 reactstrap</span><br></pre></td></tr></table></figure>
-<p><strong>2）</strong> 在你的src/index.js 文件内容的顶部，导入 Bootstrap CSS 和可选的 Bootstrap theme CSS</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'bootstrap/dist/css/bootstrap.css'</span>;  <span class="comment">// 必须的 </span></span><br><span class="line"><span class="keyword">import</span> <span class="string">'bootstrap/dist/css/bootstrap-theme.css'</span>;  <span class="comment">//  可选的</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2）</strong> 在你的src&#x2F;index.js 文件内容的顶部，导入 Bootstrap CSS 和可选的 Bootstrap theme CSS</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;bootstrap/dist/css/bootstrap.css&#x27;</span>;  <span class="comment">// 必须的 </span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;bootstrap/dist/css/bootstrap-theme.css&#x27;</span>;  <span class="comment">//  可选的 </span></span><br></pre></td></tr></table></figure>
+
 <p><strong>3）</strong> 使用 reactstrap 组件 </p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Grid, Navbar, Jumbotron, Button &#125; <span class="keyword">from</span> <span class="string">'react-bootstrap'</span>;</span><br></pre></td></tr></table></figure>
-<blockquote class="blockquote-center"><p>会在之后的 <a href="../create-react-app教程-源码篇/">create-react-app教程-源码篇</a> 中介绍create-react-app的源码</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Grid</span>, <span class="title class_">Navbar</span>, <span class="title class_">Jumbotron</span>, <span class="title class_">Button</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-bootstrap&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote class="blockquote-center"><p>会在之后的 <a href="../create-react-app%E6%95%99%E7%A8%8B-%E6%BA%90%E7%A0%81%E7%AF%87/">create-react-app教程-源码篇</a> 中介绍create-react-app的源码</p>
 </blockquote>
 
       
@@ -596,7 +610,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/前端工程化/" rel="tag"># 前端工程化</a>
+            <a href="/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag"># 前端工程化</a>
           
             <a href="/tags/react/" rel="tag"># react</a>
           
@@ -611,7 +625,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/essay/(转)浏览器的工作原理-现代浏览器幕后/" rel="next" title="(转)浏览器的工作原理-现代浏览器幕后">
+              <a href="/essay/(%E8%BD%AC)%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E7%8E%B0%E4%BB%A3%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B9%95%E5%90%8E/" rel="next" title="(转)浏览器的工作原理-现代浏览器幕后">
                 <i class="fa fa-chevron-left"></i> (转)浏览器的工作原理-现代浏览器幕后
               </a>
             
@@ -621,7 +635,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/quick-start/create-react-app教程-源码篇/" rel="prev" title="create-react-app教程-源码篇">
+              <a href="/quick-start/create-react-app%E6%95%99%E7%A8%8B-%E6%BA%90%E7%A0%81%E7%AF%87/" rel="prev" title="create-react-app教程-源码篇">
                 create-react-app教程-源码篇 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -685,7 +699,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -696,9 +712,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -755,9 +771,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -767,7 +781,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -814,7 +828,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -857,7 +873,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#create-react-app-使用"><span class="nav-number">1.</span> <span class="nav-text">create-react-app 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#文件结构"><span class="nav-number">1.1.</span> <span class="nav-text">文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack配置"><span class="nav-number">1.2.</span> <span class="nav-text">webpack配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#那么如何查看create-react-app自带的依赖配置呢？"><span class="nav-number">1.2.1.</span> <span class="nav-text">那么如何查看create-react-app自带的依赖配置呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用sass样式"><span class="nav-number">1.3.</span> <span class="nav-text">使用sass样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Bootstrap"><span class="nav-number">1.4.</span> <span class="nav-text">使用 Bootstrap</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#create-react-app-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">create-react-app 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84"><span class="nav-number">1.1.</span> <span class="nav-text">文件结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">webpack配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%82%A3%E4%B9%88%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8Bcreate-react-app%E8%87%AA%E5%B8%A6%E7%9A%84%E4%BE%9D%E8%B5%96%E9%85%8D%E7%BD%AE%E5%91%A2%EF%BC%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">那么如何查看create-react-app自带的依赖配置呢？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8sass%E6%A0%B7%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">使用sass样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Bootstrap"><span class="nav-number">1.4.</span> <span class="nav-text">使用 Bootstrap</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -877,7 +893,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -889,7 +905,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -898,7 +914,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

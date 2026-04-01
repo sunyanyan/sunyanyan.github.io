@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,26 +118,26 @@
 
 
   <meta name="description" content="在iOS中苹果提供了NSURLConnection、NSURLSession等优秀的网路接口供我们来调用，开源社区也有很多的开源库，如之前的ASIHttpRequest 现在的AFNetworking和Alamofire，我们接下来介绍的NSURLProtocol，都可以监控到这些开源库的网络请求。 NSURLProtocolNSURLProtocol是iOS网络加载系统中很强的一部分，它其实是一">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 性能监控4 网络监控-NSURLProtocol">
 <meta property="og:url" content="https://developerdoc.com/essay/APM/iOSAPM4/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="在iOS中苹果提供了NSURLConnection、NSURLSession等优秀的网路接口供我们来调用，开源社区也有很多的开源库，如之前的ASIHttpRequest 现在的AFNetworking和Alamofire，我们接下来介绍的NSURLProtocol，都可以监控到这些开源库的网络请求。 NSURLProtocolNSURLProtocol是iOS网络加载系统中很强的一部分，它其实是一">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-10-20T11:25:37.966Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-15T14:36:51.000Z">
+<meta property="article:modified_time" content="2020-10-20T11:25:37.966Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS 性能监控4 网络监控-NSURLProtocol">
-<meta name="twitter:description" content="在iOS中苹果提供了NSURLConnection、NSURLSession等优秀的网路接口供我们来调用，开源社区也有很多的开源库，如之前的ASIHttpRequest 现在的AFNetworking和Alamofire，我们接下来介绍的NSURLProtocol，都可以监控到这些开源库的网络请求。 NSURLProtocolNSURLProtocol是iOS网络加载系统中很强的一部分，它其实是一">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/APM/iOSAPM4/">
+  <link rel="canonical" href="https://developerdoc.com/essay/APM/iOSAPM4/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -295,7 +295,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -412,7 +414,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -472,7 +474,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.6k</span>
+                <span title="本文字数">25k</span>
               
 
               
@@ -486,7 +488,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">22 分钟</span>
               
             </div>
           
@@ -515,51 +517,53 @@
 <li>我们需要统计APP内的网络请求失败率</li>
 </ul>
 <p>等等，都可以用到 NSURLProtocol是一个抽象类，我们需要子类化才能实现网络请求拦截。</p>
-<a id="more"></a>
+<span id="more"></span>
+
 <h3 id="新建-NSURLProtocol的子类"><a href="#新建-NSURLProtocol的子类" class="headerlink" title="新建 NSURLProtocol的子类"></a>新建 NSURLProtocol的子类</h3><p>新建 NSURLProtocol的子类 并且需要重写一些方法 </p>
 <h3 id="重写-can​Init​With​Request"><a href="#重写-can​Init​With​Request" class="headerlink" title="重写 can​Init​With​Request :"></a>重写 <code>can​Init​With​Request</code> :</h3><p>我们需要告诉它哪些网络请求是需要我们拦截的，这个是通过方法can​Init​With​Request:​来实现的，比如我们现在需要拦截全部的HTTP和HTTPS请求，那么这个逻辑我们就可以在can​Init​With​Request:​中来定义</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 需要控制的请求</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> @param request 此次请求</span></span><br><span class="line"><span class="comment"> @return 是否需要监控</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (BOOL)canInitWithRequest:(NSURLRequest *)request &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (![request.URL.scheme isEqualToString:@<span class="string">"http"</span>] &amp;&amp;</span><br><span class="line">        ![request.URL.scheme isEqualToString:@<span class="string">"https"</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 需要控制的请求</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> @param request 此次请求</span></span><br><span class="line"><span class="comment"> @return 是否需要监控</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (BOOL)canInitWithRequest:(NSURLRequest *)request &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (![request.URL.scheme isEqualToString:@<span class="string">&quot;http&quot;</span>] &amp;&amp;</span><br><span class="line">        ![request.URL.scheme isEqualToString:@<span class="string">&quot;https&quot;</span>]) &#123;</span><br><span class="line">        <span class="keyword">return</span> NO;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> YES;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="重写-canonicalRequestForRequest"><a href="#重写-canonicalRequestForRequest" class="headerlink" title="重写 canonicalRequestForRequest:"></a>重写 <code>canonicalRequestForRequest:</code></h3><p>我们可以自定义当前的请求request，通过重写 canonicalRequestForRequest: 来实现。当然如果不需要自定义，直接返回就行</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 设置我们自己的自定义请求</span></span><br><span class="line"><span class="comment"> 可以在这里统一加上头之类的</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> @param request 应用的此次请求</span></span><br><span class="line"><span class="comment"> @return 我们自定义的请求</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request &#123;</span><br><span class="line">    <span class="keyword">return</span> request;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这样，我们通过这两个方法，就已经能够拦截住iOS的网络请求了 </p>
 <h3 id="can​Init​With​Request-与-canonicalRequestForRequest"><a href="#can​Init​With​Request-与-canonicalRequestForRequest" class="headerlink" title="can​Init​With​Request: 与 canonicalRequestForRequest"></a><code>can​Init​With​Request:</code> 与 <code>canonicalRequestForRequest</code></h3><p>在我们上层业务调用网络请求的时候，首先会调用我们的can​Init​With​Request:方法，询问是否对该请求进行处理，接着会调用我们的canonicalRequestForRequest:来自定义一个request，接着又会去调用can​Init​With​Request:询问自定义的request是否需要处理，我们又返回YES，然后又去调用了canonicalRequestForRequest:，这样，就形成了一个死循环了，这肯定是我们不希望看到的。</p>
 <p>有个处理方法，我们可以对每个处理过的request进行标记，在判断如果这个request已经处理过了，那么我们就不再进行处理，这样就有效避免了死循环</p>
 <p>在我们自定义request的方法中，我们来设置处理标志</p>
 <ul>
-<li><p>(NSURLRequest <em>)canonicalRequestForRequest:(NSURLRequest </em>)request {<br>  NSMutableURLRequest *mutableReqeust = [request mutableCopy];<br>  [NSURLProtocol setProperty:@YES</p>
-<pre><code>   forKey:PPSHTTP
-inRequest:mutableReqeust];
-</code></pre><p>  return [mutableReqeust copy];<br>}<br>然后在我们的询问处理方法中，通过判断是否有处理过的标志，来进行拦截</p>
+<li><p>(NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {<br>  NSMutableURLRequest *mutableReqeust &#x3D; [request mutableCopy];<br>  [NSURLProtocol setProperty:@YES<br>                  forKey:PPSHTTP<br>               inRequest:mutableReqeust];<br>  return [mutableReqeust copy];<br>}<br>然后在我们的询问处理方法中，通过判断是否有处理过的标志，来进行拦截</p>
 </li>
 <li><p>(BOOL)canInitWithRequest:(NSURLRequest *)request {</p>
-<p>  if (![request.URL.scheme isEqualToString:@”http”] &amp;&amp;</p>
-<pre><code>![request.URL.scheme isEqualToString:@&quot;https&quot;]) {
-return NO;
-</code></pre><p>  }<br>  //如果是已经拦截过的  就放行<br>  if ([NSURLProtocol propertyForKey:PPSHTTP inRequest:request] ) {</p>
-<pre><code>return NO;
-</code></pre><p>  }<br>  return YES;<br>}<br>这样，我们就避免了死循环</p>
+<p>  if (![request.URL.scheme isEqualToString:@”http”] &amp;&amp;<br>  ![request.URL.scheme isEqualToString:@”https”]) {<br>  return NO;<br>  }<br>  &#x2F;&#x2F;如果是已经拦截过的  就放行<br>  if ([NSURLProtocol propertyForKey:PPSHTTP inRequest:request] ) {<br>  return NO;<br>  }<br>  return YES;</p>
 </li>
 </ul>
+<p>}<br>这样，我们就避免了死循环</p>
 <h3 id="重写-startLoading-和-stopLoading"><a href="#重写-startLoading-和-stopLoading" class="headerlink" title="重写 startLoading 和 stopLoading"></a>重写 <code>startLoading</code> 和 <code>stopLoading</code></h3><p>接下来，就是需要将这个request发送出去了，因为如果我们不处理这个request请求，系统会自动发出这个网络请求，但是当我们处理了这个请求，就需要我们手动来进行发送了。</p>
 <p>我们要手动发送这个网络请求，需要重写startLoading方法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)startLoading &#123;</span><br><span class="line">    NSURLRequest *request = [[self class] canonicalRequestForRequest:self.request];</span><br><span class="line">    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];</span><br><span class="line">    self.pps_request = self.request;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)startLoading &#123;</span><br><span class="line">    NSURLRequest *request = [[self <span class="keyword">class</span>] canonicalRequestForRequest:self.request];</span><br><span class="line">    self.connection = [[NSURLConnection alloc] initWithRequest:request delegate:self startImmediately:YES];</span><br><span class="line">    self.pps_request = self.request;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>解释一下上面的代码，因为我们拦截的这个请求是一个真实的请求，所以我们需要创建这样一个真实的网络请求，在第二行代码中，将我们自定义创建的request发了出了，第三行是为了保存当前的request，作为我们后面的处理对象。</p>
 <p>当然，有start就有stop，stop就很简单了</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)stopLoading &#123;</span><br><span class="line">    [self.connection cancel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)stopLoading &#123;</span><br><span class="line">    [self.connection cancel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="NSURLConnectionDelegate-转发"><a href="#NSURLConnectionDelegate-转发" class="headerlink" title="NSURLConnectionDelegate 转发"></a>NSURLConnectionDelegate 转发</h3><p>在startLoading中，我们发起了一个NSURLConnection的请求，因为NSURLProtocol使我们自己定义的，所以我们需要将网络请求的一系列操作全部传递出去，不然上层就不知道当前网络的一个请求状态，那我们怎么将这个网络状态传到上层？每个protocol有一个NSURLProtocolClient实例，我们就通过这个client来传递。</p>
 <p>传递一个网络请求，无外乎就是传递请求的一些过程，数据，结果等等。 发起了发起了一个NSURLConnection的请求，实现它的delegate就能够知道网络请求的一系列操作</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - NSURLConnectionDelegate</span></span><br><span class="line">- (<span class="keyword">void</span>)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error&#123;</span><br><span class="line">    [self.client URLProtocol:self didFailWithError:error];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection&#123;</span><br><span class="line">    <span class="keyword">return</span> YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge&#123;</span><br><span class="line">    [self.client URLProtocol:self didReceiveAuthenticationChallenge:challenge];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)connection:(NSURLConnection *)connection</span><br><span class="line">didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge &#123;</span><br><span class="line">    [self.client URLProtocol:self didCancelAuthenticationChallenge:challenge];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - NSURLConnectionDataDelegate</span></span><br><span class="line">-(NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response&#123;</span><br><span class="line">    <span class="keyword">if</span> (response != nil) &#123;</span><br><span class="line">        self.pps_response = response;</span><br><span class="line">        [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> request;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)connection:(NSURLConnection *)connection</span><br><span class="line">didReceiveResponse:(NSURLResponse *)response &#123;</span><br><span class="line">    [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageAllowed];</span><br><span class="line">    self.pps_response = response;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data &#123;</span><br><span class="line">    [self.client URLProtocol:self didLoadData:data];</span><br><span class="line">    [self.pps_data appendData:data];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSCachedURLResponse *)connection:(NSURLConnection *)connection</span><br><span class="line">                  willCacheResponse:(NSCachedURLResponse *)cachedResponse &#123;</span><br><span class="line">    <span class="keyword">return</span> cachedResponse;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)connectionDidFinishLoading:(NSURLConnection *)connection &#123;</span><br><span class="line">    [[self client] URLProtocolDidFinishLoading:self];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - NSURLConnectionDelegate</span></span><br><span class="line">- (<span class="type">void</span>)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error&#123;</span><br><span class="line">    [self.client URLProtocol:self didFailWithError:error];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)connectionShouldUseCredentialStorage:(NSURLConnection *)connection&#123;</span><br><span class="line">    <span class="keyword">return</span> YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge&#123;</span><br><span class="line">    [self.client URLProtocol:self didReceiveAuthenticationChallenge:challenge];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)connection:(NSURLConnection *)connection</span><br><span class="line">didCancelAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge &#123;</span><br><span class="line">    [self.client URLProtocol:self didCancelAuthenticationChallenge:challenge];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - NSURLConnectionDataDelegate</span></span><br><span class="line">-(NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response&#123;</span><br><span class="line">    <span class="keyword">if</span> (response != nil) &#123;</span><br><span class="line">        self.pps_response = response;</span><br><span class="line">        [self.client URLProtocol:self wasRedirectedToRequest:request redirectResponse:response];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> request;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)connection:(NSURLConnection *)connection</span><br><span class="line">didReceiveResponse:(NSURLResponse *)response &#123;</span><br><span class="line">    [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageAllowed];</span><br><span class="line">    self.pps_response = response;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data &#123;</span><br><span class="line">    [self.client URLProtocol:self didLoadData:data];</span><br><span class="line">    [self.pps_data appendData:data];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSCachedURLResponse *)connection:(NSURLConnection *)connection</span><br><span class="line">                  willCacheResponse:(NSCachedURLResponse *)cachedResponse &#123;</span><br><span class="line">    <span class="keyword">return</span> cachedResponse;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)connectionDidFinishLoading:(NSURLConnection *)connection &#123;</span><br><span class="line">    [[self client] URLProtocolDidFinishLoading:self];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="拦截网络"><a href="#拦截网络" class="headerlink" title="拦截网络"></a>拦截网络</h3><p>这样，基本的protocol就已经实现完成，那么怎样来拦截网络。我们需要将我们自定义的PPSURLProtocol通过NSURLProtocol注册到我们的网络加载系统中，告诉系统我们的网络请求处理类不再是默认的NSURLProtocol，而是我们自定义的PPSURLProtocol</p>
 <p>。我们需要将我们自定义的PPSURLProtocol通过NSURLProtocol注册到我们的网络加载系统中，告诉系统我们的网络请求处理类不再是默认的NSURLProtocol，而是我们自定义的PPSURLProtocol</p>
 <p>我们在PPSURLProtocol暴露两个方法</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">@interface PPSURLProtocol : NSURLProtocol</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)start;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)end;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">@interface PPSURLProtocol : NSURLProtocol</span><br><span class="line"></span><br><span class="line">+ (<span class="type">void</span>)start;</span><br><span class="line"></span><br><span class="line">+ (<span class="type">void</span>)end;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
 <p>然后在我们的APP启动的时候，调用start，就可以监听到我们的网络请求。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)start &#123;</span><br><span class="line">    PPSURLSessionConfiguration *sessionConfiguration = [PPSURLSessionConfiguration defaultConfiguration];</span><br><span class="line">    [NSURLProtocol registerClass:[PPSURLProtocol <span class="class"><span class="keyword">class</span>]];</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)end &#123;</span><br><span class="line">    PPSURLSessionConfiguration *sessionConfiguration = [PPSURLSessionConfiguration defaultConfiguration];</span><br><span class="line">    [NSURLProtocol unregisterClass:[PPSURLProtocol <span class="class"><span class="keyword">class</span>]];</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">void</span>)start &#123;</span><br><span class="line">    PPSURLSessionConfiguration *sessionConfiguration = [PPSURLSessionConfiguration defaultConfiguration];</span><br><span class="line">    [NSURLProtocol registerClass:[PPSURLProtocol <span class="keyword">class</span>]];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="type">void</span>)end &#123;</span><br><span class="line">    PPSURLSessionConfiguration *sessionConfiguration = [PPSURLSessionConfiguration defaultConfiguration];</span><br><span class="line">    [NSURLProtocol unregisterClass:[PPSURLProtocol <span class="keyword">class</span>]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="其他处理"><a href="#其他处理" class="headerlink" title="其他处理"></a>其他处理</h3><p>上面的代码已经能够监控到绝大部分的网络请求，但是呢，有一个却是特殊的。</p>
-<p>对于NSURLSession发起的网络请求，我们发现通过shared得到的session发起的网络请求都能够监听到，但是通过方法<em>sessionWithConfiguration:delegate:delegateQueue:</em>得到的session，我们是不能监听到的，原因就出在NSURLSessionConfiguration上，我们进到NSURLSessionConfiguration里面看一下，他有一个属性</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (nullable, copy) NSArray&lt;Class&gt; *protocolClasses;</span><br></pre></td></tr></table></figure>
-<p>我们能够看出，这是一个NSURLProtocol数组，上面我们提到了，我们监控网络是通过注册NSURLProtocol来进行网络监控的，但是通过<em>sessionWithConfiguration:delegate:delegateQueue:得到的session，他的configuration中已经有一个NSURLProtocol，所以他不会走我们的protocol来，怎么解决这个问题呢？ 其实很简单，我们将NSURLSessionConfiguration的属性protocolClasses的get方法hook掉，通过返回我们自己的protocol，这样，我们就能够监控到通过sessionWithConfiguration:delegate:delegateQueue:</em>得到的session的网络请求</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> hook 状态</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">static</span> BOOL isHookWorking = NO;</span><br><span class="line"></span><br><span class="line">@<span class="function">implementation <span class="title">NSURLSessionConfiguration</span> <span class="params">(FSAPM)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="meta">#<span class="meta-keyword">pragma</span> mark - Life Cycle</span></span></span><br><span class="line"><span class="function"><span class="comment">/**</span></span></span><br><span class="line"><span class="function"><span class="comment"> swizzle method</span></span></span><br><span class="line"><span class="function"><span class="comment"> */</span></span></span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">dispatch_once_t</span> onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        <span class="comment">// 避免使用私有 APIm，不过审</span></span><br><span class="line">        Class cls = NSClassFromString([NSString stringWithFormat:@<span class="string">"%@%@%@"</span>, @<span class="string">"__NSCFU"</span>, @<span class="string">"RLSessionCon"</span>, @<span class="string">"figuration"</span>]) ?: NSClassFromString(@<span class="string">"NSURLSessionConfiguration"</span>);</span><br><span class="line">        Method origMethod = class_getInstanceMethod(cls, @selector(protocolClasses));</span><br><span class="line">        Method replMethod = class_getInstanceMethod(self, @selector(fs_protocolClasses));</span><br><span class="line">        <span class="keyword">if</span> (origMethod &amp;&amp; replMethod) &#123;</span><br><span class="line">            <span class="keyword">if</span> (class_addMethod(cls, @selector(protocolClasses), method_getImplementation(replMethod), method_getTypeEncoding(replMethod))) &#123;</span><br><span class="line">                class_replaceMethod(self, @selector(fs_protocolClasses), method_getImplementation(origMethod), method_getTypeEncoding(origMethod));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                method_exchangeImplementations(origMethod, replMethod);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - Public Method</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 开启 hook</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)start &#123;</span><br><span class="line">    isHookWorking = YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 关闭 hook</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="keyword">void</span>)stop &#123;</span><br><span class="line">    isHookWorking = NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - Private Method</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 将 FSURLProtocol 对象放在首位</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> @return NSArray&lt;NSURLProtocol&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (NSArray&lt;Class&gt; *)fs_protocolClasses &#123;</span><br><span class="line">    <span class="keyword">if</span> (!isHookWorking) &#123;</span><br><span class="line">        <span class="keyword">return</span> [self fs_protocolClasses];</span><br><span class="line">    &#125;</span><br><span class="line">    NSMutableArray *<span class="built_in">array</span> = [[self fs_protocolClasses] mutableCopy];</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">array</span>.count == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> @[[FSURLProtocol class]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (![<span class="built_in">array</span> containsObject:[FSURLProtocol class]]) &#123;</span><br><span class="line">        [<span class="built_in">array</span> insertObject:[FSURLProtocol <span class="class"><span class="keyword">class</span>] <span class="title">atIndex</span>:</span><span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">array</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于NSURLSession发起的网络请求，我们发现通过shared得到的session发起的网络请求都能够监听到，但是通过方法*sessionWithConfiguration:delegate:delegateQueue:*得到的session，我们是不能监听到的，原因就出在NSURLSessionConfiguration上，我们进到NSURLSessionConfiguration里面看一下，他有一个属性</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">property</span> (nullable, copy) NSArray&lt;Class&gt; *protocolClasses;</span><br></pre></td></tr></table></figure>
+
+<p>我们能够看出，这是一个NSURLProtocol数组，上面我们提到了，我们监控网络是通过注册NSURLProtocol来进行网络监控的，但是通过*sessionWithConfiguration:delegate:delegateQueue:得到的session，他的configuration中已经有一个NSURLProtocol，所以他不会走我们的protocol来，怎么解决这个问题呢？ 其实很简单，我们将NSURLSessionConfiguration的属性protocolClasses的get方法hook掉，通过返回我们自己的protocol，这样，我们就能够监控到通过sessionWithConfiguration:delegate:delegateQueue:*得到的session的网络请求</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> hook 状态</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">static</span> BOOL isHookWorking = NO;</span><br><span class="line"></span><br><span class="line">@<span class="function">implementation <span class="title">NSURLSessionConfiguration</span> <span class="params">(FSAPM)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="meta">#<span class="keyword">pragma</span> mark - Life Cycle</span></span></span><br><span class="line"><span class="function"><span class="comment">/**</span></span></span><br><span class="line"><span class="comment"><span class="function"> swizzle method</span></span></span><br><span class="line"><span class="comment"><span class="function"> */</span></span></span><br><span class="line"><span class="function">+ <span class="params">(<span class="type">void</span>)</span>load </span>&#123;</span><br><span class="line">    <span class="type">static</span> <span class="type">dispatch_once_t</span> onceToken;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        <span class="comment">// 避免使用私有 APIm，不过审</span></span><br><span class="line">        Class cls = <span class="built_in">NSClassFromString</span>([NSString stringWithFormat:@<span class="string">&quot;%@%@%@&quot;</span>, @<span class="string">&quot;__NSCFU&quot;</span>, @<span class="string">&quot;RLSessionCon&quot;</span>, @<span class="string">&quot;figuration&quot;</span>]) ?: <span class="built_in">NSClassFromString</span>(@<span class="string">&quot;NSURLSessionConfiguration&quot;</span>);</span><br><span class="line">        Method origMethod = <span class="built_in">class_getInstanceMethod</span>(cls, @<span class="built_in">selector</span>(protocolClasses));</span><br><span class="line">        Method replMethod = <span class="built_in">class_getInstanceMethod</span>(self, @<span class="built_in">selector</span>(fs_protocolClasses));</span><br><span class="line">        <span class="keyword">if</span> (origMethod &amp;&amp; replMethod) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">class_addMethod</span>(cls, @<span class="built_in">selector</span>(protocolClasses), <span class="built_in">method_getImplementation</span>(replMethod), <span class="built_in">method_getTypeEncoding</span>(replMethod))) &#123;</span><br><span class="line">                <span class="built_in">class_replaceMethod</span>(self, @<span class="built_in">selector</span>(fs_protocolClasses), <span class="built_in">method_getImplementation</span>(origMethod), <span class="built_in">method_getTypeEncoding</span>(origMethod));</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">method_exchangeImplementations</span>(origMethod, replMethod);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - Public Method</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 开启 hook</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="type">void</span>)start &#123;</span><br><span class="line">    isHookWorking = YES;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 关闭 hook</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">+ (<span class="type">void</span>)stop &#123;</span><br><span class="line">    isHookWorking = NO;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">pragma</span> mark - Private Method</span></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 将 FSURLProtocol 对象放在首位</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> @return NSArray&lt;NSURLProtocol&gt;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (NSArray&lt;Class&gt; *)fs_protocolClasses &#123;</span><br><span class="line">    <span class="keyword">if</span> (!isHookWorking) &#123;</span><br><span class="line">        <span class="keyword">return</span> [self fs_protocolClasses];</span><br><span class="line">    &#125;</span><br><span class="line">    NSMutableArray *array = [[self fs_protocolClasses] mutableCopy];</span><br><span class="line">    <span class="keyword">if</span> (array.count == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> @[[FSURLProtocol <span class="keyword">class</span>]];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (![array containsObject:[FSURLProtocol <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        [array insertObject:[FSURLProtocol <span class="keyword">class</span>] atIndex:<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在启动的时候，将这个方法替换掉，在移除监听的时候，恢复之前的方法</p>
 <p>至此，我们的监听就完成了，如果我们需要将这所有的监听存起来，在protocol的start或者stop中获取到request和response，将他们存储起来就行，需要说明的是，据苹果的官方说明，因为请求参数可能会很大，为了保证性能，请求参数是没有被拦截掉的，就是post的HTTPBody是没有的</p>
 
@@ -669,7 +673,9 @@ return NO;
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -680,9 +686,9 @@ return NO;
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -739,9 +745,7 @@ return NO;
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -751,7 +755,7 @@ return NO;
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -798,7 +802,9 @@ return NO;
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -841,7 +847,7 @@ return NO;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSURLProtocol"><span class="nav-number">1.</span> <span class="nav-text">NSURLProtocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新建-NSURLProtocol的子类"><span class="nav-number">2.</span> <span class="nav-text">新建 NSURLProtocol的子类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写-can​Init​With​Request"><span class="nav-number">3.</span> <span class="nav-text">重写 can​Init​With​Request :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写-canonicalRequestForRequest"><span class="nav-number">4.</span> <span class="nav-text">重写 canonicalRequestForRequest:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#can​Init​With​Request-与-canonicalRequestForRequest"><span class="nav-number">5.</span> <span class="nav-text">can​Init​With​Request: 与 canonicalRequestForRequest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重写-startLoading-和-stopLoading"><span class="nav-number">6.</span> <span class="nav-text">重写 startLoading 和 stopLoading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSURLConnectionDelegate-转发"><span class="nav-number">7.</span> <span class="nav-text">NSURLConnectionDelegate 转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截网络"><span class="nav-number">8.</span> <span class="nav-text">拦截网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他处理"><span class="nav-number">9.</span> <span class="nav-text">其他处理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSURLProtocol"><span class="nav-number">1.</span> <span class="nav-text">NSURLProtocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA-NSURLProtocol%E7%9A%84%E5%AD%90%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">新建 NSURLProtocol的子类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99-can%E2%80%8BInit%E2%80%8BWith%E2%80%8BRequest"><span class="nav-number">3.</span> <span class="nav-text">重写 can​Init​With​Request :</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99-canonicalRequestForRequest"><span class="nav-number">4.</span> <span class="nav-text">重写 canonicalRequestForRequest:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#can%E2%80%8BInit%E2%80%8BWith%E2%80%8BRequest-%E4%B8%8E-canonicalRequestForRequest"><span class="nav-number">5.</span> <span class="nav-text">can​Init​With​Request: 与 canonicalRequestForRequest</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%86%99-startLoading-%E5%92%8C-stopLoading"><span class="nav-number">6.</span> <span class="nav-text">重写 startLoading 和 stopLoading</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NSURLConnectionDelegate-%E8%BD%AC%E5%8F%91"><span class="nav-number">7.</span> <span class="nav-text">NSURLConnectionDelegate 转发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%A6%E6%88%AA%E7%BD%91%E7%BB%9C"><span class="nav-number">8.</span> <span class="nav-text">拦截网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%A4%84%E7%90%86"><span class="nav-number">9.</span> <span class="nav-text">其他处理</span></a></li></ol></div>
             
 
           </div>
@@ -861,7 +867,7 @@ return NO;
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -873,7 +879,7 @@ return NO;
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -882,7 +888,7 @@ return NO;
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

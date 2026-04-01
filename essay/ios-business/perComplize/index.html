@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,13 +118,12 @@
 
 
   <meta name="description" content="之前介绍了一下 iOS中的编译过程 iOS编译过程 。 现在来对整体编译时间做一个优化。 编译耗时分析xcode完整的build详细的步骤如下：  创建Product.app的文件夹 把Entitlements.plist写入到DerivedData里，处理打包的时候需要的信息（比如application-identifier）。 创建一些辅助文件，比如各种.hmap，这是headermap文件，">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS编译时间优化">
 <meta property="og:url" content="https://developerdoc.com/essay/ios-business/perComplize/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="之前介绍了一下 iOS中的编译过程 iOS编译过程 。 现在来对整体编译时间做一个优化。 编译耗时分析xcode完整的build详细的步骤如下：  创建Product.app的文件夹 把Entitlements.plist写入到DerivedData里，处理打包的时候需要的信息（比如application-identifier）。 创建一些辅助文件，比如各种.hmap，这是headermap文件，">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://developerdoc.com/res/ios-business/Timing_Summary.png">
 <meta property="og:image" content="https://developerdoc.com/res/ios-business/Timing_Summary_2.png">
 <meta property="og:image" content="https://developerdoc.com/res/ios-business/log1.png">
@@ -139,21 +138,22 @@
 <meta property="og:image" content="https://developerdoc.com/res/ios-business/time908.jpg">
 <meta property="og:image" content="https://developerdoc.com/res/ios-business/anylize908.jpg">
 <meta property="og:image" content="https://developerdoc.com/res/ios-business/ast%E6%8F%92%E4%BB%B6.png">
-<meta property="og:image" content="https://developerdoc.com/res/ios-business/ast插件代码.webp">
-<meta property="og:updated_time" content="2024-06-18T12:34:28.199Z">
+<meta property="og:image" content="https://developerdoc.com/res/ios-business/ast%E6%8F%92%E4%BB%B6%E4%BB%A3%E7%A0%81.webp">
+<meta property="article:published_time" content="2022-06-17T12:50:38.000Z">
+<meta property="article:modified_time" content="2024-06-18T12:34:28.199Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS编译时间优化">
-<meta name="twitter:description" content="之前介绍了一下 iOS中的编译过程 iOS编译过程 。 现在来对整体编译时间做一个优化。 编译耗时分析xcode完整的build详细的步骤如下：  创建Product.app的文件夹 把Entitlements.plist写入到DerivedData里，处理打包的时候需要的信息（比如application-identifier）。 创建一些辅助文件，比如各种.hmap，这是headermap文件，">
 <meta name="twitter:image" content="https://developerdoc.com/res/ios-business/Timing_Summary.png">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/ios-business/perComplize/">
+  <link rel="canonical" href="https://developerdoc.com/essay/ios-business/perComplize/"/>
 
 
 
@@ -203,7 +203,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -311,7 +311,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -428,7 +430,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -439,7 +441,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS开发进阶/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
 
                 
                 
@@ -488,7 +490,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.5k</span>
+                <span title="本文字数">5.5k</span>
               
 
               
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -537,29 +539,35 @@
 <li>对Demo.App签名，并验证（validate）</li>
 <li>生成Product.app</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
+
 <h3 id="获取项目整体编译时长：Xcode-Build-Timing-Summary"><a href="#获取项目整体编译时长：Xcode-Build-Timing-Summary" class="headerlink" title="获取项目整体编译时长：Xcode Build Timing Summary"></a>获取项目整体编译时长：Xcode Build Timing Summary</h3><p>Xcode Build Timing Summary 是Xcode10中加入的用于查看获取构建时间和发现用时瓶颈方面的最有利工具。 可以通过Product-&gt;Perform Action-&gt;Build With Timing Summary来开启：这样在 Build Log 的末尾就会添加 Timing Summary Log。我们可以通过这个 log 看到哪个阶段是耗时的，便于我们进行优化</p>
-<p><img src="/res/ios-business/Timing_Summary.png" alt><br><img src="/res/ios-business/Timing_Summary_2.png" alt></p>
-<p>从这个选项看出<br>YYKITDemo项目耗时最多的是 compileC<br><!-- POPO(iPad)项目耗时最多的是 compileC 和 compileXIB --></p>
+<p><img src="/res/ios-business/Timing_Summary.png"><br><img src="/res/ios-business/Timing_Summary_2.png"></p>
+<p>从这个选项看出<br>YYKITDemo项目耗时最多的是 compileC</p>
+<!-- POPO(iPad)项目耗时最多的是 compileC 和 compileXIB -->
+
 <p>compileC就对应上面讲述单个文件的编译过程，那么怎么看单个文件和整个工程文件的编译时长呢？</p>
 <h3 id="获取单个文件编译时长：-ftime-trace-参数"><a href="#获取单个文件编译时长：-ftime-trace-参数" class="headerlink" title="获取单个文件编译时长：-ftime-trace 参数"></a>获取单个文件编译时长：-ftime-trace 参数</h3><p>clang9.0合并了 -ftime-trace 参数功能，可以获得单个文件的编译时长。</p>
-<p>clang/llvm 每个文件一个编译单元，逐个文件进行编译，最后链接生成可执行文件，-ftime-trace 通过在各个编译过程插桩，输出每个编译阶段的时长。</p>
+<p>clang&#x2F;llvm 每个文件一个编译单元，逐个文件进行编译，最后链接生成可执行文件，-ftime-trace 通过在各个编译过程插桩，输出每个编译阶段的时长。</p>
 <p>测试文件: <a href="/res/ios-business/main.c">main.c</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun clang -ftime-trace -fmodules -c main.c -o main.o</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun clang -ftime-trace -fmodules -c main.<span class="property">c</span> -o main.<span class="property">o</span></span><br></pre></td></tr></table></figure>
+
 <p>可以在 <code>chrome://tracing/</code> 中打开查看生成的统计文件main.json</p>
-<p><img src="/res/ios-business/log1.png" alt></p>
-<p>xcode目前带的clang已经版本已经超过9.0可以使用这个功能：<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xcrun clang --version</span><br><span class="line">Apple clang version 13.0.0 (clang-1300.0.29.3)</span><br><span class="line">Target: x86_64-apple-darwin21.6.0</span><br><span class="line">Thread model: posix</span><br><span class="line">InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin</span><br></pre></td></tr></table></figure></p>
+<p><img src="/res/ios-business/log1.png"></p>
+<p>xcode目前带的clang已经版本已经超过9.0可以使用这个功能：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xcrun clang --version</span><br><span class="line">Apple clang version 13.0.0 (clang-1300.0.29.3)</span><br><span class="line">Target: x86_64-apple-darwin21.6.0</span><br><span class="line">Thread model: posix</span><br><span class="line">InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin</span><br></pre></td></tr></table></figure>
+
 <p>在project中配置：</p>
-<p><img src="/res/ios-business/xcode.png" alt></p>
+<p><img src="/res/ios-business/xcode.png"></p>
 <p>编译后形成的统计json：</p>
-<p><img src="/res/ios-business/xcode2.png" alt></p>
+<p><img src="/res/ios-business/xcode2.png"></p>
 <p>因为它生成都是单个文件的 写个脚本合并一下json文件：</p>
-<p><img src="/res/ios-business/log_total.png" alt></p>
+<p><img src="/res/ios-business/log_total.png"></p>
 <p>由整体耗时可以看出：</p>
 <p>1）编译器前端处理（Frontend）耗时 34.95s，占整体ExecuteCompiler43.538s  80.27%；<br>2）而前端处理下头文件处理（Source）则占据Frontend绝大部分时间</p>
 <p>猜测：头文件嵌套严重，每个源文件都要引入几十个甚至几百个头文件，每个头文件源码要做预处理、词法分析、语法分析等等。实际上源文件不需要使用某些头文件里的定义（如 class、function），所以编译时间才那么长。</p>
 <p>于是再写一个脚本用于统计分析上面分散的json信息：</p>
-<p><img src="/res/ios-business/log_total_anylize.png" alt></p>
+<p><img src="/res/ios-business/log_total_anylize.png"></p>
 <p>可以尝试优化 TopN 头文件里的头文件引用，尽量不包含其他头文件。</p>
 <ol>
 <li><p>[xcode配置项] Build succeeded<br>将 Debug Information Format 改为 DWARF：<br>将 Build Active Architecture Only 改为 Yes：<br>优化头文件搜索路径：search header<br>关闭 Enable Index-While-Building Functionality：<br>enable module<br>修改编译线程数</p>
@@ -568,26 +576,27 @@
 </li>
 </ol>
 <!-- 每次编译的时间可能都不一样 初次时间很长怀疑是系统库的编译缓存 -->
+
 <h2 id="POPO项目编译时间优化实践"><a href="#POPO项目编译时间优化实践" class="headerlink" title="POPO项目编译时间优化实践"></a>POPO项目编译时间优化实践</h2><ol>
-<li><strong>POPO项目</strong> </li>
+<li><strong>POPO项目</strong></li>
 </ol>
 <ul>
-<li>电脑配置：<br><img src="/res/ios-business/sysConfig.jpg" alt></li>
-<li>编译时长 1184s：<br><img src="/res/ios-business/time1184.jpg" alt></li>
+<li>电脑配置：<br><img src="/res/ios-business/sysConfig.jpg"></li>
+<li>编译时长 1184s：<br><img src="/res/ios-business/time1184.jpg"></li>
 </ul>
 <ol start="2">
 <li>头文件优化</li>
 </ol>
 <ul>
-<li>分析一下 ftime-trace.json文件：<br><img src="/res/ios-business/anylize1184.jpg" alt></li>
-<li>部分文件改动：<br><img src="/res/ios-business/popogitlog.png" alt></li>
+<li>分析一下 ftime-trace.json文件：<br><img src="/res/ios-business/anylize1184.jpg"></li>
+<li>部分文件改动：<br><img src="/res/ios-business/popogitlog.png"></li>
 </ul>
 <ol start="3">
 <li>优化结果</li>
 </ol>
 <ul>
-<li>编译时长 908s:<br><img src="/res/ios-business/time908.jpg" alt></li>
-<li>分析ftime-trace.json文件：<br><img src="/res/ios-business/anylize908.jpg" alt></li>
+<li>编译时长 908s:<br><img src="/res/ios-business/time908.jpg"></li>
+<li>分析ftime-trace.json文件：<br><img src="/res/ios-business/anylize908.jpg"></li>
 </ul>
 <p>优化结果 ： 降低 276s (23.3%)</p>
 <h3 id="未来优化方向"><a href="#未来优化方向" class="headerlink" title="未来优化方向"></a>未来优化方向</h3><p>二进制包<br>无用头文件 IWYU<br>资源IO处理事件减少</p>
@@ -596,8 +605,8 @@
 <p>著名的Appcode有一个功能就是帮你找无用头文件，其原理猜测也是通过clang自定义插件 分析ast实现的</p>
 <p>IWYU 使用 clang 分析符号的引用。 是 google 的一个项目，它可以给出应该引用和移除的头文件，但并不能保证 100% 是正确的（暂未适配OC，适用c c++）</p>
 <p>我们也可以通过下载clang代码编写插件来实现比如变量名格式校验：</p>
-<p>插件效果：<br><img src="/res/ios-business/ast%E6%8F%92%E4%BB%B6.png" alt><br>插件代码：<br><img src="/res/ios-business/ast插件代码.webp" alt></p>
-<p><a href="https://github.com/Guwudao/LLVM" target="_blank" rel="noopener">上面这个例子的链接</a></p>
+<p>插件效果：<br><img src="/res/ios-business/ast%E6%8F%92%E4%BB%B6.png"><br>插件代码：<br><img src="/res/ios-business/ast%E6%8F%92%E4%BB%B6%E4%BB%A3%E7%A0%81.webp"></p>
+<p><a href="https://github.com/Guwudao/LLVM">上面这个例子的链接</a></p>
 
       
     </div>
@@ -705,7 +714,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -716,9 +727,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -775,9 +786,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -787,7 +796,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -834,7 +843,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -877,7 +888,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编译耗时分析"><span class="nav-number">1.</span> <span class="nav-text">编译耗时分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取项目整体编译时长：Xcode-Build-Timing-Summary"><span class="nav-number">1.1.</span> <span class="nav-text">获取项目整体编译时长：Xcode Build Timing Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取单个文件编译时长：-ftime-trace-参数"><span class="nav-number">1.2.</span> <span class="nav-text">获取单个文件编译时长：-ftime-trace 参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POPO项目编译时间优化实践"><span class="nav-number">2.</span> <span class="nav-text">POPO项目编译时间优化实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#未来优化方向"><span class="nav-number">2.1.</span> <span class="nav-text">未来优化方向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题外话：clang插件的扩展性"><span class="nav-number">3.</span> <span class="nav-text">题外话：clang插件的扩展性</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E8%80%97%E6%97%B6%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">编译耗时分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E9%A1%B9%E7%9B%AE%E6%95%B4%E4%BD%93%E7%BC%96%E8%AF%91%E6%97%B6%E9%95%BF%EF%BC%9AXcode-Build-Timing-Summary"><span class="nav-number">1.1.</span> <span class="nav-text">获取项目整体编译时长：Xcode Build Timing Summary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%8D%95%E4%B8%AA%E6%96%87%E4%BB%B6%E7%BC%96%E8%AF%91%E6%97%B6%E9%95%BF%EF%BC%9A-ftime-trace-%E5%8F%82%E6%95%B0"><span class="nav-number">1.2.</span> <span class="nav-text">获取单个文件编译时长：-ftime-trace 参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#POPO%E9%A1%B9%E7%9B%AE%E7%BC%96%E8%AF%91%E6%97%B6%E9%97%B4%E4%BC%98%E5%8C%96%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.</span> <span class="nav-text">POPO项目编译时间优化实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AA%E6%9D%A5%E4%BC%98%E5%8C%96%E6%96%B9%E5%90%91"><span class="nav-number">2.1.</span> <span class="nav-text">未来优化方向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E5%A4%96%E8%AF%9D%EF%BC%9Aclang%E6%8F%92%E4%BB%B6%E7%9A%84%E6%89%A9%E5%B1%95%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">题外话：clang插件的扩展性</span></a></li></ol></div>
             
 
           </div>
@@ -897,7 +908,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -909,7 +920,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -918,7 +929,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,26 +118,26 @@
 
 
   <meta name="description" content="App里总会有很多的弹窗，为了美观，大多数弹窗都需要盖住导航栏；这时弹窗会添加到window上以满足需求。但添加到window上的弹窗却不方便管理，也与页面脱离关系，如果有异步的情况，弹窗会更加复杂难以处理，如何才能对window弹窗统一进行管理，解决这些问题？  遇到的问题">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS window弹窗管理">
-<meta property="og:url" content="https://developerdoc.com/essay/ios-business/iOS弹窗管理/index.html">
+<meta property="og:url" content="https://developerdoc.com/essay/ios-business/iOS%E5%BC%B9%E7%AA%97%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="App里总会有很多的弹窗，为了美观，大多数弹窗都需要盖住导航栏；这时弹窗会添加到window上以满足需求。但添加到window上的弹窗却不方便管理，也与页面脱离关系，如果有异步的情况，弹窗会更加复杂难以处理，如何才能对window弹窗统一进行管理，解决这些问题？  遇到的问题">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-07-02T12:30:51.924Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-06-20T12:49:17.000Z">
+<meta property="article:modified_time" content="2024-07-02T12:30:51.924Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS window弹窗管理">
-<meta name="twitter:description" content="App里总会有很多的弹窗，为了美观，大多数弹窗都需要盖住导航栏；这时弹窗会添加到window上以满足需求。但添加到window上的弹窗却不方便管理，也与页面脱离关系，如果有异步的情况，弹窗会更加复杂难以处理，如何才能对window弹窗统一进行管理，解决这些问题？  遇到的问题">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/ios-business/iOS弹窗管理/">
+  <link rel="canonical" href="https://developerdoc.com/essay/ios-business/iOS弹窗管理/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -295,7 +295,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -347,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ios-business/iOS弹窗管理/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ios-business/iOS%E5%BC%B9%E7%AA%97%E7%AE%A1%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -412,7 +414,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -423,7 +425,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS开发进阶/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
 
                 
                 
@@ -438,8 +440,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/essay/ios-business/iOS弹窗管理/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/ios-business/iOS弹窗管理/" itemprop="commentCount"></span>
+                <a href="/essay/ios-business/iOS%E5%BC%B9%E7%AA%97%E7%AE%A1%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/ios-business/iOS%E5%BC%B9%E7%AA%97%E7%AE%A1%E7%90%86/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -447,7 +449,7 @@
 
           
           
-             <span id="/essay/ios-business/iOS弹窗管理/" class="leancloud_visitors" data-flag-title="iOS window弹窗管理">
+             <span id="/essay/ios-business/iOS%E5%BC%B9%E7%AA%97%E7%AE%A1%E7%90%86/" class="leancloud_visitors" data-flag-title="iOS window弹窗管理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -472,7 +474,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.6k</span>
+                <span title="本文字数">20k</span>
               
 
               
@@ -486,7 +488,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">19 分钟</span>
               
             </div>
           
@@ -509,7 +511,8 @@
         <blockquote>
 <p>App里总会有很多的弹窗，为了美观，大多数弹窗都需要盖住导航栏；这时弹窗会添加到window上以满足需求。但添加到window上的弹窗却不方便管理，也与页面脱离关系，如果有异步的情况，弹窗会更加复杂难以处理，如何才能对window弹窗统一进行管理，解决这些问题？</p>
 </blockquote>
-<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><a id="more"></a>
+<h3 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h3><span id="more"></span>
+
 <p>我们一般在开发的过程中要进行一个弹窗展示通常第一步会创建一个自定义View来编写弹窗的具体UI页面，然后通过实现一个基础的动画来将其添加到我们的当前的Window上。</p>
 <p>在项目规模较小或者业务不复杂的时候，这样写可能更简单一点，但是慢慢的你会发现，业务中弹窗多了之后。每新增一个弹窗不光要单独造一个弹窗出来，如果业务当前逻辑中有和其他地方的弹窗有依赖，那么还要考虑其他地方的弹窗是否有冲突或者谁先展示的问题。<br>面临难维护的问题：</p>
 <ol>
@@ -524,16 +527,18 @@
 <p>多个弹窗可能会产生重叠</p>
 </blockquote>
 <p>这个比较好解决，主要思路是用一个manager统一管理显示和隐藏方法， 再利用队列进行记录保存等待显示的页面</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)show:(UIView*)view&#123;</span><br><span class="line">    <span class="keyword">if</span></span><br><span class="line">    <span class="comment">// 当前无弹窗展示直接展示</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="comment">// 当前有弹窗则加入队列中</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">void</span>)dismiss:(UIView*)view&#123;</span><br><span class="line">    <span class="keyword">if</span> view 正在展示</span><br><span class="line">        隐藏view</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        从队列中移除view</span><br><span class="line"></span><br><span class="line">    然后开始显示队列中下一个view</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)<span class="attr">show</span>:(<span class="title class_">UIView</span>*)view&#123;</span><br><span class="line">    <span class="keyword">if</span></span><br><span class="line">    <span class="comment">// 当前无弹窗展示直接展示</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="comment">// 当前有弹窗则加入队列中</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+(<span class="keyword">void</span>)<span class="attr">dismiss</span>:(<span class="title class_">UIView</span>*)view&#123;</span><br><span class="line">    <span class="keyword">if</span> view 正在展示</span><br><span class="line">        隐藏view</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        从队列中移除view</span><br><span class="line"></span><br><span class="line">    然后开始显示队列中下一个view</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>弹窗无法与页面关联</p>
 </blockquote>
 <ol>
 <li>为弹窗页面声明统一的协议，目前协议中添加要关联的信息（UIViewController类名）</li>
-<li>manager中 show/dismiss方法 需要传入当前显示页面的额外参数</li>
-<li>目前可以明确manager的 show/dismiss方法需要有UIViewController的显示 隐藏来调度</li>
+<li>manager中 show&#x2F;dismiss方法 需要传入当前显示页面的额外参数</li>
+<li>目前可以明确manager的 show&#x2F;dismiss方法需要有UIViewController的显示 隐藏来调度</li>
 </ol>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//hook UIViewController的viewDidAppear方法，通知manager准备展示队列中下一个view</span></span><br><span class="line"><span class="comment">//hook UIViewController的viewDidDisAppear方法,通知manager隐藏当前UIViewController绑定的弹窗</span></span><br><span class="line">- (<span class="keyword">void</span>)p_viewWillAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewWillAppear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewWillAppearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)p_viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewDidAppear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewDidAppearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)p_viewWillDisappear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewWillDisappear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewWillDisappearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)p_viewDidDisappear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewDidDisappear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewDidDisappearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//hook UIViewController的viewDidAppear方法，通知manager准备展示队列中下一个view</span></span><br><span class="line"><span class="comment">//hook UIViewController的viewDidDisAppear方法,通知manager隐藏当前UIViewController绑定的弹窗</span></span><br><span class="line">- (<span class="type">void</span>)p_viewWillAppear:(<span class="type">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewWillAppear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewWillAppearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)p_viewDidAppear:(<span class="type">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewDidAppear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewDidAppearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)p_viewWillDisappear:(<span class="type">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewWillDisappear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewWillDisappearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="type">void</span>)p_viewDidDisappear:(<span class="type">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">self</span> p_viewDidDisappear:animated];</span><br><span class="line">    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:LYViewControllerViewDidDisappearNotification object:@&#123;LYViewControllerClassName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]),LYViewControllerClassIdentifier:<span class="keyword">self</span>&#125;];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>三、设置弹窗优先</p>
 </blockquote>
@@ -542,7 +547,8 @@
 <p>四、弹窗无法留活：</p>
 </blockquote>
 <p>还是之前抛出的问题，点击活动A进入详情页，此时window弹窗应该消失，当从详情页返回时，活动弹窗应该继续展示。为了避免再一次执行弹窗的展示逻辑，所以需要对当前的弹窗进行缓存，等待页面重新回来时展示。 这种情况只是页面暂时离开，页面并未从页面路径栈里消失，如果页面已经不存在，那么缓存里的弹窗也应该移除。<br>  新建一个弹框的缓存数组，这里并没有放入之前等待队列里， 是因为等待队列里的弹窗都是仍未展示的，无论页面是否新建（根据class），当这个页面是弹窗指定的归属类时都可以展示出来。而缓存的弹窗是与具体的页面关联的（根据obj），如果页面返回再重新进入，页面已经重新构造，上次缓存的弹窗是不应该再展示的，因为页面重新构造后可能会重新触发弹窗的逻辑，这时候可能就会2个相同的弹窗，所以这里用了2个队列存储弹框。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)viewNeedShowFromQueueWithPage:(<span class="built_in">UIViewController</span> *)page &#123;</span><br><span class="line">    <span class="keyword">if</span>([<span class="built_in">NSStringFromClass</span>(page.class) isEqualToString:<span class="string">@"PopoMessageListViewController"</span>])&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    NTLog(@" NTWindowPop %s %p page：%@",__func__,self,page);</span></span><br><span class="line">    <span class="keyword">if</span> (!page || ![page isKindOfClass:[<span class="built_in">UIViewController</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIViewController</span> * rootvc = [<span class="built_in">UIApplication</span> sharedApplication].delegate.window.rootViewController;</span><br><span class="line">    <span class="keyword">if</span>(![rootvc isKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@"POPOTabbarController"</span>)])&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    NTLog(@" NTWindowPop %s %p rootvc：%@",__func__,self,rootvc);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断当前页是否有存活的弹框，有则加入队列中。</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> shareInstance].arrayAliveViews.count) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = [<span class="keyword">self</span> shareInstance].arrayAliveViews.count<span class="number">-1</span>; i &gt;= <span class="number">0</span> ; i--) &#123;</span><br><span class="line">            NTWindowPopViewItem *model = [<span class="keyword">self</span> shareInstance].arrayAliveViews[i];</span><br><span class="line">            <span class="keyword">if</span> (page == model.identifier) &#123;</span><br><span class="line">                [[<span class="keyword">self</span> shareInstance].arrayWaitViews addObject:model];</span><br><span class="line">                [[<span class="keyword">self</span> shareInstance].arrayAliveViews removeObject:model];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当前在显示升级弹窗</span></span><br><span class="line">    <span class="keyword">if</span>([<span class="keyword">self</span> isShowVersionUpdate])&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前屏幕有弹框，则不显示</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> shareInstance].currentView) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 队列里无等待显示的视图</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> shareInstance].arrayWaitViews.count) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 有指定页面，但页面实例发生变化，都清除</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = [<span class="keyword">self</span> shareInstance].arrayWaitViews.count<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        NTWindowPopViewItem *obj = [<span class="keyword">self</span> shareInstance].arrayWaitViews[i];</span><br><span class="line">        <span class="keyword">if</span> ([<span class="keyword">self</span> isMemberOfClass:page.class pages:obj.pagesClass]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (obj.bindPage &amp;&amp; (!obj.controller || obj.controller != page)) &#123;</span><br><span class="line">                [[<span class="keyword">self</span> shareInstance].arrayWaitViews removeObject:obj];</span><br><span class="line">                [<span class="keyword">self</span> removeNotification];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 重新根据优先级排列队列</span></span><br><span class="line">    [[<span class="keyword">self</span> shareInstance].arrayWaitViews sortUsingComparator:^<span class="built_in">NSComparisonResult</span>(NTWindowPopViewItem *obj1, NTWindowPopViewItem * obj2) &#123;</span><br><span class="line">        <span class="keyword">return</span> obj1.level &lt;= obj2.level ? <span class="built_in">NSOrderedDescending</span> : <span class="built_in">NSOrderedAscending</span>;</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//所有弹窗都不展示</span></span><br><span class="line">    <span class="keyword">if</span> (NTWindowPop.hideAllAlert) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    NTLog(@" NTWindowPop %s %p rootvc：%@",__func__,self,rootvc);</span></span><br><span class="line">    <span class="comment">// 推出队列中需要展示的视图进行展示</span></span><br><span class="line">    __block NTWindowPopViewItem *model = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> * arrs = [<span class="keyword">self</span> shareInstance].arrayWaitViews;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arrs.count; i++) &#123;</span><br><span class="line">        NTWindowPopViewItem *obj = arrs[i];</span><br><span class="line"><span class="comment">//        NTLog(@" NTWindowPop %s %p index:%d obj.view:%@",__func__,self,i,obj.view);</span></span><br><span class="line">    &#125;</span><br><span class="line">    [arrs enumerateObjectsUsingBlock:^(NTWindowPopViewItem *obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.pagesClass &amp;&amp; obj.view) &#123;</span><br><span class="line">            <span class="keyword">if</span> ([<span class="keyword">self</span> isMemberOfClass:page.class pages:obj.pagesClass]) &#123;</span><br><span class="line">                <span class="built_in">UIWindow</span> *window = [<span class="built_in">UIApplication</span> sharedApplication].delegate.window;</span><br><span class="line"><span class="comment">//                NSAssert(window, @"检查window");</span></span><br><span class="line">                [window addSubview:obj.view];</span><br><span class="line"><span class="comment">//                NTLog(@" NTWindowPop %s %p window：%@ window:%@ obj.view:%@",__func__,self,window,obj.view);</span></span><br><span class="line">                [<span class="keyword">self</span> shareInstance].keepAlive = obj.keepAlive;</span><br><span class="line">                [<span class="keyword">self</span> shareInstance].pagesClass = obj.pagesClass;</span><br><span class="line">                [<span class="keyword">self</span> shareInstance].currentView = obj.view;</span><br><span class="line">                [<span class="keyword">self</span> shareInstance].showCompleted = obj.showCompleted;</span><br><span class="line">                <span class="keyword">if</span> ([<span class="keyword">self</span> shareInstance].showCompleted) &#123;</span><br><span class="line">                        [<span class="keyword">self</span> shareInstance].showCompleted();</span><br><span class="line">                &#125;</span><br><span class="line">                model = obj;</span><br><span class="line">                *stop = <span class="literal">YES</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    <span class="keyword">if</span> (model) &#123;</span><br><span class="line">        [[<span class="keyword">self</span> shareInstance].arrayWaitViews removeObject:model];</span><br><span class="line">        [<span class="keyword">self</span> removeNotification];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="type">void</span>)viewNeedShowFromQueueWithPage:(<span class="built_in">UIViewController</span> *)page &#123;</span><br><span class="line">    <span class="keyword">if</span>([<span class="built_in">NSStringFromClass</span>(page.class) isEqualToString:<span class="string">@&quot;PopoMessageListViewController&quot;</span>])&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    NTLog(@&quot; NTWindowPop %s %p page：%@&quot;,__func__,self,page);</span></span><br><span class="line">    <span class="keyword">if</span> (!page || ![page isKindOfClass:[<span class="built_in">UIViewController</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">UIViewController</span> * rootvc = [<span class="built_in">UIApplication</span> sharedApplication].delegate.window.rootViewController;</span><br><span class="line">    <span class="keyword">if</span>(![rootvc isKindOfClass:<span class="built_in">NSClassFromString</span>(<span class="string">@&quot;POPOTabbarController&quot;</span>)])&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    NTLog(@&quot; NTWindowPop %s %p rootvc：%@&quot;,__func__,self,rootvc);</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断当前页是否有存活的弹框，有则加入队列中。</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> shareInstance].arrayAliveViews.count) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = [<span class="keyword">self</span> shareInstance].arrayAliveViews.count<span class="number">-1</span>; i &gt;= <span class="number">0</span> ; i--) &#123;</span><br><span class="line">            NTWindowPopViewItem *model = [<span class="keyword">self</span> shareInstance].arrayAliveViews[i];</span><br><span class="line">            <span class="keyword">if</span> (page == model.identifier) &#123;</span><br><span class="line">                [[<span class="keyword">self</span> shareInstance].arrayWaitViews addObject:model];</span><br><span class="line">                [[<span class="keyword">self</span> shareInstance].arrayAliveViews removeObject:model];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//当前在显示升级弹窗</span></span><br><span class="line">    <span class="keyword">if</span>([<span class="keyword">self</span> isShowVersionUpdate])&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前屏幕有弹框，则不显示</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> shareInstance].currentView) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 队列里无等待显示的视图</span></span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> shareInstance].arrayWaitViews.count) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 有指定页面，但页面实例发生变化，都清除</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = [<span class="keyword">self</span> shareInstance].arrayWaitViews.count<span class="number">-1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">        NTWindowPopViewItem *obj = [<span class="keyword">self</span> shareInstance].arrayWaitViews[i];</span><br><span class="line">        <span class="keyword">if</span> ([<span class="keyword">self</span> isMemberOfClass:page.class pages:obj.pagesClass]) &#123;</span><br><span class="line">            <span class="keyword">if</span> (obj.bindPage &amp;&amp; (!obj.controller || obj.controller != page)) &#123;</span><br><span class="line">                [[<span class="keyword">self</span> shareInstance].arrayWaitViews removeObject:obj];</span><br><span class="line">                [<span class="keyword">self</span> removeNotification];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 重新根据优先级排列队列</span></span><br><span class="line">    [[<span class="keyword">self</span> shareInstance].arrayWaitViews sortUsingComparator:^<span class="built_in">NSComparisonResult</span>(NTWindowPopViewItem *obj1, NTWindowPopViewItem * obj2) &#123;</span><br><span class="line">        <span class="keyword">return</span> obj1.level &lt;= obj2.level ? <span class="built_in">NSOrderedDescending</span> : <span class="built_in">NSOrderedAscending</span>;</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//所有弹窗都不展示</span></span><br><span class="line">    <span class="keyword">if</span> (NTWindowPop.hideAllAlert) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//    NTLog(@&quot; NTWindowPop %s %p rootvc：%@&quot;,__func__,self,rootvc);</span></span><br><span class="line">    <span class="comment">// 推出队列中需要展示的视图进行展示</span></span><br><span class="line">    __block NTWindowPopViewItem *model = <span class="literal">nil</span>;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> * arrs = [<span class="keyword">self</span> shareInstance].arrayWaitViews;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; arrs.count; i++) &#123;</span><br><span class="line">        NTWindowPopViewItem *obj = arrs[i];</span><br><span class="line"><span class="comment">//        NTLog(@&quot; NTWindowPop %s %p index:%d obj.view:%@&quot;,__func__,self,i,obj.view);</span></span><br><span class="line">    &#125;</span><br><span class="line">    [arrs enumerateObjectsUsingBlock:^(NTWindowPopViewItem *obj, <span class="built_in">NSUInteger</span> idx, <span class="type">BOOL</span> * _Nonnull stop) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj.pagesClass &amp;&amp; obj.view) &#123;</span><br><span class="line">            <span class="keyword">if</span> ([<span class="keyword">self</span> isMemberOfClass:page.class pages:obj.pagesClass]) &#123;</span><br><span class="line">                <span class="built_in">UIWindow</span> *window = [<span class="built_in">UIApplication</span> sharedApplication].delegate.window;</span><br><span class="line"><span class="comment">//                NSAssert(window, @&quot;检查window&quot;);</span></span><br><span class="line">                [window addSubview:obj.view];</span><br><span class="line"><span class="comment">//                NTLog(@&quot; NTWindowPop %s %p window：%@ window:%@ obj.view:%@&quot;,__func__,self,window,obj.view);</span></span><br><span class="line">                [<span class="keyword">self</span> shareInstance].keepAlive = obj.keepAlive;</span><br><span class="line">                [<span class="keyword">self</span> shareInstance].pagesClass = obj.pagesClass;</span><br><span class="line">                [<span class="keyword">self</span> shareInstance].currentView = obj.view;</span><br><span class="line">                [<span class="keyword">self</span> shareInstance].showCompleted = obj.showCompleted;</span><br><span class="line">                <span class="keyword">if</span> ([<span class="keyword">self</span> shareInstance].showCompleted) &#123;</span><br><span class="line">                        [<span class="keyword">self</span> shareInstance].showCompleted();</span><br><span class="line">                &#125;</span><br><span class="line">                model = obj;</span><br><span class="line">                *stop = <span class="literal">YES</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;];</span><br><span class="line">    <span class="keyword">if</span> (model) &#123;</span><br><span class="line">        [[<span class="keyword">self</span> shareInstance].arrayWaitViews removeObject:model];</span><br><span class="line">        [<span class="keyword">self</span> removeNotification];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>五、异步弹窗情况：</p>
 </blockquote>
@@ -595,7 +601,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/quick-start/日志分析工具-vscode插件/" rel="prev" title="日志分析工具-vscode插件">
+              <a href="/quick-start/%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E5%B7%A5%E5%85%B7-vscode%E6%8F%92%E4%BB%B6/" rel="prev" title="日志分析工具-vscode插件">
                 日志分析工具-vscode插件 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -659,7 +665,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -670,9 +678,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -729,9 +737,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -741,7 +747,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -788,7 +794,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -831,7 +839,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#遇到的问题"><span class="nav-number">1.</span> <span class="nav-text">遇到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题分析"><span class="nav-number">2.</span> <span class="nav-text">问题分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">遇到的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">问题分析</span></a></li></ol></div>
             
 
           </div>
@@ -851,7 +859,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -863,7 +871,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -872,7 +880,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

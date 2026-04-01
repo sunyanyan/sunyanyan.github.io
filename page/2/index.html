@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -123,19 +123,18 @@
 <meta property="og:url" content="https://developerdoc.com/page/2/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="移动端 前端 跨平台">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="SunTongSheng">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="孙同生的博客">
-<meta name="twitter:description" content="移动端 前端 跨平台">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/page/2/">
+  <link rel="canonical" href="https://developerdoc.com/page/2/"/>
 
 
 
@@ -185,7 +184,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -294,7 +293,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -328,6 +329,467 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/injectIII/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/essay/injectIII/" itemprop="url">
+                  InjectionIII 使用原理介绍
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-01-04 11:42:18" itemprop="dateCreated datePublished" datetime="2021-01-04T11:42:18+08:00">2021-01-04</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-01-16 16:34:21" itemprop="dateModified" datetime="2021-01-16T16:34:21+08:00">2021-01-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/injectIII/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/injectIII/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/injectIII/" class="leancloud_visitors" data-flag-title="InjectionIII 使用原理介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">38k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">34 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>iOS 原生代码的编译调试，都是通过一遍又一遍地编译重启 APP来进行的。所以项目代码量越大，编译时间就越长。虽然我们可以将部分代码先编译成二进制集成到工程里，来避免每次都全量编译来加快编译速度，但即使这样，每次编译都还是需要重启App，需要再走一遍调试流程。</p>
+</blockquote>
+<p>幸运的是，John Holdsworth 开发了一个叫做 InjectionIII 的工具可以动态地将 Swift 或 Objective-C 的代码在已运行的程序中执行，以加快调试速度，同时保证程序不用重启。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/essay/injectIII/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/APM/iOSAPM4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/essay/APM/iOSAPM4/" itemprop="url">
+                  iOS 性能监控4 网络监控-NSURLProtocol
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-10-15 22:36:51" itemprop="dateCreated datePublished" datetime="2020-10-15T22:36:51+08:00">2020-10-15</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-10-20 19:25:37" itemprop="dateModified" datetime="2020-10-20T19:25:37+08:00">2020-10-20</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/APM/" itemprop="url" rel="index"><span itemprop="name">APM</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/APM/iOSAPM4/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/APM/iOSAPM4/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/APM/iOSAPM4/" class="leancloud_visitors" data-flag-title="iOS 性能监控4 网络监控-NSURLProtocol">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">25k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">22 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在iOS中苹果提供了NSURLConnection、NSURLSession等优秀的网路接口供我们来调用，开源社区也有很多的开源库，如之前的ASIHttpRequest 现在的AFNetworking和Alamofire，我们接下来介绍的NSURLProtocol，都可以监控到这些开源库的网络请求。</p>
+<h3 id="NSURLProtocol"><a href="#NSURLProtocol" class="headerlink" title="NSURLProtocol"></a>NSURLProtocol</h3><p>NSURLProtocol是iOS网络加载系统中很强的一部分，它其实是一个抽象类，我们可以通过继承子类化来拦截APP中的网络请求。</p>
+<p>举几个例子：</p>
+<ul>
+<li>我们的APP内的所有请求都需要增加公共的头，像这种我们就可以直接通过NSURLProtocol来实现，当然实现的方式有很多种</li>
+<li>我们需要将APP某个API进行一些访问的统计</li>
+<li>我们需要统计APP内的网络请求失败率</li>
+</ul>
+<p>等等，都可以用到 NSURLProtocol是一个抽象类，我们需要子类化才能实现网络请求拦截。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/essay/APM/iOSAPM4/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -401,7 +863,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -461,7 +923,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.4k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -475,7 +937,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -629,7 +1091,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -689,7 +1151,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.8k</span>
+                <span title="本文字数">20k</span>
               
 
               
@@ -703,7 +1165,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">18 分钟</span>
               
             </div>
           
@@ -871,7 +1333,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -931,7 +1393,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.2k</span>
+                <span title="本文字数">24k</span>
               
 
               
@@ -945,7 +1407,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">22 分钟</span>
               
             </div>
           
@@ -967,7 +1429,7 @@
       
         
           <h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><p>CPU 占用率的采集原理其实很简单：App 作为进程运行时会有多个线程，每个线程对 CPU 的使用率不同。各个线程对 CPU 使用率的总和，就是当前 App 对 CPU 的占用率。</p>
-<p>wiki上比较全的iPhone CPU信息 : <a href="https://en.wikipedia.org/wiki/Apple-designed_processors" target="_blank" rel="noopener">Apple-designed_processors</a>)</p>
+<p>wiki上比较全的iPhone CPU信息 : <a href="https://en.wikipedia.org/wiki/Apple-designed_processors">Apple-designed_processors</a>)</p>
 <h3 id="相关系统原理"><a href="#相关系统原理" class="headerlink" title="相关系统原理"></a>相关系统原理</h3><p>iOS 是基于 Apple Darwin 内核，由 kernel、XNU 和 Runtime 组成，XNU（X is not UNIX） 是 Darwin 的内核，一个混合内核，由 Mach 微内核和 BSD 组成。Mach 内核是轻量级的平台，只能完成操作系统最基本的职责，如：进程和线程、虚拟内存管理、任务调度、进程通信和消息传递机制。其他的工作，如文件操作和设备访问，都是由 BSD 层实现。</p>
 <p>事实上，Mach 并不能识别 UNIX 中的所有进程，而是采用一种稍微不同的方式，使用了比进程更轻量级的概念：任务（Task）。经典的 UNIX 采用了自上而下的方式：最基本的对象是进程，然后进一步划分为一个或多个线程；Mach 则采用了自底向上的方式：最基本的单元是线程，一个或多个线程包含在一个任务中。</p>
 <ul>
@@ -1040,7 +1502,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/图片/iOS图片-像素操作/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -1059,7 +1521,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/quick-start/图片/iOS图片-像素操作/" itemprop="url">
+                <a class="post-title-link" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/" itemprop="url">
                   iOS图片-像素操作
                 </a>
               
@@ -1109,7 +1571,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -1120,7 +1582,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS图片/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
 
                 
                 
@@ -1135,8 +1597,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/图片/iOS图片-像素操作/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/图片/iOS图片-像素操作/" itemprop="commentCount"></span>
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1144,7 +1606,7 @@
 
           
           
-             <span id="/quick-start/图片/iOS图片-像素操作/" class="leancloud_visitors" data-flag-title="iOS图片-像素操作">
+             <span id="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/" class="leancloud_visitors" data-flag-title="iOS图片-像素操作">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1169,7 +1631,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">16k</span>
+                <span title="本文字数">55k</span>
               
 
               
@@ -1183,7 +1645,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">14 分钟</span>
+                <span title="阅读时长">50 分钟</span>
               
             </div>
           
@@ -1207,12 +1669,12 @@
           <blockquote>
 <p>介绍下常见的几种对图片的像素级操作<br>1.修改颜色 2. 颜色空间变化 3.lsb 隐藏信息 4. 颜色混合  5. 马赛克</p>
 </blockquote>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在 <a href="../iOS图片-位图信息与图片解码/">iOS图片-位图信息与图片解码</a> 中介绍了位图信息中像素 颜色空间等概念。这次来实践一下如何对图片的像素进行操作。位图又被叫做点阵图像，也就是说位图包含了一大堆的像素点信息，这些像素点就是该图片中的点，有了图片中每个像素点的信息，我们就知道如何对图片进行像素级操作了。</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>在 <a href="../iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/">iOS图片-位图信息与图片解码</a> 中介绍了位图信息中像素 颜色空间等概念。这次来实践一下如何对图片的像素进行操作。位图又被叫做点阵图像，也就是说位图包含了一大堆的像素点信息，这些像素点就是该图片中的点，有了图片中每个像素点的信息，我们就知道如何对图片进行像素级操作了。</p>
 <h2 id="将一张图片修改为蓝色"><a href="#将一张图片修改为蓝色" class="headerlink" title="将一张图片修改为蓝色"></a>将一张图片修改为蓝色</h2><p>由于在iOS开发中使用的位图大部分是32位RGBA模式，所以我们先说下这种模式的简单图像处理。<br>首先我们需要知道什么是32位RGBA模式的位图。32位就表示一个这种模式位图的一个像素所占内存为32位，也就是4个字节的长度。R、G、B、A分别代表red，green，blue和alpha，也就是颜色组成的三原色与透明度值。RGBA每一个占用一个字节的内存。<br>知道了上面这些，我们就有了思路：通过改变每一个像素中的RGBA值来进行一些位图图像的处理了。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/quick-start/图片/iOS图片-像素操作/#more" rel="contents">
+              <a class="btn" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1269,7 +1731,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/图片/iOS图片-位图信息与图片解码/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -1288,7 +1750,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/quick-start/图片/iOS图片-位图信息与图片解码/" itemprop="url">
+                <a class="post-title-link" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/" itemprop="url">
                   iOS图片-位图信息与图片解码
                 </a>
               
@@ -1338,7 +1800,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -1349,7 +1811,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS图片/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
 
                 
                 
@@ -1364,8 +1826,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/图片/iOS图片-位图信息与图片解码/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/图片/iOS图片-位图信息与图片解码/" itemprop="commentCount"></span>
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1373,7 +1835,7 @@
 
           
           
-             <span id="/quick-start/图片/iOS图片-位图信息与图片解码/" class="leancloud_visitors" data-flag-title="iOS图片-位图信息与图片解码">
+             <span id="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/" class="leancloud_visitors" data-flag-title="iOS图片-位图信息与图片解码">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1398,7 +1860,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">16k</span>
+                <span title="本文字数">39k</span>
               
 
               
@@ -1412,7 +1874,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">15 分钟</span>
+                <span title="阅读时长">36 分钟</span>
               
             </div>
           
@@ -1434,7 +1896,7 @@
       
         
           <blockquote>
-<p>介绍下几种iOS中位图信息 与相关解压缩<br>ref <a href="http://blog.leichunfeng.com/blog/2017/02/20/talking-about-the-decompression-of-the-image-in-ios/" target="_blank" rel="noopener">谈谈 iOS 中图片的解压缩</a><br>ref <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007533-SW1" target="_blank" rel="noopener">Quartz 2D Programming Guide</a></p>
+<p>介绍下几种iOS中位图信息 与相关解压缩<br>ref <a href="http://blog.leichunfeng.com/blog/2017/02/20/talking-about-the-decompression-of-the-image-in-ios/">谈谈 iOS 中图片的解压缩</a><br>ref <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007533-SW1">Quartz 2D Programming Guide</a></p>
 </blockquote>
 <p>我们从网络下载或者从本地磁盘加载一张图片到屏幕上显示，要经过图片的解码过程，为什么呢？因为我们一般的图片格式例如 JPEG，PNG都是经过压缩后的图片，而显示在屏幕上的图片叫做位图(bitmap)，所谓的解码就是把压缩后的图片变成位图。</p>
 <p>为什么非要解码成位图才能显示呢？因为位图又被叫做点阵图像，也就是说位图包含了一大堆的像素点信息，这些像素点就是该图片中的点，有了图片中每个像素点的信息，就可以在屏幕上渲染整张图片了。</p>
@@ -1443,7 +1905,7 @@
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/quick-start/图片/iOS图片-位图信息与图片解码/#more" rel="contents">
+              <a class="btn" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1500,7 +1962,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/图片/iOS图片-最佳实践/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -1519,7 +1981,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/quick-start/图片/iOS图片-最佳实践/" itemprop="url">
+                <a class="post-title-link" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" itemprop="url">
                   iOS图片-最佳实践
                 </a>
               
@@ -1569,7 +2031,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -1580,7 +2042,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS图片/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
 
                 
                 
@@ -1595,8 +2057,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/图片/iOS图片-最佳实践/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/图片/iOS图片-最佳实践/" itemprop="commentCount"></span>
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1604,7 +2066,7 @@
 
           
           
-             <span id="/quick-start/图片/iOS图片-最佳实践/" class="leancloud_visitors" data-flag-title="iOS图片-最佳实践">
+             <span id="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="leancloud_visitors" data-flag-title="iOS图片-最佳实践">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1629,7 +2091,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.2k</span>
+                <span title="本文字数">21k</span>
               
 
               
@@ -1643,7 +2105,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">19 分钟</span>
               
             </div>
           
@@ -1665,17 +2127,18 @@
       
         
           <blockquote>
-<p>介绍下 wwdc 2018 Image and Graphics Best Practices 中图片处理解压相关知识点<br>ref: <a href="https://developer.apple.com/videos/play/wwdc2018/219" target="_blank" rel="noopener">Image and Graphics Best Practices</a></p>
+<p>介绍下 wwdc 2018 Image and Graphics Best Practices 中图片处理解压相关知识点<br>ref: <a href="https://developer.apple.com/videos/play/wwdc2018/219">Image and Graphics Best Practices</a></p>
 </blockquote>
 <h2 id="图片处理过程"><a href="#图片处理过程" class="headerlink" title="图片处理过程"></a>图片处理过程</h2><p>一张图片从磁盘中显示到屏幕上过程大致如下：从磁盘加载原始压缩的图片信息、解码二进制图片数据为位图、渲染图片最终绘制到屏幕上。</p>
 <!-- ![](/res/imgBestP/imgBestP1.png) -->
-<p><img src="/res/imgBestP/imgBestP1.png" width="80%"></p>
+<img src="/res/imgBestP/imgBestP1.png" width="80%"/>
+
 <p>在实际的渲染过程中，UIImage负责解压Data Buffer内容并申请buffer（Image Buffer）存储解压后的图片信息，然后UIImageView负责将Image Buffer 拷贝至 framebuffer，用于给显示硬件提供颜色信息。</p>
-<p>解压过程是一个大量占用CPU资源的工作，因此UIImage 会retain存储解压后信息的Image Buffer以便给重复的渲染工作提供信息，Image Buffer与图片的实际尺寸有关（理论值为height <em> width </em> 4 bytes），与图片文件大小无关。若是在TableView等列表中连续加载多张图片，便会引发连续的大块内存分配，这将对Memory和CPU带来沉重的负担。</p>
+<p>解压过程是一个大量占用CPU资源的工作，因此UIImage 会retain存储解压后信息的Image Buffer以便给重复的渲染工作提供信息，Image Buffer与图片的实际尺寸有关（理论值为height * width * 4 bytes），与图片文件大小无关。若是在TableView等列表中连续加载多张图片，便会引发连续的大块内存分配，这将对Memory和CPU带来沉重的负担。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/quick-start/图片/iOS图片-最佳实践/#more" rel="contents">
+              <a class="btn" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1732,7 +2195,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/图片/iOS图片-ImageIO介绍/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -1751,7 +2214,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/quick-start/图片/iOS图片-ImageIO介绍/" itemprop="url">
+                <a class="post-title-link" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/" itemprop="url">
                   iOS图片-ImageIO介绍
                 </a>
               
@@ -1801,7 +2264,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -1812,7 +2275,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS图片/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
 
                 
                 
@@ -1827,8 +2290,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/图片/iOS图片-ImageIO介绍/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/图片/iOS图片-ImageIO介绍/" itemprop="commentCount"></span>
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -1836,7 +2299,7 @@
 
           
           
-             <span id="/quick-start/图片/iOS图片-ImageIO介绍/" class="leancloud_visitors" data-flag-title="iOS图片-ImageIO介绍">
+             <span id="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/" class="leancloud_visitors" data-flag-title="iOS图片-ImageIO介绍">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1861,7 +2324,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.3k</span>
+                <span title="本文字数">28k</span>
               
 
               
@@ -1875,7 +2338,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">25 分钟</span>
               
             </div>
           
@@ -1897,20 +2360,21 @@
       
         
           <blockquote>
-<p>介绍下iOS中ImageIO的概览与应用<br><a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/ImageIOGuide/imageio_intro/ikpg_intro.html#//apple_ref/doc/uid/TP40005462-CH201-TPXREF101" target="_blank" rel="noopener">Image I/O Programming Guide</a></p>
+<p>介绍下iOS中ImageIO的概览与应用<br><a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/ImageIOGuide/imageio_intro/ikpg_intro.html#//apple_ref/doc/uid/TP40005462-CH201-TPXREF101">Image I&#x2F;O Programming Guide</a></p>
 </blockquote>
-<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p> ImageIO框架提供了读取与写入图片数据的基本方法，使用它可以直接获取到图片文件的内容数据，ImageIO具有很多特性 <code>Mac平台上最快的图像解码器和编码器</code> <code>逐步加载图像的能力`</code>支持图像元数据<code></code>有效缓存` ImageIO框架中包含6个头文件:</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p> ImageIO框架提供了读取与写入图片数据的基本方法，使用它可以直接获取到图片文件的内容数据，ImageIO具有很多特性 <code>Mac平台上最快的图像解码器和编码器</code> <code>逐步加载图像的能力``支持图像元数据</code> <code>有效缓存</code> ImageIO框架中包含6个头文件:</p>
 <ol>
 <li>ImageIO.CGImageAnimation</li>
 <li>ImageIO.CGImageDestination 负责写入图片数据。</li>
 <li>ImageIO.CGImageMetadata 图片文件元数据类</li>
 <li>ImageIO.CGImageProperties 定义了框架中使用的字符串常量和宏。</li>
 <li>ImageIO.CGImageSource 负责读取图片数据。</li>
-<li><p>ImageIO.ImageIOBase 预处理逻辑</p>
+<li>ImageIO.ImageIOBase 预处理逻辑</li>
+</ol>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/quick-start/图片/iOS图片-ImageIO介绍/#more" rel="contents">
+              <a class="btn" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-ImageIO%E4%BB%8B%E7%BB%8D/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1918,7 +2382,7 @@
           <!--/noindex-->
         
       
-    </li></ol></div>
+    </div>
 
     
 
@@ -1967,7 +2431,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/图片/iOS图片-图片缩略方法/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -1986,7 +2450,7 @@
         
           <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/quick-start/图片/iOS图片-图片缩略方法/" itemprop="url">
+                <a class="post-title-link" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95/" itemprop="url">
                   iOS图片-图片缩略方法
                 </a>
               
@@ -2036,7 +2500,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -2047,7 +2511,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS图片/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
 
                 
                 
@@ -2062,8 +2526,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/图片/iOS图片-图片缩略方法/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/图片/iOS图片-图片缩略方法/" itemprop="commentCount"></span>
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -2071,7 +2535,7 @@
 
           
           
-             <span id="/quick-start/图片/iOS图片-图片缩略方法/" class="leancloud_visitors" data-flag-title="iOS图片-图片缩略方法">
+             <span id="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95/" class="leancloud_visitors" data-flag-title="iOS图片-图片缩略方法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -2096,7 +2560,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.6k</span>
+                <span title="本文字数">19k</span>
               
 
               
@@ -2110,7 +2574,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">18 分钟</span>
               
             </div>
           
@@ -2132,456 +2596,14 @@
       
         
           <blockquote>
-<p>介绍下在iOS中的多种图片缩略方式<br>ref <a href="https://nshipster.com/image-resizing/" target="_blank" rel="noopener">https://nshipster.com/image-resizing/</a></p>
+<p>介绍下在iOS中的多种图片缩略方式<br>ref <a href="https://nshipster.com/image-resizing/">https://nshipster.com/image-resizing/</a></p>
 </blockquote>
-<p>在<code>UIKit CoreGraphics ImageIO CoreImage vImage</code>多种缩略方法中 Core Image表现最差。Core Graphics 和 Image I/O最好。</p>
-<p>实际上，在苹果官方在 <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_performance/ci_performance.html#//apple_ref/doc/uid/TP30001185-CH10-SW1" target="_blank" rel="noopener">Performance Best Practices section of the Core Image Programming Guide</a> 部分中特别推荐使用Core Graphics或Image I / O功能预先裁剪或缩小图像。</p>
+<p>在<code>UIKit CoreGraphics ImageIO CoreImage vImage</code>多种缩略方法中 Core Image表现最差。Core Graphics 和 Image I&#x2F;O最好。</p>
+<p>实际上，在苹果官方在 <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/CoreImaging/ci_performance/ci_performance.html#//apple_ref/doc/uid/TP30001185-CH10-SW1">Performance Best Practices section of the Core Image Programming Guide</a> 部分中特别推荐使用Core Graphics或Image I &#x2F; O功能预先裁剪或缩小图像。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/quick-start/图片/iOS图片-图片缩略方法/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/LLDB/fishhook_code_analyze/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SunTongSheng">
-      <meta itemprop="description" content="移动端 前端 跨平台">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙同生的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/essay/LLDB/fishhook_code_analyze/" itemprop="url">
-                  fishhook源码学习
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-05-08 10:29:22 / 修改时间：10:44:11" itemprop="dateCreated datePublished" datetime="2019-05-08T10:29:22+08:00">2019-05-08</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/essay/LLDB/fishhook_code_analyze/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/LLDB/fishhook_code_analyze/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/essay/LLDB/fishhook_code_analyze/" class="leancloud_visitors" data-flag-title="fishhook源码学习">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">8.3k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">8 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>上一篇 <a href="/essay/LLDB/Mach-O_fishhook/">Mach-O应用 fishhook动态修改C函数</a> 了解了fishhook的原理，现在来看一下它的代码，看它是如何一步一步替换原有函数实现的。</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/essay/LLDB/fishhook_code_analyze/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/LLDB/Mach-O_fishhook/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SunTongSheng">
-      <meta itemprop="description" content="移动端 前端 跨平台">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙同生的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/essay/LLDB/Mach-O_fishhook/" itemprop="url">
-                  Mach-O应用 fishhook动态修改C函数
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-04-29 20:10:20" itemprop="dateCreated datePublished" datetime="2019-04-29T20:10:20+08:00">2019-04-29</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-05-08 10:29:30" itemprop="dateModified" datetime="2019-05-08T10:29:30+08:00">2019-05-08</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/essay/LLDB/Mach-O_fishhook/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/LLDB/Mach-O_fishhook/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/essay/LLDB/Mach-O_fishhook/" class="leancloud_visitors" data-flag-title="Mach-O应用 fishhook动态修改C函数">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">5.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">5 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="fishhook简介"><a href="#fishhook简介" class="headerlink" title="fishhook简介"></a>fishhook简介</h2><p>C 语言往往会给我们留下不可修改的这一印象,而 <a href="https://github.com/facebook/fishhook" target="_blank" rel="noopener">fishhook</a> 是一个由 facebook 开源的第三方框架，其主要作用就是<strong>动态修改 C 语言函数实现</strong>。</p>
-<p>这个框架的代码其实非常的简单，只包含两个文件：fishhook.c 以及 fishhook.h；两个文件所有的代码加起来也不超过 300 行。不过它的实现原理是非常有意思并且精妙的</p>
-<p>fishhook 提供非常简单的两个接口以及一个结构体：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rebinding</span> &#123;</span></span><br><span class="line">	<span class="keyword">const</span> <span class="keyword">char</span> *name;</span><br><span class="line">	<span class="keyword">void</span> *replacement;</span><br><span class="line">	<span class="keyword">void</span> **replaced;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rebind_symbols</span><span class="params">(struct rebinding rebindings[], <span class="keyword">size_t</span> rebindings_nel)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rebind_symbols_image</span><span class="params">(<span class="keyword">void</span> *header,<span class="keyword">intptr_t</span> slide,</span></span></span><br><span class="line"><span class="function"><span class="params">struct rebinding rebindings[],</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="keyword">size_t</span> rebindings_nel)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>我们可以从 fishhook 提供的demo中上手实践一下,这里的demo对 <code>close</code> 进行修改:</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/essay/LLDB/Mach-O_fishhook/#more" rel="contents">
+              <a class="btn" href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%9B%BE%E7%89%87%E7%BC%A9%E7%95%A5%E6%96%B9%E6%B3%95/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2627,7 +2649,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/">&lt;i class&#x3D;&quot;fa fa-angle-left&quot; aria-label&#x3D;&quot;上一页&quot;&gt;&lt;&#x2F;i&gt;</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">&lt;i class&#x3D;&quot;fa fa-angle-right&quot; aria-label&#x3D;&quot;下一页&quot;&gt;&lt;&#x2F;i&gt;</a>
   </nav>
 
 
@@ -2659,7 +2681,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -2670,9 +2694,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2729,9 +2753,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -2741,7 +2763,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -2788,7 +2810,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2835,7 +2859,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -2847,7 +2871,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -2856,7 +2880,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

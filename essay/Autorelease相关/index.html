@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,26 +118,26 @@
 
 
   <meta name="description" content="Autorelease对象什么时候释放？在没有手加Autorelease Pool的情况下，Autorelease对象是在当前的runloop迭代结束时释放的， 而它能够释放的原因是系统在每个runloop迭代中都加入了自动释放池Push和Pop">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Autorelease相关.md">
-<meta property="og:url" content="https://developerdoc.com/essay/Autorelease相关/index.html">
+<meta property="og:url" content="https://developerdoc.com/essay/Autorelease%E7%9B%B8%E5%85%B3/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="Autorelease对象什么时候释放？在没有手加Autorelease Pool的情况下，Autorelease对象是在当前的runloop迭代结束时释放的， 而它能够释放的原因是系统在每个runloop迭代中都加入了自动释放池Push和Pop">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-01T12:13:10.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-10-10T02:49:45.000Z">
+<meta property="article:modified_time" content="2019-08-01T12:13:10.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Autorelease相关.md">
-<meta name="twitter:description" content="Autorelease对象什么时候释放？在没有手加Autorelease Pool的情况下，Autorelease对象是在当前的runloop迭代结束时释放的， 而它能够释放的原因是系统在每个runloop迭代中都加入了自动释放池Push和Pop">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/Autorelease相关/">
+  <link rel="canonical" href="https://developerdoc.com/essay/Autorelease相关/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -295,7 +295,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -347,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Autorelease相关/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/Autorelease%E7%9B%B8%E5%85%B3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -412,7 +414,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -423,7 +425,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
 
                 
                 
@@ -438,8 +440,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/essay/Autorelease相关/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/Autorelease相关/" itemprop="commentCount"></span>
+                <a href="/essay/Autorelease%E7%9B%B8%E5%85%B3/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/Autorelease%E7%9B%B8%E5%85%B3/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -447,7 +449,7 @@
 
           
           
-             <span id="/essay/Autorelease相关/" class="leancloud_visitors" data-flag-title="Autorelease相关.md">
+             <span id="/essay/Autorelease%E7%9B%B8%E5%85%B3/" class="leancloud_visitors" data-flag-title="Autorelease相关.md">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -472,7 +474,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.4k</span>
+                <span title="本文字数">4.4k</span>
               
 
               
@@ -486,7 +488,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -508,10 +510,12 @@
       
         <h2 id="Autorelease对象什么时候释放？"><a href="#Autorelease对象什么时候释放？" class="headerlink" title="Autorelease对象什么时候释放？"></a>Autorelease对象什么时候释放？</h2><p>在没有手加Autorelease Pool的情况下，Autorelease对象是在当前的runloop迭代结束时释放的，</p>
 <p>而它能够释放的原因是系统在每个runloop迭代中都加入了自动释放池Push和Pop</p>
-<a id="more"></a>
+<span id="more"></span>
+
 <p>当然，我们也可以手动添加<code>@autoreleasepool</code>干预Autorelease对象的释放时机：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"sunnyxx"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, str); <span class="comment">// Console: (null)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="什么时候用-autoreleasepool"><a href="#什么时候用-autoreleasepool" class="headerlink" title="什么时候用@autoreleasepool"></a>什么时候用@autoreleasepool</h2><p>根据<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmAutoreleasePools.html" target="_blank" rel="noopener">Apple的文档</a>，使用场景如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)viewDidLoad &#123;</span><br><span class="line">    [<span class="variable language_">super</span> viewDidLoad];</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;sunnyxx&quot;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;%@&quot;</span>, str); <span class="comment">// Console: (null)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="什么时候用-autoreleasepool"><a href="#什么时候用-autoreleasepool" class="headerlink" title="什么时候用@autoreleasepool"></a>什么时候用@autoreleasepool</h2><p>根据<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmAutoreleasePools.html">Apple的文档</a>，使用场景如下：</p>
 <ul>
 <li>写基于命令行的的程序时，就是没有UI框架，如AppKit等Cocoa框架时。</li>
 <li>写循环，循环里面包含了大量临时创建的对象。（本文的例子）</li>
@@ -519,9 +523,11 @@
 <li>长时间在后台运行的任务。</li>
 </ul>
 <h3 id="利用-autoreleasepool优化循环"><a href="#利用-autoreleasepool优化循环" class="headerlink" title="利用@autoreleasepool优化循环"></a>利用@autoreleasepool优化循环</h3><p>利用@autoreleasepool优化循环的内存占用，我觉得最有用的一点，下面就说说这个点。<br>如下面的循环，次数非常多，而且循环体里面的对象都是临时创建使用的，就可以用@autoreleasepool包起来，让每次循环结束时，可以及时的释放临时对象的内存。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//来自Apple文档，见参考</span></span><br><span class="line"><span class="built_in">NSArray</span> *urls = &lt;<span class="meta"># An array of file URLs #&gt;;</span></span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSURL</span> *url <span class="keyword">in</span> urls) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="built_in">NSError</span> *error;</span><br><span class="line">        <span class="built_in">NSString</span> *fileContents = [<span class="built_in">NSString</span> stringWithContentsOfURL:url</span><br><span class="line">                                        encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</span><br><span class="line">        <span class="comment">/* Process the string, creating and autoreleasing more objects. */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//来自Apple文档，见参考</span></span><br><span class="line"><span class="built_in">NSArray</span> *urls = &lt;# An array of file URLs #&gt;;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">NSURL</span> *url <span class="keyword">in</span> urls) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="built_in">NSError</span> *error;</span><br><span class="line">        <span class="built_in">NSString</span> *fileContents = [<span class="built_in">NSString</span> stringWithContentsOfURL:url</span><br><span class="line">                                        encoding:<span class="built_in">NSUTF8StringEncoding</span> error:&amp;error];</span><br><span class="line">        <span class="comment">/* Process the string, creating and autoreleasing more objects. */</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>使用容器的block版本的枚举器时，内部会自动添加一个AutoreleasePool：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[array enumerateObjectsUsingBlock:^(<span class="keyword">id</span> obj, <span class="built_in">NSUInteger</span> idx, <span class="built_in">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="comment">// 这里被一个局部@autoreleasepool包围着</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[array enumerateObjectsUsingBlock:^(<span class="type">id</span> obj, <span class="built_in">NSUInteger</span> idx, <span class="type">BOOL</span> *stop) &#123;</span><br><span class="line">    <span class="comment">// 这里被一个局部@autoreleasepool包围着</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
 <p>当然，在普通for循环和for in循环中没有，所以，还是新版的block版本枚举器更加方便。for循环中遍历产生大量autorelease变量时，就需要手加局部AutoreleasePool</p>
 
       
@@ -630,7 +636,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -641,9 +649,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -700,9 +708,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -712,7 +718,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -759,7 +765,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -802,7 +810,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Autorelease对象什么时候释放？"><span class="nav-number">1.</span> <span class="nav-text">Autorelease对象什么时候释放？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候用-autoreleasepool"><span class="nav-number">2.</span> <span class="nav-text">什么时候用@autoreleasepool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#利用-autoreleasepool优化循环"><span class="nav-number">2.1.</span> <span class="nav-text">利用@autoreleasepool优化循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Autorelease%E5%AF%B9%E8%B1%A1%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%87%8A%E6%94%BE%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Autorelease对象什么时候释放？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8-autoreleasepool"><span class="nav-number">2.</span> <span class="nav-text">什么时候用@autoreleasepool</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A9%E7%94%A8-autoreleasepool%E4%BC%98%E5%8C%96%E5%BE%AA%E7%8E%AF"><span class="nav-number">2.1.</span> <span class="nav-text">利用@autoreleasepool优化循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li></ol></div>
             
 
           </div>
@@ -822,7 +830,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -834,7 +842,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -843,7 +851,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,26 +118,26 @@
 
 
   <meta name="description" content="AVAssetReader 和 AVAssetWriter类提供的低级功能，能处理更复杂的媒体样本。  AVAssetReader 和 AVAssetWriter AVAssetReader  AVAssetReader 用于从 AVAsset示例中读取媒体样本。 通常会配置一个或多个AVAssetReaderOutput实例，并通过 copyNextSampleBuffer 方法访问音频和视频">
-<meta name="keywords" content="AVFoundation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AVFoundation-绘制音频波形图AVAssetReader">
-<meta property="og:url" content="https://developerdoc.com/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/index.html">
+<meta property="og:url" content="https://developerdoc.com/essay/AVFoundation/AVFoundation-%E7%BB%98%E5%88%B6%E9%9F%B3%E9%A2%91%E6%B3%A2%E5%BD%A2%E5%9B%BEAVAssetReader/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="AVAssetReader 和 AVAssetWriter类提供的低级功能，能处理更复杂的媒体样本。  AVAssetReader 和 AVAssetWriter AVAssetReader  AVAssetReader 用于从 AVAsset示例中读取媒体样本。 通常会配置一个或多个AVAssetReaderOutput实例，并通过 copyNextSampleBuffer 方法访问音频和视频">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-23T02:37:50.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-01-10T12:00:49.000Z">
+<meta property="article:modified_time" content="2018-11-23T02:37:50.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="AVFoundation">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AVFoundation-绘制音频波形图AVAssetReader">
-<meta name="twitter:description" content="AVAssetReader 和 AVAssetWriter类提供的低级功能，能处理更复杂的媒体样本。  AVAssetReader 和 AVAssetWriter AVAssetReader  AVAssetReader 用于从 AVAsset示例中读取媒体样本。 通常会配置一个或多个AVAssetReaderOutput实例，并通过 copyNextSampleBuffer 方法访问音频和视频">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/">
+  <link rel="canonical" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -295,7 +295,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -347,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-%E7%BB%98%E5%88%B6%E9%9F%B3%E9%A2%91%E6%B3%A2%E5%BD%A2%E5%9B%BEAVAssetReader/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -412,7 +414,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -445,8 +447,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/" itemprop="commentCount"></span>
+                <a href="/essay/AVFoundation/AVFoundation-%E7%BB%98%E5%88%B6%E9%9F%B3%E9%A2%91%E6%B3%A2%E5%BD%A2%E5%9B%BEAVAssetReader/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/AVFoundation/AVFoundation-%E7%BB%98%E5%88%B6%E9%9F%B3%E9%A2%91%E6%B3%A2%E5%BD%A2%E5%9B%BEAVAssetReader/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -454,7 +456,7 @@
 
           
           
-             <span id="/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/" class="leancloud_visitors" data-flag-title="AVFoundation-绘制音频波形图AVAssetReader">
+             <span id="/essay/AVFoundation/AVFoundation-%E7%BB%98%E5%88%B6%E9%9F%B3%E9%A2%91%E6%B3%A2%E5%BD%A2%E5%9B%BEAVAssetReader/" class="leancloud_visitors" data-flag-title="AVFoundation-绘制音频波形图AVAssetReader">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -479,7 +481,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.5k</span>
+                <span title="本文字数">26k</span>
               
 
               
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">24 分钟</span>
               
             </div>
           
@@ -522,7 +524,8 @@
 <p>AVAssetReader 用于从 AVAsset示例中读取媒体样本。</p>
 <p>通常会配置一个或多个<strong>AVAssetReaderOutput</strong>实例，并通过 <strong>copyNextSampleBuffer</strong> 方法访问音频和视频帧。</p>
 <p>一个资源读取器的内部通道都是以多线程的方式不断提取下一个可用样本的。这样可以在系统请求资源时最小化时延。</p>
-<a id="more"></a>
+<span id="more"></span>
+
 <blockquote>
 <p>AVAssetWriter</p>
 </blockquote>
@@ -539,17 +542,18 @@
 <h3 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h3><blockquote>
 <p>使用AVAssetReader实例从AVAsset中读取音频样本并返回一个NSData对象</p>
 </blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//载入资源，读取asset样本</span></span><br><span class="line">+ (<span class="keyword">void</span>)loadAudioSamplesFromAsset:(<span class="built_in">AVAsset</span> *)asset</span><br><span class="line">                  completionBlock:(THSampleDataCompletionBlock)completionBlock &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *tracks = <span class="string">@"tracks"</span>;</span><br><span class="line">    <span class="comment">//异步载入键对应的资源</span></span><br><span class="line">    [asset loadValuesAsynchronouslyForKeys:@[tracks] completionHandler:^&#123;   <span class="comment">// 1</span></span><br><span class="line">        <span class="comment">//获取tracks键载入状态</span></span><br><span class="line">        <span class="built_in">AVKeyValueStatus</span> status = [asset statusOfValueForKey:tracks error:<span class="literal">nil</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSData</span> *sampleData = <span class="literal">nil</span>;</span><br><span class="line">        <span class="comment">//如果载入成功，则从资源音频轨道中读取样本</span></span><br><span class="line">        <span class="keyword">if</span> (status == <span class="built_in">AVKeyValueStatusLoaded</span>) &#123;                             <span class="comment">// 2</span></span><br><span class="line">            sampleData = [<span class="keyword">self</span> readAudioSamplesFromAsset:asset];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;                        <span class="comment">// 3</span></span><br><span class="line">            completionBlock(sampleData);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSData</span> *)readAudioSamplesFromAsset:(<span class="built_in">AVAsset</span> *)asset &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</span><br><span class="line">    <span class="comment">//创建AVAssetReader实例</span></span><br><span class="line">    <span class="built_in">AVAssetReader</span> *assetReader =                                            <span class="comment">// 1</span></span><br><span class="line">        [[<span class="built_in">AVAssetReader</span> alloc] initWithAsset:asset error:&amp;error];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!assetReader) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Error creating asset reader: %@"</span>, [error localizedDescription]);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取资源中第一个音频轨道（最好是根据需求的媒体类型来获取轨道）</span></span><br><span class="line">    <span class="built_in">AVAssetTrack</span> *track =                                                   <span class="comment">// 2</span></span><br><span class="line">        [[asset tracksWithMediaType:<span class="built_in">AVMediaTypeAudio</span>] firstObject];</span><br><span class="line">    <span class="comment">//设置从资源轨道读取音频样本的解压设置，可以在AVAudioSettings.h文件中找到更多的键值</span></span><br><span class="line">    <span class="built_in">NSDictionary</span> *outputSettings = @&#123;                                       <span class="comment">// 3</span></span><br><span class="line">        <span class="built_in">AVFormatIDKey</span>               : @(kAudioFormatLinearPCM),</span><br><span class="line">        <span class="built_in">AVLinearPCMIsBigEndianKey</span>   : @NO,</span><br><span class="line">		<span class="built_in">AVLinearPCMIsFloatKey</span>		: @NO,</span><br><span class="line">		<span class="built_in">AVLinearPCMBitDepthKey</span>		: @(<span class="number">16</span>)</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建AVAssetReaderTrackOutput 作为AVAssetReader的输出，并调用startReading来允许资源管理器开启预收取样本数据</span></span><br><span class="line">    <span class="built_in">AVAssetReaderTrackOutput</span> *trackOutput =                                 <span class="comment">// 4</span></span><br><span class="line">        [[<span class="built_in">AVAssetReaderTrackOutput</span> alloc] initWithTrack:track</span><br><span class="line">                                         outputSettings:outputSettings];</span><br><span class="line">    </span><br><span class="line">    [assetReader addOutput:trackOutput];</span><br><span class="line">    </span><br><span class="line">    [assetReader startReading];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableData</span> *sampleData = [<span class="built_in">NSMutableData</span> data];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (assetReader.status == <span class="built_in">AVAssetReaderStatusReading</span>) &#123;</span><br><span class="line">        <span class="comment">//调用跟踪输出的copyNextSampleBuffer开始每个迭代，每次都返回一个包含音频样本的下一个可用样本buffer</span></span><br><span class="line">        <span class="built_in">CMSampleBufferRef</span> sampleBuffer = [trackOutput copyNextSampleBuffer];<span class="comment">// 5</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (sampleBuffer) &#123;</span><br><span class="line">            <span class="comment">//CMSampleBufferRef的音频样本被包含在CMBlockBufferRef类型中</span></span><br><span class="line">            <span class="built_in">CMBlockBufferRef</span> blockBufferRef =                               <span class="comment">// 6</span></span><br><span class="line">                <span class="built_in">CMSampleBufferGetDataBuffer</span>(sampleBuffer);</span><br><span class="line">            <span class="comment">//使用CMBlockBufferGetDataLength来确定blockBufferRef的长度，并使用一个16位带符号的整型数组来保存这写音频样本</span></span><br><span class="line">            size_t length = <span class="built_in">CMBlockBufferGetDataLength</span>(blockBufferRef);</span><br><span class="line">            SInt16 sampleBytes[length];</span><br><span class="line">            <span class="comment">//使用CMBlockBufferCopyDataBytes生成一个数组，内容来自CMBlockBufferRef包含的数据</span></span><br><span class="line">            <span class="built_in">CMBlockBufferCopyDataBytes</span>(blockBufferRef,                      <span class="comment">// 7</span></span><br><span class="line">                                       <span class="number">0</span>,</span><br><span class="line">                                       length,</span><br><span class="line">                                       sampleBytes);</span><br><span class="line">            <span class="comment">//将数组的内容附加到NSData实例后</span></span><br><span class="line">            [sampleData appendBytes:sampleBytes length:length];</span><br><span class="line">            <span class="comment">//CMSampleBufferInvalidate函数来指定样本buffer已经处理和不可再继续使用，</span></span><br><span class="line">            <span class="built_in">CMSampleBufferInvalidate</span>(sampleBuffer);                         <span class="comment">// 8</span></span><br><span class="line">            <span class="comment">//然后用CFRelease释放CMSampleBufferRef副本</span></span><br><span class="line">            <span class="built_in">CFRelease</span>(sampleBuffer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果资源读取器的状态为AVAssetReaderStatusCompleted表示数据被成功读取</span></span><br><span class="line">    <span class="keyword">if</span> (assetReader.status == <span class="built_in">AVAssetReaderStatusCompleted</span>) &#123;               <span class="comment">// 9</span></span><br><span class="line">        <span class="keyword">return</span> sampleData;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Failed to read audio samples from asset"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//载入资源，读取asset样本</span></span><br><span class="line">+ (<span class="type">void</span>)loadAudioSamplesFromAsset:(<span class="built_in">AVAsset</span> *)asset</span><br><span class="line">                  completionBlock:(THSampleDataCompletionBlock)completionBlock &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *tracks = <span class="string">@&quot;tracks&quot;</span>;</span><br><span class="line">    <span class="comment">//异步载入键对应的资源</span></span><br><span class="line">    [asset loadValuesAsynchronouslyForKeys:@[tracks] completionHandler:^&#123;   <span class="comment">// 1</span></span><br><span class="line">        <span class="comment">//获取tracks键载入状态</span></span><br><span class="line">        <span class="built_in">AVKeyValueStatus</span> status = [asset statusOfValueForKey:tracks error:<span class="literal">nil</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSData</span> *sampleData = <span class="literal">nil</span>;</span><br><span class="line">        <span class="comment">//如果载入成功，则从资源音频轨道中读取样本</span></span><br><span class="line">        <span class="keyword">if</span> (status == <span class="built_in">AVKeyValueStatusLoaded</span>) &#123;                             <span class="comment">// 2</span></span><br><span class="line">            sampleData = [<span class="keyword">self</span> readAudioSamplesFromAsset:asset];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;                        <span class="comment">// 3</span></span><br><span class="line">            completionBlock(sampleData);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;];</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="built_in">NSData</span> *)readAudioSamplesFromAsset:(<span class="built_in">AVAsset</span> *)asset &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSError</span> *error = <span class="literal">nil</span>;</span><br><span class="line">    <span class="comment">//创建AVAssetReader实例</span></span><br><span class="line">    <span class="built_in">AVAssetReader</span> *assetReader =                                            <span class="comment">// 1</span></span><br><span class="line">        [[<span class="built_in">AVAssetReader</span> alloc] initWithAsset:asset error:&amp;error];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!assetReader) &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;Error creating asset reader: %@&quot;</span>, [error localizedDescription]);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取资源中第一个音频轨道（最好是根据需求的媒体类型来获取轨道）</span></span><br><span class="line">    <span class="built_in">AVAssetTrack</span> *track =                                                   <span class="comment">// 2</span></span><br><span class="line">        [[asset tracksWithMediaType:<span class="built_in">AVMediaTypeAudio</span>] firstObject];</span><br><span class="line">    <span class="comment">//设置从资源轨道读取音频样本的解压设置，可以在AVAudioSettings.h文件中找到更多的键值</span></span><br><span class="line">    <span class="built_in">NSDictionary</span> *outputSettings = @&#123;                                       <span class="comment">// 3</span></span><br><span class="line">        <span class="built_in">AVFormatIDKey</span>               : @(kAudioFormatLinearPCM),</span><br><span class="line">        <span class="built_in">AVLinearPCMIsBigEndianKey</span>   : @NO,</span><br><span class="line">		<span class="built_in">AVLinearPCMIsFloatKey</span>		: @NO,</span><br><span class="line">		<span class="built_in">AVLinearPCMBitDepthKey</span>		: @(<span class="number">16</span>)</span><br><span class="line">    &#125;;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//创建AVAssetReaderTrackOutput 作为AVAssetReader的输出，并调用startReading来允许资源管理器开启预收取样本数据</span></span><br><span class="line">    <span class="built_in">AVAssetReaderTrackOutput</span> *trackOutput =                                 <span class="comment">// 4</span></span><br><span class="line">        [[<span class="built_in">AVAssetReaderTrackOutput</span> alloc] initWithTrack:track</span><br><span class="line">                                         outputSettings:outputSettings];</span><br><span class="line">    </span><br><span class="line">    [assetReader addOutput:trackOutput];</span><br><span class="line">    </span><br><span class="line">    [assetReader startReading];</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSMutableData</span> *sampleData = [<span class="built_in">NSMutableData</span> data];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span> (assetReader.status == <span class="built_in">AVAssetReaderStatusReading</span>) &#123;</span><br><span class="line">        <span class="comment">//调用跟踪输出的copyNextSampleBuffer开始每个迭代，每次都返回一个包含音频样本的下一个可用样本buffer</span></span><br><span class="line">        <span class="built_in">CMSampleBufferRef</span> sampleBuffer = [trackOutput copyNextSampleBuffer];<span class="comment">// 5</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (sampleBuffer) &#123;</span><br><span class="line">            <span class="comment">//CMSampleBufferRef的音频样本被包含在CMBlockBufferRef类型中</span></span><br><span class="line">            <span class="built_in">CMBlockBufferRef</span> blockBufferRef =                               <span class="comment">// 6</span></span><br><span class="line">                <span class="built_in">CMSampleBufferGetDataBuffer</span>(sampleBuffer);</span><br><span class="line">            <span class="comment">//使用CMBlockBufferGetDataLength来确定blockBufferRef的长度，并使用一个16位带符号的整型数组来保存这写音频样本</span></span><br><span class="line">            size_t length = <span class="built_in">CMBlockBufferGetDataLength</span>(blockBufferRef);</span><br><span class="line">            SInt16 sampleBytes[length];</span><br><span class="line">            <span class="comment">//使用CMBlockBufferCopyDataBytes生成一个数组，内容来自CMBlockBufferRef包含的数据</span></span><br><span class="line">            <span class="built_in">CMBlockBufferCopyDataBytes</span>(blockBufferRef,                      <span class="comment">// 7</span></span><br><span class="line">                                       <span class="number">0</span>,</span><br><span class="line">                                       length,</span><br><span class="line">                                       sampleBytes);</span><br><span class="line">            <span class="comment">//将数组的内容附加到NSData实例后</span></span><br><span class="line">            [sampleData appendBytes:sampleBytes length:length];</span><br><span class="line">            <span class="comment">//CMSampleBufferInvalidate函数来指定样本buffer已经处理和不可再继续使用，</span></span><br><span class="line">            <span class="built_in">CMSampleBufferInvalidate</span>(sampleBuffer);                         <span class="comment">// 8</span></span><br><span class="line">            <span class="comment">//然后用CFRelease释放CMSampleBufferRef副本</span></span><br><span class="line">            <span class="built_in">CFRelease</span>(sampleBuffer);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果资源读取器的状态为AVAssetReaderStatusCompleted表示数据被成功读取</span></span><br><span class="line">    <span class="keyword">if</span> (assetReader.status == <span class="built_in">AVAssetReaderStatusCompleted</span>) &#123;               <span class="comment">// 9</span></span><br><span class="line">        <span class="keyword">return</span> sampleData;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;Failed to read audio samples from asset&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="缩减音频样本"><a href="#缩减音频样本" class="headerlink" title="缩减音频样本"></a>缩减音频样本</h3><blockquote>
 <p>处理带有音频信息的NSData对象，根据指定的大小，将样本分成一个个样本块，找到样本块中的最大样本，得到筛选结果。</p>
 </blockquote>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSArray</span> *)filteredSamplesForSize:(<span class="built_in">CGSize</span>)size &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//filteredSamples保存筛选的样本数组</span></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *filteredSamples = [[<span class="built_in">NSMutableArray</span> alloc] init];        <span class="comment">// 1</span></span><br><span class="line">    <span class="comment">//sampleCount表示样本总数</span></span><br><span class="line">    <span class="built_in">NSUInteger</span> sampleCount = <span class="keyword">self</span>.sampleData.length / <span class="keyword">sizeof</span>(SInt16);</span><br><span class="line">    <span class="comment">//binSize表示每个样本块的大小</span></span><br><span class="line">    <span class="built_in">NSUInteger</span> binSize = sampleCount / size.width;</span><br><span class="line"></span><br><span class="line">    SInt16 *bytes = (SInt16 *) <span class="keyword">self</span>.sampleData.bytes;</span><br><span class="line">    </span><br><span class="line">    SInt16 maxSample = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">//迭代全部音频样本集合</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; sampleCount; i += binSize) &#123;</span><br><span class="line">        <span class="comment">//样本块</span></span><br><span class="line">        SInt16 sampleBin[binSize];</span><br><span class="line">        <span class="comment">//使用CFSwapInt16LittleToHost函数确保样本是按主机内置的字节顺序处理的</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> j = <span class="number">0</span>; j &lt; binSize; j++) &#123;                          <span class="comment">// 2</span></span><br><span class="line">			sampleBin[j] = <span class="built_in">CFSwapInt16LittleToHost</span>(bytes[i + j]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//找到样本块中的最大绝对值,并存入筛选结果</span></span><br><span class="line">        SInt16 value = [<span class="keyword">self</span> maxValueInArray:sampleBin ofSize:binSize];     <span class="comment">// 3</span></span><br><span class="line">        [filteredSamples addObject:@(value)];</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (value &gt; maxSample) &#123;                                            <span class="comment">// 4</span></span><br><span class="line">            maxSample = value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//约束筛选样本</span></span><br><span class="line">    <span class="built_in">CGFloat</span> scaleFactor = (size.height / <span class="number">2</span>) / maxSample;                    <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; filteredSamples.count; i++) &#123;                <span class="comment">// 6</span></span><br><span class="line">        filteredSamples[i] = @([filteredSamples[i] integerValue] * scaleFactor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> filteredSamples;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找到样本块中的最大绝对值</span></span><br><span class="line">- (SInt16)maxValueInArray:(SInt16[])values ofSize:(<span class="built_in">NSUInteger</span>)size &#123;</span><br><span class="line">    SInt16 maxValue = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (abs(values[i]) &gt; maxValue) &#123;</span><br><span class="line">            maxValue = abs(values[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//找到样本块中的最大绝对值</span></span><br><span class="line">- (SInt16)maxValueInArray:(SInt16[])values ofSize:(<span class="built_in">NSUInteger</span>)size &#123;</span><br><span class="line">    SInt16 maxValue = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (abs(values[i]) &gt; maxValue) &#123;</span><br><span class="line">            maxValue = abs(values[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxValue;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="渲染音频样本"><a href="#渲染音频样本" class="headerlink" title="渲染音频样本"></a>渲染音频样本</h3><blockquote>
 <p>创建UIView子类, 使用<strong>QuartzCore</strong>渲染筛选后的结果</p>
 </blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    <span class="comment">//适当缩放上下文</span></span><br><span class="line">	<span class="built_in">CGContextScaleCTM</span>(context, THWidthScaling, THHeightScaling);            <span class="comment">// 1</span></span><br><span class="line">    <span class="comment">//适当在x y 轴上偏移</span></span><br><span class="line">	<span class="built_in">CGFloat</span> xOffset = <span class="keyword">self</span>.bounds.size.width -</span><br><span class="line">                     (<span class="keyword">self</span>.bounds.size.width * THWidthScaling);</span><br><span class="line">	</span><br><span class="line">    <span class="built_in">CGFloat</span> yOffset = <span class="keyword">self</span>.bounds.size.height -</span><br><span class="line">                     (<span class="keyword">self</span>.bounds.size.height * THHeightScaling);</span><br><span class="line">	</span><br><span class="line">    <span class="built_in">CGContextTranslateCTM</span>(context, xOffset / <span class="number">2</span>, yOffset / <span class="number">2</span>);</span><br><span class="line">    <span class="comment">//获取筛选后的音频样本</span></span><br><span class="line">	<span class="built_in">NSArray</span> *filteredSamples =                                              <span class="comment">// 2</span></span><br><span class="line">        [<span class="keyword">self</span>.filter filteredSamplesForSize:<span class="keyword">self</span>.bounds.size];</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CGFloat</span> midY = <span class="built_in">CGRectGetMidY</span>(rect);</span><br><span class="line">    <span class="comment">//创建CGMutablePathRef对象 用来绘制Bezier路径的上半部</span></span><br><span class="line">	<span class="built_in">CGMutablePathRef</span> halfPath = <span class="built_in">CGPathCreateMutable</span>();                      <span class="comment">// 3</span></span><br><span class="line">	<span class="built_in">CGPathMoveToPoint</span>(halfPath, <span class="literal">NULL</span>, <span class="number">0.0</span>f, midY);</span><br><span class="line">    <span class="comment">//迭代样本 每次向路径中添加一个点</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; filteredSamples.count; i++) &#123;</span><br><span class="line">		<span class="keyword">float</span> sample = [filteredSamples[i] floatValue];</span><br><span class="line">		<span class="built_in">CGPathAddLineToPoint</span>(halfPath, <span class="literal">NULL</span>, i, midY - sample);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CGPathAddLineToPoint</span>(halfPath, <span class="literal">NULL</span>, filteredSamples.count, midY);</span><br><span class="line">    <span class="comment">//绘制完整波形</span></span><br><span class="line">	<span class="built_in">CGMutablePathRef</span> fullPath = <span class="built_in">CGPathCreateMutable</span>();                      <span class="comment">// 4</span></span><br><span class="line">	<span class="built_in">CGPathAddPath</span>(fullPath, <span class="literal">NULL</span>, halfPath);</span><br><span class="line">w</span><br><span class="line">	<span class="built_in">CGAffineTransform</span> transform = <span class="built_in">CGAffineTransformIdentity</span>;                <span class="comment">// 5</span></span><br><span class="line">	transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="number">0</span>, <span class="built_in">CGRectGetHeight</span>(rect));</span><br><span class="line">	transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">1.0</span>, <span class="number">-1.0</span>);</span><br><span class="line">	<span class="built_in">CGPathAddPath</span>(fullPath, &amp;transform, halfPath);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CGContextAddPath</span>(context, fullPath);                                    <span class="comment">// 6</span></span><br><span class="line">    <span class="built_in">CGContextSetFillColorWithColor</span>(context, <span class="keyword">self</span>.waveColor.CGColor);</span><br><span class="line">    <span class="built_in">CGContextDrawPath</span>(context, kCGPathFill);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGPathRelease</span>(halfPath);                                                <span class="comment">// 7</span></span><br><span class="line">    <span class="built_in">CGPathRelease</span>(fullPath);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)drawRect:(<span class="built_in">CGRect</span>)rect &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGContextRef</span> context = <span class="built_in">UIGraphicsGetCurrentContext</span>();</span><br><span class="line">    <span class="comment">//适当缩放上下文</span></span><br><span class="line">	<span class="built_in">CGContextScaleCTM</span>(context, THWidthScaling, THHeightScaling);            <span class="comment">// 1</span></span><br><span class="line">    <span class="comment">//适当在x y 轴上偏移</span></span><br><span class="line">	<span class="built_in">CGFloat</span> xOffset = <span class="keyword">self</span>.bounds.size.width -</span><br><span class="line">                     (<span class="keyword">self</span>.bounds.size.width * THWidthScaling);</span><br><span class="line">	</span><br><span class="line">    <span class="built_in">CGFloat</span> yOffset = <span class="keyword">self</span>.bounds.size.height -</span><br><span class="line">                     (<span class="keyword">self</span>.bounds.size.height * THHeightScaling);</span><br><span class="line">	</span><br><span class="line">    <span class="built_in">CGContextTranslateCTM</span>(context, xOffset / <span class="number">2</span>, yOffset / <span class="number">2</span>);</span><br><span class="line">    <span class="comment">//获取筛选后的音频样本</span></span><br><span class="line">	<span class="built_in">NSArray</span> *filteredSamples =                                              <span class="comment">// 2</span></span><br><span class="line">        [<span class="keyword">self</span>.filter filteredSamplesForSize:<span class="keyword">self</span>.bounds.size];</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CGFloat</span> midY = <span class="built_in">CGRectGetMidY</span>(rect);</span><br><span class="line">    <span class="comment">//创建CGMutablePathRef对象 用来绘制Bezier路径的上半部</span></span><br><span class="line">	<span class="built_in">CGMutablePathRef</span> halfPath = <span class="built_in">CGPathCreateMutable</span>();                      <span class="comment">// 3</span></span><br><span class="line">	<span class="built_in">CGPathMoveToPoint</span>(halfPath, <span class="literal">NULL</span>, <span class="number">0.0</span>f, midY);</span><br><span class="line">    <span class="comment">//迭代样本 每次向路径中添加一个点</span></span><br><span class="line">	<span class="keyword">for</span> (<span class="built_in">NSUInteger</span> i = <span class="number">0</span>; i &lt; filteredSamples.count; i++) &#123;</span><br><span class="line">		<span class="type">float</span> sample = [filteredSamples[i] floatValue];</span><br><span class="line">		<span class="built_in">CGPathAddLineToPoint</span>(halfPath, <span class="literal">NULL</span>, i, midY - sample);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CGPathAddLineToPoint</span>(halfPath, <span class="literal">NULL</span>, filteredSamples.count, midY);</span><br><span class="line">    <span class="comment">//绘制完整波形</span></span><br><span class="line">	<span class="built_in">CGMutablePathRef</span> fullPath = <span class="built_in">CGPathCreateMutable</span>();                      <span class="comment">// 4</span></span><br><span class="line">	<span class="built_in">CGPathAddPath</span>(fullPath, <span class="literal">NULL</span>, halfPath);</span><br><span class="line">w</span><br><span class="line">	<span class="built_in">CGAffineTransform</span> transform = <span class="built_in">CGAffineTransformIdentity</span>;                <span class="comment">// 5</span></span><br><span class="line">	transform = <span class="built_in">CGAffineTransformTranslate</span>(transform, <span class="number">0</span>, <span class="built_in">CGRectGetHeight</span>(rect));</span><br><span class="line">	transform = <span class="built_in">CGAffineTransformScale</span>(transform, <span class="number">1.0</span>, <span class="number">-1.0</span>);</span><br><span class="line">	<span class="built_in">CGPathAddPath</span>(fullPath, &amp;transform, halfPath);</span><br><span class="line"></span><br><span class="line">	<span class="built_in">CGContextAddPath</span>(context, fullPath);                                    <span class="comment">// 6</span></span><br><span class="line">    <span class="built_in">CGContextSetFillColorWithColor</span>(context, <span class="keyword">self</span>.waveColor.CGColor);</span><br><span class="line">    <span class="built_in">CGContextDrawPath</span>(context, kCGPathFill);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGPathRelease</span>(halfPath);                                                <span class="comment">// 7</span></span><br><span class="line">    <span class="built_in">CGPathRelease</span>(fullPath);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -583,7 +587,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/essay/AVFoundation/AVFoundation-视频处理/" rel="next" title="AVFoundation-视频处理">
+              <a href="/essay/AVFoundation/AVFoundation-%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/" rel="next" title="AVFoundation-视频处理">
                 <i class="fa fa-chevron-left"></i> AVFoundation-视频处理
               </a>
             
@@ -593,7 +597,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/essay/AVFoundation/AVFoundation-条码识别/" rel="prev" title="AVFoundation-条码识别">
+              <a href="/essay/AVFoundation/AVFoundation-%E6%9D%A1%E7%A0%81%E8%AF%86%E5%88%AB/" rel="prev" title="AVFoundation-条码识别">
                 AVFoundation-条码识别 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -657,7 +661,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -668,9 +674,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -727,9 +733,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -739,7 +743,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -786,7 +790,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -829,7 +835,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVAssetReader-和-AVAssetWriter"><span class="nav-number">1.</span> <span class="nav-text">AVAssetReader 和 AVAssetWriter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建波形图"><span class="nav-number">2.</span> <span class="nav-text">创建波形图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#读取"><span class="nav-number">2.1.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩减音频样本"><span class="nav-number">2.2.</span> <span class="nav-text">缩减音频样本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#渲染音频样本"><span class="nav-number">2.3.</span> <span class="nav-text">渲染音频样本</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVAssetReader-%E5%92%8C-AVAssetWriter"><span class="nav-number">1.</span> <span class="nav-text">AVAssetReader 和 AVAssetWriter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%B3%A2%E5%BD%A2%E5%9B%BE"><span class="nav-number">2.</span> <span class="nav-text">创建波形图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96"><span class="nav-number">2.1.</span> <span class="nav-text">读取</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%A9%E5%87%8F%E9%9F%B3%E9%A2%91%E6%A0%B7%E6%9C%AC"><span class="nav-number">2.2.</span> <span class="nav-text">缩减音频样本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E9%9F%B3%E9%A2%91%E6%A0%B7%E6%9C%AC"><span class="nav-number">2.3.</span> <span class="nav-text">渲染音频样本</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -849,7 +855,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -861,7 +867,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -870,7 +876,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

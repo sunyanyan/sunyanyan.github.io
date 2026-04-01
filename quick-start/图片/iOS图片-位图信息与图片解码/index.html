@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,30 +118,31 @@
 
 
   <meta name="description" content="介绍下几种iOS中位图信息 与相关解压缩ref 谈谈 iOS 中图片的解压缩ref Quartz 2D Programming Guide  我们从网络下载或者从本地磁盘加载一张图片到屏幕上显示，要经过图片的解码过程，为什么呢？因为我们一般的图片格式例如 JPEG，PNG都是经过压缩后的图片，而显示在屏幕上的图片叫做位图(bitmap)，所谓的解码就是把压缩后的图片变成位图。 为什么非要解码成位">
-<meta name="keywords" content="iOS,图片">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS图片-位图信息与图片解码">
-<meta property="og:url" content="https://developerdoc.com/quick-start/图片/iOS图片-位图信息与图片解码/index.html">
+<meta property="og:url" content="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="介绍下几种iOS中位图信息 与相关解压缩ref 谈谈 iOS 中图片的解压缩ref Quartz 2D Programming Guide  我们从网络下载或者从本地磁盘加载一张图片到屏幕上显示，要经过图片的解码过程，为什么呢？因为我们一般的图片格式例如 JPEG，PNG都是经过压缩后的图片，而显示在屏幕上的图片叫做位图(bitmap)，所谓的解码就是把压缩后的图片变成位图。 为什么非要解码成位">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://developerdoc.com/res/iOSImg/testImg2.png">
 <meta property="og:image" content="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/color_profiles.gif">
 <meta property="og:image" content="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/colorformatrgba32.gif">
-<meta property="og:updated_time" content="2020-01-15T09:30:15.000Z">
+<meta property="article:published_time" content="2019-12-10T08:35:28.000Z">
+<meta property="article:modified_time" content="2020-01-15T09:30:15.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="图片">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS图片-位图信息与图片解码">
-<meta name="twitter:description" content="介绍下几种iOS中位图信息 与相关解压缩ref 谈谈 iOS 中图片的解压缩ref Quartz 2D Programming Guide  我们从网络下载或者从本地磁盘加载一张图片到屏幕上显示，要经过图片的解码过程，为什么呢？因为我们一般的图片格式例如 JPEG，PNG都是经过压缩后的图片，而显示在屏幕上的图片叫做位图(bitmap)，所谓的解码就是把压缩后的图片变成位图。 为什么非要解码成位">
 <meta name="twitter:image" content="https://developerdoc.com/res/iOSImg/testImg2.png">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/quick-start/图片/iOS图片-位图信息与图片解码/">
+  <link rel="canonical" href="https://developerdoc.com/quick-start/图片/iOS图片-位图信息与图片解码/"/>
 
 
 
@@ -191,7 +192,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -299,7 +300,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -351,7 +354,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/图片/iOS图片-位图信息与图片解码/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -416,7 +419,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -427,7 +430,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS图片/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%9B%BE%E7%89%87/" itemprop="url" rel="index"><span itemprop="name">iOS图片</span></a></span>
 
                 
                 
@@ -442,8 +445,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/图片/iOS图片-位图信息与图片解码/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/图片/iOS图片-位图信息与图片解码/" itemprop="commentCount"></span>
+                <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -451,7 +454,7 @@
 
           
           
-             <span id="/quick-start/图片/iOS图片-位图信息与图片解码/" class="leancloud_visitors" data-flag-title="iOS图片-位图信息与图片解码">
+             <span id="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF%E4%B8%8E%E5%9B%BE%E7%89%87%E8%A7%A3%E7%A0%81/" class="leancloud_visitors" data-flag-title="iOS图片-位图信息与图片解码">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -476,7 +479,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">16k</span>
+                <span title="本文字数">39k</span>
               
 
               
@@ -490,7 +493,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">15 分钟</span>
+                <span title="阅读时长">36 分钟</span>
               
             </div>
           
@@ -511,23 +514,28 @@
 
       
         <blockquote>
-<p>介绍下几种iOS中位图信息 与相关解压缩<br>ref <a href="http://blog.leichunfeng.com/blog/2017/02/20/talking-about-the-decompression-of-the-image-in-ios/" target="_blank" rel="noopener">谈谈 iOS 中图片的解压缩</a><br>ref <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007533-SW1" target="_blank" rel="noopener">Quartz 2D Programming Guide</a></p>
+<p>介绍下几种iOS中位图信息 与相关解压缩<br>ref <a href="http://blog.leichunfeng.com/blog/2017/02/20/talking-about-the-decompression-of-the-image-in-ios/">谈谈 iOS 中图片的解压缩</a><br>ref <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Introduction/Introduction.html#//apple_ref/doc/uid/TP40007533-SW1">Quartz 2D Programming Guide</a></p>
 </blockquote>
 <p>我们从网络下载或者从本地磁盘加载一张图片到屏幕上显示，要经过图片的解码过程，为什么呢？因为我们一般的图片格式例如 JPEG，PNG都是经过压缩后的图片，而显示在屏幕上的图片叫做位图(bitmap)，所谓的解码就是把压缩后的图片变成位图。</p>
 <p>为什么非要解码成位图才能显示呢？因为位图又被叫做点阵图像，也就是说位图包含了一大堆的像素点信息，这些像素点就是该图片中的点，有了图片中每个像素点的信息，就可以在屏幕上渲染整张图片了。</p>
 <p>那我们为什么还需要不同格式的各种图片呢？直接全部用位图不就好了？那不就不需要每次解码了？那些JPEG以及PNG等其实都是图像的压缩格式，我们都知道压缩的意思就是减小空间，所以我们可以想到，使用这些格式的原因就是位图实在太大了。</p>
-<h2 id="图片解压后的数据变化"><a href="#图片解压后的数据变化" class="headerlink" title="图片解压后的数据变化"></a>图片解压后的数据变化</h2><a id="more"></a>
+<h2 id="图片解压后的数据变化"><a href="#图片解压后的数据变化" class="headerlink" title="图片解压后的数据变化"></a>图片解压后的数据变化</h2><span id="more"></span>
 <p>我们来使用这张图片和以下代码做例子：</p>
-<p><img src="/res/iOSImg/testImg2.png" style="background-color: rgba(0,0,300,.5)"><br>该图片的二进制信息为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR</span><br><span class="line">00000010: 0000 0022 0000 0022 0803 0000 000d 99fb  ...&quot;...&quot;........</span><br><span class="line">00000020: f000 0000 5d50 4c54 4500 0000 ffff ffff  ....]PLTE.......</span><br><span class="line">00000030: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000040: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000050: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000060: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000070: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000080: ffff ffff ffff 512a fbe5 0000 001e 7452  ......Q*......tR</span><br><span class="line">00000090: 4e53 001c b890 7103 faa9 580d f7c8 09f0  NS....q...X.....</span><br><span class="line">000000a0: be42 1685 78e2 d4c5 b1a1 604d 492d 1e0f  .B..x.....`MI-..</span><br><span class="line">000000b0: 5dbe 24b2 0000 0084 4944 4154 38cb edcf  ].$.....IDAT8...</span><br><span class="line">000000c0: cb0a c240 1044 d1d2 38ad 8e19 4de2 fb55  ...@.D..8...M..U</span><br><span class="line">000000d0: ffff 99d2 4d70 971a 5097 de5d c381 a630  ....Mp..P..]...0</span><br><span class="line">000000e0: d113 952e 7b96 be55 a2a1 b76d b538 981b  ....&#123;..U...m.8..</span><br><span class="line">000000f0: 2516 d865 374a 6034 428c a611 228c 3127  %..e7J`4B...&quot;.1&apos;</span><br><span class="line">00000100: 21bc 23f9 d062 4596 a485 9143 552c d35f  !.#..bE....CU,._</span><br><span class="line">00000110: 7c27 faaa 4856 1358 939b f7d1 e510 9298  |&apos;..HV.X........</span><br><span class="line">00000120: 0b49 70bf 2548 127d 4aca 7cba d335 46cb  .Ip.%H.&#125;J.|..5F.</span><br><span class="line">00000130: 0a80 4193 73bc 9a89 3afc a817 5dd5 1a7c  ..A.s...:...]..|</span><br><span class="line">00000140: 84ac 48f9 0000 0000 4945 4e44 ae42 6082  ..H.....IEND.B`.</span><br></pre></td></tr></table></figure>
+<img src="/res/iOSImg/testImg2.png" style="background-color: rgba(0,0,300,.5)"/>
+该图片的二进制信息为：
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">00000000: 8950 4e47 0d0a 1a0a 0000 000d 4948 4452  .PNG........IHDR</span><br><span class="line">00000010: 0000 0022 0000 0022 0803 0000 000d 99fb  ...&quot;...&quot;........</span><br><span class="line">00000020: f000 0000 5d50 4c54 4500 0000 ffff ffff  ....]PLTE.......</span><br><span class="line">00000030: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000040: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000050: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000060: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000070: ffff ffff ffff ffff ffff ffff ffff ffff  ................</span><br><span class="line">00000080: ffff ffff ffff 512a fbe5 0000 001e 7452  ......Q*......tR</span><br><span class="line">00000090: 4e53 001c b890 7103 faa9 580d f7c8 09f0  NS....q...X.....</span><br><span class="line">000000a0: be42 1685 78e2 d4c5 b1a1 604d 492d 1e0f  .B..x.....`MI-..</span><br><span class="line">000000b0: 5dbe 24b2 0000 0084 4944 4154 38cb edcf  ].$.....IDAT8...</span><br><span class="line">000000c0: cb0a c240 1044 d1d2 38ad 8e19 4de2 fb55  ...@.D..8...M..U</span><br><span class="line">000000d0: ffff 99d2 4d70 971a 5097 de5d c381 a630  ....Mp..P..]...0</span><br><span class="line">000000e0: d113 952e 7b96 be55 a2a1 b76d b538 981b  ....&#123;..U...m.8..</span><br><span class="line">000000f0: 2516 d865 374a 6034 428c a611 228c 3127  %..e7J`4B...&quot;.1&#x27;</span><br><span class="line">00000100: 21bc 23f9 d062 4596 a485 9143 552c d35f  !.#..bE....CU,._</span><br><span class="line">00000110: 7c27 faaa 4856 1358 939b f7d1 e510 9298  |&#x27;..HV.X........</span><br><span class="line">00000120: 0b49 70bf 2548 127d 4aca 7cba d335 46cb  .Ip.%H.&#125;J.|..5F.</span><br><span class="line">00000130: 0a80 4193 73bc 9a89 3afc a817 5dd5 1a7c  ..A.s...:...]..|</span><br><span class="line">00000140: 84ac 48f9 0000 0000 4945 4e44 ae42 6082  ..H.....IEND.B`.</span><br></pre></td></tr></table></figure>
+
 <p>获取图片解压信息的代码为：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> * path = [[<span class="built_in">NSBundle</span> mainBundle]pathForResource:<span class="string">@"testImg2"</span> ofType:<span class="string">@"png"</span>];</span><br><span class="line"><span class="built_in">NSURL</span> * url = [<span class="built_in">NSURL</span> fileURLWithPath:path];</span><br><span class="line"><span class="built_in">CGImageSourceRef</span> myImageSource = <span class="built_in">CGImageSourceCreateWithURL</span>((<span class="built_in">CFURLRef</span>)url, <span class="literal">NULL</span>);</span><br><span class="line"><span class="built_in">CGImageRef</span> myImage = <span class="built_in">CGImageSourceCreateImageAtIndex</span>(myImageSource,<span class="number">0</span>,<span class="literal">NULL</span>);</span><br><span class="line"><span class="built_in">CFRelease</span>(myImageSource);</span><br><span class="line"></span><br><span class="line"><span class="built_in">CFDataRef</span> rawData = <span class="built_in">CGDataProviderCopyData</span>(<span class="built_in">CGImageGetDataProvider</span>(myImage));</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"rawData %@"</span>,rawData);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> * path = [[<span class="built_in">NSBundle</span> mainBundle]pathForResource:<span class="string">@&quot;testImg2&quot;</span> ofType:<span class="string">@&quot;png&quot;</span>];</span><br><span class="line"><span class="built_in">NSURL</span> * url = [<span class="built_in">NSURL</span> fileURLWithPath:path];</span><br><span class="line"><span class="built_in">CGImageSourceRef</span> myImageSource = <span class="built_in">CGImageSourceCreateWithURL</span>((<span class="built_in">CFURLRef</span>)url, <span class="literal">NULL</span>);</span><br><span class="line"><span class="built_in">CGImageRef</span> myImage = <span class="built_in">CGImageSourceCreateImageAtIndex</span>(myImageSource,<span class="number">0</span>,<span class="literal">NULL</span>);</span><br><span class="line"><span class="built_in">CFRelease</span>(myImageSource);</span><br><span class="line"></span><br><span class="line"><span class="built_in">CFDataRef</span> rawData = <span class="built_in">CGDataProviderCopyData</span>(<span class="built_in">CGImageGetDataProvider</span>(myImage));</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;rawData %@&quot;</span>,rawData);</span><br></pre></td></tr></table></figure>
+
 <p>这张图片像素尺寸为34x34,文件大小为 336Byte ；而获取到图片原始像素数据rawData，大小为4624byte。以下为rawData信息 :</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">00000000 ffffff90 ffffffff ffffffff ffffffff ffffff71 00000000 ffffff42 fffffff7 </span><br><span class="line">ffffffff ffffffff ffffffbe ffffff09 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 ffffff90 ffffffff </span><br><span class="line">ffffffff ffffffff ffffff71 00000000 00000000 00000000 ffffff42 fffffff7 ffffffff </span><br><span class="line">ffffffff ffffffbe ffffff09 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 ffffff90 ffffffff ffffffff ffffffff ffffff71 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 ffffff42 fffffff7 ffffffff ffffffff </span><br><span class="line">ffffff90 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">00000000 ffffff90 ffffffff ffffffff ffffffff ffffff71 00000000 ffffff42 fffffff7 </span><br><span class="line">ffffffff ffffffff ffffffbe ffffff09 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 ffffff90 ffffffff </span><br><span class="line">ffffffff ffffffff ffffff71 00000000 00000000 00000000 ffffff42 fffffff7 ffffffff </span><br><span class="line">ffffffff ffffffbe ffffff09 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 ffffff90 ffffffff ffffffff ffffffff ffffff71 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 ffffff42 fffffff7 ffffffff ffffffff </span><br><span class="line">ffffff90 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000 </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
 <p>也就是说，这张PNG 图片解压缩后的大小是 4624byte ，是原始文件大小的 4.27 倍。那么这个4624byte是怎么得来的呢？与图片的文件大小或者像素有什么必然的联系吗？事实上，解压缩后的图片大小与原始文件大小之间没有任何关系，而只与图片的像素有关：</p>
-<p><strong><em>解压缩后的图片大小 = 图片的像素宽 34 </em> 图片的像素高 34 <em> 每个像素所占的字节数 4</em></strong></p>
-<p>我们常见接触到的图片格式， JPEG 还是 PNG 图片，都是一种压缩的<a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_images/dq_images.html" target="_blank" rel="noopener">位图图形格式</a>。只不过 PNG 图片是无损压缩，并且支持 alpha 通道，而 JPEG 图片则是有损压缩，可以指定 0-100% 的压缩比。在将磁盘中的图片渲染到屏幕之前，必须先要得到图片的原始像素数据，才能执行后续的绘制操作。</p>
-<h2 id="位图信息"><a href="#位图信息" class="headerlink" title="位图信息"></a>位图信息</h2><p>其实，位图就是一个像素数组，数组中的每个像素就代表着图片中的一个点。<a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_images/dq_images.html" target="_blank" rel="noopener">Bitmap Images and Image Masks</a>中是这么定义的：</p>
+<p><em><strong>解压缩后的图片大小 &#x3D; 图片的像素宽 34 * 图片的像素高 34 * 每个像素所占的字节数 4</strong></em></p>
+<p>我们常见接触到的图片格式， JPEG 还是 PNG 图片，都是一种压缩的<a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_images/dq_images.html">位图图形格式</a>。只不过 PNG 图片是无损压缩，并且支持 alpha 通道，而 JPEG 图片则是有损压缩，可以指定 0-100% 的压缩比。在将磁盘中的图片渲染到屏幕之前，必须先要得到图片的原始像素数据，才能执行后续的绘制操作。</p>
+<h2 id="位图信息"><a href="#位图信息" class="headerlink" title="位图信息"></a>位图信息</h2><p>其实，位图就是一个像素数组，数组中的每个像素就代表着图片中的一个点。<a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_images/dq_images.html">Bitmap Images and Image Masks</a>中是这么定义的：</p>
 <blockquote>
 <p>A bitmap image (or sampled image) is an array of pixels (or samples). Each pixel represents a single point in the image. JPEG, TIFF, and PNG graphics files are examples of bitmap images.<br>Each sample in a bitmap contains one or more color components in a specified color space, plus one additional component that specifies the alpha value to indicate transparency. Each component can be from 1 to as many as 32 bits. In Mac OS X, Quartz also provides support for floating-point components. The supported formats in Mac OS X and iOS are described in “Pixel formats supported for bitmap graphics contexts”. ColorSync provides color space support for bitmap images.</p>
 </blockquote>
@@ -548,43 +556,42 @@
 <li><em>Bits per pixel</em>每个像素的位数，即源像素的位数。该值必须至少是每个组件的位数乘以每个像素的组件数。</li>
 <li><em>Bytes per row</em>每行字节数。图像中每水平行的字节数。</li>
 </ul>
-<h3 id="颜色与颜色空间-Color-and-Color-Spaces"><a href="#颜色与颜色空间-Color-and-Color-Spaces" class="headerlink" title="颜色与颜色空间 Color and Color Spaces"></a>颜色与颜色空间 Color and Color Spaces</h3><p><a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_color/dq_color.html#//apple_ref/doc/uid/TP30001066-CH205-TPXREF101" target="_blank" rel="noopener">Color and Color Spaces</a>中说明了Quartz中的颜色由一组值表示。如果没有颜色空间指示如何解释颜色信息，则这些值将毫无意义。例如，表4-1中的值全部代表全强度的蓝色。但是，如果不知道颜色空间或每种颜色空间的允许值范围，就无法知道每组值代表哪种颜色。</p>
+<h3 id="颜色与颜色空间-Color-and-Color-Spaces"><a href="#颜色与颜色空间-Color-and-Color-Spaces" class="headerlink" title="颜色与颜色空间 Color and Color Spaces"></a>颜色与颜色空间 Color and Color Spaces</h3><p><a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_color/dq_color.html#//apple_ref/doc/uid/TP30001066-CH205-TPXREF101">Color and Color Spaces</a>中说明了Quartz中的颜色由一组值表示。如果没有颜色空间指示如何解释颜色信息，则这些值将毫无意义。例如，表4-1中的值全部代表全强度的蓝色。但是，如果不知道颜色空间或每种颜色空间的允许值范围，就无法知道每组值代表哪种颜色。</p>
 <p>表4-1   不同颜色空间中的颜色值</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">values</th>
-<th style="text-align:center">color space</th>
-<th style="text-align:right">compoents</th>
+<th align="left">values</th>
+<th align="center">color space</th>
+<th align="right">compoents</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">240 degrees, 100%, 100%</td>
-<td style="text-align:center">HSB</td>
-<td style="text-align:right">Hue, saturation, brightness</td>
+<tbody><tr>
+<td align="left">240 degrees, 100%, 100%</td>
+<td align="center">HSB</td>
+<td align="right">Hue, saturation, brightness</td>
 </tr>
 <tr>
-<td style="text-align:left">0, 0, 1</td>
-<td style="text-align:center">RGB</td>
-<td style="text-align:right">Red, green, blue</td>
+<td align="left">0, 0, 1</td>
+<td align="center">RGB</td>
+<td align="right">Red, green, blue</td>
 </tr>
 <tr>
-<td style="text-align:left">1, 1, 0, 0</td>
-<td style="text-align:center">CMYK</td>
-<td style="text-align:right">Cyan, magenta, yellow, black</td>
+<td align="left">1, 1, 0, 0</td>
+<td align="center">CMYK</td>
+<td align="right">Cyan, magenta, yellow, black</td>
 </tr>
 <tr>
-<td style="text-align:left">1, 0, 0</td>
-<td style="text-align:center">BGR</td>
-<td style="text-align:right">Blue, green, red</td>
+<td align="left">1, 0, 0</td>
+<td align="center">BGR</td>
+<td align="right">Blue, green, red</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>如果提供错误的色彩空间，则可能会出现很大的差异，如图4-1所示。尽管绿色在BGR和RGB颜色空间中的解释相同，但是红色和蓝色值却被翻转了。</p>
-<p><img src="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/color_profiles.gif" alt></p>
+<p><img src="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/color_profiles.gif"></p>
 <h3 id="位图布局-Bitmap-Layout"><a href="#位图布局-Bitmap-Layout" class="headerlink" title="位图布局 Bitmap Layout"></a>位图布局 Bitmap Layout</h3><p>想确保 Quartz 能够正确地解析像素格式中各个bit所代表的含义，我们还需要提供位图的布局信息 <code>CGBitmapInfo</code> ：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">CF_OPTIONS</span>(uint32_t, <span class="built_in">CGBitmapInfo</span>) &#123;</span><br><span class="line">    kCGBitmapAlphaInfoMask = <span class="number">0x1F</span>,</span><br><span class="line"></span><br><span class="line">    kCGBitmapFloatInfoMask = <span class="number">0xF00</span>,</span><br><span class="line">    kCGBitmapFloatComponents = (<span class="number">1</span> &lt;&lt; <span class="number">8</span>),</span><br><span class="line"></span><br><span class="line">    kCGBitmapByteOrderMask     = kCGImageByteOrderMask,</span><br><span class="line">    kCGBitmapByteOrderDefault  = kCGImageByteOrderDefault,</span><br><span class="line">    kCGBitmapByteOrder16Little = kCGImageByteOrder16Little,</span><br><span class="line">    kCGBitmapByteOrder32Little = kCGImageByteOrder32Little,</span><br><span class="line">    kCGBitmapByteOrder16Big    = kCGImageByteOrder16Big,</span><br><span class="line">    kCGBitmapByteOrder32Big    = kCGImageByteOrder32Big</span><br><span class="line">&#125; <span class="built_in">CG_AVAILABLE_STARTING</span>(<span class="number">10.0</span>, <span class="number">2.0</span>);</span><br></pre></td></tr></table></figure>
+
 <p>它主要提供了三个方面的布局信息：</p>
 <ul>
 <li>alpha 的信息 CGImageAlphaInfo；</li>
@@ -600,114 +607,114 @@
 <li>如果包含 alpha ，那么每个颜色分量是否已经乘以 alpha 的值，这种做法可以加速图片的渲染时间，因为它避免了渲染时的额外乘法运算。比如，对于 RGB 颜色空间，用已经乘以 alpha 的数据来渲染图片，每个像素都可以避免 3 次乘法运算，红色乘以 alpha ，绿色乘以 alpha 和蓝色乘以 alpha 。</li>
 </ul>
 <h4 id="字节顺序-CGImageByteOrderInfo"><a href="#字节顺序-CGImageByteOrderInfo" class="headerlink" title="字节顺序 CGImageByteOrderInfo"></a>字节顺序 CGImageByteOrderInfo</h4><p>字节的排列方式有两个通用规则。例如，一个多位的整数，按照存储地址从低到高排序的字节中，如果该整数的最低有效字节（类似于最低有效位）在最高有效字节的前面，则称小端序；反之则称大端序。</p>
-<p><a href="https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/Concepts/ByteOrdering.html#//apple_ref/doc/uid/20001150-CJBEJBHH" target="_blank" rel="noopener">字节顺序</a>的信息由枚举值 CGImageByteOrderInfo 来表示：</p>
+<p><a href="https://developer.apple.com/library/archive/documentation/CoreFoundation/Conceptual/CFMemoryMgmt/Concepts/ByteOrdering.html#//apple_ref/doc/uid/20001150-CJBEJBHH">字节顺序</a>的信息由枚举值 CGImageByteOrderInfo 来表示：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">CF_ENUM</span>(uint32_t, <span class="built_in">CGImageByteOrderInfo</span>) &#123;</span><br><span class="line">    kCGImageByteOrderMask     = <span class="number">0x7000</span>,</span><br><span class="line">    kCGImageByteOrder16Little = (<span class="number">1</span> &lt;&lt; <span class="number">12</span>),</span><br><span class="line">    kCGImageByteOrder32Little = (<span class="number">2</span> &lt;&lt; <span class="number">12</span>),</span><br><span class="line">    kCGImageByteOrder16Big    = (<span class="number">3</span> &lt;&lt; <span class="number">12</span>),</span><br><span class="line">    kCGImageByteOrder32Big    = (<span class="number">4</span> &lt;&lt; <span class="number">12</span>)</span><br><span class="line">&#125; <span class="built_in">CG_AVAILABLE_STARTING</span>(__MAC_10_12, __IPHONE_10_0);</span><br></pre></td></tr></table></figure>
+
 <p>它主要提供了两个方面的字节顺序信息：</p>
 <ul>
 <li>小端序还是大端序；</li>
 <li>数据以 16 位还是 32 位为单位。</li>
 </ul>
-<p>下图表示了 Quartz 2D中CMYK和RGB颜色空间的32位和16位像素格式<br><img src="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/colorformatrgba32.gif" alt></p>
-<h3 id="支持的像素格式"><a href="#支持的像素格式" class="headerlink" title="支持的像素格式"></a>支持的像素格式</h3><p>下表表示了位图图形上下文支持的像素格式，关联的色彩空间 <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_context/dq_context.html#//apple_ref/doc/uid/TP30001066-CH203-BCIBHHBB" target="_blank" rel="noopener">Supported Pixel Formats</a>：</p>
+<p>下图表示了 Quartz 2D中CMYK和RGB颜色空间的32位和16位像素格式<br><img src="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/Art/colorformatrgba32.gif"></p>
+<h3 id="支持的像素格式"><a href="#支持的像素格式" class="headerlink" title="支持的像素格式"></a>支持的像素格式</h3><p>下表表示了位图图形上下文支持的像素格式，关联的色彩空间 <a href="https://developer.apple.com/library/archive/documentation/GraphicsImaging/Conceptual/drawingwithquartz2d/dq_context/dq_context.html#//apple_ref/doc/uid/TP30001066-CH203-BCIBHHBB">Supported Pixel Formats</a>：</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:left">cs</th>
-<th style="text-align:center">Pixel format and bitmap information constant</th>
-<th style="text-align:right">Availability</th>
+<th align="left">cs</th>
+<th align="center">Pixel format and bitmap information constant</th>
+<th align="right">Availability</th>
 </tr>
 </thead>
-<tbody>
-<tr>
-<td style="text-align:left">Null</td>
-<td style="text-align:center">8 bpp, 8 bpc, kCGImageAlphaOnly</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<tbody><tr>
+<td align="left">Null</td>
+<td align="center">8 bpp, 8 bpc, kCGImageAlphaOnly</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">Gray</td>
-<td style="text-align:center">8 bpp, 8 bpc,kCGImageAlphaNone</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<td align="left">Gray</td>
+<td align="center">8 bpp, 8 bpc,kCGImageAlphaNone</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">Gray</td>
-<td style="text-align:center">8 bpp, 8 bpc,kCGImageAlphaOnly</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<td align="left">Gray</td>
+<td align="center">8 bpp, 8 bpc,kCGImageAlphaOnly</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">Gray</td>
-<td style="text-align:center">16 bpp, 16 bpc, kCGImageAlphaNone</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">Gray</td>
+<td align="center">16 bpp, 16 bpc, kCGImageAlphaNone</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">Gray</td>
-<td style="text-align:center">32 bpp, 32 bpc, kCGImageAlphaNone或kCGBitmapFloatComponents`</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">Gray</td>
+<td align="center">32 bpp, 32 bpc, kCGImageAlphaNone或kCGBitmapFloatComponents&#96;</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">16 bpp, 5 bpc, kCGImageAlphaNoneSkipFirst</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<td align="left">RGB</td>
+<td align="center">16 bpp, 5 bpc, kCGImageAlphaNoneSkipFirst</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">32 bpp, 8 bpc, kCGImageAlphaNoneSkipFirst</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<td align="left">RGB</td>
+<td align="center">32 bpp, 8 bpc, kCGImageAlphaNoneSkipFirst</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">32 bpp, 8 bpc, kCGImageAlphaNoneSkipLast</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<td align="left">RGB</td>
+<td align="center">32 bpp, 8 bpc, kCGImageAlphaNoneSkipLast</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">32 bpp, 8 bpc, kCGImageAlphaPremultipliedFirst</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<td align="left">RGB</td>
+<td align="center">32 bpp, 8 bpc, kCGImageAlphaPremultipliedFirst</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">32 bpp, 8 bpc, kCGImageAlphaPremultipliedLast</td>
-<td style="text-align:right">Mac OS X, iOS</td>
+<td align="left">RGB</td>
+<td align="center">32 bpp, 8 bpc, kCGImageAlphaPremultipliedLast</td>
+<td align="right">Mac OS X, iOS</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">64 bpp, 16 bpc, kCGImageAlphaPremultipliedLast</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">RGB</td>
+<td align="center">64 bpp, 16 bpc, kCGImageAlphaPremultipliedLast</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">64 bpp, 16 bpc, kCGImageAlphaNoneSkipLast</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">RGB</td>
+<td align="center">64 bpp, 16 bpc, kCGImageAlphaNoneSkipLast</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">128 bpp, 32 bpc, kCGImageAlphaNoneSkipLast 或kCGBitmapFloatComponents</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">RGB</td>
+<td align="center">128 bpp, 32 bpc, kCGImageAlphaNoneSkipLast 或kCGBitmapFloatComponents</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">RGB</td>
-<td style="text-align:center">128 bpp, 32 bpc, kCGImageAlphaPremultipliedLast 或kCGBitmapFloatComponents</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">RGB</td>
+<td align="center">128 bpp, 32 bpc, kCGImageAlphaPremultipliedLast 或kCGBitmapFloatComponents</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">CMYK</td>
-<td style="text-align:center">32 bpp, 8 bpc, kCGImageAlphaNone</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">CMYK</td>
+<td align="center">32 bpp, 8 bpc, kCGImageAlphaNone</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">CMYK</td>
-<td style="text-align:center">64 bpp, 16 bpc, kCGImageAlphaNone</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">CMYK</td>
+<td align="center">64 bpp, 16 bpc, kCGImageAlphaNone</td>
+<td align="right">Mac OS X</td>
 </tr>
 <tr>
-<td style="text-align:left">CMYK</td>
-<td style="text-align:center">128 bpp, 32 bpc, kCGImageAlphaNone 或kCGBitmapFloatComponents</td>
-<td style="text-align:right">Mac OS X</td>
+<td align="left">CMYK</td>
+<td align="center">128 bpp, 32 bpc, kCGImageAlphaNone 或kCGBitmapFloatComponents</td>
+<td align="right">Mac OS X</td>
 </tr>
-</tbody>
-</table>
+</tbody></table>
 <p>对于 iOS 来说，只支持 8 种像素格式。其中颜色空间为 Null 的 1 种，Gray 的 2 种，RGB 的 5 种，CMYK 的 0 种。换句话说，iOS 并不支持 CMYK 的颜色空间</p>
 <h2 id="CGBitmapContextCreate"><a href="#CGBitmapContextCreate" class="headerlink" title="CGBitmapContextCreate"></a>CGBitmapContextCreate</h2><p>上面说了这么多参数，那么那个函数会用到呢？答案是 <code>CGBitmapContextCreate</code> :</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Create a bitmap context. The context draws into a bitmap which is `width'</span></span><br><span class="line"><span class="comment">   pixels wide and `height' pixels high. The number of components for each</span></span><br><span class="line"><span class="comment">   pixel is specified by `space', which may also specify a destination color</span></span><br><span class="line"><span class="comment">   profile. The number of bits for each component of a pixel is specified by</span></span><br><span class="line"><span class="comment">   `bitsPerComponent'. The number of bytes per pixel is equal to</span></span><br><span class="line"><span class="comment">   `(bitsPerComponent * number of components + 7)/8'. Each row of the bitmap</span></span><br><span class="line"><span class="comment">   consists of `bytesPerRow' bytes, which must be at least `width * bytes</span></span><br><span class="line"><span class="comment">   per pixel' bytes; in addition, `bytesPerRow' must be an integer multiple</span></span><br><span class="line"><span class="comment">   of the number of bytes per pixel. `data', if non-NULL, points to a block</span></span><br><span class="line"><span class="comment">   of memory at least `bytesPerRow * height' bytes. If `data' is NULL, the</span></span><br><span class="line"><span class="comment">   data for context is allocated automatically and freed when the context is</span></span><br><span class="line"><span class="comment">   deallocated. `bitmapInfo' specifies whether the bitmap should contain an</span></span><br><span class="line"><span class="comment">   alpha channel and how it's to be generated, along with whether the</span></span><br><span class="line"><span class="comment">   components are floating-point or integer. */</span></span><br><span class="line"><span class="built_in">CG_EXTERN</span> <span class="built_in">CGContextRef</span> __<span class="keyword">nullable</span> <span class="built_in">CGBitmapContextCreate</span>(<span class="keyword">void</span> * __<span class="keyword">nullable</span> data,</span><br><span class="line">    size_t width, size_t height, size_t bitsPerComponent, size_t bytesPerRow,</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> cg_nullable space, uint32_t bitmapInfo)</span><br><span class="line">    <span class="built_in">CG_AVAILABLE_STARTING</span>(__MAC_10_0, __IPHONE_2_0);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Create a bitmap context. The context draws into a bitmap which is `width&#x27;</span></span><br><span class="line"><span class="comment">   pixels wide and `height&#x27; pixels high. The number of components for each</span></span><br><span class="line"><span class="comment">   pixel is specified by `space&#x27;, which may also specify a destination color</span></span><br><span class="line"><span class="comment">   profile. The number of bits for each component of a pixel is specified by</span></span><br><span class="line"><span class="comment">   `bitsPerComponent&#x27;. The number of bytes per pixel is equal to</span></span><br><span class="line"><span class="comment">   `(bitsPerComponent * number of components + 7)/8&#x27;. Each row of the bitmap</span></span><br><span class="line"><span class="comment">   consists of `bytesPerRow&#x27; bytes, which must be at least `width * bytes</span></span><br><span class="line"><span class="comment">   per pixel&#x27; bytes; in addition, `bytesPerRow&#x27; must be an integer multiple</span></span><br><span class="line"><span class="comment">   of the number of bytes per pixel. `data&#x27;, if non-NULL, points to a block</span></span><br><span class="line"><span class="comment">   of memory at least `bytesPerRow * height&#x27; bytes. If `data&#x27; is NULL, the</span></span><br><span class="line"><span class="comment">   data for context is allocated automatically and freed when the context is</span></span><br><span class="line"><span class="comment">   deallocated. `bitmapInfo&#x27; specifies whether the bitmap should contain an</span></span><br><span class="line"><span class="comment">   alpha channel and how it&#x27;s to be generated, along with whether the</span></span><br><span class="line"><span class="comment">   components are floating-point or integer. */</span></span><br><span class="line"><span class="built_in">CG_EXTERN</span> <span class="built_in">CGContextRef</span> __<span class="keyword">nullable</span> <span class="built_in">CGBitmapContextCreate</span>(<span class="type">void</span> * __<span class="keyword">nullable</span> data,</span><br><span class="line">    size_t width, size_t height, size_t bitsPerComponent, size_t bytesPerRow,</span><br><span class="line">    <span class="built_in">CGColorSpaceRef</span> cg_nullable space, uint32_t bitmapInfo)</span><br><span class="line">    <span class="built_in">CG_AVAILABLE_STARTING</span>(__MAC_10_0, __IPHONE_2_0);</span><br></pre></td></tr></table></figure>
+
 <p>顾名思义，这个函数用于创建一个位图上下文，用来绘制一张宽 width 像素，高 height 像素的位图。各参数使用如下：</p>
 <ul>
 <li>data ：如果不为 NULL ，那么它应该指向一块大小至少为 bytesPerRow * height 字节的内存；如果 为 NULL ，那么系统就会为我们自动分配和释放所需的内存，所以一般指定 NULL 即可；</li>
@@ -718,10 +725,12 @@
 <li>space ：就是我们前面提到的颜色空间，一般使用 RGB 即可；</li>
 <li>bitmapInfo ：就是我们前面提到的位图的布局信息。</li>
 </ul>
-<p>文章开头说 <code>解压缩后的图片大小 = 图片的像素宽 34 * 图片的像素高 34 * 每个像素所占的字节数4</code> ; 我们的手机一般支持 RGB 颜色空间，现在就是知道了 RGB 颜色空间中，实际上是有 4 个分量，所以我们可以算出 bytesPerPixel = (8 * 4 + 7)/8 = 4B。所以我们现在知道为什么最开始的时候我们计算位图的大小的时候，每个像素的大小我们使用的值是 4B 了。事实上不同的颜色空间下，上面这些值都是不同的，但是一般在手机上，我们使用 RGB 颜色空间，所以差不多就是上面的值。</p>
+<p>文章开头说 <code>解压缩后的图片大小 = 图片的像素宽 34 * 图片的像素高 34 * 每个像素所占的字节数4 </code> ; 我们的手机一般支持 RGB 颜色空间，现在就是知道了 RGB 颜色空间中，实际上是有 4 个分量，所以我们可以算出 bytesPerPixel &#x3D; (8 * 4 + 7)&#x2F;8 &#x3D; 4B。所以我们现在知道为什么最开始的时候我们计算位图的大小的时候，每个像素的大小我们使用的值是 4B 了。事实上不同的颜色空间下，上面这些值都是不同的，但是一般在手机上，我们使用 RGB 颜色空间，所以差不多就是上面的值。</p>
 <h3 id="YYImage中使用"><a href="#YYImage中使用" class="headerlink" title="YYImage中使用"></a>YYImage中使用</h3><p>现在来看下YYImage中的解码代码 ，先使用 <code>CGBitmapContextCreate</code> 函数创建一个位图上下文；再用 <code>CGContextDrawImage</code> 函数将原始位图绘制到上下文中；最后使用 <code>CGBitmapContextCreateImage</code> 函数创建一张新的解压缩后的位图。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGImageRef</span> YYCGImageCreateDecodedCopy(<span class="built_in">CGImageRef</span> imageRef, <span class="built_in">BOOL</span> decodeForDisplay) &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (decodeForDisplay) &#123; <span class="comment">//decode with redraw (may lose some precision)</span></span><br><span class="line">        <span class="built_in">CGImageAlphaInfo</span> alphaInfo = <span class="built_in">CGImageGetAlphaInfo</span>(imageRef) &amp; kCGBitmapAlphaInfoMask;</span><br><span class="line">        <span class="built_in">BOOL</span> hasAlpha = <span class="literal">NO</span>;</span><br><span class="line">        <span class="keyword">if</span> (alphaInfo == kCGImageAlphaPremultipliedLast ||</span><br><span class="line">            alphaInfo == kCGImageAlphaPremultipliedFirst ||</span><br><span class="line">            alphaInfo == kCGImageAlphaLast ||</span><br><span class="line">            alphaInfo == kCGImageAlphaFirst) &#123;</span><br><span class="line">            hasAlpha = <span class="literal">YES</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// BGRA8888 (premultiplied) or BGRX8888</span></span><br><span class="line">        <span class="comment">// same as UIGraphicsBeginImageContext() and -[UIView drawRect:]</span></span><br><span class="line">        <span class="built_in">CGBitmapInfo</span> bitmapInfo = kCGBitmapByteOrder32Host;</span><br><span class="line">        bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;</span><br><span class="line">        <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>, width, height, <span class="number">8</span>, <span class="number">0</span>, YYCGColorSpaceGetDeviceRGB(), bitmapInfo);</span><br><span class="line">        <span class="keyword">if</span> (!context) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">CGContextDrawImage</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, width, height), imageRef); <span class="comment">// decode</span></span><br><span class="line">        <span class="built_in">CGImageRef</span> newImage = <span class="built_in">CGBitmapContextCreateImage</span>(context);</span><br><span class="line">        <span class="built_in">CFRelease</span>(context);</span><br><span class="line">        <span class="keyword">return</span> newImage;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="SDWebImage中使用"><a href="#SDWebImage中使用" class="headerlink" title="SDWebImage中使用"></a>SDWebImage中使用</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)decodedImageWithImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image &#123;</span><br><span class="line">    <span class="keyword">if</span> (![<span class="built_in">UIImage</span> shouldDecodeImage:image]) &#123;</span><br><span class="line">        <span class="keyword">return</span> image;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// autorelease the bitmap context and all vars to help system to free memory when there are memory warning.</span></span><br><span class="line">    <span class="comment">// on iOS7, do not forget to call [[SDImageCache sharedImageCache] clearMemory];</span></span><br><span class="line">    <span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGImageRef</span> imageRef = image.CGImage;</span><br><span class="line">        <span class="built_in">CGColorSpaceRef</span> colorspaceRef = [<span class="built_in">UIImage</span> colorSpaceForImageRef:imageRef];</span><br><span class="line">        </span><br><span class="line">        size_t width = <span class="built_in">CGImageGetWidth</span>(imageRef);</span><br><span class="line">        size_t height = <span class="built_in">CGImageGetHeight</span>(imageRef);</span><br><span class="line">        size_t bytesPerRow = kBytesPerPixel * width;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// kCGImageAlphaNone is not supported in CGBitmapContextCreate.</span></span><br><span class="line">        <span class="comment">// Since the original image here has no alpha info, use kCGImageAlphaNoneSkipLast</span></span><br><span class="line">        <span class="comment">// to create bitmap graphics contexts without alpha info.</span></span><br><span class="line">        <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>,</span><br><span class="line">                                                     width,</span><br><span class="line">                                                     height,</span><br><span class="line">                                                     kBitsPerComponent,</span><br><span class="line">                                                     bytesPerRow,</span><br><span class="line">                                                     colorspaceRef,</span><br><span class="line">                                                     kCGBitmapByteOrderDefault|kCGImageAlphaNoneSkipLast);</span><br><span class="line">        <span class="keyword">if</span> (context == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> image;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Draw the image into the context and retrieve the new bitmap image without alpha</span></span><br><span class="line">        <span class="built_in">CGContextDrawImage</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, width, height), imageRef);</span><br><span class="line">        <span class="built_in">CGImageRef</span> imageRefWithoutAlpha = <span class="built_in">CGBitmapContextCreateImage</span>(context);</span><br><span class="line">        <span class="built_in">UIImage</span> *imageWithoutAlpha = [<span class="built_in">UIImage</span> imageWithCGImage:imageRefWithoutAlpha</span><br><span class="line">                                                         scale:image.scale</span><br><span class="line">                                                   orientation:image.imageOrientation];</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGContextRelease</span>(context);</span><br><span class="line">        <span class="built_in">CGImageRelease</span>(imageRefWithoutAlpha);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> imageWithoutAlpha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">BOOL</span>)shouldDecodeImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image &#123;</span><br><span class="line">    <span class="comment">// Prevent "CGBitmapContextCreateImage: invalid context 0x0" error</span></span><br><span class="line">    <span class="keyword">if</span> (image == <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// do not decode animated images</span></span><br><span class="line">    <span class="keyword">if</span> (image.images != <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGImageRef</span> imageRef = image.CGImage;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGImageAlphaInfo</span> alpha = <span class="built_in">CGImageGetAlphaInfo</span>(imageRef);</span><br><span class="line">    <span class="built_in">BOOL</span> anyAlpha = (alpha == kCGImageAlphaFirst ||</span><br><span class="line">                     alpha == kCGImageAlphaLast ||</span><br><span class="line">                     alpha == kCGImageAlphaPremultipliedFirst ||</span><br><span class="line">                     alpha == kCGImageAlphaPremultipliedLast);</span><br><span class="line">    <span class="comment">// do not decode images with alpha</span></span><br><span class="line">    <span class="keyword">if</span> (anyAlpha) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGImageRef</span> YYCGImageCreateDecodedCopy(<span class="built_in">CGImageRef</span> imageRef, <span class="type">BOOL</span> decodeForDisplay) &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">if</span> (decodeForDisplay) &#123; <span class="comment">//decode with redraw (may lose some precision)</span></span><br><span class="line">        <span class="built_in">CGImageAlphaInfo</span> alphaInfo = <span class="built_in">CGImageGetAlphaInfo</span>(imageRef) &amp; kCGBitmapAlphaInfoMask;</span><br><span class="line">        <span class="type">BOOL</span> hasAlpha = <span class="literal">NO</span>;</span><br><span class="line">        <span class="keyword">if</span> (alphaInfo == kCGImageAlphaPremultipliedLast ||</span><br><span class="line">            alphaInfo == kCGImageAlphaPremultipliedFirst ||</span><br><span class="line">            alphaInfo == kCGImageAlphaLast ||</span><br><span class="line">            alphaInfo == kCGImageAlphaFirst) &#123;</span><br><span class="line">            hasAlpha = <span class="literal">YES</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// BGRA8888 (premultiplied) or BGRX8888</span></span><br><span class="line">        <span class="comment">// same as UIGraphicsBeginImageContext() and -[UIView drawRect:]</span></span><br><span class="line">        <span class="built_in">CGBitmapInfo</span> bitmapInfo = kCGBitmapByteOrder32Host;</span><br><span class="line">        bitmapInfo |= hasAlpha ? kCGImageAlphaPremultipliedFirst : kCGImageAlphaNoneSkipFirst;</span><br><span class="line">        <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>, width, height, <span class="number">8</span>, <span class="number">0</span>, YYCGColorSpaceGetDeviceRGB(), bitmapInfo);</span><br><span class="line">        <span class="keyword">if</span> (!context) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        <span class="built_in">CGContextDrawImage</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, width, height), imageRef); <span class="comment">// decode</span></span><br><span class="line">        <span class="built_in">CGImageRef</span> newImage = <span class="built_in">CGBitmapContextCreateImage</span>(context);</span><br><span class="line">        <span class="built_in">CFRelease</span>(context);</span><br><span class="line">        <span class="keyword">return</span> newImage;</span><br><span class="line">        </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="SDWebImage中使用"><a href="#SDWebImage中使用" class="headerlink" title="SDWebImage中使用"></a>SDWebImage中使用</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)decodedImageWithImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image &#123;</span><br><span class="line">    <span class="keyword">if</span> (![<span class="built_in">UIImage</span> shouldDecodeImage:image]) &#123;</span><br><span class="line">        <span class="keyword">return</span> image;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// autorelease the bitmap context and all vars to help system to free memory when there are memory warning.</span></span><br><span class="line">    <span class="comment">// on iOS7, do not forget to call [[SDImageCache sharedImageCache] clearMemory];</span></span><br><span class="line">    <span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGImageRef</span> imageRef = image.CGImage;</span><br><span class="line">        <span class="built_in">CGColorSpaceRef</span> colorspaceRef = [<span class="built_in">UIImage</span> colorSpaceForImageRef:imageRef];</span><br><span class="line">        </span><br><span class="line">        size_t width = <span class="built_in">CGImageGetWidth</span>(imageRef);</span><br><span class="line">        size_t height = <span class="built_in">CGImageGetHeight</span>(imageRef);</span><br><span class="line">        size_t bytesPerRow = kBytesPerPixel * width;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// kCGImageAlphaNone is not supported in CGBitmapContextCreate.</span></span><br><span class="line">        <span class="comment">// Since the original image here has no alpha info, use kCGImageAlphaNoneSkipLast</span></span><br><span class="line">        <span class="comment">// to create bitmap graphics contexts without alpha info.</span></span><br><span class="line">        <span class="built_in">CGContextRef</span> context = <span class="built_in">CGBitmapContextCreate</span>(<span class="literal">NULL</span>,</span><br><span class="line">                                                     width,</span><br><span class="line">                                                     height,</span><br><span class="line">                                                     kBitsPerComponent,</span><br><span class="line">                                                     bytesPerRow,</span><br><span class="line">                                                     colorspaceRef,</span><br><span class="line">                                                     kCGBitmapByteOrderDefault|kCGImageAlphaNoneSkipLast);</span><br><span class="line">        <span class="keyword">if</span> (context == <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> image;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// Draw the image into the context and retrieve the new bitmap image without alpha</span></span><br><span class="line">        <span class="built_in">CGContextDrawImage</span>(context, <span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, width, height), imageRef);</span><br><span class="line">        <span class="built_in">CGImageRef</span> imageRefWithoutAlpha = <span class="built_in">CGBitmapContextCreateImage</span>(context);</span><br><span class="line">        <span class="built_in">UIImage</span> *imageWithoutAlpha = [<span class="built_in">UIImage</span> imageWithCGImage:imageRefWithoutAlpha</span><br><span class="line">                                                         scale:image.scale</span><br><span class="line">                                                   orientation:image.imageOrientation];</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">CGContextRelease</span>(context);</span><br><span class="line">        <span class="built_in">CGImageRelease</span>(imageRefWithoutAlpha);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> imageWithoutAlpha;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">+ (<span class="type">BOOL</span>)shouldDecodeImage:(<span class="keyword">nullable</span> <span class="built_in">UIImage</span> *)image &#123;</span><br><span class="line">    <span class="comment">// Prevent &quot;CGBitmapContextCreateImage: invalid context 0x0&quot; error</span></span><br><span class="line">    <span class="keyword">if</span> (image == <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// do not decode animated images</span></span><br><span class="line">    <span class="keyword">if</span> (image.images != <span class="literal">nil</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGImageRef</span> imageRef = image.CGImage;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGImageAlphaInfo</span> alpha = <span class="built_in">CGImageGetAlphaInfo</span>(imageRef);</span><br><span class="line">    <span class="type">BOOL</span> anyAlpha = (alpha == kCGImageAlphaFirst ||</span><br><span class="line">                     alpha == kCGImageAlphaLast ||</span><br><span class="line">                     alpha == kCGImageAlphaPremultipliedFirst ||</span><br><span class="line">                     alpha == kCGImageAlphaPremultipliedLast);</span><br><span class="line">    <span class="comment">// do not decode images with alpha</span></span><br><span class="line">    <span class="keyword">if</span> (anyAlpha) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>SDWebImage 中和其他不一样的地方，就是如果一张图片有 alpha 分量，那就直接返回原始图片，不再进行解码操作。我猜测作者这样写，是不是因为觉得对于有 alpha 分量的图片，因为上下文创建中那些参数的缘故，解码之后可能会与原始图像有偏差，干脆就不解码了。</p>
 <p>SDWebImage 在解码操作外面包了 autoreleasepool，这样在大量图片需要解码的时候，可以使得局部变量尽早释放掉，不会造成内存峰值过高。其他创建上下文，然后调用 CGContextDrawImage，再调用CGBitmapContextCreateImage获取创建后的位图，和 YYImage 基本一样，就是个别参数设置不同。</p>
 
@@ -746,7 +755,7 @@
           
             <a href="/tags/iOS/" rel="tag"># iOS</a>
           
-            <a href="/tags/图片/" rel="tag"># 图片</a>
+            <a href="/tags/%E5%9B%BE%E7%89%87/" rel="tag"># 图片</a>
           
         </div>
       
@@ -759,7 +768,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/quick-start/图片/iOS图片-最佳实践/" rel="next" title="iOS图片-最佳实践">
+              <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" rel="next" title="iOS图片-最佳实践">
                 <i class="fa fa-chevron-left"></i> iOS图片-最佳实践
               </a>
             
@@ -769,7 +778,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/quick-start/图片/iOS图片-像素操作/" rel="prev" title="iOS图片-像素操作">
+              <a href="/quick-start/%E5%9B%BE%E7%89%87/iOS%E5%9B%BE%E7%89%87-%E5%83%8F%E7%B4%A0%E6%93%8D%E4%BD%9C/" rel="prev" title="iOS图片-像素操作">
                 iOS图片-像素操作 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -833,7 +842,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -844,9 +855,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -903,9 +914,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -915,7 +924,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -962,7 +971,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1005,7 +1016,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#图片解压后的数据变化"><span class="nav-number">1.</span> <span class="nav-text">图片解压后的数据变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位图信息"><span class="nav-number">2.</span> <span class="nav-text">位图信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解码数组-Decode-Array"><span class="nav-number">2.1.</span> <span class="nav-text">解码数组 Decode Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#像素格式Pixel-Format"><span class="nav-number">2.2.</span> <span class="nav-text">像素格式Pixel Format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#颜色与颜色空间-Color-and-Color-Spaces"><span class="nav-number">2.3.</span> <span class="nav-text">颜色与颜色空间 Color and Color Spaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位图布局-Bitmap-Layout"><span class="nav-number">2.4.</span> <span class="nav-text">位图布局 Bitmap Layout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#透明信息-CGImageAlphaInfo"><span class="nav-number">2.4.1.</span> <span class="nav-text">透明信息 CGImageAlphaInfo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字节顺序-CGImageByteOrderInfo"><span class="nav-number">2.4.2.</span> <span class="nav-text">字节顺序 CGImageByteOrderInfo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持的像素格式"><span class="nav-number">2.5.</span> <span class="nav-text">支持的像素格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CGBitmapContextCreate"><span class="nav-number">3.</span> <span class="nav-text">CGBitmapContextCreate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#YYImage中使用"><span class="nav-number">3.1.</span> <span class="nav-text">YYImage中使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDWebImage中使用"><span class="nav-number">3.2.</span> <span class="nav-text">SDWebImage中使用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E8%A7%A3%E5%8E%8B%E5%90%8E%E7%9A%84%E6%95%B0%E6%8D%AE%E5%8F%98%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">图片解压后的数据变化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E5%9B%BE%E4%BF%A1%E6%81%AF"><span class="nav-number">2.</span> <span class="nav-text">位图信息</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E7%A0%81%E6%95%B0%E7%BB%84-Decode-Array"><span class="nav-number">2.1.</span> <span class="nav-text">解码数组 Decode Array</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%83%8F%E7%B4%A0%E6%A0%BC%E5%BC%8FPixel-Format"><span class="nav-number">2.2.</span> <span class="nav-text">像素格式Pixel Format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%9C%E8%89%B2%E4%B8%8E%E9%A2%9C%E8%89%B2%E7%A9%BA%E9%97%B4-Color-and-Color-Spaces"><span class="nav-number">2.3.</span> <span class="nav-text">颜色与颜色空间 Color and Color Spaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%8D%E5%9B%BE%E5%B8%83%E5%B1%80-Bitmap-Layout"><span class="nav-number">2.4.</span> <span class="nav-text">位图布局 Bitmap Layout</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%8F%E6%98%8E%E4%BF%A1%E6%81%AF-CGImageAlphaInfo"><span class="nav-number">2.4.1.</span> <span class="nav-text">透明信息 CGImageAlphaInfo</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E9%A1%BA%E5%BA%8F-CGImageByteOrderInfo"><span class="nav-number">2.4.2.</span> <span class="nav-text">字节顺序 CGImageByteOrderInfo</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E7%9A%84%E5%83%8F%E7%B4%A0%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.5.</span> <span class="nav-text">支持的像素格式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CGBitmapContextCreate"><span class="nav-number">3.</span> <span class="nav-text">CGBitmapContextCreate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#YYImage%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">YYImage中使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SDWebImage%E4%B8%AD%E4%BD%BF%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">SDWebImage中使用</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1025,7 +1036,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -1037,7 +1048,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -1046,7 +1057,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

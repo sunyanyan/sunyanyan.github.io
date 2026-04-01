@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -117,29 +117,30 @@
 
 
 
-  <meta name="description" content="本文主要讲使用IP代理防止爬虫被禁 在 python爬虫中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~    为了防止这个悲剧发生 根据Scarpy https://doc.scrapy.org/en/latest/topics/practices.html?highlight=ban">
-<meta name="keywords" content="Python,Scrapy">
+  <meta name="description" content="本文主要讲使用IP代理防止爬虫被禁 在 python爬虫中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~    为了防止这个悲剧发生 根据Scarpy https:&#x2F;&#x2F;doc.scrapy.org&#x2F;en&#x2F;latest&#x2F;topics&#x2F;practices.html?highlight&#x3D;ban">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python爬虫教程-使用Scrapy(2)">
-<meta property="og:url" content="https://developerdoc.com/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy(2)/index.html">
+<meta property="og:url" content="https://developerdoc.com/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/index.html">
 <meta property="og:site_name" content="孙同生的博客">
-<meta property="og:description" content="本文主要讲使用IP代理防止爬虫被禁 在 python爬虫中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~    为了防止这个悲剧发生 根据Scarpy https://doc.scrapy.org/en/latest/topics/practices.html?highlight=ban">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:description" content="本文主要讲使用IP代理防止爬虫被禁 在 python爬虫中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~    为了防止这个悲剧发生 根据Scarpy https:&#x2F;&#x2F;doc.scrapy.org&#x2F;en&#x2F;latest&#x2F;topics&#x2F;practices.html?highlight&#x3D;ban">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://developerdoc.com/res/Python/zhipin_403.png">
-<meta property="og:updated_time" content="2018-11-23T02:57:46.000Z">
+<meta property="article:published_time" content="2017-09-22T06:32:35.000Z">
+<meta property="article:modified_time" content="2018-11-23T02:57:46.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Scrapy">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python爬虫教程-使用Scrapy(2)">
-<meta name="twitter:description" content="本文主要讲使用IP代理防止爬虫被禁 在 python爬虫中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~    为了防止这个悲剧发生 根据Scarpy https://doc.scrapy.org/en/latest/topics/practices.html?highlight=ban">
 <meta name="twitter:image" content="https://developerdoc.com/res/Python/zhipin_403.png">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy(2)/">
+  <link rel="canonical" href="https://developerdoc.com/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy(2)/"/>
 
 
 
@@ -189,7 +190,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -297,7 +298,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -349,7 +352,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy(2)/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -414,7 +417,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -432,7 +435,7 @@
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quick-start/Python爬虫教程/" itemprop="url" rel="index"><span itemprop="name">Python爬虫教程</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">Python爬虫教程</span></a></span>
 
                 
                 
@@ -447,8 +450,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy(2)/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy(2)/" itemprop="commentCount"></span>
+                <a href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -456,7 +459,7 @@
 
           
           
-             <span id="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy(2)/" class="leancloud_visitors" data-flag-title="Python爬虫教程-使用Scrapy(2)">
+             <span id="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy(2)/" class="leancloud_visitors" data-flag-title="Python爬虫教程-使用Scrapy(2)">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -481,7 +484,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.4k</span>
+                <span title="本文字数">5.9k</span>
               
 
               
@@ -495,7 +498,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -517,11 +520,12 @@
       
         <blockquote>
 <p>本文主要讲使用IP代理防止爬虫被禁</p>
-<p>在 <a href="../Python爬虫教程-使用Scrapy/">python爬虫</a>中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~ </p>
+<p>在 <a href="../Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy/">python爬虫</a>中爬取到大约184条数据后，zhipin网站就会采取链接重定向方式 阻止爬取。如果在代码中取消登录操作 ， 直接爬取到大约92条数据，你的 IP 就会被封啦~ </p>
 </blockquote>
-<p><img src="/res/Python/zhipin_403.png" alt></p>
-<p>为了防止这个悲剧发生 根据Scarpy <a href="https://doc.scrapy.org/en/latest/topics/practices.html?highlight=banned#avoiding-getting-banned" target="_blank" rel="noopener">https://doc.scrapy.org/en/latest/topics/practices.html?highlight=banned#avoiding-getting-banned</a> 有以下几个建议：</p>
-<a id="more"></a>
+<p><img src="/res/Python/zhipin_403.png"></p>
+<p>为了防止这个悲剧发生 根据Scarpy <a href="https://doc.scrapy.org/en/latest/topics/practices.html?highlight=banned#avoiding-getting-banned">https://doc.scrapy.org/en/latest/topics/practices.html?highlight=banned#avoiding-getting-banned</a> 有以下几个建议：</p>
+<span id="more"></span>
+
 <ul>
 <li>动态设置user agent</li>
 <li>禁用cookies （<strong>COOKIES_ENABLED</strong>）</li>
@@ -533,11 +537,13 @@
 <p>在setting.py中设置完 COOKIES_ENABLED 和 DOWNLOAD_DELAY 下面就来看如何使用 User Agent 和 IP代理</p>
 <h2 id="设置-UA池和-IP池"><a href="#设置-UA池和-IP池" class="headerlink" title="设置 UA池和 IP池"></a>设置 UA池和 IP池</h2><p>scarpy设置代理IP 和 User Agent的切换都是用 下载中间件 DOWNLOADER_MIDDLEWARES 完成。</p>
 <h3 id="动态切换-User-Agent"><a href="#动态切换-User-Agent" class="headerlink" title="动态切换 User Agent"></a>动态切换 User Agent</h3><p>在工程中 middleware.py(没有这个文件就创建一个，若是有这个文件 里面有内置的中间件也不用理会它) 中添加：</p>
-<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">agents = [</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.0 Safari/532.5"</span>,</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US) AppleWebKit/532.9 (KHTML, like Gecko) Chrome/5.0.310.0 Safari/532.9"</span>,</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.514.0 Safari/534.7"</span>,</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/534.14 (KHTML, like Gecko) Chrome/9.0.601.0 Safari/534.14"</span>,</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.14 (KHTML, like Gecko) Chrome/10.0.601.0 Safari/534.14"</span>,</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.20 (KHTML, like Gecko) Chrome/11.0.672.2 Safari/534.20"</span>,</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.27 (KHTML, like Gecko) Chrome/12.0.712.0 Safari/534.27"</span>,</span><br><span class="line">    <span class="string">"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.24 Safari/535.1"</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserAgentMiddleware</span><span class="params">(object)</span>:</span> </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request, spider)</span>:</span></span><br><span class="line">        agent = random.choice(agents)</span><br><span class="line">        request.headers[<span class="string">"User-Agent"</span>] = agent</span><br></pre></td></tr></table></figure>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">agents = [</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/532.5 (KHTML, like Gecko) Chrome/4.0.249.0 Safari/532.5&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows; U; Windows NT 5.2; en-US) AppleWebKit/532.9 (KHTML, like Gecko) Chrome/5.0.310.0 Safari/532.9&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Chrome/7.0.514.0 Safari/534.7&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US) AppleWebKit/534.14 (KHTML, like Gecko) Chrome/9.0.601.0 Safari/534.14&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.14 (KHTML, like Gecko) Chrome/10.0.601.0 Safari/534.14&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.20 (KHTML, like Gecko) Chrome/11.0.672.2 Safari/534.20&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/534.27 (KHTML, like Gecko) Chrome/12.0.712.0 Safari/534.27&quot;</span>,</span><br><span class="line">    <span class="string">&quot;Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/13.0.782.24 Safari/535.1&quot;</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">UserAgentMiddleware</span>(<span class="title class_ inherited__">object</span>): </span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">process_request</span>(<span class="params">self, request, spider</span>):</span><br><span class="line">        agent = random.choice(agents)</span><br><span class="line">        request.headers[<span class="string">&quot;User-Agent&quot;</span>] = agent</span><br></pre></td></tr></table></figure>
 <p>然后在setting.py中 添加:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">   &apos;jobSpider.middlewares.UserAgentMiddleware&apos;: 401,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">DOWNLOADER_MIDDLEWARES = &#123;</span><br><span class="line">   &#x27;jobSpider.middlewares.UserAgentMiddleware&#x27;: 401,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <h3 id="IP代理"><a href="#IP代理" class="headerlink" title="IP代理"></a>IP代理</h3><p>简单来，比如本地127.0.0.1开启了一个8888端口的代理，同样可以通过中间件配置让爬虫通过这个代理来对目标网站进行爬取。<br>同样在middleware.py中加入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class ProxyMiddleware(object):</span><br><span class="line"></span><br><span class="line">    def process_request(self, request, spider): </span><br><span class="line">        # 此处填写你自己的代理</span><br><span class="line">        # 如果是买的代理的话可以去用API获取代理列表然后随机选择一个</span><br><span class="line">        proxy = &quot;http://127.0.0.1: 8888&quot;</span><br><span class="line">        request.meta[&quot;proxy&quot;] = proxy</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">class ProxyMiddleware(object):</span><br><span class="line"></span><br><span class="line">    def process_request(self, request, spider): </span><br><span class="line">        # 此处填写你自己的代理</span><br><span class="line">        # 如果是买的代理的话可以去用API获取代理列表然后随机选择一个</span><br><span class="line">        proxy = &quot;http://127.0.0.1: 8888&quot;</span><br><span class="line">        request.meta[&quot;proxy&quot;] = proxy</span><br></pre></td></tr></table></figure>
+
 <p>然后和 user agent中一样 在setting.py 的DOWNLOADER_MIDDLEWARES中添加ProxyMiddleware就可以了。</p>
 <p>但是当然用第三方的ip代理 才能达到防止爬虫被banned的目的啦~</p>
 
@@ -575,7 +581,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/quick-start/Python爬虫教程/Python爬虫教程-使用Scrapy/" rel="next" title="Python爬虫教程-使用Scrapy">
+              <a href="/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B-%E4%BD%BF%E7%94%A8Scrapy/" rel="next" title="Python爬虫教程-使用Scrapy">
                 <i class="fa fa-chevron-left"></i> Python爬虫教程-使用Scrapy
               </a>
             
@@ -585,7 +591,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/essay/CoreText介绍/" rel="prev" title="CoreText介绍.md">
+              <a href="/essay/CoreText%E4%BB%8B%E7%BB%8D/" rel="prev" title="CoreText介绍.md">
                 CoreText介绍.md <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -649,7 +655,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -660,9 +668,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -719,9 +727,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -731,7 +737,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -778,7 +784,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -821,7 +829,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置-UA池和-IP池"><span class="nav-number">1.</span> <span class="nav-text">设置 UA池和 IP池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态切换-User-Agent"><span class="nav-number">1.1.</span> <span class="nav-text">动态切换 User Agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP代理"><span class="nav-number">1.2.</span> <span class="nav-text">IP代理</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE-UA%E6%B1%A0%E5%92%8C-IP%E6%B1%A0"><span class="nav-number">1.</span> <span class="nav-text">设置 UA池和 IP池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2-User-Agent"><span class="nav-number">1.1.</span> <span class="nav-text">动态切换 User Agent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IP%E4%BB%A3%E7%90%86"><span class="nav-number">1.2.</span> <span class="nav-text">IP代理</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -841,7 +849,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -853,7 +861,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -862,7 +870,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

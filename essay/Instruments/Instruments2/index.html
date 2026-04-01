@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,13 +118,12 @@
 
 
   <meta name="description" content="介绍一下使用查看 CPU 性能 、图形性能和内存性能,要执行Instruments需要先在Xcode 中对当前的项目做 Profile (Command-I ：">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Instruments使用">
 <meta property="og:url" content="https://developerdoc.com/essay/Instruments/Instruments2/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="介绍一下使用查看 CPU 性能 、图形性能和内存性能,要执行Instruments需要先在Xcode 中对当前的项目做 Profile (Command-I ：">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://developerdoc.com/res/Instrument/2.png">
 <meta property="og:image" content="https://developerdoc.com/res/Instrument/3.png">
 <meta property="og:image" content="https://developerdoc.com/res/Instrument/4.png">
@@ -138,20 +137,21 @@
 <meta property="og:image" content="https://developerdoc.com/res/Instrument/12.png">
 <meta property="og:image" content="https://developerdoc.com/res/Instrument/13.png">
 <meta property="og:image" content="https://developerdoc.com/res/Instrument/14.png">
-<meta property="og:updated_time" content="2019-03-06T13:12:17.000Z">
+<meta property="article:published_time" content="2019-03-06T02:25:49.000Z">
+<meta property="article:modified_time" content="2019-03-06T13:12:17.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Instruments使用">
-<meta name="twitter:description" content="介绍一下使用查看 CPU 性能 、图形性能和内存性能,要执行Instruments需要先在Xcode 中对当前的项目做 Profile (Command-I ：">
 <meta name="twitter:image" content="https://developerdoc.com/res/Instrument/2.png">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/Instruments/Instruments2/">
+  <link rel="canonical" href="https://developerdoc.com/essay/Instruments/Instruments2/"/>
 
 
 
@@ -201,7 +201,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -309,7 +309,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -414,7 +416,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -425,14 +427,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/Instruments/" itemprop="url" rel="index"><span itemprop="name">Instruments</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E9%87%8D%E5%AD%A6iOS/Instruments/" itemprop="url" rel="index"><span itemprop="name">Instruments</span></a></span>
 
                 
                 
@@ -481,7 +483,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3k</span>
+                <span title="本文字数">4.5k</span>
               
 
               
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -516,43 +518,50 @@
 
       
         <p>介绍一下使用<code>查看 CPU 性能</code> 、<code>图形性能</code>和<code>内存性能</code>,要执行Instruments需要先在Xcode 中对当前的项目做 Profile (Command-I ：</p>
-<p><img src="/res/Instrument/2.png" width="80%"><br><a id="more"></a><br>这时就会打开 Profiling Template 选项对话框：<br><img src="/res/Instrument/3.png" width="80%"></p>
-<h2 id="查看-CPU-性能"><a href="#查看-CPU-性能" class="headerlink" title="查看 CPU 性能"></a>查看 CPU 性能</h2><p><strong>1、</strong> 选择 Time Profiler 这个模板，并点击 Choose 按钮。<br><img src="/res/Instrument/4.png" width="20%"></p>
-<p><strong>2、</strong> 进入 Instruments 后，选择正确的设备和应用程序：<br><img src="/res/Instrument/5.png" width="80%"></p>
-<p><strong>3、</strong>点击红色按钮运行后，就能得到 CPU 性能的结果了：<br><img src="/res/Instrument/6.png" width="80%"></p>
-<p><strong>4、</strong>我们还能在时间轴面板里面去选择一段时间来查看该时间段里更为细节的 CPU 性能<br><img src="/res/Instrument/7.png" width="80%"></p>
+<img src='/res/Instrument/2.png' width='80%'/>
+<span id="more"></span>
+这时就会打开 Profiling Template 选项对话框：
+<img src='/res/Instrument/3.png' width='80%'/>
+## 查看 CPU 性能
+
+<p><strong>1、</strong> 选择 Time Profiler 这个模板，并点击 Choose 按钮。<br><img src='/res/Instrument/4.png' width='20%'/></p>
+<p><strong>2、</strong> 进入 Instruments 后，选择正确的设备和应用程序：<br><img src='/res/Instrument/5.png' width='80%'/></p>
+<p>**3、**点击红色按钮运行后，就能得到 CPU 性能的结果了：<br><img src='/res/Instrument/6.png' width='80%'/></p>
+<p>**4、**我们还能在时间轴面板里面去选择一段时间来查看该时间段里更为细节的 CPU 性能<br><img src='/res/Instrument/7.png' width='80%'/></p>
 <p>从这个结果中，我们可以看到不同的线程以及方法调用占用的时间，从而可以评估出 CPU 性能的瓶颈和优化方向。</p>
-<p><strong>5、</strong>除此之外，我们还能在 Instruments 选择使用 Counters、Activity Monitor、System Trace 等 Profiling Template 对程序做 CPU 性能考量。</p>
-<p><strong>6、</strong>需要注意的是，有时候如果你使用 Instruments 查看调用堆栈时可能看到的都是地址而不是函数名，这样就不太好定位问题了。这时候你可以把相关项目的 Build Settings - Debug Information Format 的 Debug 和 Release 都设置为 DWARF with dSYM File，这样就能将对应的堆栈信息符号化显示了。</p>
+<p>**5、**除此之外，我们还能在 Instruments 选择使用 Counters、Activity Monitor、System Trace 等 Profiling Template 对程序做 CPU 性能考量。</p>
+<p>**6、**需要注意的是，有时候如果你使用 Instruments 查看调用堆栈时可能看到的都是地址而不是函数名，这样就不太好定位问题了。这时候你可以把相关项目的 Build Settings - Debug Information Format 的 Debug 和 Release 都设置为 DWARF with dSYM File，这样就能将对应的堆栈信息符号化显示了。</p>
 <h2 id="图形性能"><a href="#图形性能" class="headerlink" title="图形性能"></a>图形性能</h2><p>关于图形性能方面，我们平时最关注的应该就是「帧率」这个概念了。在 Instruments 中，我们可以使用 <code>Core Animation</code> + <code>Time Profiler</code> 来评估图形性能。使用步骤如下：</p>
-<p><strong>1、</strong>同「CPU 占用性能测试」一样，先在 Xcode 中对当前的项目执行 Profile (Command-I ，并在打开的对话框中选择 Core Animaiton 这个模板：<br><img src="/res/Instrument/8.png" width="20%"><br><strong>2、</strong>进入 Instruments 后，选择正确的设备和应用程序。</p>
-<p><strong>3、</strong>点击红色按钮运行应用程序，随着我们操作 App 界面，就可以看到帧率的变化和数据了：</p>
-<p><img src="/res/Instrument/9.png" width="80%"><br>在滑动屏幕时，帧率越高表示性能越好，帧率过低则意味着屏幕可能会出现卡顿。</p>
-<p><strong>4、</strong>在右下角面板的 Display Settings 区域，我们可以看到多个 Debug Options：</p>
+<p>**1、**同「CPU 占用性能测试」一样，先在 Xcode 中对当前的项目执行 Profile (Command-I ，并在打开的对话框中选择 Core Animaiton 这个模板：<br><img src='/res/Instrument/8.png' width='20%'/><br>**2、**进入 Instruments 后，选择正确的设备和应用程序。</p>
+<p>**3、**点击红色按钮运行应用程序，随着我们操作 App 界面，就可以看到帧率的变化和数据了：</p>
+<img src='/res/Instrument/9.png' width='80%'/>
+在滑动屏幕时，帧率越高表示性能越好，帧率过低则意味着屏幕可能会出现卡顿。
+
+<p>**4、**在右下角面板的 Display Settings 区域，我们可以看到多个 Debug Options：</p>
 <ul>
 <li><code>Color Blended Layers</code>，这个选项选项基于渲染程度对屏幕中的混合区域进行绿到红的高亮显示，<strong>越红表示性能越差</strong>，会对帧率等指标造成较大的影响。红色通常是由于多个半透明图层叠加引起。</li>
-<li><code>Color Hits Green and Misses Red</code>，当 UIView.layer.shouldRasterize = YES 时，耗时的图片绘制会被缓存，并当做一个简单的扁平图片来呈现。这时候，如果页面的其他区块(比如 UITableViewCell 的复用’ width=’80%’/&gt;使用缓存直接命中，就显示绿色，反之，如果不命中，这时就显示红色。<strong>红色越多，性能越差</strong>。因为栅格化生成缓存的过程是有开销的，如果缓存能被大量命中和有效使用，则总体上会降低开销，反之则意味着要频繁生成新的缓存，这会让性能问题雪上加霜。</li>
+<li><code>Color Hits Green and Misses Red</code>，当 UIView.layer.shouldRasterize &#x3D; YES 时，耗时的图片绘制会被缓存，并当做一个简单的扁平图片来呈现。这时候，如果页面的其他区块(比如 UITableViewCell 的复用’ width&#x3D;’80%’&#x2F;&gt;使用缓存直接命中，就显示绿色，反之，如果不命中，这时就显示红色。<strong>红色越多，性能越差</strong>。因为栅格化生成缓存的过程是有开销的，如果缓存能被大量命中和有效使用，则总体上会降低开销，反之则意味着要频繁生成新的缓存，这会让性能问题雪上加霜。</li>
 <li><code>Color Copied Images</code>，对于 GPU 不支持的色彩格式的图片只能由 CPU 来处理，把这样的图片标为蓝色。<strong>蓝色越多，性能越差</strong>。因为，我们不希望在滚动视图的时候，由 CPU 来处理图片，这样可能会对主线程造成阻塞。</li>
 <li><code>Color Immediately</code>，通常 Core Animation Instruments 以每毫秒 10 次的频率更新图层调试颜色。对某些效果来说，这显然太慢了。这个选项就可以用来设置每帧都更新（可能会影响到渲染性能，而且会导致帧率测量不准，所以不要一直都设置它）。</li>
 <li><code>Color Misaligned Images</code>，这个选项检查了图片是否被缩放，以及像素是否对齐。被放缩的图片会被标记为黄色，像素不对齐则会标注为紫色。<strong>黄色、紫色越多，性能越差。</strong></li>
 <li><code>Color Offscreen-Rendered Yellow</code>，这个选项会把那些离屏渲染的图层显示为黄色。<strong>黄色越多，性能越差</strong>。这些显示为黄色的图层很可能需要用 shadowPath 或者 shouldRasterize 来优化。</li>
-<li><code>Color OpenGL Fast Path Blue</code>，这个选项会把任何直接使用 OpenGL 绘制的图层显示为蓝色。<strong>蓝色越多，性能越好</strong>。如果仅仅使用 UIKit 或者 Core Animation 的 API，那么不会有任何效果。如果使用 GLKView 或者 CAEAGLLayer`，那如果不显示蓝色块的话就意味着你正在强制 CPU 渲染额外的纹理，而不是绘制到屏幕。</li>
+<li><code>Color OpenGL Fast Path Blue</code>，这个选项会把任何直接使用 OpenGL 绘制的图层显示为蓝色。<strong>蓝色越多，性能越好</strong>。如果仅仅使用 UIKit 或者 Core Animation 的 API，那么不会有任何效果。如果使用 GLKView 或者 CAEAGLLayer&#96;，那如果不显示蓝色块的话就意味着你正在强制 CPU 渲染额外的纹理，而不是绘制到屏幕。</li>
 <li><code>Flash Updated Regions</code>，这个选项会把重绘的内容显示为黄色。不该出现的<strong>黄色越多，性能越差</strong>。通常我们希望只是更新的部分被标记完黄色。</li>
 </ul>
 <p>我们可以使用这些选项，来监测更加具体的图形性能。</p>
-<p><strong>5、</strong>我们还可以选择使用 OpenGL ES Analysis、GPU Driver 等模板来监测图形相关性能。</p>
+<p>**5、**我们还可以选择使用 OpenGL ES Analysis、GPU Driver 等模板来监测图形相关性能。</p>
 <h2 id="内存性能"><a href="#内存性能" class="headerlink" title="内存性能"></a>内存性能</h2><p>Instruments 可以帮我们了解到应用程序使用内存的几个方面：</p>
 <ul>
 <li><strong>全局内存使用情况(Overall Memory Use</strong>: 从全局的角度监测应用程序的内存使用情况，捕捉非预期的或大幅度的内存增长。</li>
-<li><strong>内存泄露(Leaked memory </strong>: 未被你的程序引用，同时也不能被使用或释放的内存。</li>
-<li><strong>废弃内存(Abandoned memory </strong>: 被你的程序引用，但是没什么卵用的内存。<br>僵尸对象(Zombies’ width=’80%’/&gt;: 僵尸对象指的是对应的内存已经被释放并且不再会使用到，但是你的程序却在某处依然有指向它的引用。在 iOS 中有一个 NSZombie 机制，这个是为了内存调试的目的而设计的一种机制。在这个机制下，当你 NSZombieEnabled 为 YES 时，当一个对应的引用计数减为 0 时，这个对象不会被释放，当这个对象再收到任何消息时，它会记录一条 warning，而不是直接崩溃，以方便我们进行程序调试。<br>这里我们介绍下查找内存泄露的过程：</li>
+<li>**内存泄露(Leaked memory **: 未被你的程序引用，同时也不能被使用或释放的内存。</li>
+<li>**废弃内存(Abandoned memory **: 被你的程序引用，但是没什么卵用的内存。<br>僵尸对象(Zombies’ width&#x3D;’80%’&#x2F;&gt;: 僵尸对象指的是对应的内存已经被释放并且不再会使用到，但是你的程序却在某处依然有指向它的引用。在 iOS 中有一个 NSZombie 机制，这个是为了内存调试的目的而设计的一种机制。在这个机制下，当你 NSZombieEnabled 为 YES 时，当一个对应的引用计数减为 0 时，这个对象不会被释放，当这个对象再收到任何消息时，它会记录一条 warning，而不是直接崩溃，以方便我们进行程序调试。<br>这里我们介绍下查找内存泄露的过程：</li>
 </ul>
-<p><strong>1、</strong>同「CPU 占用性能测试」一样，先在 Xcode 中对当前的项目执行 Profile (Command-I ，并在打开的对话框中选择 Leaks 这个模板：<br><img src="/res/Instrument/10.png" width="20%"></p>
-<p><strong>2、</strong>进入 Instruments 后，选择正确的设备和应用程序。</p>
-<p><strong>3、</strong>点击红色按钮运行应用程序，我们可以看到如下界面：<br><img src="/res/Instrument/11.png" width="80%"></p>
-<p><strong>4、</strong>在 Display Settings 中勾选 <code>Invert Call Tree</code> 和 <code>Hide System Libraries</code> 或其他选项可以过滤显示的数据。<br><img src="/res/Instrument/12.png" width="80%"></p>
-<p><strong>5、</strong>在导航栏的筛选框中，我们可以输入关键字来筛选数据。<br><img src="/res/Instrument/13.png" width="80%"></p>
-<p><strong>6、</strong>在实际使用中，我们进入一个页面后再退出，发现相关的内存分配没有清空，这时候就发生内存泄露了。我们查看更细节的调用信息，追踪到可能造成内存泄露的代码位置：<br><img src="/res/Instrument/14.png" width="80%"><br><strong>7、</strong>我们还可以使用 Activity Monitor、Allocations、Zombies 等模板来针对性地做内存监测。</p>
+<p>**1、**同「CPU 占用性能测试」一样，先在 Xcode 中对当前的项目执行 Profile (Command-I ，并在打开的对话框中选择 Leaks 这个模板：<br><img src='/res/Instrument/10.png' width='20%'/></p>
+<p>**2、**进入 Instruments 后，选择正确的设备和应用程序。</p>
+<p>**3、**点击红色按钮运行应用程序，我们可以看到如下界面：<br><img src='/res/Instrument/11.png' width='80%'/></p>
+<p>**4、**在 Display Settings 中勾选 <code>Invert Call Tree</code> 和 <code>Hide System Libraries</code> 或其他选项可以过滤显示的数据。<br><img src='/res/Instrument/12.png' width='80%'/></p>
+<p>**5、**在导航栏的筛选框中，我们可以输入关键字来筛选数据。<br><img src='/res/Instrument/13.png' width='80%'/></p>
+<p>**6、**在实际使用中，我们进入一个页面后再退出，发现相关的内存分配没有清空，这时候就发生内存泄露了。我们查看更细节的调用信息，追踪到可能造成内存泄露的代码位置：<br><img src='/res/Instrument/14.png' width='80%'/><br>**7、**我们还可以使用 Activity Monitor、Allocations、Zombies 等模板来针对性地做内存监测。</p>
 
       
     </div>
@@ -660,7 +669,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -671,9 +682,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -730,9 +741,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -742,7 +751,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -789,7 +798,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -832,7 +843,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看-CPU-性能"><span class="nav-number">1.</span> <span class="nav-text">查看 CPU 性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图形性能"><span class="nav-number">2.</span> <span class="nav-text">图形性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存性能"><span class="nav-number">3.</span> <span class="nav-text">内存性能</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E5%BD%A2%E6%80%A7%E8%83%BD"><span class="nav-number">1.</span> <span class="nav-text">图形性能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E6%80%A7%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">内存性能</span></a></li></ol></div>
             
 
           </div>
@@ -852,7 +863,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -864,7 +875,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -873,7 +884,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

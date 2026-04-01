@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,26 +118,26 @@
 
 
   <meta name="description" content="启动过程iOS应用的启动可分为pre-main阶段和main()阶段，pre-main阶段为main函数执行之前所做的操作，main阶段为main函数到首页展示阶段。其中系统做的事情为：  premain 加载所有依赖的Mach-O文件（递归调用Mach-O加载的方法） 加载动态链接库加载器dyld（dynamic loader） 定位内部、外部指针引用，例如字符串、函数等 加载类扩展（Categ">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS App启动优化">
-<meta property="og:url" content="https://developerdoc.com/essay/ios-business/App启动优化/index.html">
+<meta property="og:url" content="https://developerdoc.com/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="启动过程iOS应用的启动可分为pre-main阶段和main()阶段，pre-main阶段为main函数执行之前所做的操作，main阶段为main函数到首页展示阶段。其中系统做的事情为：  premain 加载所有依赖的Mach-O文件（递归调用Mach-O加载的方法） 加载动态链接库加载器dyld（dynamic loader） 定位内部、外部指针引用，例如字符串、函数等 加载类扩展（Categ">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-06-11T12:51:28.669Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-06T12:57:54.000Z">
+<meta property="article:modified_time" content="2024-06-11T12:51:28.669Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS App启动优化">
-<meta name="twitter:description" content="启动过程iOS应用的启动可分为pre-main阶段和main()阶段，pre-main阶段为main函数执行之前所做的操作，main阶段为main函数到首页展示阶段。其中系统做的事情为：  premain 加载所有依赖的Mach-O文件（递归调用Mach-O加载的方法） 加载动态链接库加载器dyld（dynamic loader） 定位内部、外部指针引用，例如字符串、函数等 加载类扩展（Categ">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/ios-business/App启动优化/">
+  <link rel="canonical" href="https://developerdoc.com/essay/ios-business/App启动优化/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -295,7 +295,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -347,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ios-business/App启动优化/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -412,7 +414,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -423,7 +425,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS开发进阶/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
 
                 
                 
@@ -438,8 +440,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/essay/ios-business/App启动优化/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/ios-business/App启动优化/" itemprop="commentCount"></span>
+                <a href="/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -447,7 +449,7 @@
 
           
           
-             <span id="/essay/ios-business/App启动优化/" class="leancloud_visitors" data-flag-title="iOS App启动优化">
+             <span id="/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/" class="leancloud_visitors" data-flag-title="iOS App启动优化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -472,7 +474,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.7k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -486,7 +488,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -514,7 +516,7 @@
 <li>定位内部、外部指针引用，例如字符串、函数等</li>
 <li>加载类扩展（Category）中的方法</li>
 <li>C++静态对象加载、调用ObjC的 +load 函数</li>
-<li>执行声明为<strong>attribute</strong>((constructor))的C函数</li>
+<li>执行声明为__attribute__((constructor))的C函数</li>
 </ul>
 </li>
 <li>main<ul>
@@ -524,7 +526,8 @@
 </ul>
 </li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
+
 <h3 id="优化思路"><a href="#优化思路" class="headerlink" title="优化思路"></a>优化思路</h3><ul>
 <li>最多的用时还是在image加载和OC类的初始化，共占用总时长的79.3%，精简framework的引入和OC类有优化的空间。优化点：<ul>
 <li>减少不必要的framework，因为动态链接比较耗时 | 不要自己使用dlopen方法，让系统来处理模块加载</li>
@@ -549,14 +552,18 @@
 <blockquote>
 <p>打印时间的方式来统计各个函数的耗时</p>
 </blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> launchTime = <span class="built_in">CFAbsoluteTimeGetCurrent</span>();</span><br><span class="line">[SDWebImageManager sharedManager];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@"launchTime = %f秒"</span>, <span class="built_in">CFAbsoluteTimeGetCurrent</span>() - launchTime);</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> launchTime = <span class="built_in">CFAbsoluteTimeGetCurrent</span>();</span><br><span class="line">[SDWebImageManager sharedManager];</span><br><span class="line"><span class="built_in">NSLog</span>(<span class="string">@&quot;launchTime = %f秒&quot;</span>, <span class="built_in">CFAbsoluteTimeGetCurrent</span>() - launchTime);</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>+load方法统计</p>
 </blockquote>
 <p>同样的我们可以通过Instruments来统计启动时所有的+load方法，以及+load方法所用耗时</p>
 <h3 id="load优化-与-attribute"><a href="#load优化-与-attribute" class="headerlink" title="+load优化 与 attribute"></a>+load优化 与 attribute</h3><p>使用__attribute优化+load方法 由于在我们的工程中存在很多的+load方法，而其中一大部分为cell模板注册的+load方法(我们的每一个cell对应一个模板，然后该模板对应一个字符串，在启动时所有的模板方法都在+load中注册对应的字符串即在字典中存储字符串和对应的cell模板，然后动态下发展示对应的cell)。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">编译器提供了我们一种__attribute__((section(&quot;xxx段，xxx节&quot;)的方式让我们将一个指定的数据储存到我们需要的节当中。</span><br><span class="line"></span><br><span class="line">在BeeHive框架中：</span><br><span class="line"></span><br><span class="line">```objc</span><br><span class="line">@class BeeHive; char * kShopModule_mod __attribute((used, section(&quot;__DATA,&quot;&quot;BeehiveMods&quot;&quot;&quot;))) = &quot;&quot;&quot;ShopModule&quot;&quot;&quot;;</span><br></pre></td></tr></table></figure>
-<p>通过使用<strong>attribute</strong>((section(“name”)))来指明哪个段。数据则用<strong>attribute</strong>((used))来标记，防止链接器会优化删除未被使用的段。</p>
+<p><code>__attribute__((section(&quot;xxx段，xxx节&quot;)</code><br>编译器提供了我们一种__attribute__((section(“xxx段，xxx节”)的方式让我们将一个指定的数据储存到我们需要的节当中。</p>
+<p>在BeeHive框架中：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@class</span> <span class="title">BeeHive</span>; <span class="title">char</span> * <span class="title">kShopModule_mod</span> <span class="title">__attribute</span>((<span class="title">used</span>, <span class="title">section</span>(&quot;<span class="title">__DATA</span>,&quot;&quot;<span class="title">BeehiveMods</span>&quot;&quot;&quot;))) = &quot;&quot;&quot;<span class="title">ShopModule</span>&quot;&quot;&quot;;</span></span><br></pre></td></tr></table></figure>
+
+<p>通过使用__attribute__((section(“name”)))来指明哪个段。数据则用__attribute__((used))来标记，防止链接器会优化删除未被使用的段。</p>
 <p>读取section中的值 attribute((constructor))<br>constructor 和 +load 都是在 main 函数执行前调用，但 +load 比 constructor 更加早一丢丢，因为 dyld（动态链接器，程序的最初起点）在加载 image（可以理解成 Mach-O 文件）时会先通知 objc runtime 去加载其中所有的类，每加载一个类时，它的 +load 随之调用，全部加载完成后，dyld 才会调用这个 image 中所有的 constructor 方法。所以 constructor 是一个干坏事的绝佳时机：</p>
 <ul>
 <li>所有Class都已经加载完成</li>
@@ -567,9 +574,11 @@
 <p><code>_dyld_register_func_for_add_image</code> :这个函数是用来注册回调，当dyld链接符号时，调用此回调函数。在dyld加载镜像时，会执行注册过的回调函数</p>
 <p>对于每一个已经存在的镜像，当它被动态链接时，都会执行回调void (func)(const struct mach_header mh, intptr_t vmaddr_slide)，传入文件的mach_header以及一个虚拟内存地址 intptr_t。</p>
 <p>通过调用BHReadConfiguration函数，我们就可以拿到之前注册到BeehiveMods特殊段里面的各个Module的类名，该函数返回类名字符串的数组。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">__attribute__((constructor))</span><br><span class="line"><span class="keyword">void</span> initProphet() &#123;</span><br><span class="line">    _dyld_register_func_for_add_image(dyld_callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> dyld_callback(<span class="keyword">const</span> <span class="keyword">struct</span> mach_header *mhp, intptr_t vmaddr_slide)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *mods = BHReadConfiguration(BeehiveModSectName, mhp);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSString</span> *modName <span class="keyword">in</span> mods) &#123;</span><br><span class="line">        Class cls;</span><br><span class="line">        <span class="keyword">if</span> (modName) &#123;</span><br><span class="line">            cls = <span class="built_in">NSClassFromString</span>(modName);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (cls) &#123;</span><br><span class="line">                [[BHModuleManager sharedManager] registerDynamicModule:cls];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt;* BHReadConfiguration(<span class="keyword">char</span> *sectionName,<span class="keyword">const</span> <span class="keyword">struct</span> mach_header *mhp)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *configs = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size = <span class="number">0</span>;</span><br><span class="line"><span class="meta">#ifndef __LP64__</span></span><br><span class="line">    uintptr_t *memory = (uintptr_t*)getsectiondata(mhp, SEG_DATA, sectionName, &amp;size);</span><br><span class="line"><span class="meta">#else</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> mach_header_64 *mhp64 = (<span class="keyword">const</span> <span class="keyword">struct</span> mach_header_64 *)mhp;</span><br><span class="line">    uintptr_t *memory = (uintptr_t*)getsectiondata(mhp64, SEG_DATA, sectionName, &amp;size);</span><br><span class="line"><span class="meta">#endif</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> counter = size/<span class="keyword">sizeof</span>(<span class="keyword">void</span>*);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> idx = <span class="number">0</span>; idx &lt; counter; ++idx)&#123;</span><br><span class="line">        <span class="keyword">char</span> *string = (<span class="keyword">char</span>*)memory[idx];</span><br><span class="line">        <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithUTF8String:string];</span><br><span class="line">        <span class="keyword">if</span>(!str)<span class="keyword">continue</span>;</span><br><span class="line">        </span><br><span class="line">        BHLog(<span class="string">@"config = %@"</span>, str);</span><br><span class="line">        <span class="keyword">if</span>(str) [configs addObject:str];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> configs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">__attribute__((constructor))</span><br><span class="line"><span class="type">void</span> initProphet() &#123;</span><br><span class="line">    _dyld_register_func_for_add_image(dyld_callback);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="type">void</span> dyld_callback(<span class="keyword">const</span> <span class="keyword">struct</span> mach_header *mhp, intptr_t vmaddr_slide)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSArray</span> *mods = BHReadConfiguration(BeehiveModSectName, mhp);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSString</span> *modName <span class="keyword">in</span> mods) &#123;</span><br><span class="line">        Class cls;</span><br><span class="line">        <span class="keyword">if</span> (modName) &#123;</span><br><span class="line">            cls = <span class="built_in">NSClassFromString</span>(modName);</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (cls) &#123;</span><br><span class="line">                [[BHModuleManager sharedManager] registerDynamicModule:cls];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">NSArray</span>&lt;<span class="built_in">NSString</span> *&gt;* BHReadConfiguration(<span class="type">char</span> *sectionName,<span class="keyword">const</span> <span class="keyword">struct</span> mach_header *mhp)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *configs = [<span class="built_in">NSMutableArray</span> array];</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> size = <span class="number">0</span>;</span><br><span class="line"><span class="meta">#<span class="keyword">ifndef</span> __LP64__</span></span><br><span class="line">    uintptr_t *memory = (uintptr_t*)getsectiondata(mhp, SEG_DATA, sectionName, &amp;size);</span><br><span class="line"><span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">struct</span> mach_header_64 *mhp64 = (<span class="keyword">const</span> <span class="keyword">struct</span> mach_header_64 *)mhp;</span><br><span class="line">    uintptr_t *memory = (uintptr_t*)getsectiondata(mhp64, SEG_DATA, sectionName, &amp;size);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> counter = size/<span class="keyword">sizeof</span>(<span class="type">void</span>*);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> idx = <span class="number">0</span>; idx &lt; counter; ++idx)&#123;</span><br><span class="line">        <span class="type">char</span> *string = (<span class="type">char</span>*)memory[idx];</span><br><span class="line">        <span class="built_in">NSString</span> *str = [<span class="built_in">NSString</span> stringWithUTF8String:string];</span><br><span class="line">        <span class="keyword">if</span>(!str)<span class="keyword">continue</span>;</span><br><span class="line">        </span><br><span class="line">        BHLog(<span class="string">@&quot;config = %@&quot;</span>, str);</span><br><span class="line">        <span class="keyword">if</span>(str) [configs addObject:str];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> configs;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <h3 id="二进制重排-静态插桩"><a href="#二进制重排-静态插桩" class="headerlink" title="二进制重排 + 静态插桩"></a>二进制重排 + 静态插桩</h3><p>静态插桩实际上是在编译期就在每一个函数内部二进制源数据添加 hook 代码 ( 我们添加的 __sanitizer_cov_trace_pc_guard 函数 ) 来实现全局的方法 hook 的效果 .</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> __sanitizer_cov_trace_pc_guard(uint32_t *guard) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!*guard) <span class="keyword">return</span>;  <span class="comment">// Duplicate the guard check.</span></span><br><span class="line">    <span class="comment">//它的作用其实就是去读取 x30 中所存储的要返回时下一条指令的地址 . 所以他名称叫做 __builtin_return_address . 换句话说 , 这个地址就是我当前这个函数执行完毕后 , 要返回到哪里去 .</span></span><br><span class="line">    <span class="keyword">void</span> *PC = __builtin_return_address(<span class="number">0</span>);</span><br><span class="line">    Dl_info info;</span><br><span class="line">    dladdr(PC, &amp;info);</span><br><span class="line">    </span><br><span class="line">    printf(<span class="string">"fname=%s \nfbase=%p \nsname=%s\nsaddr=%p \n"</span>,info.dli_fname,info.dli_fbase,info.dli_sname,info.dli_saddr);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">char</span> PcDescr[<span class="number">1024</span>];</span><br><span class="line">    printf(<span class="string">"guard: %p %x PC %s\n"</span>, guard, *guard, PcDescr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> __sanitizer_cov_trace_pc_guard(uint32_t *guard) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!*guard) <span class="keyword">return</span>;  <span class="comment">// Duplicate the guard check.</span></span><br><span class="line">    <span class="comment">//它的作用其实就是去读取 x30 中所存储的要返回时下一条指令的地址 . 所以他名称叫做 __builtin_return_address . 换句话说 , 这个地址就是我当前这个函数执行完毕后 , 要返回到哪里去 .</span></span><br><span class="line">    <span class="type">void</span> *PC = __builtin_return_address(<span class="number">0</span>);</span><br><span class="line">    Dl_info info;</span><br><span class="line">    dladdr(PC, &amp;info);</span><br><span class="line">    </span><br><span class="line">    printf(<span class="string">&quot;fname=%s \nfbase=%p \nsname=%s\nsaddr=%p \n&quot;</span>,info.dli_fname,info.dli_fbase,info.dli_sname,info.dli_saddr);</span><br><span class="line">    </span><br><span class="line">    <span class="type">char</span> PcDescr[<span class="number">1024</span>];</span><br><span class="line">    printf(<span class="string">&quot;guard: %p %x PC %s\n&quot;</span>, guard, *guard, PcDescr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>问题点</p>
 </blockquote>
@@ -579,11 +588,10 @@
 </ul>
 </li>
 <li>循环引用<ul>
-<li>Other C Flags 修改为如下 :-fsanitize-coverage=func,trace-pc-guard</li>
+<li>Other C Flags 修改为如下 :-fsanitize-coverage&#x3D;func,trace-pc-guard</li>
 </ul>
 </li>
-<li>swift 工程 / 混编工程<pre><code>* Other Swift Flags , 添加两条配置即可 : -sanitize-coverage=func -sanitize=undefined
-</code></pre></li>
+<li>swift 工程 &#x2F; 混编工程<br>  * Other Swift Flags , 添加两条配置即可 : -sanitize-coverage&#x3D;func -sanitize&#x3D;undefined</li>
 </ul>
 <h3 id="压缩资源图片"><a href="#压缩资源图片" class="headerlink" title="压缩资源图片"></a>压缩资源图片</h3><p>压缩图片为什么能加快启动速度呢？因为启动的时候大大小小的图片加载个十来二十个是很正常的，图片小了，IO操作量就小了，启动当然就会快了。</p>
 <p>事实上，Xcode在编译App的时候，已经自动把需要打包到App里的资源图片压缩过一遍了。然而Xcode的压缩会相对比较保守。</p>
@@ -618,7 +626,8 @@
 <li>实现下面的回调，并调用 completionHandler- (void)application:(UIApplication *)application performFetchWithCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler</li>
 </ul>
 <p>由于 Background Fetch 机制是为了让App在后台拉取准备数据，但支付宝只是为了实现”秒起“。调用 completionHandler 后系统将把 App 进程挂起。且系统必须在30秒内调用 completionHandler，否则进程将被杀死。此外根据文档，系统会根据后台调用 completionHandler 的时间来决定后台唤起App的频率。因此，认为可以“伪造“1秒的延迟时间，即1秒后调用 completionHandler。类似下面的代码：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)application:(<span class="built_in">UIApplication</span> *)application performFetchWithCompletionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">UIBackgroundFetchResult</span>))completionHandler&#123;</span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        completionHandler(<span class="built_in">UIBackgroundFetchResultNewData</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">void</span>)application:(<span class="built_in">UIApplication</span> *)application performFetchWithCompletionHandler:(<span class="type">void</span> (^)(<span class="built_in">UIBackgroundFetchResult</span>))completionHandler&#123;</span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">1</span> * <span class="built_in">NSEC_PER_SEC</span>)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        completionHandler(<span class="built_in">UIBackgroundFetchResultNewData</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <ul>
 <li>进程快速挂起导致 Sync 成功率下降<ul>
 <li>灰度期间，开发同学发现同步服务 Sync 成功率下降很多，找来找去发现原因：由于进程唤醒后，网络长连接线程被激活并马上建立长连接，而1秒后调用completionHandler，进程又被挂起。服务器端的sync消息则发送超时。</li>
@@ -755,7 +764,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -766,9 +777,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -825,9 +836,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -837,7 +846,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -884,7 +893,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -927,7 +938,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动过程"><span class="nav-number">1.</span> <span class="nav-text">启动过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化思路"><span class="nav-number">2.</span> <span class="nav-text">优化思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统计启动时的耗时方法"><span class="nav-number">3.</span> <span class="nav-text">统计启动时的耗时方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load优化-与-attribute"><span class="nav-number">4.</span> <span class="nav-text">+load优化 与 attribute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制重排-静态插桩"><span class="nav-number">5.</span> <span class="nav-text">二进制重排 + 静态插桩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩资源图片"><span class="nav-number">6.</span> <span class="nav-text">压缩资源图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片预加载"><span class="nav-number">7.</span> <span class="nav-text">图片预加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动任务分类"><span class="nav-number">8.</span> <span class="nav-text">启动任务分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Background-Fetch-简介"><span class="nav-number">9.</span> <span class="nav-text">Background Fetch 简介</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">启动过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">优化思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9F%E8%AE%A1%E5%90%AF%E5%8A%A8%E6%97%B6%E7%9A%84%E8%80%97%E6%97%B6%E6%96%B9%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">统计启动时的耗时方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load%E4%BC%98%E5%8C%96-%E4%B8%8E-attribute"><span class="nav-number">4.</span> <span class="nav-text">+load优化 与 attribute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%87%8D%E6%8E%92-%E9%9D%99%E6%80%81%E6%8F%92%E6%A1%A9"><span class="nav-number">5.</span> <span class="nav-text">二进制重排 + 静态插桩</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E8%B5%84%E6%BA%90%E5%9B%BE%E7%89%87"><span class="nav-number">6.</span> <span class="nav-text">压缩资源图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%89%87%E9%A2%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">7.</span> <span class="nav-text">图片预加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E4%BB%BB%E5%8A%A1%E5%88%86%E7%B1%BB"><span class="nav-number">8.</span> <span class="nav-text">启动任务分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Background-Fetch-%E7%AE%80%E4%BB%8B"><span class="nav-number">9.</span> <span class="nav-text">Background Fetch 简介</span></a></li></ol></div>
             
 
           </div>
@@ -947,7 +958,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -959,7 +970,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -968,7 +979,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

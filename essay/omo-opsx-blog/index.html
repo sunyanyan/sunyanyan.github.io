@@ -1,0 +1,1757 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="如何将 SDD（规范驱动开发）的结构化工作流与多智能体并行编排深度融合，在 AI 辅助编码中同时实现高吞吐与高可靠。  一、引言：AI 编码的效率天花板2025 年以来，AI 辅助编码已经从”补全一行代码”进化到”端到端实现一个功能”。行业数据令人振奋——Atlassian 在全面采用 AI Agent 后测量到工程师人均 PR 数量提升了 89%；Stripe 的 Agent 系统每周自主合并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="当 AI 编码遇上多智能体编排：OMO-OPSX 融合方案的设计与实践">
+<meta property="og:url" content="https://developerdoc.com/essay/omo-opsx-blog/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="如何将 SDD（规范驱动开发）的结构化工作流与多智能体并行编排深度融合，在 AI 辅助编码中同时实现高吞吐与高可靠。  一、引言：AI 编码的效率天花板2025 年以来，AI 辅助编码已经从”补全一行代码”进化到”端到端实现一个功能”。行业数据令人振奋——Atlassian 在全面采用 AI Agent 后测量到工程师人均 PR 数量提升了 89%；Stripe 的 Agent 系统每周自主合并">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-10T08:15:53.000Z">
+<meta property="article:modified_time" content="2026-04-01T03:47:56.071Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://developerdoc.com/essay/omo-opsx-blog/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>当 AI 编码遇上多智能体编排：OMO-OPSX 融合方案的设计与实践 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙同生的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">为美好的世界献上祝福</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-d3学习demo演示">
+    <a href="/d3start" rel="section">d3学习demo演示</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/omo-opsx-blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">当 AI 编码遇上多智能体编排：OMO-OPSX 融合方案的设计与实践
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2026-03-10 16:15:53" itemprop="dateCreated datePublished" datetime="2026-03-10T16:15:53+08:00">2026-03-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2026-04-01 11:47:56" itemprop="dateModified" datetime="2026-04-01T11:47:56+08:00">2026-04-01</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/omo-opsx-blog/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/omo-opsx-blog/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/omo-opsx-blog/" class="leancloud_visitors" data-flag-title="当 AI 编码遇上多智能体编排：OMO-OPSX 融合方案的设计与实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">27k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">24 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>如何将 SDD（规范驱动开发）的结构化工作流与多智能体并行编排深度融合，在 AI 辅助编码中同时实现高吞吐与高可靠。</p>
+</blockquote>
+<h2 id="一、引言：AI-编码的效率天花板"><a href="#一、引言：AI-编码的效率天花板" class="headerlink" title="一、引言：AI 编码的效率天花板"></a>一、引言：AI 编码的效率天花板</h2><p>2025 年以来，AI 辅助编码已经从”补全一行代码”进化到”端到端实现一个功能”。行业数据令人振奋——Atlassian 在全面采用 AI Agent 后测量到<strong>工程师人均 PR 数量提升了 89%</strong>；Stripe 的 Agent 系统每周自主合并超过 <strong>1000 个 PR</strong>；Rakuten 利用 AI Agent 在 7 小时内完成了 1250 万行代码库上的复杂 vLLM 实现。</p>
+<p>但随着 AI Agent 承担的任务从单文件修改扩展到跨模块的复杂变更，一个新的瓶颈开始浮现：</p>
+<p><strong>单智能体顺序执行的效率天花板。</strong></p>
+<p>想象一下这个场景：你要给项目新增一个用户认证模块。这涉及数据模型、API 端点、中间件、前端集成和测试——至少 5-6 个相互关联的子任务。在传统的单 Agent 模式下，即便这些任务中有些彼此独立，AI 也只能一个接一个地串行执行。5 个任务各花 5 分钟，总耗时就是 25 分钟。</p>
+<p>更致命的是质量问题。单 Agent 既当运动员又当裁判：自己写的代码自己验证，缺少独立的质量门控。研究表明，多智能体系统中 <strong>13.2% 的失败来自推理-动作不匹配</strong>，7.4% 来自任务偏离，6.8% 来自错误假设。当 Agent 对某个 API 不确定时，它可能会猜测类型、留下 TODO、甚至抑制类型检查——这些”半成品”在复杂项目中会迅速积累成技术债务。</p>
+<p>微软研究院将 <strong>“意图形式化”（Intent Formalization）</strong> 定义为可靠 AI 编码的核心挑战——如何自动将模糊的人类意图转化为精确、可检查的规范。这恰恰是 SDD（规范驱动开发）试图解决的问题。</p>
+<p>这驱使我们思考两个核心问题：</p>
+<ol>
+<li><strong>能不能让多个 AI 智能体并行工作</strong>，像流水线一样同时处理互不依赖的任务？</li>
+<li><strong>能不能在 AI 执行链路中嵌入结构化的质量门控</strong>，让”写代码”和”验代码”由不同的角色完成？</li>
+</ol>
+<p><strong>OMO-OPSX</strong> 正是对这两个问题的回答。它将 <strong>OpenSpec</strong> 的规范驱动开发（SDD）工作流与 <strong>OMO（oh-my-opencode）</strong> 的多智能体编排能力深度融合，在保持开发灵活性的前提下，实现并行加速与分层质量保障。这种融合代表了一种正在兴起的工程范式——有人称之为**”复合工程”（Compound Engineering）**：工程师的角色从”代码编写者”转变为”系统编排者”，通过设计约束、编排智能体和验证输出来实现 <strong>3-7 倍的生产力提升</strong>。</p>
+<span id="more"></span>
+<hr>
+<h2 id="二、背景：这些东西原来是什么"><a href="#二、背景：这些东西原来是什么" class="headerlink" title="二、背景：这些东西原来是什么"></a>二、背景：这些东西原来是什么</h2><p>在深入融合方案之前，有必要先了解两个核心组件各自的定位。</p>
+<h3 id="2-1-OpenSpec：规范先行的变更管理"><a href="#2-1-OpenSpec：规范先行的变更管理" class="headerlink" title="2.1 OpenSpec：规范先行的变更管理"></a>2.1 OpenSpec：规范先行的变更管理</h3><p><a href="https://github.com/Fission-AI/OpenSpec">OpenSpec</a> 是一个开源的 <strong>Spec-Driven Development（SDD）</strong> 框架，在 GitHub 上拥有超过 3.6 万颗星。它的核心理念用官方的话说：</p>
+<blockquote>
+<p>“AI coding assistants are powerful but unpredictable when requirements live only in chat history. OpenSpec adds a lightweight spec layer so you agree on what to build before any code is written.”</p>
+</blockquote>
+<p>简单来说：<strong>在让 AI 写代码之前，先用结构化的规范文档把”要做什么”和”怎么做”对齐。</strong></p>
+<p>每个需求变更在 OpenSpec 中是一个独立的文件夹：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">openspec/changes/add-user-auth/</span><br><span class="line">├── proposal.md    # 做什么、为什么做</span><br><span class="line">├── design.md      # 怎么做（架构与方法）</span><br><span class="line">├── specs/         # 技术规范（接口契约、数据模型）</span><br><span class="line">└── tasks.md       # 实现任务清单</span><br></pre></td></tr></table></figure>
+
+<p>工作流通过 CLI 命令驱动，分为四个阶段：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>阶段</th>
+<th>产出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>openspec explore</code></td>
+<td>探索</td>
+<td>自由思考，无固定产出</td>
+</tr>
+<tr>
+<td><code>openspec propose</code></td>
+<td>提案</td>
+<td>四件套：proposal + design + specs + tasks</td>
+</tr>
+<tr>
+<td><code>openspec apply</code></td>
+<td>执行</td>
+<td>代码实现</td>
+</tr>
+<tr>
+<td><code>openspec archive</code></td>
+<td>归档</td>
+<td>变更移入归档目录，规范同步</td>
+</tr>
+</tbody></table>
+<p>OpenSpec 的设计哲学是 <strong>“流动而非僵化”（fluid not rigid）</strong>——迭代而非瀑布，简单而非复杂，既适用于全新项目也适用于存量项目。探索阶段是完全自由的对话，不强制任何格式；提案阶段才开始结构化。制品之间还支持反向更新——随着实现深入，你可以随时修正 proposal 或 design。</p>
+<p><strong>但问题是</strong>：原生 OpenSpec 采用单智能体顺序执行。探索是单线程搜索，制品逐个创建，任务一个接一个执行。在小型变更中这没问题，但复杂变更的效率瓶颈非常明显。</p>
+<h3 id="2-2-OMO：多智能体编排引擎"><a href="#2-2-OMO：多智能体编排引擎" class="headerlink" title="2.2 OMO：多智能体编排引擎"></a>2.2 OMO：多智能体编排引擎</h3><p><strong>OMO（oh-my-opencode，现已更名为 oh-my-openagent）</strong> 是一个构建在 <a href="https://opencode.ai/">OpenCode</a> 之上的多智能体编排系统，GitHub 上拥有超过 4.5 万颗星。用官方的话说：</p>
+<blockquote>
+<p>“It transforms a single AI agent into a coordinated development team that actually ships code.”</p>
+</blockquote>
+<p>它的核心能力是：<strong>让多个专业化的 AI 智能体并行工作，各司其职</strong>。</p>
+<p>OMO 提供了多种类型的智能体：</p>
+<table>
+<thead>
+<tr>
+<th>智能体</th>
+<th>角色</th>
+<th>成本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>explore</strong></td>
+<td>代码库搜索，多角度并行发现</td>
+<td>免费（本地工具）</td>
+</tr>
+<tr>
+<td><strong>librarian</strong></td>
+<td>外部文档查找，库&#x2F;API 最佳实践</td>
+<td>低</td>
+</tr>
+<tr>
+<td><strong>metis</strong></td>
+<td>需求完整性分析，发现隐藏需求和歧义</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>momus</strong></td>
+<td>计划可执行性审查，循环直到通过</td>
+<td>中</td>
+</tr>
+<tr>
+<td><strong>oracle</strong></td>
+<td>架构咨询，深度权衡分析，最终验证</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<p>这些智能体通过统一的 <code>task()</code> API 调度，支持后台并行执行。编排器（Orchestrator）负责分发任务、聚合结果、触发验证，而工作者（Worker）专注于原子任务的确定性执行。</p>
+<p><strong>OMO 的优势在于并行能力和质量门控，但它缺少 OpenSpec 那样的结构化变更管理</strong>——没有从需求到规范到代码的完整链路。</p>
+<h3 id="2-3-为什么要融合"><a href="#2-3-为什么要融合" class="headerlink" title="2.3 为什么要融合"></a>2.3 为什么要融合</h3><p>两者的互补关系非常清晰：</p>
+<table>
+<thead>
+<tr>
+<th>能力</th>
+<th>OpenSpec</th>
+<th>OMO</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>结构化变更管理</td>
+<td>✅ 完整的 SDD 生命周期</td>
+<td>❌ 无</td>
+</tr>
+<tr>
+<td>并行执行</td>
+<td>❌ 单智能体顺序</td>
+<td>✅ 多智能体并行</td>
+</tr>
+<tr>
+<td>质量门控</td>
+<td>❌ 无结构化验证</td>
+<td>✅ 三层门控</td>
+</tr>
+<tr>
+<td>确定性协议</td>
+<td>❌ 无</td>
+<td>✅ UltraWork 协议</td>
+</tr>
+<tr>
+<td>断点续跑</td>
+<td>❌ 中断需从头开始</td>
+<td>✅ 检查点机制</td>
+</tr>
+<tr>
+<td>探索灵活性</td>
+<td>✅ 自由形式</td>
+<td>✅ 智能体可选</td>
+</tr>
+</tbody></table>
+<p><strong>融合目标</strong>：保留 OpenSpec 的 SDD 哲学和变更管理能力，注入 OMO 的并行编排、质量门控和确定性执行，让整个链路既快速又可靠。</p>
+<hr>
+<h2 id="三、融合方案设计"><a href="#三、融合方案设计" class="headerlink" title="三、融合方案设计"></a>三、融合方案设计</h2><h3 id="3-1-整体架构：5-个技能覆盖完整生命周期"><a href="#3-1-整体架构：5-个技能覆盖完整生命周期" class="headerlink" title="3.1 整体架构：5 个技能覆盖完整生命周期"></a>3.1 整体架构：5 个技能覆盖完整生命周期</h3><p>OMO-OPSX 设计了 5 个技能（Skills），对应 SDD 的完整生命周期：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">想法/问题                                                      交付</span><br><span class="line">  │                                                              │</span><br><span class="line">  ▼                                                              ▼</span><br><span class="line">explore ──&gt; brainstorm ──&gt; propose ──&gt; apply ──&gt; archive</span><br><span class="line">(发散)     (收敛)        (制品化)    (实现)    (归档)</span><br><span class="line"></span><br><span class="line">  姿态        流程          流程        流程       流程</span><br><span class="line">  无产出    design-brief   artifacts   code     archived</span><br></pre></td></tr></table></figure>
+
+<p>注意 <strong>brainstorm</strong> 是融合方案新增的阶段——它是 explore（发散）和 propose（制品化）之间的<strong>收敛桥梁</strong>，解决了原来探索阶段的上下文在跨阶段时丢失的问题。</p>
+<h3 id="3-2-核心设计：Orchestrator-Worker-两层架构"><a href="#3-2-核心设计：Orchestrator-Worker-两层架构" class="headerlink" title="3.2 核心设计：Orchestrator-Worker 两层架构"></a>3.2 核心设计：Orchestrator-Worker 两层架构</h3><p>融合方案采用严格的两层架构，这是确保并行安全的关键：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────────────────┐</span><br><span class="line">│               Orchestrator (depth=0)                │</span><br><span class="line">│  • 唯一能调用 task() 的层级                          │</span><br><span class="line">│  • 负责：探索、并行分发、结果聚合、质量门控           │</span><br><span class="line">└────────────────────┬────────────────────────────────┘</span><br><span class="line">                     │ task(...)</span><br><span class="line">         ┌───────────┼───────────┐</span><br><span class="line">         ▼           ▼           ▼</span><br><span class="line">    ┌─────────┐ ┌─────────┐ ┌─────────┐</span><br><span class="line">    │Worker 1 │ │Worker 2 │ │Worker N │</span><br><span class="line">    │(depth=1)│ │(depth=1)│ │(depth=1)│</span><br><span class="line">    │不可调用  │ │执行确定  │ │返回交付  │</span><br><span class="line">    │task()   │ │性工作   │ │物       │</span><br><span class="line">    └─────────┘ └─────────┘ └─────────┘</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键规则</strong>：Worker 不得调用 <code>task()</code> 创建子智能体——这防止了递归调用导致的不可控行为。Worker 要么完全完成任务，要么明确报告阻塞原因。</p>
+<h3 id="3-3-DAG-Wave-并行执行模型"><a href="#3-3-DAG-Wave-并行执行模型" class="headerlink" title="3.3 DAG Wave 并行执行模型"></a>3.3 DAG Wave 并行执行模型</h3><p>这是融合方案最核心的创新。传统的 tasks.md 是一个扁平列表，融合方案将其升级为<strong>带依赖关系的有向无环图（DAG）</strong>：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## Dependencies</span></span><br><span class="line">&lt;!-- deps:</span><br><span class="line">T1: []</span><br><span class="line">T2: []</span><br><span class="line">T3: [T1]</span><br><span class="line">T4: [T1, T2]</span><br><span class="line">T5: [T3, T4]</span><br><span class="line">--&gt;</span><br><span class="line"></span><br><span class="line"><span class="section">## Wave 1 (并行)</span></span><br><span class="line"><span class="bullet">-</span> [ ] T1: 创建用户认证模型 [critical]</span><br><span class="line"><span class="bullet">-</span> [ ] T2: 添加 JWT 工具函数</span><br><span class="line"></span><br><span class="line"><span class="section">## Wave 2 (并行, after Wave 1)</span></span><br><span class="line"><span class="bullet">-</span> [ ] T3: 实现登录端点 (depends: T1)</span><br><span class="line"><span class="bullet">-</span> [ ] T4: 实现注册端点 (depends: T1, T2)</span><br><span class="line"></span><br><span class="line"><span class="section">## Wave 3 (after Wave 2)</span></span><br><span class="line"><span class="bullet">-</span> [ ] T5: 添加认证中间件 (depends: T3, T4) [critical]</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行语义</strong>：</p>
+<ul>
+<li><strong>Wave 内并行</strong>：同一 Wave 中的任务作为独立 Worker 同时执行</li>
+<li><strong>Wave 间顺序</strong>：Wave N+1 等待 Wave N 完全完成并验证通过</li>
+<li><strong>关键路径标记</strong>：最长依赖链上的任务标记 <code>[critical]</code>，触发额外验证</li>
+</ul>
+<p>效果对比：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">顺序执行(原始):            并行执行(融合):</span><br><span class="line">T1→T2→T3→T4→T5              Wave 1: T1, T2 (并行)</span><br><span class="line">5m+5m+5m+5m+5m                    ↓</span><br><span class="line">= 25 分钟                   Wave 2: T3, T4 (并行)</span><br><span class="line">                                   ↓</span><br><span class="line">                            Wave 3: T5</span><br><span class="line">                            = 15 分钟 (~40% 提升)</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-三层质量门控"><a href="#3-4-三层质量门控" class="headerlink" title="3.4 三层质量门控"></a>3.4 三层质量门控</h3><p>单 Agent 自己验证自己的代码是不够的。融合方案引入了三层递进式质量保障：</p>
+<p><strong>第一层：需求完整性（提案阶段）</strong></p>
+<p>在创建任何代码之前，<strong>Metis</strong> 智能体分析变更提案：</p>
+<ul>
+<li>用户故事是否完整？</li>
+<li>边缘情况是否覆盖？</li>
+<li>成功标准是否可测量？</li>
+<li>是否有隐式假设？</li>
+</ul>
+<p><strong>第二层：任务可执行性（提案阶段）</strong></p>
+<p><strong>Momus</strong> 智能体审查 tasks.md：</p>
+<ul>
+<li>每个任务是否原子且具体？</li>
+<li>依赖关系是否正确？</li>
+<li>能否无歧义地执行？</li>
+</ul>
+<p>Momus 会循环审查直到通过（设有上限防止无限循环）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Round 1: 提交 → REDO（反馈修正）</span><br><span class="line">Round 2: 重新提交 → REDO（继续修正）</span><br><span class="line">Round 3: 重新提交 → OKAY ✓</span><br><span class="line">超过上限 → 降级为人工审查</span><br></pre></td></tr></table></figure>
+
+<p><strong>第三层：最终一致性（执行阶段）</strong></p>
+<p>所有任务完成后，<strong>Oracle</strong> 智能体进行全局验证：</p>
+<ul>
+<li>实现是否匹配 proposal&#x2F;design？</li>
+<li>是否有遗漏？</li>
+<li>成功标准是否满足？</li>
+</ul>
+<p><strong>Oracle 说”VERIFIED”才是真完成。</strong> 智能体说 DONE ≠ 已验证。</p>
+<h3 id="3-5-UltraWork-确定性协议"><a href="#3-5-UltraWork-确定性协议" class="headerlink" title="3.5 UltraWork 确定性协议"></a>3.5 UltraWork 确定性协议</h3><p>每个 Worker 的提示中都注入了强制约束：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">确定性协议（强制执行）:</span><br><span class="line"></span><br><span class="line">• 100% 确定性规则：只做你绝对确定的修改。</span><br><span class="line">  任何不确定的地方，停止并报告给编排器。</span><br><span class="line">• 零容忍：不留部分实现。要么完全完成，要么回滚所有更改。</span><br><span class="line">• 强制验证：报告完成前在每个修改的文件上运行诊断检查。</span><br><span class="line">• 禁止推测：永远不要猜测 API、类型或行为。阅读实际代码。</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>无协议（猜测）</th>
+<th>有协议（确定性）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>API 不确定</td>
+<td>猜测类型，留 TODO</td>
+<td>停止并报告”需要澄清”</td>
+</tr>
+<tr>
+<td>错误处理</td>
+<td>跳过，留注释</td>
+<td>完整实现或明确报告阻塞</td>
+</tr>
+<tr>
+<td>类型错误</td>
+<td>抑制类型检查</td>
+<td>强制诊断，修复后提交</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="四、关键创新点详解"><a href="#四、关键创新点详解" class="headerlink" title="四、关键创新点详解"></a>四、关键创新点详解</h2><h3 id="4-1-Brainstorm-阶段：解决上下文丢失"><a href="#4-1-Brainstorm-阶段：解决上下文丢失" class="headerlink" title="4.1 Brainstorm 阶段：解决上下文丢失"></a>4.1 Brainstorm 阶段：解决上下文丢失</h3><p>原来的 OpenSpec 工作流中，explore 阶段的思考和发现只存在于对话上下文中——一旦切换到 propose 阶段，这些上下文全部丢失，Agent 需要重新做一遍探索。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">原来: explore 思考 ──(上下文丢失)──&gt; propose 重新探索</span><br><span class="line">融合: explore 思考 ──&gt; brainstorm 收敛 ──(design-brief.md)──&gt; propose 跳过探索</span><br></pre></td></tr></table></figure>
+
+<p>Brainstorm 的工作方式：</p>
+<ol>
+<li>收集探索阶段的上下文</li>
+<li>生成 2-3 个可选方案，让用户选择</li>
+<li><strong>逐项审批设计维度</strong>：架构、数据流、错误处理、测试策略</li>
+<li>所有维度通过后，输出 <code>design-brief.md</code> 作为结构化的上下文桥梁</li>
+</ol>
+<p><strong>HARD-GATE</strong>：所有设计维度必须获得用户明确批准后才能进入 propose。这确保了人在环（human-in-the-loop）的设计审批不会被 AI 跳过。</p>
+<h3 id="4-2-分级验证：成本与质量的最优平衡"><a href="#4-2-分级验证：成本与质量的最优平衡" class="headerlink" title="4.2 分级验证：成本与质量的最优平衡"></a>4.2 分级验证：成本与质量的最优平衡</h3><p>不是所有任务都需要昂贵的深度验证。融合方案采用分级策略：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">验证层级:              成本:       适用任务:</span><br><span class="line">┌──────────────────┐</span><br><span class="line">│ 诊断检查 + 测试  │   FREE      所有任务（标准）</span><br><span class="line">└────┬─────────────┘</span><br><span class="line">     ▼ (仅关键任务)</span><br><span class="line">┌──────────────────┐</span><br><span class="line">│ + Momus 审查     │   MEDIUM    标记 [critical] 的任务</span><br><span class="line">└────┬─────────────┘</span><br><span class="line">     ▼ (仅最终)</span><br><span class="line">┌──────────────────┐</span><br><span class="line">│ + Oracle 验证    │   EXPENSIVE  最终 Wave 全局验证</span><br><span class="line">└──────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p>以一个 10 任务、3 个关键任务的变更为例：</p>
+<ul>
+<li><strong>全部深度验证</strong>：10 × EXPENSIVE &#x3D; 高昂成本</li>
+<li><strong>无验证</strong>：0 成本，但质量风险高</li>
+<li><strong>分级验证</strong>：10 × FREE + 3 × MEDIUM + 1 × EXPENSIVE &#x3D; 最优平衡</li>
+</ul>
+<h3 id="4-3-检查点续跑与-Git-集成"><a href="#4-3-检查点续跑与-Git-集成" class="headerlink" title="4.3 检查点续跑与 Git 集成"></a>4.3 检查点续跑与 Git 集成</h3><p>复杂变更可能跨越多个会话。tasks.md 本身就是检查点文件：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">## Wave 1</span></span><br><span class="line"><span class="bullet">-</span> [x] T1: 创建数据模型       ← 已完成</span><br><span class="line"><span class="bullet">-</span> [x] T2: 添加 API 端点      ← 已完成</span><br><span class="line"></span><br><span class="line"><span class="section">## Wave 2</span></span><br><span class="line"><span class="bullet">-</span> [ ] T3: 实现业务逻辑       ← 从这里恢复</span><br><span class="line"><span class="bullet">-</span> [ ] T4: 添加测试</span><br></pre></td></tr></table></figure>
+
+<p>恢复流程：解析 <code>[x]</code> 标记 → 跳过已完成 Wave → 从第一个未完成 Wave 继续。</p>
+<p>更进一步，每个 Wave 验证通过后自动执行 scoped git commit：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m &quot;feat(add-user-auth): complete Wave 1 (T1, T2)&quot;</span><br></pre></td></tr></table></figure>
+
+<p>这意味着即使后续 Wave 失败，也能精确回滚到最后一个成功 Wave 的状态。</p>
+<h3 id="4-4-三级失败熔断"><a href="#4-4-三级失败熔断" class="headerlink" title="4.4 三级失败熔断"></a>4.4 三级失败熔断</h3><p>并行执行不可避免地会遇到部分失败。融合方案设计了递进式熔断机制：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>范围</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Level 1</td>
+<td>Worker 级</td>
+<td>单个失败 → 其他 Worker 继续 → 重试 1 次 → 仍失败标记 BLOCKED</td>
+</tr>
+<tr>
+<td>Level 2</td>
+<td>Wave 级</td>
+<td>有 BLOCKED 任务 → 检查下游依赖 → 无依赖则继续，有依赖则跳过</td>
+</tr>
+<tr>
+<td>Level 3</td>
+<td>全局</td>
+<td>失败任务 &gt; 3 个 → 暂停执行 → 生成失败报告 → 人工干预</td>
+</tr>
+</tbody></table>
+<p>这避免了两个极端：一个任务失败就全部停止（过度保守），或者忽略失败继续执行（过度激进）。</p>
+<hr>
+<h2 id="五、文件冲突安全与并行上限"><a href="#五、文件冲突安全与并行上限" class="headerlink" title="五、文件冲突安全与并行上限"></a>五、文件冲突安全与并行上限</h2><p>多个 Worker 并行修改代码库时，最危险的是两个任务修改同一个文件。融合方案在每个 Wave 分发前增加了运行时冲突检测：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Wave 分发前：</span><br><span class="line">1. 收集本 Wave 所有任务的目标文件列表</span><br><span class="line">2. 检测文件交集：files(Ti) ∩ files(Tj)</span><br><span class="line">3. 如果有交集 → 将冲突任务移入下一 Wave</span><br><span class="line">4. 并行上限：每个 Wave 最多 8 个并行任务</span><br></pre></td></tr></table></figure>
+
+<p>最坏情况是误判冲突导致任务串行化——性能退化但不影响正确性。这是一个安全优先的设计决策。</p>
+<hr>
+<h2 id="六、Trivial-检测：简单任务的快速通道"><a href="#六、Trivial-检测：简单任务的快速通道" class="headerlink" title="六、Trivial 检测：简单任务的快速通道"></a>六、Trivial 检测：简单任务的快速通道</h2><p>并非所有变更都需要完整的 DAG + 多层验证流程。对于简单修改，融合方案提供了快速通道：</p>
+<table>
+<thead>
+<tr>
+<th>任务数</th>
+<th>策略</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>≤ 3 个</td>
+<td>跳过 DAG、跳过 Momus&#x2F;Oracle，串行执行 + 基础诊断检查</td>
+</tr>
+<tr>
+<td>4-6 个</td>
+<td>简化 Wave，Momus 限制 1 轮</td>
+</tr>
+<tr>
+<td>&gt; 6 个</td>
+<td>完整 DAG 并行流程</td>
+</tr>
+</tbody></table>
+<p>这确保简单变更不被复杂编排拖累，同时复杂变更获得充分的并行加速和质量保障。</p>
+<hr>
+<h2 id="七、渐进式融合：无运行时依赖"><a href="#七、渐进式融合：无运行时依赖" class="headerlink" title="七、渐进式融合：无运行时依赖"></a>七、渐进式融合：无运行时依赖</h2><p>一个重要的架构决策是：<strong>融合方案不依赖 OMO 内部运行时</strong>。所有增强能力通过提示工程（Prompt Engineering）注入到 SKILL.md 文件中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">┌─────────────────────────────────────────┐</span><br><span class="line">│         SKILL.md (纯文本提示)           │</span><br><span class="line">├─────────────────────────────────────────┤</span><br><span class="line">│  确定性协议 → 注入 Worker 提示          │</span><br><span class="line">│  DAG Wave 执行 → 指令中描述             │</span><br><span class="line">│  质量门控 → task() 调用模式             │</span><br><span class="line">│  并行编排 → run_in_background=true      │</span><br><span class="line">│                                         │</span><br><span class="line">│  无导入，无依赖，纯提示工程              │</span><br><span class="line">└─────────────────────────────────────────┘</span><br></pre></td></tr></table></figure>
+
+<p>这意味着：</p>
+<ul>
+<li><strong>可移植</strong>：SKILL.md 文件即全部，拷贝到任何项目即可使用</li>
+<li><strong>可维护</strong>：更新通过编辑文本文件，无需重新编译</li>
+<li><strong>可审计</strong>：所有行为在提示中透明可见</li>
+<li><strong>可降级</strong>：Legacy tasks.md 自动识别并降级到顺序执行</li>
+</ul>
+<hr>
+<h2 id="八、架构决策记录"><a href="#八、架构决策记录" class="headerlink" title="八、架构决策记录"></a>八、架构决策记录</h2><h3 id="为什么只用-Skills，不用-Commands？"><a href="#为什么只用-Skills，不用-Commands？" class="headerlink" title="为什么只用 Skills，不用 Commands？"></a>为什么只用 Skills，不用 Commands？</h3><p>OMO 中 Skills 和 Commands 共享统一命名空间，Skills 自动注册为斜杠命令且优先级更高。经测试发现，Commands 和 Skills 是两个独立注册表——通过 Command 入口调用时，SKILL.md 中的多智能体增强完全不生效。</p>
+<p>因此我们做了一个决定：<strong>删除所有 Commands，仅保留 Skills 作为唯一入口</strong>。单一事实源，零额外跳转，零维护负担。</p>
+<h3 id="为什么精简-SKILL-md-中的-task-代码块？"><a href="#为什么精简-SKILL-md-中的-task-代码块？" class="headerlink" title="为什么精简 SKILL.md 中的 task() 代码块？"></a>为什么精简 SKILL.md 中的 task() 代码块？</h3><p>原方案中 5 个 SKILL.md 包含 22 处 <code>task()</code> 调用示例。当 Worker 通过 <code>load_skills</code> 加载完整 SKILL.md 时，这些编排指令可能误导 depth&#x3D;1 的 Worker 尝试递归调用。精简后仅保留 1 处（Worker dispatch prompt 中的确定性协议注入），将递归风险和 context 消耗同时降低。</p>
+<hr>
+<h2 id="九、已知风险与应对"><a href="#九、已知风险与应对" class="headerlink" title="九、已知风险与应对"></a>九、已知风险与应对</h2><p>任何方案都不是完美的。以下是我们识别到的主要风险和对应的缓解策略：</p>
+<table>
+<thead>
+<tr>
+<th>风险</th>
+<th>描述</th>
+<th>缓解</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DAG 解析依赖 LLM</td>
+<td>拓扑排序由 LLM 理解执行，复杂 DAG 可能出错</td>
+<td>限制每变更 ≤ 8-10 任务；Wave 前校验前置任务完成状态</td>
+</tr>
+<tr>
+<td>Brainstorm 禁止 TodoWrite</td>
+<td>系统级 Hook 可能覆盖 Skill 级约束</td>
+<td>强化措辞 + 未来支持 Skill 级 Hook opt-out</td>
+</tr>
+<tr>
+<td>Momus 无限循环</td>
+<td>反复 REDO 导致成本爆炸</td>
+<td>每阶段 max 2 次重试，超限降级为人工审查</td>
+</tr>
+<tr>
+<td>Worker 递归调用</td>
+<td>加载完整 SKILL.md 可能误导 Worker</td>
+<td>已精简 task() 代码块；Worker 建议 load_skills&#x3D;[]</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="十、效果总结"><a href="#十、效果总结" class="headerlink" title="十、效果总结"></a>十、效果总结</h2><p>OMO-OPSX 的融合在保持”流动而非僵化”哲学的前提下，实现了 15 项核心增强：</p>
+<ol>
+<li><strong>并行加速</strong>：Wave 执行 + 并行探索 + 并行制品生成</li>
+<li><strong>质量保障</strong>：三层门控（Metis → Momus → Oracle）</li>
+<li><strong>确定性执行</strong>：UltraWork 协议，100% 确定性，零容忍推测</li>
+<li><strong>断点续跑</strong>：tasks.md 检查点 + Wave 级 git commit</li>
+<li><strong>渐进式融合</strong>：无运行时依赖，纯提示工程</li>
+<li><strong>保持灵活</strong>：探索自由形式，智能体作为可选工具</li>
+<li><strong>分级验证</strong>：成本与质量的最优平衡</li>
+<li><strong>可降级</strong>：Legacy 格式自动兼容</li>
+<li><strong>TDD 纪律</strong>：RED-GREEN-REFACTOR 强制协议</li>
+<li><strong>设计收敛</strong>：brainstorm 阶段产出经审批的 design-brief</li>
+<li><strong>两阶段审查</strong>：关键任务分规范合规和代码质量</li>
+<li><strong>成本可控</strong>：重试上限 + Trivial 短路</li>
+<li><strong>三级熔断</strong>：Worker → Wave → Global 递进式失败处理</li>
+<li><strong>并行安全</strong>：文件冲突检测 + max 8 并行上限</li>
+<li><strong>精简高效</strong>：移除冗余代码块，降低 Worker 递归风险</li>
+</ol>
+<hr>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>AI 编码正在从”单兵作战”走向”团队协作”——只不过团队成员是一群专业化的智能体。</p>
+<p>OMO-OPSX 的实践给了我们一个重要启示：<strong>AI 编码的质量问题，本质上是工程问题，而不是模型能力问题。</strong> 同一个模型，在缺乏结构化约束时会产生半成品和猜测；在确定性协议和分层验证的约束下，则能交付高质量的确定性输出。</p>
+<p>这让我想到制造业的演进：从手工作坊到流水线，核心突破不是工人更能干了，而是<strong>生产流程被重新设计了</strong>。SDD + 多智能体编排，也许正是 AI 编码领域的那条”流水线”。</p>
+<p>未来的方向可能包括：</p>
+<ul>
+<li>将 DAG 解析从 LLM 理解移入程序化工具（如 <code>openspec compute-waves --json</code>）</li>
+<li>Skill 级别的 Hook opt-out 机制</li>
+<li>跨项目的知识复利——让一个项目中沉淀的规范和经验自动迁移到下一个项目</li>
+</ul>
+<p>但这些都是后话了。当下最重要的是：<strong>先让 AI 不猜测，先让质量有门控，先让并行能安全。</strong> 其余的，交给时间。</p>
+<hr>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://github.com/Fission-AI/OpenSpec">OpenSpec - Specification-Driven Development Framework</a></li>
+<li><a href="https://github.com/code-yeongyu/oh-my-openagent">Oh-My-OpenAgent (OMO) - Multi-Agent Orchestration</a></li>
+<li><a href="https://vibecoding.app/blog/multi-agent-software-development-workflow">Atlassian AI Adoption Metrics</a> - 89% PR&#x2F;engineer increase</li>
+<li><a href="https://risemsr.github.io/blog/2026-03-05-shuvendu-intent-formalization/">Microsoft Research - Intent Formalization</a></li>
+<li><a href="https://www.vincirufus.com/en/posts/compound-engineering/">Compound Engineering: From Vibe Coding to System Orchestration</a></li>
+<li><a href="https://unmarkdown.com/blog/multi-agent-orchestration-practical-guide">Multi-Agent Orchestration Practical Guide</a></li>
+<li><a href="https://www.nxcode.io/resources/news/agentic-engineering-complete-guide-vibe-coding-ai-agents-2026">Agentic Engineering Complete Guide 2026</a></li>
+<li><a href="https://km.netease.com/">Spec驱动的研发复利：AI 时代的组织级工程体系探索</a> - 网易KM, 青檀(高民)</li>
+<li><a href="https://maecapozzi.com/blog/building-a-multi-agent-orchestrator">Building a Multi-Agent Orchestrator</a></li>
+</ol>
+<hr>
+<p><em>本文基于 OMO-OPSX v2.2 方案设计文档撰写，方案已在实际项目中部署并持续优化。</em></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/essay/iOS%E9%A1%B5%E9%9D%A2%E8%B7%AF%E7%94%B1/" rel="next" title="iOS页面路由思路">
+                <i class="fa fa-chevron-left"></i> iOS页面路由思路
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
+            
+              <p class="site-author-name" itemprop="name">SunTongSheng</p>
+              <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/res/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">23</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%BC%95%E8%A8%80%EF%BC%9AAI-%E7%BC%96%E7%A0%81%E7%9A%84%E6%95%88%E7%8E%87%E5%A4%A9%E8%8A%B1%E6%9D%BF"><span class="nav-number">1.</span> <span class="nav-text">一、引言：AI 编码的效率天花板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E8%83%8C%E6%99%AF%EF%BC%9A%E8%BF%99%E4%BA%9B%E4%B8%9C%E8%A5%BF%E5%8E%9F%E6%9D%A5%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">二、背景：这些东西原来是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-OpenSpec%EF%BC%9A%E8%A7%84%E8%8C%83%E5%85%88%E8%A1%8C%E7%9A%84%E5%8F%98%E6%9B%B4%E7%AE%A1%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 OpenSpec：规范先行的变更管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-OMO%EF%BC%9A%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E7%BC%96%E6%8E%92%E5%BC%95%E6%93%8E"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 OMO：多智能体编排引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%9E%8D%E5%90%88"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 为什么要融合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%9E%8D%E5%90%88%E6%96%B9%E6%A1%88%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">三、融合方案设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%EF%BC%9A5-%E4%B8%AA%E6%8A%80%E8%83%BD%E8%A6%86%E7%9B%96%E5%AE%8C%E6%95%B4%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 整体架构：5 个技能覆盖完整生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%A0%B8%E5%BF%83%E8%AE%BE%E8%AE%A1%EF%BC%9AOrchestrator-Worker-%E4%B8%A4%E5%B1%82%E6%9E%B6%E6%9E%84"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 核心设计：Orchestrator-Worker 两层架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-DAG-Wave-%E5%B9%B6%E8%A1%8C%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 DAG Wave 并行执行模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E4%B8%89%E5%B1%82%E8%B4%A8%E9%87%8F%E9%97%A8%E6%8E%A7"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 三层质量门控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-UltraWork-%E7%A1%AE%E5%AE%9A%E6%80%A7%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 UltraWork 确定性协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B3%E9%94%AE%E5%88%9B%E6%96%B0%E7%82%B9%E8%AF%A6%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">四、关键创新点详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-Brainstorm-%E9%98%B6%E6%AE%B5%EF%BC%9A%E8%A7%A3%E5%86%B3%E4%B8%8A%E4%B8%8B%E6%96%87%E4%B8%A2%E5%A4%B1"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 Brainstorm 阶段：解决上下文丢失</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%88%86%E7%BA%A7%E9%AA%8C%E8%AF%81%EF%BC%9A%E6%88%90%E6%9C%AC%E4%B8%8E%E8%B4%A8%E9%87%8F%E7%9A%84%E6%9C%80%E4%BC%98%E5%B9%B3%E8%A1%A1"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 分级验证：成本与质量的最优平衡</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E6%A3%80%E6%9F%A5%E7%82%B9%E7%BB%AD%E8%B7%91%E4%B8%8E-Git-%E9%9B%86%E6%88%90"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 检查点续跑与 Git 集成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-4-%E4%B8%89%E7%BA%A7%E5%A4%B1%E8%B4%A5%E7%86%94%E6%96%AD"><span class="nav-number">4.4.</span> <span class="nav-text">4.4 三级失败熔断</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E6%96%87%E4%BB%B6%E5%86%B2%E7%AA%81%E5%AE%89%E5%85%A8%E4%B8%8E%E5%B9%B6%E8%A1%8C%E4%B8%8A%E9%99%90"><span class="nav-number">5.</span> <span class="nav-text">五、文件冲突安全与并行上限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81Trivial-%E6%A3%80%E6%B5%8B%EF%BC%9A%E7%AE%80%E5%8D%95%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%BF%AB%E9%80%9F%E9%80%9A%E9%81%93"><span class="nav-number">6.</span> <span class="nav-text">六、Trivial 检测：简单任务的快速通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E6%B8%90%E8%BF%9B%E5%BC%8F%E8%9E%8D%E5%90%88%EF%BC%9A%E6%97%A0%E8%BF%90%E8%A1%8C%E6%97%B6%E4%BE%9D%E8%B5%96"><span class="nav-number">7.</span> <span class="nav-text">七、渐进式融合：无运行时依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E6%9E%B6%E6%9E%84%E5%86%B3%E7%AD%96%E8%AE%B0%E5%BD%95"><span class="nav-number">8.</span> <span class="nav-text">八、架构决策记录</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%AA%E7%94%A8-Skills%EF%BC%8C%E4%B8%8D%E7%94%A8-Commands%EF%BC%9F"><span class="nav-number">8.1.</span> <span class="nav-text">为什么只用 Skills，不用 Commands？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%B2%BE%E7%AE%80-SKILL-md-%E4%B8%AD%E7%9A%84-task-%E4%BB%A3%E7%A0%81%E5%9D%97%EF%BC%9F"><span class="nav-number">8.2.</span> <span class="nav-text">为什么精简 SKILL.md 中的 task() 代码块？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%B7%B2%E7%9F%A5%E9%A3%8E%E9%99%A9%E4%B8%8E%E5%BA%94%E5%AF%B9"><span class="nav-number">9.</span> <span class="nav-text">九、已知风险与应对</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%81%E3%80%81%E6%95%88%E6%9E%9C%E6%80%BB%E7%BB%93"><span class="nav-number">10.</span> <span class="nav-text">十、效果总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">11.</span> <span class="nav-text">写在最后</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">12.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+ 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">508k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">7:41</span>
+  
+</div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

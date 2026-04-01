@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,26 +118,26 @@
 
 
   <meta name="description" content="之前在 AVFoundation拍照和录像 中使用 AVCaptureMovieFileOutput类来捕捉 QuickTime影片，这个类定义了捕捉视频数据的简单方法。当对捕捉到的视频数据进行更底层的操作时，就需要用到 AVCaptureVideoDataOutput  AVCaptureVideoDataOutputSampleBufferDelegate 与AVCaptureMovieFi">
-<meta name="keywords" content="AVFoundation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="AVFoundation-视频处理">
-<meta property="og:url" content="https://developerdoc.com/essay/AVFoundation/AVFoundation-视频处理/index.html">
+<meta property="og:url" content="https://developerdoc.com/essay/AVFoundation/AVFoundation-%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="之前在 AVFoundation拍照和录像 中使用 AVCaptureMovieFileOutput类来捕捉 QuickTime影片，这个类定义了捕捉视频数据的简单方法。当对捕捉到的视频数据进行更底层的操作时，就需要用到 AVCaptureVideoDataOutput  AVCaptureVideoDataOutputSampleBufferDelegate 与AVCaptureMovieFi">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-23T02:37:59.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-12-06T07:20:54.000Z">
+<meta property="article:modified_time" content="2018-11-23T02:37:59.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="AVFoundation">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="AVFoundation-视频处理">
-<meta name="twitter:description" content="之前在 AVFoundation拍照和录像 中使用 AVCaptureMovieFileOutput类来捕捉 QuickTime影片，这个类定义了捕捉视频数据的简单方法。当对捕捉到的视频数据进行更底层的操作时，就需要用到 AVCaptureVideoDataOutput  AVCaptureVideoDataOutputSampleBufferDelegate 与AVCaptureMovieFi">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-视频处理/">
+  <link rel="canonical" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-视频处理/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -295,7 +295,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -347,7 +349,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-视频处理/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -412,7 +414,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -445,8 +447,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/essay/AVFoundation/AVFoundation-视频处理/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/AVFoundation/AVFoundation-视频处理/" itemprop="commentCount"></span>
+                <a href="/essay/AVFoundation/AVFoundation-%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/AVFoundation/AVFoundation-%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -454,7 +456,7 @@
 
           
           
-             <span id="/essay/AVFoundation/AVFoundation-视频处理/" class="leancloud_visitors" data-flag-title="AVFoundation-视频处理">
+             <span id="/essay/AVFoundation/AVFoundation-%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/" class="leancloud_visitors" data-flag-title="AVFoundation-视频处理">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -479,7 +481,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.7k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -514,7 +516,7 @@
 
       
         <blockquote>
-<p>之前在 <a href="../AVFoundation拍照和录像/">AVFoundation拍照和录像</a> 中使用 <strong>AVCaptureMovieFileOutput</strong>类来捕捉 QuickTime影片，这个类定义了捕捉视频数据的简单方法。当对捕捉到的视频数据进行更底层的操作时，就需要用到 <strong>AVCaptureVideoDataOutput</strong></p>
+<p>之前在 <a href="../AVFoundation%E6%8B%8D%E7%85%A7%E5%92%8C%E5%BD%95%E5%83%8F/">AVFoundation拍照和录像</a> 中使用 <strong>AVCaptureMovieFileOutput</strong>类来捕捉 QuickTime影片，这个类定义了捕捉视频数据的简单方法。当对捕捉到的视频数据进行更底层的操作时，就需要用到 <strong>AVCaptureVideoDataOutput</strong></p>
 </blockquote>
 <h2 id="AVCaptureVideoDataOutputSampleBufferDelegate"><a href="#AVCaptureVideoDataOutputSampleBufferDelegate" class="headerlink" title="AVCaptureVideoDataOutputSampleBufferDelegate"></a>AVCaptureVideoDataOutputSampleBufferDelegate</h2><blockquote>
 <p>与AVCaptureMovieFileOutput的委托回调不同，AVCaptureVideoDataOutput的委托回调为AVCaptureVideoDataOutputSampleBufferDelegate</p>
@@ -533,14 +535,15 @@
 <h3 id="CMSampleBufferRef"><a href="#CMSampleBufferRef" class="headerlink" title="CMSampleBufferRef"></a>CMSampleBufferRef</h3><blockquote>
 <p>CMSampleBufferRef将基本的样本数据进行封装并提供格式和时间信息，还会家伙是哪个所有在转换和处理数据时用到的元数据。</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
+
 <ul>
 <li>样本数据 <strong>CVImageBufferRef</strong><ul>
-<li><code>CVImageBufferRef  pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)</code> </li>
+<li><code>CVImageBufferRef  pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)</code></li>
 </ul>
 </li>
 <li>格式信息 <strong>CMFormatDescriptionRef</strong> <ul>
-<li><code>CMFormatDescriptionRef formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);</code> </li>
+<li><code>CMFormatDescriptionRef formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);</code></li>
 </ul>
 </li>
 <li>时间信息 <strong>CMTime</strong> </li>
@@ -549,10 +552,12 @@
 <h2 id="AVCaptureVideoDataOutput"><a href="#AVCaptureVideoDataOutput" class="headerlink" title="AVCaptureVideoDataOutput"></a>AVCaptureVideoDataOutput</h2><blockquote>
 <p>配置</p>
 </blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)setupSessionOutputs:(<span class="built_in">NSError</span> **)error &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">self</span>.videoDataOutput = [[<span class="built_in">AVCaptureVideoDataOutput</span> alloc] init];</span><br><span class="line">    <span class="keyword">self</span>.videoDataOutput.alwaysDiscardsLateVideoFrames = <span class="literal">YES</span>;</span><br><span class="line">    <span class="keyword">self</span>.videoDataOutput.videoSettings =</span><br><span class="line">    <span class="comment">//色度子抽样初始格式为 420v，不过openGL ES一般会使用bgra</span></span><br><span class="line">    @&#123;(<span class="keyword">id</span>)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA)&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	[<span class="keyword">self</span>.videoDataOutput setSampleBufferDelegate:<span class="keyword">self</span></span><br><span class="line">                                            queue:dispatch_get_main_queue()];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.captureSession canAddOutput:<span class="keyword">self</span>.videoDataOutput]) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.captureSession addOutput:<span class="keyword">self</span>.videoDataOutput];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)captureOutput:(<span class="built_in">AVCaptureOutput</span> *)captureOutput</span><br><span class="line">didOutputSampleBuffer:(<span class="built_in">CMSampleBufferRef</span>)sampleBuffer</span><br><span class="line">       fromConnection:(<span class="built_in">AVCaptureConnection</span> *)connection &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="OpenGL-ES处理数据，将视频数据贴在立方体上"><a href="#OpenGL-ES处理数据，将视频数据贴在立方体上" class="headerlink" title="OpenGL ES处理数据，将视频数据贴在立方体上"></a>OpenGL ES处理数据，将视频数据贴在立方体上</h2><p>OpenGL ES 参考<br><a href="https://developer.apple.com/library/content/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="noopener">Apple guide - About OpenGl ES</a><br><a href="https://www.raywenderlich.com/3664/opengl-tutorial-for-ios-opengl-es-2-0" target="_blank" rel="noopener">OpenGL Tutorial for iOS: OpenGL ES 2.0</a><br><a href="http://blog.csdn.net/column/details/opengl-es2-ios.html" target="_blank" rel="noopener">OpenGL ES 2.0 iOS教程</a></p>
-<h3 id="创建CVOpenGLESTextureCacheCreate"><a href="#创建CVOpenGLESTextureCacheCreate" class="headerlink" title="创建CVOpenGLESTextureCacheCreate"></a>创建CVOpenGLESTextureCacheCreate</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"THCameraController.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;AVFoundation/AVFoundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;OpenGLES/ES2/gl.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;OpenGLES/ES2/glext.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">THCameraController</span> () &lt;<span class="title">AVCaptureVideoDataOutputSampleBufferDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) EAGLContext *context;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">AVCaptureVideoDataOutput</span> *videoDataOutput;</span><br><span class="line"><span class="comment">//Core Video 提供了CVOpenGLESTextureCacheRef 作为Core Vide像素buffer和OpenGL ES贴图之间的桥梁。</span></span><br><span class="line"><span class="comment">//缓存的目的是减少数据从CPU何GPU之间转移的消耗</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) CVOpenGLESTextureCacheRef textureCache;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) CVOpenGLESTextureRef cameraTexture;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">THCameraController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithContext:(EAGLContext *)context &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _context = context;</span><br><span class="line">        <span class="comment">//这个函数关键是后备EAGLContext和textureCache指针</span></span><br><span class="line">        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault,</span><br><span class="line">                                                    <span class="literal">NULL</span>,</span><br><span class="line">                                                    _context,</span><br><span class="line">                                                    <span class="literal">NULL</span>,</span><br><span class="line">                                                    &amp;_textureCache);</span><br><span class="line">        <span class="keyword">if</span> (err != kCVReturnSuccess) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"Error creating texture cache. %d"</span>, err);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="创建OpenGL-ES贴图"><a href="#创建OpenGL-ES贴图" class="headerlink" title="创建OpenGL ES贴图"></a>创建OpenGL ES贴图</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)captureOutput:(<span class="built_in">AVCaptureOutput</span> *)captureOutput</span><br><span class="line">didOutputSampleBuffer:(<span class="built_in">CMSampleBufferRef</span>)sampleBuffer</span><br><span class="line">       fromConnection:(<span class="built_in">AVCaptureConnection</span> *)connection &#123;</span><br><span class="line"></span><br><span class="line">    CVReturn err;</span><br><span class="line">    <span class="comment">//从sampleBuffer中获取数据</span></span><br><span class="line">	CVImageBufferRef pixelBuffer =                                          <span class="comment">// 1</span></span><br><span class="line">        <span class="built_in">CMSampleBufferGetImageBuffer</span>(sampleBuffer);</span><br><span class="line">    <span class="comment">//获取视频帧维度 返回带有宽高的CMVideoDimensions</span></span><br><span class="line">    <span class="built_in">CMFormatDescriptionRef</span> formatDescription =                              <span class="comment">// 2</span></span><br><span class="line">        <span class="built_in">CMSampleBufferGetFormatDescription</span>(sampleBuffer);</span><br><span class="line">    <span class="built_in">CMVideoDimensions</span> dimensions =</span><br><span class="line">        <span class="built_in">CMVideoFormatDescriptionGetDimensions</span>(formatDescription);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//CVOpenGLESTextureCacheCreateTextureFromImage创建贴图</span></span><br><span class="line">    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, <span class="comment">// 3</span></span><br><span class="line">                                                       _textureCache,</span><br><span class="line">                                                       pixelBuffer,</span><br><span class="line">                                                       <span class="literal">NULL</span>,</span><br><span class="line">                                                       GL_TEXTURE_2D,</span><br><span class="line">                                                       GL_RGBA,</span><br><span class="line">                                                       dimensions.height,</span><br><span class="line">                                                       dimensions.height,</span><br><span class="line">                                                       GL_BGRA,</span><br><span class="line">                                                       GL_UNSIGNED_BYTE,</span><br><span class="line">                                                       <span class="number">0</span>,</span><br><span class="line">                                                       &amp;_cameraTexture);</span><br><span class="line">    <span class="comment">//GLenum GLuint 用于将贴图对象与旋转的小方块表面进行核实的绑定</span></span><br><span class="line">    <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">        GLenum target = CVOpenGLESTextureGetTarget(_cameraTexture);         <span class="comment">// 4</span></span><br><span class="line">        GLuint name = CVOpenGLESTextureGetName(_cameraTexture);</span><br><span class="line">        [<span class="keyword">self</span>.textureDelegate textureCreatedWithTarget:target name:name];   <span class="comment">// 5</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Error at CVOpenGLESTextureCacheCreateTextureFromImage %d"</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> cleanupTextures];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放贴图并刷新贴图缓存</span></span><br><span class="line">- (<span class="keyword">void</span>)cleanupTextures &#123;                                                   <span class="comment">// 6</span></span><br><span class="line">    <span class="keyword">if</span> (_cameraTexture) &#123;</span><br><span class="line">        <span class="built_in">CFRelease</span>(_cameraTexture);</span><br><span class="line">        _cameraTexture = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    CVOpenGLESTextureCacheFlush(_textureCache, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">BOOL</span>)setupSessionOutputs:(<span class="built_in">NSError</span> **)error &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">self</span>.videoDataOutput = [[<span class="built_in">AVCaptureVideoDataOutput</span> alloc] init];</span><br><span class="line">    <span class="keyword">self</span>.videoDataOutput.alwaysDiscardsLateVideoFrames = <span class="literal">YES</span>;</span><br><span class="line">    <span class="keyword">self</span>.videoDataOutput.videoSettings =</span><br><span class="line">    <span class="comment">//色度子抽样初始格式为 420v，不过openGL ES一般会使用bgra</span></span><br><span class="line">    @&#123;(<span class="type">id</span>)kCVPixelBufferPixelFormatTypeKey : @(kCVPixelFormatType_32BGRA)&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	[<span class="keyword">self</span>.videoDataOutput setSampleBufferDelegate:<span class="keyword">self</span></span><br><span class="line">                                            queue:dispatch_get_main_queue()];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.captureSession canAddOutput:<span class="keyword">self</span>.videoDataOutput]) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.captureSession addOutput:<span class="keyword">self</span>.videoDataOutput];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="type">void</span>)captureOutput:(<span class="built_in">AVCaptureOutput</span> *)captureOutput</span><br><span class="line">didOutputSampleBuffer:(<span class="built_in">CMSampleBufferRef</span>)sampleBuffer</span><br><span class="line">       fromConnection:(<span class="built_in">AVCaptureConnection</span> *)connection &#123;</span><br><span class="line">&#125;       </span><br></pre></td></tr></table></figure>
+
+<h2 id="OpenGL-ES处理数据，将视频数据贴在立方体上"><a href="#OpenGL-ES处理数据，将视频数据贴在立方体上" class="headerlink" title="OpenGL ES处理数据，将视频数据贴在立方体上"></a>OpenGL ES处理数据，将视频数据贴在立方体上</h2><p>OpenGL ES 参考<br><a href="https://developer.apple.com/library/content/documentation/3DDrawing/Conceptual/OpenGLES_ProgrammingGuide/Introduction/Introduction.html">Apple guide - About OpenGl ES</a><br><a href="https://www.raywenderlich.com/3664/opengl-tutorial-for-ios-opengl-es-2-0">OpenGL Tutorial for iOS: OpenGL ES 2.0</a><br><a href="http://blog.csdn.net/column/details/opengl-es2-ios.html">OpenGL ES 2.0 iOS教程</a></p>
+<h3 id="创建CVOpenGLESTextureCacheCreate"><a href="#创建CVOpenGLESTextureCacheCreate" class="headerlink" title="创建CVOpenGLESTextureCacheCreate"></a>创建CVOpenGLESTextureCacheCreate</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;THCameraController.h&quot;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;AVFoundation/AVFoundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;OpenGLES/ES2/gl.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="string">&lt;OpenGLES/ES2/glext.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">THCameraController</span> () &lt;<span class="title">AVCaptureVideoDataOutputSampleBufferDelegate</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">weak</span>, <span class="keyword">nonatomic</span>) EAGLContext *context;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>, <span class="keyword">nonatomic</span>) <span class="built_in">AVCaptureVideoDataOutput</span> *videoDataOutput;</span><br><span class="line"><span class="comment">//Core Video 提供了CVOpenGLESTextureCacheRef 作为Core Vide像素buffer和OpenGL ES贴图之间的桥梁。</span></span><br><span class="line"><span class="comment">//缓存的目的是减少数据从CPU何GPU之间转移的消耗</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) CVOpenGLESTextureCacheRef textureCache;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) CVOpenGLESTextureRef cameraTexture;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">THCameraController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithContext:(EAGLContext *)context &#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="variable language_">super</span> init];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>) &#123;</span><br><span class="line">        _context = context;</span><br><span class="line">        <span class="comment">//这个函数关键是后备EAGLContext和textureCache指针</span></span><br><span class="line">        CVReturn err = CVOpenGLESTextureCacheCreate(kCFAllocatorDefault,</span><br><span class="line">                                                    <span class="literal">NULL</span>,</span><br><span class="line">                                                    _context,</span><br><span class="line">                                                    <span class="literal">NULL</span>,</span><br><span class="line">                                                    &amp;_textureCache);</span><br><span class="line">        <span class="keyword">if</span> (err != kCVReturnSuccess) &#123;</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Error creating texture cache. %d&quot;</span>, err);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建OpenGL-ES贴图"><a href="#创建OpenGL-ES贴图" class="headerlink" title="创建OpenGL ES贴图"></a>创建OpenGL ES贴图</h3><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="type">void</span>)captureOutput:(<span class="built_in">AVCaptureOutput</span> *)captureOutput</span><br><span class="line">didOutputSampleBuffer:(<span class="built_in">CMSampleBufferRef</span>)sampleBuffer</span><br><span class="line">       fromConnection:(<span class="built_in">AVCaptureConnection</span> *)connection &#123;</span><br><span class="line"></span><br><span class="line">    CVReturn err;</span><br><span class="line">    <span class="comment">//从sampleBuffer中获取数据</span></span><br><span class="line">	CVImageBufferRef pixelBuffer =                                          <span class="comment">// 1</span></span><br><span class="line">        <span class="built_in">CMSampleBufferGetImageBuffer</span>(sampleBuffer);</span><br><span class="line">    <span class="comment">//获取视频帧维度 返回带有宽高的CMVideoDimensions</span></span><br><span class="line">    <span class="built_in">CMFormatDescriptionRef</span> formatDescription =                              <span class="comment">// 2</span></span><br><span class="line">        <span class="built_in">CMSampleBufferGetFormatDescription</span>(sampleBuffer);</span><br><span class="line">    <span class="built_in">CMVideoDimensions</span> dimensions =</span><br><span class="line">        <span class="built_in">CMVideoFormatDescriptionGetDimensions</span>(formatDescription);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//CVOpenGLESTextureCacheCreateTextureFromImage创建贴图</span></span><br><span class="line">    err = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, <span class="comment">// 3</span></span><br><span class="line">                                                       _textureCache,</span><br><span class="line">                                                       pixelBuffer,</span><br><span class="line">                                                       <span class="literal">NULL</span>,</span><br><span class="line">                                                       GL_TEXTURE_2D,</span><br><span class="line">                                                       GL_RGBA,</span><br><span class="line">                                                       dimensions.height,</span><br><span class="line">                                                       dimensions.height,</span><br><span class="line">                                                       GL_BGRA,</span><br><span class="line">                                                       GL_UNSIGNED_BYTE,</span><br><span class="line">                                                       <span class="number">0</span>,</span><br><span class="line">                                                       &amp;_cameraTexture);</span><br><span class="line">    <span class="comment">//GLenum GLuint 用于将贴图对象与旋转的小方块表面进行核实的绑定</span></span><br><span class="line">    <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">        GLenum target = CVOpenGLESTextureGetTarget(_cameraTexture);         <span class="comment">// 4</span></span><br><span class="line">        GLuint name = CVOpenGLESTextureGetName(_cameraTexture);</span><br><span class="line">        [<span class="keyword">self</span>.textureDelegate textureCreatedWithTarget:target name:name];   <span class="comment">// 5</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;Error at CVOpenGLESTextureCacheCreateTextureFromImage %d&quot;</span>, err);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> cleanupTextures];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//释放贴图并刷新贴图缓存</span></span><br><span class="line">- (<span class="type">void</span>)cleanupTextures &#123;                                                   <span class="comment">// 6</span></span><br><span class="line">    <span class="keyword">if</span> (_cameraTexture) &#123;</span><br><span class="line">        <span class="built_in">CFRelease</span>(_cameraTexture);</span><br><span class="line">        _cameraTexture = <span class="literal">NULL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    CVOpenGLESTextureCacheFlush(_textureCache, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -586,7 +591,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/essay/AVFoundation/AVFoundation-高帧率捕捉/" rel="next" title="AVFoundation-高帧率捕捉">
+              <a href="/essay/AVFoundation/AVFoundation-%E9%AB%98%E5%B8%A7%E7%8E%87%E6%8D%95%E6%8D%89/" rel="next" title="AVFoundation-高帧率捕捉">
                 <i class="fa fa-chevron-left"></i> AVFoundation-高帧率捕捉
               </a>
             
@@ -596,7 +601,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/essay/AVFoundation/AVFoundation-绘制音频波形图AVAssetReader/" rel="prev" title="AVFoundation-绘制音频波形图AVAssetReader">
+              <a href="/essay/AVFoundation/AVFoundation-%E7%BB%98%E5%88%B6%E9%9F%B3%E9%A2%91%E6%B3%A2%E5%BD%A2%E5%9B%BEAVAssetReader/" rel="prev" title="AVFoundation-绘制音频波形图AVAssetReader">
                 AVFoundation-绘制音频波形图AVAssetReader <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -660,7 +665,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -671,9 +678,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -730,9 +737,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -742,7 +747,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -789,7 +794,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -832,7 +839,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVCaptureVideoDataOutputSampleBufferDelegate"><span class="nav-number">1.</span> <span class="nav-text">AVCaptureVideoDataOutputSampleBufferDelegate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMSampleBufferRef"><span class="nav-number">1.1.</span> <span class="nav-text">CMSampleBufferRef</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVCaptureVideoDataOutput"><span class="nav-number">2.</span> <span class="nav-text">AVCaptureVideoDataOutput</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenGL-ES处理数据，将视频数据贴在立方体上"><span class="nav-number">3.</span> <span class="nav-text">OpenGL ES处理数据，将视频数据贴在立方体上</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建CVOpenGLESTextureCacheCreate"><span class="nav-number">3.1.</span> <span class="nav-text">创建CVOpenGLESTextureCacheCreate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建OpenGL-ES贴图"><span class="nav-number">3.2.</span> <span class="nav-text">创建OpenGL ES贴图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVCaptureVideoDataOutputSampleBufferDelegate"><span class="nav-number">1.</span> <span class="nav-text">AVCaptureVideoDataOutputSampleBufferDelegate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CMSampleBufferRef"><span class="nav-number">1.1.</span> <span class="nav-text">CMSampleBufferRef</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AVCaptureVideoDataOutput"><span class="nav-number">2.</span> <span class="nav-text">AVCaptureVideoDataOutput</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenGL-ES%E5%A4%84%E7%90%86%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%B0%86%E8%A7%86%E9%A2%91%E6%95%B0%E6%8D%AE%E8%B4%B4%E5%9C%A8%E7%AB%8B%E6%96%B9%E4%BD%93%E4%B8%8A"><span class="nav-number">3.</span> <span class="nav-text">OpenGL ES处理数据，将视频数据贴在立方体上</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BACVOpenGLESTextureCacheCreate"><span class="nav-number">3.1.</span> <span class="nav-text">创建CVOpenGLESTextureCacheCreate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAOpenGL-ES%E8%B4%B4%E5%9B%BE"><span class="nav-number">3.2.</span> <span class="nav-text">创建OpenGL ES贴图</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -852,7 +859,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -864,7 +871,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -873,7 +880,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 

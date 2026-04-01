@@ -13,10 +13,10 @@
 
 
 <html class="theme-next gemini" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
 <meta name="theme-color" content="#222">
 
 
@@ -37,25 +37,21 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
-  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU">
-
-
-
-
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
 
 
 
 
-  <meta name="baidu-site-verification" content="HEaA5Ig1iK">
 
 
 
 
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
 
 
 
@@ -65,9 +61,13 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css">
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
@@ -92,7 +92,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Gemini',
     version: '6.5.0',
     sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -118,29 +118,29 @@
 
 
   <meta name="description" content="在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外,还能使用Method Swizzling方法  原理在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。 每个类都有">
-<meta name="keywords" content="iOS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Method-Swizzling使用">
 <meta property="og:url" content="https://developerdoc.com/essay/Runtime/Method-Swizzling/index.html">
 <meta property="og:site_name" content="孙同生的博客">
 <meta property="og:description" content="在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外,还能使用Method Swizzling方法  原理在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。 每个类都有">
-<meta property="og:locale" content="zh-CN">
+<meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://developerdoc.com/res/runtime/o_methodSwizzling1.png">
 <meta property="og:image" content="https://developerdoc.com/res/runtime/o_methodSwizzling2.png">
-<meta property="og:updated_time" content="2019-03-07T09:43:18.000Z">
+<meta property="article:published_time" content="2016-10-10T02:49:45.000Z">
+<meta property="article:modified_time" content="2019-03-07T09:43:18.000Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="iOS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Method-Swizzling使用">
-<meta name="twitter:description" content="在没有一个类的实现源码的情况下，想改变其中一个方法的实现，除了继承它重写、和借助类别重名方法暴力抢先之外,还能使用Method Swizzling方法  原理在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。 每个类都有">
 <meta name="twitter:image" content="https://developerdoc.com/res/runtime/o_methodSwizzling1.png">
 
 
 
-  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml">
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
 
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/Runtime/Method-Swizzling/">
+  <link rel="canonical" href="https://developerdoc.com/essay/Runtime/Method-Swizzling/"/>
 
 
 
@@ -190,7 +190,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 8.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -298,7 +298,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -415,7 +417,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -426,14 +428,14 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E9%87%8D%E5%AD%A6iOS/" itemprop="url" rel="index"><span itemprop="name">重学iOS</span></a></span>
 
                 
                 
                   ，
                 
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/重学iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E9%87%8D%E5%AD%A6iOS/Runtime/" itemprop="url" rel="index"><span itemprop="name">Runtime</span></a></span>
 
                 
                 
@@ -482,7 +484,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.6k</span>
+                <span title="本文字数">8.1k</span>
               
 
               
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">7 分钟</span>
               
             </div>
           
@@ -521,19 +523,22 @@
 </blockquote>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>在Objective-C中调用一个方法，其实是向一个对象发送消息，查找消息的唯一依据是selector的名字。利用Objective-C的动态特性，可以实现在运行时偷换selector对应的方法实现，达到给方法挂钩的目的。</p>
 <p>每个类都有一个方法列表，存放着selector的名字和方法实现的映射关系。IMP有点类似函数指针，指向具体的Method实现。</p>
-<a id="more"></a>
-<p><img src="/res/runtime/o_methodSwizzling1.png" alt></p>
+<span id="more"></span>
+
+<p><img src="/res/runtime/o_methodSwizzling1.png"></p>
 <p>我们可以利用 method_exchangeImplementations 来交换2个方法中的IMP，</p>
 <p>我们可以利用 class_replaceMethod 来修改类，</p>
 <p>我们可以利用 method_setImplementation 来直接设置某个方法的IMP，</p>
 <p>归根结底，都是偷换了selector的IMP，如下图所示：</p>
-<p><img src="/res/runtime/o_methodSwizzling2.png" alt></p>
+<p><img src="/res/runtime/o_methodSwizzling2.png"></p>
 <h2 id="实践1"><a href="#实践1" class="headerlink" title="实践1"></a>实践1</h2><p>举个例子好了，我想钩一下NSArray的lastObject 方法，只需两个步骤。</p>
-<p>第一步：给NSArray加一个我自己的lastObject<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"NSArray+Swizzle.h"</span>  </span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSArray</span> (<span class="title">Swizzle</span>)  </span></span><br><span class="line">- (<span class="keyword">id</span>)myLastObject  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="keyword">id</span> ret = [<span class="keyword">self</span> myLastObject];  </span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"**********  myLastObject *********** "</span>);  </span><br><span class="line">   <span class="keyword">return</span> ret;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure></p>
+<p>第一步：给NSArray加一个我自己的lastObject</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&quot;NSArray+Swizzle.h&quot;</span>  </span></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSArray</span> (<span class="title">Swizzle</span>)  </span></span><br><span class="line">- (<span class="type">id</span>)myLastObject  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="type">id</span> ret = [<span class="keyword">self</span> myLastObject];  </span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@&quot;**********  myLastObject *********** &quot;</span>);  </span><br><span class="line">   <span class="keyword">return</span> ret;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">@end</span>  </span><br></pre></td></tr></table></figure>
 <p>乍一看，这不递归了么？别忘记这是我们准备调换IMP的selector，[self myLastObject] 将会执行真的 [self lastObject] 。</p>
 <p>第二步：调换IMP</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span>  </span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"NSArray+Swizzle.h"</span>  </span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> *argv[])  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="keyword">@autoreleasepool</span> &#123;  </span><br><span class="line">         </span><br><span class="line">       Method ori_Method =  class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(lastObject));  </span><br><span class="line">       Method my_Method = class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(myLastObject));  </span><br><span class="line">       method_exchangeImplementations(ori_Method, my_Method);  </span><br><span class="line">         </span><br><span class="line">       <span class="built_in">NSArray</span> *array = @[<span class="string">@"0"</span>,<span class="string">@"1"</span>,<span class="string">@"2"</span>,<span class="string">@"3"</span>];  </span><br><span class="line">       <span class="built_in">NSString</span> *string = [array lastObject];  </span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@"TEST RESULT : %@"</span>,string);  </span><br><span class="line">         </span><br><span class="line">       <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>控制台输出Log：    </p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;objc/runtime.h&gt;  </span></span></span><br><span class="line"><span class="meta">#import <span class="string">&quot;NSArray+Swizzle.h&quot;</span>  </span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> main(<span class="type">int</span> argc, <span class="type">char</span> *argv[])  </span><br><span class="line">&#123;  </span><br><span class="line">   <span class="keyword">@autoreleasepool</span> &#123;  </span><br><span class="line">         </span><br><span class="line">       Method ori_Method =  class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(lastObject));  </span><br><span class="line">       Method my_Method = class_getInstanceMethod([<span class="built_in">NSArray</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(myLastObject));  </span><br><span class="line">       method_exchangeImplementations(ori_Method, my_Method);  </span><br><span class="line">         </span><br><span class="line">       <span class="built_in">NSArray</span> *array = @[<span class="string">@&quot;0&quot;</span>,<span class="string">@&quot;1&quot;</span>,<span class="string">@&quot;2&quot;</span>,<span class="string">@&quot;3&quot;</span>];  </span><br><span class="line">       <span class="built_in">NSString</span> *string = [array lastObject];  </span><br><span class="line">       <span class="built_in">NSLog</span>(<span class="string">@&quot;TEST RESULT : %@&quot;</span>,string);  </span><br><span class="line">         </span><br><span class="line">       <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">   &#125;  </span><br><span class="line">&#125;	</span><br></pre></td></tr></table></figure>
+
+<p>控制台输出Log：	</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2013-07-18 16:26:12.585 Hook[1740:c07] **********  myLastObject ***********   </span><br><span class="line">2013-07-18 16:26:12.589 Hook[1740:c07] TEST RESULT : 3</span><br></pre></td></tr></table></figure>
 <h3 id="实践2">实践2：拦截系统方法</h3>
 
@@ -542,13 +547,12 @@
 </blockquote>
 <p>步骤：</p>
 <ol>
-<li>为UIImage建一个分类（UIImage+Category）</li>
+<li><p>为UIImage建一个分类（UIImage+Category）</p>
+</li>
 <li><p>在分类中实现一个自定义方法，方法中写要在系统方法中加入的语句，比如版本判断</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="built_in">UIImage</span> *)xh_imageNamed:(<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line">   <span class="keyword">double</span> version = [[<span class="built_in">UIDevice</span> currentDevice].systemVersion doubleValue];</span><br><span class="line">   <span class="keyword">if</span> (version &gt;= <span class="number">7.0</span>) &#123;</span><br><span class="line">       <span class="comment">// 如果系统版本是7.0以上，使用另外一套文件名结尾是‘_os7’的扁平化图片</span></span><br><span class="line">       name = [name stringByAppendingString:<span class="string">@"_os7"</span>];</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> [<span class="built_in">UIImage</span> xh_imageNamed:name];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="built_in">UIImage</span> *)xh_imageNamed:(<span class="built_in">NSString</span> *)name &#123;</span><br><span class="line">   <span class="type">double</span> version = [[<span class="built_in">UIDevice</span> currentDevice].systemVersion doubleValue];</span><br><span class="line">   <span class="keyword">if</span> (version &gt;= <span class="number">7.0</span>) &#123;</span><br><span class="line">       <span class="comment">// 如果系统版本是7.0以上，使用另外一套文件名结尾是‘_os7’的扁平化图片</span></span><br><span class="line">       name = [name stringByAppendingString:<span class="string">@&quot;_os7&quot;</span>];</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> [<span class="built_in">UIImage</span> xh_imageNamed:name];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 <li><p>分类中重写UIImage的load方法，实现方法的交换（只要能让其执行一次方法交换语句，load再合适不过了）</p>
- <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="keyword">void</span>)load &#123;</span><br><span class="line">  	<span class="comment">// 获取两个类的类方法</span></span><br><span class="line">  	Method m1 = class_getClassMethod([<span class="built_in">UIImage</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(imageNamed:));</span><br><span class="line">  	Method m2 = class_getClassMethod([<span class="built_in">UIImage</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(xh_imageNamed:));</span><br><span class="line">  	<span class="comment">// 开始交换方法实现</span></span><br><span class="line">  	method_exchangeImplementations(m1, m2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+ <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="type">void</span>)load &#123;</span><br><span class="line">  	<span class="comment">// 获取两个类的类方法</span></span><br><span class="line">  	Method m1 = class_getClassMethod([<span class="built_in">UIImage</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(imageNamed:));</span><br><span class="line">  	Method m2 = class_getClassMethod([<span class="built_in">UIImage</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(xh_imageNamed:));</span><br><span class="line">  	<span class="comment">// 开始交换方法实现</span></span><br><span class="line">  	method_exchangeImplementations(m1, m2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p><strong>注意：自定义方法中最后一定要再调用一下系统的方法，让其有加载图片的功能，但是由于方法交换，系统的方法名已经变成了我们自定义的方法名（有点绕，就是用我们的名字能调用系统的方法，用系统的名字能调用我们的方法），这就实现了系统方法的拦截！</strong></p>
 <p>利用以上思路，我们还可以给 NSObject 添加分类，统计创建了多少个对象，给控制器添加分类，统计有创建了多少个控制器</p>
@@ -585,7 +589,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/essay/sqlite3-简介/" rel="next" title="sqlite3-简介.md">
+              <a href="/essay/sqlite3-%E7%AE%80%E4%BB%8B/" rel="next" title="sqlite3-简介.md">
                 <i class="fa fa-chevron-left"></i> sqlite3-简介.md
               </a>
             
@@ -595,7 +599,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/essay/Autorelease相关/" rel="prev" title="Autorelease相关.md">
+              <a href="/essay/Autorelease%E7%9B%B8%E5%85%B3/" rel="prev" title="Autorelease相关.md">
                 Autorelease相关.md <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -659,7 +663,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="SunTongSheng">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
             
               <p class="site-author-name" itemprop="name">SunTongSheng</p>
               <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
@@ -670,9 +676,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -729,9 +735,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -741,7 +745,7 @@
                 
                 
                 <div class="site-state-item site-state-tags">
-                  <a href="/tags/index.html">
+                  <a href="/res/tags/index.html">
                     
                     
                       
@@ -788,7 +792,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">22</span>
+                      
+                    
+                    <span class="site-state-item-count">23</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -831,7 +837,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实践1"><span class="nav-number">2.</span> <span class="nav-text">实践1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实践2"><span class="nav-number">2.1.</span> <span class="nav-text">实践2：拦截系统方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B51"><span class="nav-number">2.</span> <span class="nav-text">实践1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B52"><span class="nav-number">2.1.</span> <span class="nav-text">实践2：拦截系统方法</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -851,7 +857,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright"> &copy; <span itemprop="copyrightYear">2024</span>
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -863,7 +869,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">565k</span>
+    <span title="站点总字数">508k</span>
   
 
   
@@ -872,7 +878,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8:34</span>
+    <span title="站点阅读时长">7:41</span>
   
 </div>
 
