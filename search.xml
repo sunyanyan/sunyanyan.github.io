@@ -7695,4 +7695,198 @@ Image Buffer存储的就是图片解码后的像素数据，也就是我们常�
         <tag>Python</tag>
       </tags>
   </entry>
+  <entry>
+    <title>戴明循环的 AI 版本：用复利工程让代码库越来越好改</title>
+    <url>/essay/compound-engineering/</url>
+    <content><![CDATA[<blockquote>
+<p>PDCA（Plan-Do-Check-Act）是戴明提出的持续改进闭环，核心思想是让每轮循环都比上一轮更聪明。复利工程把这个思想搬进 AI 编码时代：AI 不只是写代码的工具，更是把每次开发的知识固化下来的载体，让每一次工作都站在上一次的积累上。</p>
+</blockquote>
+<p>AI 代替人写代码，这件事已经发生了。但大多数人的用法停留在「给 AI 一个需求，拿回一段代码」。这种用法有个隐患：代码在变多，但对代码库的理解没有同步增长——知识存在人脑里，人会忘、会离职，下一个人仍然踩同样的坑。</p>
+<p>传统 PDCA 在软件工程里卡在「Act」这步。问题找到了，就是没人把改进固化成规则让所有人用上。AI 的出现让这件事的成本接近零：让 AI 总结一次 Review、写几条规则进文件，30 秒。这就是复利工程想做的事。</p>
+<span id="more"></span>
+
+<h2 id="第一章：复利思想，以及为什么-AI-时代更需要它"><a href="#第一章：复利思想，以及为什么-AI-时代更需要它" class="headerlink" title="第一章：复利思想，以及为什么 AI 时代更需要它"></a>第一章：复利思想，以及为什么 AI 时代更需要它</h2><h3 id="传统开发的负复利"><a href="#传统开发的负复利" class="headerlink" title="传统开发的负复利"></a>传统开发的负复利</h3><p>软件项目有个规律：随着代码库变大，每次改动的成本越来越高。技术债堆积，依赖耦合，新人上手越来越难，老人开始谨慎改动。这是「负复利」——越做越难。</p>
+<p>工程实践（测试、文档、Code Review）是对抗负复利的手段，但它们依赖人去执行，执行质量参差不齐，而且学到的东西大多留在人的记忆里而非系统里。</p>
+<h3 id="AI-时代的新问题"><a href="#AI-时代的新问题" class="headerlink" title="AI 时代的新问题"></a>AI 时代的新问题</h3><p>AI 写代码的速度比人快十倍，这反而放大了一个旧问题：<strong>执行速度越快，积累知识的窗口越短</strong>。</p>
+<p>一天写出一周的代码量，但对「这段代码为什么这样写」的理解却没有跟上。AI 每次启动都是全新的，不知道上次踩过什么坑，不知道这个项目有什么隐性规约。</p>
+<p>表面上看是提速了，实际上是在快速积累技术债，只是债的形式从「烂代码」变成了「无法理解的 AI 生成代码」。</p>
+<h3 id="复利工程的核心想法"><a href="#复利工程的核心想法" class="headerlink" title="复利工程的核心想法"></a>复利工程的核心想法</h3><p>把 PDCA 的每一步都交给 AI 来执行和记录：</p>
+<table>
+<thead>
+<tr>
+<th>PDCA</th>
+<th>复利工程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Plan</td>
+<td>先研究代码库和最佳实践，产出可执行的技术方案</td>
+</tr>
+<tr>
+<td>Do</td>
+<td>AI 按计划执行，MCP 工具做实时验证</td>
+</tr>
+<tr>
+<td>Check</td>
+<td>多个 AI 从不同角度审查代码</td>
+</tr>
+<tr>
+<td>Act</td>
+<td>把发现的问题和解法写进项目文件，永久留存</td>
+</tr>
+</tbody></table>
+<p>关键在最后一步——「Act」。每次 Review 结束后，把发现固化进 <code>CLAUDE.md</code>、<code>AGENTS.md</code> 或 skills 文件。下次 AI 启动，自动读这些文件，不会再犯同样的错。知识不再依赖人记，而是沉淀在代码库里，对所有人、所有 AI 永久有效。</p>
+<p>这就是「复利」：每次循环结束，系统比上次更聪明，下次工作比这次更快。</p>
+<p><strong>时间分配也要反直觉调整</strong>：80% 的时间花在计划和 Review，20% 花在执行。计划越扎实，AI 执行时跑偏越少，返工成本越低。</p>
+<hr>
+<h2 id="第二章：compound-engineering-plugin-的安装与使用"><a href="#第二章：compound-engineering-plugin-的安装与使用" class="headerlink" title="第二章：compound-engineering-plugin 的安装与使用"></a>第二章：compound-engineering-plugin 的安装与使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><strong>Claude Code</strong>（原生支持）：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/plugin marketplace add EveryInc/compound-engineering-plugin</span><br><span class="line">/plugin install compound-engineering</span><br></pre></td></tr></table></figure>
+
+<p><strong>其他工具（OpenCode、Codex、Gemini 等）</strong>，通过 CLI 转换安装：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># OpenCode</span></span><br><span class="line">bunx @every-env/compound-plugin install compound-engineering --to opencode</span><br><span class="line"></span><br><span class="line"><span class="comment"># Codex</span></span><br><span class="line">bunx @every-env/compound-plugin install compound-engineering --to codex</span><br><span class="line"></span><br><span class="line"><span class="comment"># Gemini CLI</span></span><br><span class="line">bunx @every-env/compound-plugin install compound-engineering --to gemini</span><br><span class="line"></span><br><span class="line"><span class="comment"># 自动检测并安装到所有已有工具</span></span><br><span class="line">bunx @every-env/compound-plugin install compound-engineering --to all</span><br></pre></td></tr></table></figure>
+
+<h3 id="基本工作流"><a href="#基本工作流" class="headerlink" title="基本工作流"></a>基本工作流</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/ce:brainstorm → /ce:plan → /ce:work → /ce:review → /ce:compound → 下一轮</span><br></pre></td></tr></table></figure>
+
+<p>一个功能的完整流程：</p>
+<ol>
+<li>需求不清晰时，先跑 <code>/ce:brainstorm</code> 探索方向，输出需求文档到 <code>docs/brainstorms/</code></li>
+<li>需求明确后，跑 <code>/ce:plan</code> 产出技术方案到 <code>docs/plans/</code></li>
+<li>执行：<code>/ce:work docs/plans/xxx-plan.md</code></li>
+<li>代码写完，跑 <code>/ce:review</code> 做多 Agent 审查</li>
+<li>Review 结束，跑 <code>/ce:compound</code> 把这次学到的写进 <code>docs/solutions/</code></li>
+</ol>
+<p>项目根目录会多出这样的结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">your-project/</span><br><span class="line">├── CLAUDE.md / AGENTS.md    # 项目规约、偏好、经验积累</span><br><span class="line">├── docs/</span><br><span class="line">│   ├── brainstorms/         # 需求探索文档</span><br><span class="line">│   ├── plans/               # 技术方案文档</span><br><span class="line">│   └── solutions/           # 解决方案知识库（复利的核心）</span><br><span class="line">└── todos/                   # Review 发现的待处理问题</span><br></pre></td></tr></table></figure>
+
+<h3 id="个人配置同步"><a href="#个人配置同步" class="headerlink" title="个人配置同步"></a>个人配置同步</h3><p>如果在多个工具之间切换，可以把 Claude Code 的个人配置同步到其他工具：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 同步到所有检测到的工具</span></span><br><span class="line">bunx @every-env/compound-plugin <span class="built_in">sync</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 同步到指定工具</span></span><br><span class="line">bunx @every-env/compound-plugin <span class="built_in">sync</span> --target opencode</span><br><span class="line">bunx @every-env/compound-plugin <span class="built_in">sync</span> --target codex</span><br></pre></td></tr></table></figure>
+
+<p>同步内容包括：<code>~/.claude/skills/</code>（技能文件，以符号链接方式同步，Claude Code 里的修改会立即生效）、<code>~/.claude/commands/</code>（自定义命令）、<code>~/.claude/settings.json</code> 中的 MCP 服务器配置。</p>
+<hr>
+<h2 id="第三章：核心-Skill-的设计思路与多工具接入"><a href="#第三章：核心-Skill-的设计思路与多工具接入" class="headerlink" title="第三章：核心 Skill 的设计思路与多工具接入"></a>第三章：核心 Skill 的设计思路与多工具接入</h2><h3 id="五个核心-Skill-的设计思路"><a href="#五个核心-Skill-的设计思路" class="headerlink" title="五个核心 Skill 的设计思路"></a>五个核心 Skill 的设计思路</h3><h4 id="ce-brainstorm：先想清楚再动手"><a href="#ce-brainstorm：先想清楚再动手" class="headerlink" title="/ce:brainstorm：先想清楚再动手"></a><code>/ce:brainstorm</code>：先想清楚再动手</h4><p>这个 Skill 的设计前提是：<strong>需求模糊时直接开干，是最贵的错误</strong>。</p>
+<p>它不是一次性的「给我写个需求文档」，而是一个交互式的需求探索过程——每次只问一个问题，探索 2-3 个实现方向并列出利弊，最后产出一份轻量的 PRD 格式文档（<code>docs/brainstorms/YYYY-MM-DD-&lt;topic&gt;-requirements.md</code>）。</p>
+<p>有一个细节值得注意：它会自动判断「这个需求是否已经足够清楚」，如果是，就短路跳过，直接进入 Plan。仪式感不是目的，清晰才是。</p>
+<h4 id="ce-plan：把需求变成可执行的技术方案"><a href="#ce-plan：把需求变成可执行的技术方案" class="headerlink" title="/ce:plan：把需求变成可执行的技术方案"></a><code>/ce:plan</code>：把需求变成可执行的技术方案</h4><p>Plan 的核心是<strong>并行研究</strong>。它会同时启动多个子 Agent：一个分析代码库现有模式，一个查外部最佳实践文档，一个研究 git 历史找类似改动。研究结束后综合成一份方案文档（<code>docs/plans/YYYY-MM-DD-NNN-&lt;type&gt;-&lt;name&gt;-plan.md</code>）。</p>
+<p>方案的粒度有三档：</p>
+<ul>
+<li><strong>Minimal</strong>（2-5 分钟）：小 bug、简单功能</li>
+<li><strong>More</strong>（10-15 分钟）：普通功能、复杂 bug</li>
+<li><strong>A Lot</strong>（30 分钟以上）：大功能、架构调整</li>
+</ul>
+<p>方案文档里，每个实现单元都会列出：目标、依赖文件、具体实现思路、测试场景（正常路径、边界情况、错误路径）。不写代码，只写思路——足够清晰，足够可执行，任何 AI 拿到都能按图索骥。</p>
+<h4 id="ce-review：多-Agent-并行审查"><a href="#ce-review：多-Agent-并行审查" class="headerlink" title="/ce:review：多 Agent 并行审查"></a><code>/ce:review</code>：多 Agent 并行审查</h4><p>单个 AI 审查代码有盲区。<code>/ce:review</code> 的方案是同时跑 17+ 个有角色分工的子 Agent：</p>
+<p><strong>必跑的几个</strong>：</p>
+<ul>
+<li><code>correctness-reviewer</code>：逻辑错误、边界情况、状态 bug</li>
+<li><code>testing-reviewer</code>：测试覆盖缺口、断言是否有效</li>
+<li><code>maintainability-reviewer</code>：耦合度、命名、死代码</li>
+<li><code>project-standards-reviewer</code>：是否符合 CLAUDE.md 中的规约</li>
+<li><code>learnings-researcher</code>：检索 <code>docs/solutions/</code>，看有没有处理过同类问题</li>
+</ul>
+<p><strong>按改动内容触发的</strong>：</p>
+<ul>
+<li><code>security-reviewer</code>（改动涉及认证、权限时）</li>
+<li><code>performance-reviewer</code>（涉及 DB 查询、缓存时）</li>
+<li><code>data-migrations-reviewer</code>（有 schema 变更时）</li>
+<li>还有针对 Rails、TypeScript、前端 race condition 等的专项审查</li>
+</ul>
+<p>发现的问题按严重程度分四级（P0-P3），并标注是否可以自动修复。有四种运行模式：</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Interactive（默认）</td>
+<td>展示发现，询问修复策略</td>
+</tr>
+<tr>
+<td>Autofix</td>
+<td>静默修复可安全自动改的问题</td>
+</tr>
+<tr>
+<td>Report-only</td>
+<td>只报告，不修改任何文件</td>
+</tr>
+<tr>
+<td>Headless</td>
+<td>返回结构化 JSON，供其他 Skill 调用</td>
+</tr>
+</tbody></table>
+<h4 id="ce-compound：这一步决定有没有复利"><a href="#ce-compound：这一步决定有没有复利" class="headerlink" title="/ce:compound：这一步决定有没有复利"></a><code>/ce:compound</code>：这一步决定有没有复利</h4><p>Review 结束后，大多数人会直接 merge 进 main。<code>/ce:compound</code> 做的事是：在 merge 之前，把这次解决的问题记录下来。</p>
+<p>它启动 5 个并行子 Agent：分析问题根因、提取解法、对比历史文档、提炼预防策略、给问题分类。最终写入 <code>docs/solutions/&lt;category&gt;/</code> 下的 Markdown 文件，带 YAML frontmatter 方便检索。</p>
+<p>分类会自动判断：<code>build-errors/</code>、<code>test-failures/</code>、<code>performance-issues/</code>、<code>security-issues/</code> 等。</p>
+<p><code>learnings-researcher</code> 这个 Reviewer 在下次 Review 时会主动检索这个目录，把历史解法带入当前 Review。循环闭合了——知识在系统里流动，而不是停在人脑里。</p>
+<p>第一次遇到同类问题：30 分钟研究 + 15 分钟修复 + 5 分钟文档 &#x3D; 50 分钟。第二次：2 分钟查找 + 3 分钟修复 &#x3D; 5 分钟。这就是复利在数字上的体现。</p>
+<h4 id="ce-work：执行"><a href="#ce-work：执行" class="headerlink" title="/ce:work：执行"></a><code>/ce:work</code>：执行</h4><p>相对直接：读取 Plan 文档，建 git worktree，把实现单元变成 Todo，逐步执行，持续跑测试，增量提交。对于多个独立任务，并行启动多个子 Agent。执行完自动创建 PR。</p>
+<h3 id="多工具接入的技术实现"><a href="#多工具接入的技术实现" class="headerlink" title="多工具接入的技术实现"></a>多工具接入的技术实现</h3><p>插件提供了一个 Bun&#x2F;TypeScript CLI（<code>@every-env/compound-plugin</code>），把 Claude Code 的 Skill 格式转换成各平台原生格式：</p>
+<table>
+<thead>
+<tr>
+<th>目标平台</th>
+<th>输出格式</th>
+<th>写入路径</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>OpenCode</td>
+<td><code>.md</code> 命令文件 + MCP 配置</td>
+<td><code>~/.config/opencode/</code></td>
+</tr>
+<tr>
+<td>Codex</td>
+<td>prompts + skills</td>
+<td><code>~/.codex/</code></td>
+</tr>
+<tr>
+<td>Gemini CLI</td>
+<td>agents（<code>.toml</code>）+ skills</td>
+<td><code>.gemini/</code></td>
+</tr>
+<tr>
+<td>GitHub Copilot</td>
+<td><code>.agent.md</code> + MCP env vars</td>
+<td><code>.github/</code></td>
+</tr>
+<tr>
+<td>Cursor</td>
+<td>cursor-plugin 格式</td>
+<td><code>.cursor-plugin/</code></td>
+</tr>
+<tr>
+<td>Windsurf</td>
+<td>用户级配置</td>
+<td><code>~/.codeium/windsurf/</code></td>
+</tr>
+<tr>
+<td>Kiro CLI</td>
+<td>JSON + <code>.md</code> prompts</td>
+<td><code>.kiro/</code></td>
+</tr>
+</tbody></table>
+<p>转换时会处理工具差异：命令调用方式、子 Agent 的启动方式、用户交互接口（问答 UI）都会映射到目标平台的原生实现。同一套工作流，在 OpenCode 里跑和在 Claude Code 里跑，行为是一致的。</p>
+<p>如果需要同时安装到多个工具：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bunx @every-env/compound-plugin install compound-engineering --to codex --also opencode</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>戴明说，95% 的问题来自系统，5% 来自人。</p>
+<p>工程师换了一批又一批，同样的坑换个人继续踩。原因不是人不够聪明，是系统没有记忆。复利工程想做的，是给工程系统装上记忆——AI 每次工作后，系统比上次聪明一点，下次工作比上次容易一点。</p>
+<p>这件事在 AI 之前做起来很贵，现在不贵了。</p>
+<hr>
+<p><em>参考资料：</em></p>
+<ul>
+<li><em><a href="https://github.com/EveryInc/compound-engineering-plugin">Compound Engineering Plugin</a></em></li>
+<li><em><a href="https://every.to/chain-of-thought/compound-engineering-how-every-codes-with-agents">Compound Engineering: How Every Codes With Agents</a></em></li>
+<li><em><a href="https://juejin.cn/post/7615074940829057043">我写了一个 Skill，实现了人 + AI + 工程三方受益的增长飞轮</a></em></li>
+</ul>
+]]></content>
+      <categories>
+        <category>AI</category>
+      </categories>
+      <tags>
+        <tag>AI</tag>
+      </tags>
+  </entry>
 </search>
