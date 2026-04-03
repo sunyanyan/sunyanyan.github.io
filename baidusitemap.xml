@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://developerdoc.com/essay/harness-engineering-article/</loc>
+    <lastmod>2026-04-03</lastmod>
+  </url>
+  <url>
+    <loc>https://developerdoc.com/essay/openai-prompt-engineering-best-practices/</loc>
+    <lastmod>2026-04-02</lastmod>
+  </url>
+  <url>
     <loc>https://developerdoc.com/essay/omo-opsx-blog/</loc>
     <lastmod>2026-04-01</lastmod>
   </url>
