@@ -794,6 +794,242 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/opencode-plugin-benchmark/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/essay/opencode-plugin-benchmark/" itemprop="url">
+                  OpenCode 插件开发体验：用 Benchmark 插件摸透扩展机制
+                </a>
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2026-03-11 14:30:00" itemprop="dateCreated datePublished" datetime="2026-03-11T14:30:00+08:00">2026-03-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2026-04-08 16:36:27" itemprop="dateModified" datetime="2026-04-08T16:36:27+08:00">2026-04-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/opencode-plugin-benchmark/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/opencode-plugin-benchmark/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/opencode-plugin-benchmark/" class="leancloud_visitors" data-flag-title="OpenCode 插件开发体验：用 Benchmark 插件摸透扩展机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">39k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">36 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>OpenCode 提供了一套基于 TypeScript 的插件系统，允许开发者为 AI 编码助手注入自定义工具。本文通过一个实际的 Benchmark 插件，拆解 OpenCode 插件的开发原理、核心 API 和最佳实践。</p>
+</blockquote>
+<h2 id="引言：为什么要给-AI-编码助手写插件"><a href="#引言：为什么要给-AI-编码助手写插件" class="headerlink" title="引言：为什么要给 AI 编码助手写插件"></a>引言：为什么要给 AI 编码助手写插件</h2><p>AI 编码工具已经成为日常开发的一部分。但每个团队的工作流都有差异——有人需要对接内部服务，有人需要自定义代码检查，有人需要测量不同模型的响应速度。通用的 AI 助手不可能覆盖所有场景。</p>
+<p>OpenCode 的解决方案是<strong>开放插件系统</strong>：你可以用 TypeScript 编写插件，注册自定义工具（Tool），这些工具直接暴露给 AI Agent 调用。当你在对话中说”帮我跑一下模型基准测试”，AI 就会调用你写的 <code>benchmark_models</code> 工具，而不是猜测或拒绝。</p>
+<p>这篇文章分两部分：先讲 OpenCode 插件的运行原理，再用一个 Benchmark 插件的完整实现说明怎么从零开始写一个插件。</p>
+<h2 id="背景：OpenCode-的扩展体系"><a href="#背景：OpenCode-的扩展体系" class="headerlink" title="背景：OpenCode 的扩展体系"></a>背景：OpenCode 的扩展体系</h2><p>OpenCode 是一个终端内运行的 AI 编码助手，支持多种 LLM 提供商（OpenAI、Anthropic、Google 等）。它的扩展体系有两个核心概念：</p>
+<ul>
+<li><strong>Plugin（插件）</strong>：TypeScript 代码，运行在 OpenCode 进程中，注册自定义工具和生命周期钩子。AI Agent 可以像调用内置工具一样调用插件注册的工具。</li>
+<li><strong>Skill（技能）</strong>：纯 Markdown 文件（SKILL.md），不包含可执行代码，通过自然语言指令影响 AI Agent 的行为模式。技能告诉 AI”在什么场景下使用什么工具、如何使用”。</li>
+</ul>
+<p>两者配合使用：Plugin 提供能力（Tool），Skill 提供策略（When &amp; How）。</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/essay/opencode-plugin-benchmark/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+         
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/omo-opsx-blog/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2398,245 +2634,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ios-business/perComplize/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="SunTongSheng">
-      <meta itemprop="description" content="移动端 前端 跨平台">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="孙同生的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/essay/ios-business/perComplize/" itemprop="url">
-                  iOS编译时间优化
-                </a>
-              
-            
-          </h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2022-06-17 20:50:38" itemprop="dateCreated datePublished" datetime="2022-06-17T20:50:38+08:00">2022-06-17</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2024-06-18 20:34:28" itemprop="dateModified" datetime="2024-06-18T20:34:28+08:00">2024-06-18</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/iOS%E5%BC%80%E5%8F%91%E8%BF%9B%E9%98%B6/" itemprop="url" rel="index"><span itemprop="name">iOS开发进阶</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/essay/ios-business/perComplize/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/ios-business/perComplize/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/essay/ios-business/perComplize/" class="leancloud_visitors" data-flag-title="iOS编译时间优化">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数：</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">5.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">5 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>之前介绍了一下 iOS中的编译过程 <a href="/essay/LLDB/iOS_Compiler/" title="iOS编译过程">iOS编译过程</a> 。 现在来对整体编译时间做一个优化。</p>
-<h2 id="编译耗时分析"><a href="#编译耗时分析" class="headerlink" title="编译耗时分析"></a>编译耗时分析</h2><p>xcode完整的build详细的步骤如下：</p>
-<ul>
-<li>创建Product.app的文件夹</li>
-<li>把Entitlements.plist写入到DerivedData里，处理打包的时候需要的信息（比如application-identifier）。</li>
-<li>创建一些辅助文件，比如各种.hmap，这是headermap文件，具体作用下文会讲解。</li>
-<li>执行CocoaPods的编译前脚本：检查Manifest.lock文件。</li>
-<li>编译.m文件，生成.o文件。</li>
-<li>链接动态库，o文件，生成一个mach o格式的可执行文件。</li>
-<li>编译assets，编译storyboard，链接storyboard</li>
-<li>拷贝动态库Logger.framework，并且对其签名</li>
-<li>执行CocoaPods编译后脚本：拷贝CocoaPods Target生成的Framework</li>
-<li>对Demo.App签名，并验证（validate）</li>
-<li>生成Product.app</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/essay/ios-business/perComplize/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-         
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2688,7 +2685,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">84</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2871,7 +2868,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">523k</span>
+    <span title="站点总字数">532k</span>
   
 
   
@@ -2880,7 +2877,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">7:55</span>
+    <span title="站点阅读时长">8:04</span>
   
 </div>
 

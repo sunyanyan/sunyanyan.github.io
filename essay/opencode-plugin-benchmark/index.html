@@ -1,0 +1,1627 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html class="theme-next gemini" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="zNpSVV31yneq1R3TSTTlZc9Gy44UfQw2x2MJbiMmiqU" />
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="HEaA5Ig1iK" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.5.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.5.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.5.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.5.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '6.5.0',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="OpenCode 提供了一套基于 TypeScript 的插件系统，允许开发者为 AI 编码助手注入自定义工具。本文通过一个实际的 Benchmark 插件，拆解 OpenCode 插件的开发原理、核心 API 和最佳实践。  引言：为什么要给 AI 编码助手写插件AI 编码工具已经成为日常开发的一部分。但每个团队的工作流都有差异——有人需要对接内部服务，有人需要自定义代码检查，有人需要测量不同">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCode 插件开发体验：用 Benchmark 插件摸透扩展机制">
+<meta property="og:url" content="https://developerdoc.com/essay/opencode-plugin-benchmark/index.html">
+<meta property="og:site_name" content="孙同生的博客">
+<meta property="og:description" content="OpenCode 提供了一套基于 TypeScript 的插件系统，允许开发者为 AI 编码助手注入自定义工具。本文通过一个实际的 Benchmark 插件，拆解 OpenCode 插件的开发原理、核心 API 和最佳实践。  引言：为什么要给 AI 编码助手写插件AI 编码工具已经成为日常开发的一部分。但每个团队的工作流都有差异——有人需要对接内部服务，有人需要自定义代码检查，有人需要测量不同">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-03-11T06:30:00.000Z">
+<meta property="article:modified_time" content="2026-04-08T08:36:27.559Z">
+<meta property="article:author" content="SunTongSheng">
+<meta property="article:tag" content="AI">
+<meta name="twitter:card" content="summary">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="孙同生的博客" type="application/atom+xml" />
+
+
+
+
+  <link rel="canonical" href="https://developerdoc.com/essay/opencode-plugin-benchmark/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>OpenCode 插件开发体验：用 Benchmark 插件摸透扩展机制 | 孙同生的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">孙同生的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">为美好的世界献上祝福</h1>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">归档</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-d3学习demo演示">
+    <a href="/d3start" rel="section">d3学习demo演示</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/opencode-plugin-benchmark/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SunTongSheng">
+      <meta itemprop="description" content="移动端 前端 跨平台">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="孙同生的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">OpenCode 插件开发体验：用 Benchmark 插件摸透扩展机制
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2026-03-11 14:30:00" itemprop="dateCreated datePublished" datetime="2026-03-11T14:30:00+08:00">2026-03-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2026-04-08 16:36:27" itemprop="dateModified" datetime="2026-04-08T16:36:27+08:00">2026-04-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/essay/opencode-plugin-benchmark/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/opencode-plugin-benchmark/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/essay/opencode-plugin-benchmark/" class="leancloud_visitors" data-flag-title="OpenCode 插件开发体验：用 Benchmark 插件摸透扩展机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数：</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">39k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">36 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>OpenCode 提供了一套基于 TypeScript 的插件系统，允许开发者为 AI 编码助手注入自定义工具。本文通过一个实际的 Benchmark 插件，拆解 OpenCode 插件的开发原理、核心 API 和最佳实践。</p>
+</blockquote>
+<h2 id="引言：为什么要给-AI-编码助手写插件"><a href="#引言：为什么要给-AI-编码助手写插件" class="headerlink" title="引言：为什么要给 AI 编码助手写插件"></a>引言：为什么要给 AI 编码助手写插件</h2><p>AI 编码工具已经成为日常开发的一部分。但每个团队的工作流都有差异——有人需要对接内部服务，有人需要自定义代码检查，有人需要测量不同模型的响应速度。通用的 AI 助手不可能覆盖所有场景。</p>
+<p>OpenCode 的解决方案是<strong>开放插件系统</strong>：你可以用 TypeScript 编写插件，注册自定义工具（Tool），这些工具直接暴露给 AI Agent 调用。当你在对话中说”帮我跑一下模型基准测试”，AI 就会调用你写的 <code>benchmark_models</code> 工具，而不是猜测或拒绝。</p>
+<p>这篇文章分两部分：先讲 OpenCode 插件的运行原理，再用一个 Benchmark 插件的完整实现说明怎么从零开始写一个插件。</p>
+<h2 id="背景：OpenCode-的扩展体系"><a href="#背景：OpenCode-的扩展体系" class="headerlink" title="背景：OpenCode 的扩展体系"></a>背景：OpenCode 的扩展体系</h2><p>OpenCode 是一个终端内运行的 AI 编码助手，支持多种 LLM 提供商（OpenAI、Anthropic、Google 等）。它的扩展体系有两个核心概念：</p>
+<ul>
+<li><strong>Plugin（插件）</strong>：TypeScript 代码，运行在 OpenCode 进程中，注册自定义工具和生命周期钩子。AI Agent 可以像调用内置工具一样调用插件注册的工具。</li>
+<li><strong>Skill（技能）</strong>：纯 Markdown 文件（SKILL.md），不包含可执行代码，通过自然语言指令影响 AI Agent 的行为模式。技能告诉 AI”在什么场景下使用什么工具、如何使用”。</li>
+</ul>
+<p>两者配合使用：Plugin 提供能力（Tool），Skill 提供策略（When &amp; How）。</p>
+<span id="more"></span>
+
+<hr>
+<h2 id="第一部分：OpenCode-插件原理"><a href="#第一部分：OpenCode-插件原理" class="headerlink" title="第一部分：OpenCode 插件原理"></a>第一部分：OpenCode 插件原理</h2><h3 id="1-1-插件的发现与加载"><a href="#1-1-插件的发现与加载" class="headerlink" title="1.1 插件的发现与加载"></a>1.1 插件的发现与加载</h3><p>OpenCode 从多个来源发现和加载插件，按优先级排列：</p>
+<table>
+<thead>
+<tr>
+<th>来源</th>
+<th>路径</th>
+<th>适用范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>项目插件目录</td>
+<td><code>.opencode/plugins/</code></td>
+<td>当前项目</td>
+</tr>
+<tr>
+<td>全局插件目录</td>
+<td><code>~/.config/opencode/plugins/</code></td>
+<td>所有项目</td>
+</tr>
+<tr>
+<td>项目配置</td>
+<td><code>opencode.json</code> 中的 <code>plugin</code> 字段</td>
+<td>当前项目</td>
+</tr>
+<tr>
+<td>全局配置</td>
+<td><code>~/.config/opencode/opencode.json</code></td>
+<td>所有项目</td>
+</tr>
+</tbody></table>
+<p>对于目录中的插件，OpenCode 启动时会自动扫描 <code>.ts</code> 文件，用 Bun 编译并加载——<strong>放进去就生效</strong>，不需要额外注册。</p>
+<p>对于 npm 包形式的插件，在 <code>opencode.json</code> 中声明即可：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;plugin&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;opencode-helicone-session&quot;</span><span class="punctuation">,</span> <span class="string">&quot;@my-org/custom-plugin&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>一个典型的项目级插件目录结构：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">项目根目录/</span><br><span class="line">├── .opencode/</span><br><span class="line">│   ├── plugins/</span><br><span class="line">│   │   └── benchmark.ts      # 插件源码</span><br><span class="line">│   ├── skills/</span><br><span class="line">│   │   └── benchmark-models/</span><br><span class="line">│   │       └── SKILL.md       # 配套技能文件</span><br><span class="line">│   ├── package.json           # 声明依赖</span><br><span class="line">│   └── node_modules/          # 安装的依赖</span><br><span class="line">└── ...</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-核心-API：Plugin-接口"><a href="#1-2-核心-API：Plugin-接口" class="headerlink" title="1.2 核心 API：Plugin 接口"></a>1.2 核心 API：Plugin 接口</h3><p>一个 OpenCode 插件本质上是一个异步函数，接收上下文，返回钩子集合：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123; <span class="title class_">Plugin</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@opencode-ai/plugin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title class_">MyPlugin</span>: <span class="title class_">Plugin</span> = <span class="title function_">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="comment">// ctx 包含：</span></span><br><span class="line">  <span class="comment">// - ctx.client: OpenCode SDK 客户端，可调用所有内部 API</span></span><br><span class="line">  <span class="comment">// - ctx.project: 当前项目信息</span></span><br><span class="line">  <span class="comment">// - ctx.directory: 项目目录路径</span></span><br><span class="line">  <span class="comment">// - ctx.worktree: Git worktree 根路径</span></span><br><span class="line">  <span class="comment">// - ctx.serverUrl: OpenCode 服务地址</span></span><br><span class="line">  <span class="comment">// - ctx.$: Bun shell，可执行系统命令</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">tool</span>: &#123; <span class="comment">/* 注册自定义工具 */</span> &#125;,</span><br><span class="line">    <span class="attr">event</span>: <span class="title function_">async</span> (&#123; event &#125;) =&gt; &#123; <span class="comment">/* 监听事件 */</span> &#125;,</span><br><span class="line">    <span class="attr">auth</span>: &#123; <span class="comment">/* 自定义认证 */</span> &#125;,</span><br><span class="line">    <span class="comment">// ...更多钩子</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><code>PluginInput</code> 上下文对象</strong> 是插件的核心入口，提供了与 OpenCode 运行时交互的全部能力：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>client</code></td>
+<td><code>OpencodeClient</code></td>
+<td>SDK 客户端，可操作 session、provider、config 等</td>
+</tr>
+<tr>
+<td><code>project</code></td>
+<td><code>Project</code></td>
+<td>当前项目元数据</td>
+</tr>
+<tr>
+<td><code>directory</code></td>
+<td><code>string</code></td>
+<td>当前项目目录</td>
+</tr>
+<tr>
+<td><code>worktree</code></td>
+<td><code>string</code></td>
+<td>Git worktree 根路径</td>
+</tr>
+<tr>
+<td><code>serverUrl</code></td>
+<td><code>URL</code></td>
+<td>OpenCode 本地服务地址</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td><code>BunShell</code></td>
+<td>Bun 原生 shell，可执行系统命令</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-Tool-定义：让-AI-能调用的工具"><a href="#1-3-Tool-定义：让-AI-能调用的工具" class="headerlink" title="1.3 Tool 定义：让 AI 能调用的工具"></a>1.3 Tool 定义：让 AI 能调用的工具</h3><p>插件最常见的用途是注册自定义工具。OpenCode 用 <code>tool()</code> 辅助函数定义工具：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; tool &#125; <span class="keyword">from</span> <span class="string">&quot;@opencode-ai/plugin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> z = tool.<span class="property">schema</span>  <span class="comment">// 就是 zod，用于参数校验</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myTool = <span class="title function_">tool</span>(&#123;</span><br><span class="line">  <span class="attr">description</span>: <span class="string">&quot;工具的自然语言描述，AI 根据这段文字决定何时调用&quot;</span>,</span><br><span class="line">  <span class="attr">args</span>: &#123;</span><br><span class="line">    <span class="attr">name</span>: z.<span class="title function_">string</span>().<span class="title function_">describe</span>(<span class="string">&quot;参数说明&quot;</span>),</span><br><span class="line">    <span class="attr">count</span>: z.<span class="title function_">number</span>().<span class="title function_">optional</span>().<span class="title function_">describe</span>(<span class="string">&quot;可选参数&quot;</span>),</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="keyword">async</span> <span class="title function_">execute</span>(<span class="params">args, context</span>) &#123;</span><br><span class="line">    <span class="comment">// args 是经过 zod 校验的参数</span></span><br><span class="line">    <span class="comment">// context 包含 sessionID, messageID, agent, directory 等</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;返回给 AI 的文本结果&quot;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>关键设计</strong>：</p>
+<ul>
+<li><strong><code>description</code></strong>：这是 AI Agent 决定是否调用这个工具的唯一依据。写得越清晰，AI 调用得越准确。</li>
+<li><strong><code>args</code></strong>：基于 Zod schema 定义参数，自动生成 JSON Schema 供 LLM 理解。</li>
+<li><strong><code>execute</code></strong>：异步执行函数，返回字符串。AI 会将返回值作为工具输出呈现给用户。</li>
+<li><strong><code>context</code></strong>：执行上下文，包含当前 session、message、agent 信息，以及 <code>abort</code> 信号用于取消长时间运行的任务。</li>
+</ul>
+<h3 id="1-4-Hooks：生命周期钩子"><a href="#1-4-Hooks：生命周期钩子" class="headerlink" title="1.4 Hooks：生命周期钩子"></a>1.4 Hooks：生命周期钩子</h3><p>除了注册工具，插件还可以通过钩子介入 OpenCode 的各个生命周期阶段：</p>
+<table>
+<thead>
+<tr>
+<th>钩子</th>
+<th>触发时机</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>tool</code></td>
+<td>注册自定义工具</td>
+<td>扩展 AI 能力</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td>接收系统事件</td>
+<td>日志、监控、统计</td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td>配置加载时</td>
+<td>动态修改配置</td>
+</tr>
+<tr>
+<td><code>auth</code></td>
+<td>认证流程</td>
+<td>接入自定义 OAuth&#x2F;API Key</td>
+</tr>
+<tr>
+<td><code>chat.message</code></td>
+<td>新消息到达</td>
+<td>消息预处理、路由</td>
+</tr>
+<tr>
+<td><code>chat.params</code></td>
+<td>LLM 调用前</td>
+<td>调整 temperature、topP 等参数</td>
+</tr>
+<tr>
+<td><code>chat.headers</code></td>
+<td>HTTP 请求前</td>
+<td>注入自定义 Header</td>
+</tr>
+<tr>
+<td><code>permission.ask</code></td>
+<td>权限请求时</td>
+<td>自动授权或拒绝</td>
+</tr>
+<tr>
+<td><code>tool.execute.before</code></td>
+<td>工具执行前</td>
+<td>参数拦截、修改</td>
+</tr>
+<tr>
+<td><code>tool.execute.after</code></td>
+<td>工具执行后</td>
+<td>结果后处理</td>
+</tr>
+<tr>
+<td><code>shell.env</code></td>
+<td>Shell 执行前</td>
+<td>注入环境变量</td>
+</tr>
+</tbody></table>
+<p>这套钩子系统覆盖了从消息接收到工具调用到结果返回的完整链路，理论上可以对 OpenCode 的任何行为进行定制。</p>
+<p>值得一提的是 OpenCode 的<strong>工具覆盖机制</strong>：如果插件注册的工具与内置工具同名，插件版本会覆盖内置版本。这让插件可以拦截并修改内置工具的行为——比如有人用这个机制包装 <code>shell</code> 工具，在执行前后注入自定义逻辑。</p>
+<h3 id="1-5-Plugin-与-Skill-的协作模式"><a href="#1-5-Plugin-与-Skill-的协作模式" class="headerlink" title="1.5 Plugin 与 Skill 的协作模式"></a>1.5 Plugin 与 Skill 的协作模式</h3><p>理解 Plugin 和 Skill 的关系是写好插件的关键：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Plugin (代码层)                     Skill (提示层)</span><br><span class="line">┌─────────────────────┐            ┌──────────────────────────┐</span><br><span class="line">│ 注册 benchmark_models │            │ SKILL.md:                │</span><br><span class="line">│ 工具，定义参数和执行逻 │            │ &quot;当用户问模型速度时，     │</span><br><span class="line">│ 辑                    │  ←配合→   │  直接调用 benchmark_models │</span><br><span class="line">│                       │            │  工具，完整输出每个模型&quot;   │</span><br><span class="line">└─────────────────────┘            └──────────────────────────┘</span><br><span class="line">         ↑                                    ↑</span><br><span class="line">    提供能力（How）                      提供策略（When &amp; What）</span><br></pre></td></tr></table></figure>
+
+<p>没有 Skill 的 Plugin 也能工作——AI 会根据 <code>description</code> 自行决定何时调用。但配合 Skill 可以让调用时机更精确，输出格式更可控。</p>
+<hr>
+<h2 id="第二部分：Benchmark-插件的实现与使用"><a href="#第二部分：Benchmark-插件的实现与使用" class="headerlink" title="第二部分：Benchmark 插件的实现与使用"></a>第二部分：Benchmark 插件的实现与使用</h2><h3 id="2-1-需求场景"><a href="#2-1-需求场景" class="headerlink" title="2.1 需求场景"></a>2.1 需求场景</h3><p>在使用 OpenCode 时，通常会配置多个 LLM 提供商和模型。不同模型的响应延迟差异很大——有些模型 1 秒内返回，有些可能需要 20 秒。在选择模型时，我们需要一个快速的基准测试来量化各模型的实际响应速度。</p>
+<p>这就是 Benchmark 插件要解决的问题：<strong>向所有已配置的模型发送一条简单消息，测量每个模型的端到端响应延迟，按速度排序输出。</strong></p>
+<h3 id="2-2-插件实现详解"><a href="#2-2-插件实现详解" class="headerlink" title="2.2 插件实现详解"></a>2.2 插件实现详解</h3><p>完整的插件代码约 240 行，我们逐段拆解。</p>
+<h4 id="2-2-1-插件骨架"><a href="#2-2-1-插件骨架" class="headerlink" title="2.2.1 插件骨架"></a>2.2.1 插件骨架</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">type</span> &#123; <span class="title class_">Plugin</span> &#125; <span class="keyword">from</span> <span class="string">&quot;@opencode-ai/plugin&quot;</span></span><br><span class="line"><span class="keyword">import</span> &#123; tool &#125; <span class="keyword">from</span> <span class="string">&quot;@opencode-ai/plugin&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> z = tool.<span class="property">schema</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title class_">BenchmarkPlugin</span>: <span class="title class_">Plugin</span> = <span class="title function_">async</span> (ctx) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">tool</span>: &#123;</span><br><span class="line">      <span class="attr">benchmark_models</span>: <span class="title function_">tool</span>(&#123;</span><br><span class="line">        <span class="attr">description</span>: <span class="string">&quot;Benchmark all configured AI models by sending &#x27;hello&#x27; &quot;</span></span><br><span class="line">          + <span class="string">&quot;and measuring response latency. Returns results sorted &quot;</span></span><br><span class="line">          + <span class="string">&quot;from fastest to slowest.&quot;</span>,</span><br><span class="line">        <span class="attr">args</span>: &#123;</span><br><span class="line">          <span class="attr">provider</span>: z.<span class="title function_">string</span>().<span class="title function_">optional</span>().<span class="title function_">describe</span>(</span><br><span class="line">            <span class="string">&quot;Filter by provider ID (e.g. &#x27;openai&#x27;). Omit to test all.&quot;</span></span><br><span class="line">          ),</span><br><span class="line">          <span class="attr">timeout</span>: z.<span class="title function_">number</span>().<span class="title function_">optional</span>().<span class="title function_">describe</span>(</span><br><span class="line">            <span class="string">&quot;Per-model timeout in seconds. Default: 30&quot;</span></span><br><span class="line">          ),</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="keyword">async</span> <span class="title function_">execute</span>(<span class="params">args, _context</span>) &#123;</span><br><span class="line">          <span class="comment">// 核心逻辑</span></span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;),</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>几个要点：</p>
+<ul>
+<li>插件只注册了一个工具 <code>benchmark_models</code></li>
+<li>两个可选参数：<code>provider</code> 用于过滤特定提供商，<code>timeout</code> 设置超时</li>
+<li><code>description</code> 写得足够清晰，AI 能准确判断何时调用</li>
+</ul>
+<h4 id="2-2-2-模型发现：收集所有测试目标"><a href="#2-2-2-模型发现：收集所有测试目标" class="headerlink" title="2.2.2 模型发现：收集所有测试目标"></a>2.2.2 模型发现：收集所有测试目标</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> <span class="title class_">Target</span> = &#123; <span class="attr">providerID</span>: <span class="built_in">string</span>; <span class="attr">modelID</span>: <span class="built_in">string</span>; <span class="attr">name</span>: <span class="built_in">string</span> &#125;</span><br><span class="line"><span class="keyword">const</span> <span class="attr">targets</span>: <span class="title class_">Target</span>[] = []</span><br><span class="line"></span><br><span class="line"><span class="comment">// 主路径：通过 provider.list() 获取所有已连接的提供商和模型</span></span><br><span class="line"><span class="keyword">const</span> resp = <span class="keyword">await</span> ctx.<span class="property">client</span>.<span class="property">provider</span>.<span class="title function_">list</span>()</span><br><span class="line"><span class="keyword">const</span> allProviders = resp.<span class="property">data</span>?.<span class="property">all</span> ?? []</span><br><span class="line"><span class="keyword">const</span> connected = resp.<span class="property">data</span>?.<span class="property">connected</span> ?? []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">const</span> prov <span class="keyword">of</span> allProviders) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!connected.<span class="title function_">includes</span>(prov.<span class="property">id</span>)) <span class="keyword">continue</span>       <span class="comment">// 跳过未连接的</span></span><br><span class="line">  <span class="keyword">if</span> (providerFilter &amp;&amp; prov.<span class="property">id</span> !== providerFilter) <span class="keyword">continue</span>  <span class="comment">// 按需过滤</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> [modelID, modelCfg] <span class="keyword">of</span> <span class="title class_">Object</span>.<span class="title function_">entries</span>(prov.<span class="property">models</span>)) &#123;</span><br><span class="line">    targets.<span class="title function_">push</span>(&#123;</span><br><span class="line">      <span class="attr">providerID</span>: prov.<span class="property">id</span>,</span><br><span class="line">      modelID,</span><br><span class="line">      <span class="attr">name</span>: modelCfg?.<span class="property">name</span> ?? modelID,</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里体现了 <code>ctx.client</code> 的核心价值——插件可以直接调用 OpenCode 的内部 API 获取运行时信息。<code>provider.list()</code> 返回所有已配置的提供商及其模型列表，<code>connected</code> 数组标记了哪些提供商处于已连接状态。</p>
+<p>代码还实现了<strong>降级策略</strong>：如果 <code>provider.list()</code> 失败（比如旧版本 API 不支持），会 fallback 到 <code>config.get()</code> 读取配置文件，再 fallback 到 <code>config.providers()</code> 获取默认配置。三层降级确保在不同 OpenCode 版本下都能工作。</p>
+<h4 id="2-2-3-并行基准测试"><a href="#2-2-3-并行基准测试" class="headerlink" title="2.2.3 并行基准测试"></a>2.2.3 并行基准测试</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> results = <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">all</span>(</span><br><span class="line">  targets.<span class="title function_">map</span>(<span class="title function_">async</span> (&#123; providerID, modelID, name &#125;) =&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="attr">sessionId</span>: <span class="built_in">string</span> | <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 1. 创建临时 session</span></span><br><span class="line">      <span class="keyword">const</span> sessionResp = <span class="keyword">await</span> ctx.<span class="property">client</span>.<span class="property">session</span>.<span class="title function_">create</span>(&#123; <span class="attr">body</span>: &#123;&#125; &#125;)</span><br><span class="line">      sessionId = sessionResp.<span class="property">data</span>.<span class="property">id</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// 2. 发送 &quot;hello&quot; 并计时</span></span><br><span class="line">      <span class="keyword">const</span> t0 = <span class="title class_">Date</span>.<span class="title function_">now</span>()</span><br><span class="line">      <span class="keyword">await</span> <span class="title class_">Promise</span>.<span class="title function_">race</span>([</span><br><span class="line">        ctx.<span class="property">client</span>.<span class="property">session</span>.<span class="title function_">prompt</span>(&#123;</span><br><span class="line">          <span class="attr">path</span>: &#123; <span class="attr">id</span>: sessionId &#125;,</span><br><span class="line">          <span class="attr">body</span>: &#123;</span><br><span class="line">            <span class="attr">model</span>: &#123; providerID, modelID &#125;,</span><br><span class="line">            <span class="attr">parts</span>: [&#123; <span class="attr">type</span>: <span class="string">&quot;text&quot;</span>, <span class="attr">text</span>: <span class="string">&quot;hello&quot;</span> &#125;],</span><br><span class="line">          &#125;,</span><br><span class="line">        &#125;),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Promise</span>&lt;<span class="built_in">never</span>&gt;(<span class="function">(<span class="params">_, reject</span>) =&gt;</span></span><br><span class="line">          <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="title function_">reject</span>(<span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;timeout&quot;</span>)), <span class="variable constant_">TIMEOUT_MS</span>)</span><br><span class="line">        ),</span><br><span class="line">      ])</span><br><span class="line">      <span class="keyword">const</span> latency = <span class="title class_">Date</span>.<span class="title function_">now</span>() - t0</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> &#123; name, <span class="attr">id</span>: <span class="string">`<span class="subst">$&#123;providerID&#125;</span>/<span class="subst">$&#123;modelID&#125;</span>`</span>, latency, <span class="attr">ok</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="comment">// 错误分类：timeout / auth / parse / error</span></span><br><span class="line">      <span class="keyword">return</span> &#123; name, <span class="attr">id</span>: <span class="string">`<span class="subst">$&#123;providerID&#125;</span>/<span class="subst">$&#123;modelID&#125;</span>`</span>, <span class="attr">latency</span>: -<span class="number">1</span>, <span class="attr">ok</span>: <span class="literal">false</span> &#125;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      <span class="comment">// 3. 清理临时 session</span></span><br><span class="line">      <span class="keyword">if</span> (sessionId) &#123;</span><br><span class="line">        <span class="keyword">await</span> ctx.<span class="property">client</span>.<span class="property">session</span>.<span class="title function_">delete</span>(&#123; <span class="attr">path</span>: &#123; <span class="attr">id</span>: sessionId &#125; &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>核心设计</strong>：</p>
+<ol>
+<li><strong>并行执行</strong>：所有模型同时测试（<code>Promise.all</code>），而不是串行等待。30 个模型只需等最慢的那个，不是所有时间之和。</li>
+<li><strong>独立 Session</strong>：每个测试创建独立的临时 session，测试完立即删除。不会污染用户的对话历史。</li>
+<li><strong>超时控制</strong>：<code>Promise.race</code> 实现单模型超时，默认 30 秒。避免某个模型无响应时阻塞整个测试。</li>
+<li><strong>错误分类</strong>：catch 中根据错误信息分类为 <code>timeout</code>（超时）、<code>auth</code>（认证问题）、<code>parse</code>（响应解析错误）和通用 <code>error</code>。</li>
+</ol>
+<h4 id="2-2-4-结果格式化输出"><a href="#2-2-4-结果格式化输出" class="headerlink" title="2.2.4 结果格式化输出"></a>2.2.4 结果格式化输出</h4><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 成功的按延迟排序，失败的单独分组</span></span><br><span class="line"><span class="keyword">const</span> ok = results.<span class="title function_">filter</span>(<span class="function"><span class="params">r</span> =&gt;</span> r.<span class="property">ok</span>).<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.<span class="property">latency</span> - b.<span class="property">latency</span>)</span><br><span class="line"><span class="keyword">const</span> bad = results.<span class="title function_">filter</span>(<span class="function"><span class="params">r</span> =&gt;</span> !r.<span class="property">ok</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 排名输出</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; ok.<span class="property">length</span>; i++) &#123;</span><br><span class="line">  lines.<span class="title function_">push</span>(<span class="string">`  <span class="subst">$&#123;i + <span class="number">1</span>&#125;</span>. <span class="subst">$&#123;r.id.padEnd(maxLen)&#125;</span>  <span class="subst">$&#123;fmt(r.latency)&#125;</span>`</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 错误输出（带分类图标）</span></span><br><span class="line"><span class="keyword">const</span> errIcons = &#123; <span class="attr">timeout</span>: <span class="string">&quot;⏱&quot;</span>, <span class="attr">auth</span>: <span class="string">&quot;🔑&quot;</span>, <span class="attr">parse</span>: <span class="string">&quot;⚠&quot;</span>, <span class="attr">error</span>: <span class="string">&quot;✗&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 统计摘要</span></span><br><span class="line">lines.<span class="title function_">push</span>(</span><br><span class="line">  <span class="string">`Fastest: <span class="subst">$&#123;fastest.id&#125;</span> (<span class="subst">$&#123;fastest.latency&#125;</span>ms)`</span> +</span><br><span class="line">  <span class="string">`  |  Median: <span class="subst">$&#123;median.latency&#125;</span>ms`</span> +</span><br><span class="line">  <span class="string">`  |  <span class="subst">$&#123;ok.length&#125;</span>/<span class="subst">$&#123;results.length&#125;</span> ok`</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>输出示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Model Latency Benchmark</span><br><span class="line">────────────────────────────────────────────────────────────</span><br><span class="line"></span><br><span class="line">  1. provider-a/gpt-4o-mini          892ms</span><br><span class="line">  2. provider-b/claude-sonnet-4-20250514      1.2s</span><br><span class="line">  3. provider-a/gpt-4o              1.8s</span><br><span class="line">  ...</span><br><span class="line"></span><br><span class="line">Errors:</span><br><span class="line">  ⏱ provider-c/some-model</span><br><span class="line">    timeout</span><br><span class="line"></span><br><span class="line">────────────────────────────────────────────────────────────</span><br><span class="line">Fastest: provider-a/gpt-4o-mini (892ms)  |  Median: 1800ms  |  8/9 ok</span><br><span class="line">Tested 9 model(s) in parallel  |  Timeout: 30s</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-配套-Skill-文件"><a href="#2-3-配套-Skill-文件" class="headerlink" title="2.3 配套 Skill 文件"></a>2.3 配套 Skill 文件</h3><p>仅有 Plugin 就够用了，但配合 Skill 可以优化 AI 的调用体验。<code>SKILL.md</code> 内容非常简洁：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">name: benchmark-models</span><br><span class="line">description: Benchmark all configured AI models by testing response latency.</span><br><span class="line">  USE WHEN user asks to benchmark models, test model speed, check which model</span><br><span class="line">  is fastest, or compare latency.</span><br><span class="line"><span class="section">compatibility: opencode</span></span><br><span class="line"><span class="section">---</span></span><br><span class="line"></span><br><span class="line">Call the <span class="code">`benchmark_models`</span> tool immediately.</span><br><span class="line"></span><br><span class="line">Do not explain or announce what you are about to do — just invoke the tool</span><br><span class="line">and present the results table.</span><br><span class="line"></span><br><span class="line"><span class="strong">**MUST output the COMPLETE results table with every single model listed</span></span><br><span class="line"><span class="strong">individually.**</span> Do NOT collapse, merge, or summarize rows.</span><br><span class="line">Every model must have its own row.</span><br></pre></td></tr></table></figure>
+
+<p>这段 Skill 做了三件事：</p>
+<ol>
+<li><strong>触发条件</strong>（frontmatter 的 <code>description</code>）：告诉 AI 在用户问到”模型速度”、”哪个模型最快”、”比较延迟”等场景时激活这个技能。</li>
+<li><strong>行为指令</strong>：直接调用工具，不要多余的解释。</li>
+<li><strong>输出约束</strong>：必须完整输出每一行，禁止 AI 偷懒合并行。这一条非常实用——大模型有时会”贴心地”把结果压缩为”剩余 22 个模型 4.5s-27.3s”，Skill 约束可以阻止这种行为。</li>
+</ol>
+<h3 id="2-4-依赖管理"><a href="#2-4-依赖管理" class="headerlink" title="2.4 依赖管理"></a>2.4 依赖管理</h3><p>插件的依赖声明在 <code>.opencode/package.json</code> 中：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;dependencies&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;@opencode-ai/plugin&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1.3.13&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>@opencode-ai/plugin</code> 包含了：</p>
+<ul>
+<li><code>Plugin</code>、<code>Hooks</code> 等类型定义</li>
+<li><code>tool()</code> 辅助函数</li>
+<li><code>tool.schema</code>（即 Zod）用于参数校验</li>
+<li><code>@opencode-ai/sdk</code> 作为传递依赖，提供 <code>ctx.client</code> 的类型</li>
+</ul>
+<p>安装依赖后（<code>bun install</code> 或 <code>npm install</code>），OpenCode 启动时会自动编译并加载插件。</p>
+<h3 id="2-5-使用方式"><a href="#2-5-使用方式" class="headerlink" title="2.5 使用方式"></a>2.5 使用方式</h3><p>插件安装后，有两种使用方式：</p>
+<p><strong>方式一：自然语言触发</strong></p>
+<p>在 OpenCode 对话中直接说：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">帮我测一下所有模型的响应速度</span><br></pre></td></tr></table></figure>
+
+<p>AI 会识别到 benchmark-models 技能，自动调用 <code>benchmark_models</code> 工具。</p>
+<p><strong>方式二：斜杠命令触发</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/benchmark-models</span><br></pre></td></tr></table></figure>
+
+<p>技能自动注册为斜杠命令，效果相同。</p>
+<p><strong>方式三：指定 provider 过滤</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">只测试 openai 的模型速度</span><br></pre></td></tr></table></figure>
+
+<p>AI 会传入 <code>provider: &quot;openai&quot;</code> 参数，只测试该提供商下的模型。</p>
+<hr>
+<h2 id="开发体验小结"><a href="#开发体验小结" class="headerlink" title="开发体验小结"></a>开发体验小结</h2><p>写完这个插件后，有几点体会：</p>
+<p><strong>上手门槛低</strong>。<code>Plugin</code> 接口很直觉——接收上下文、返回钩子。<code>tool()</code> 的 Zod schema 设计让参数定义和校验一体化。不需要学习额外的框架概念。</p>
+<p><strong>ctx.client 是核心</strong>。插件的能力上限取决于 SDK 暴露了多少 API。Benchmark 插件用到了 <code>provider.list()</code>、<code>session.create()</code>、<code>session.prompt()</code>、<code>session.delete()</code> 和 <code>config.get()</code>——这些 API 让插件能深度操作 OpenCode 运行时。</p>
+<p><strong>Plugin + Skill 的分离设计合理</strong>。代码逻辑和 AI 行为策略分开管理，各自有清晰的职责边界。修改 AI 的调用时机或输出格式不需要改代码，编辑 SKILL.md 即可。</p>
+<p><strong>约定优于配置</strong>。插件放进 <code>.opencode/plugins/</code> 自动加载，技能放进 <code>.opencode/skills/</code> 自动注册为命令，不需要额外的配置文件声明。这降低了不少心智负担。</p>
+<p>如果你也在用 OpenCode，不妨试试写一个自己的插件——可以是接入内部 API 的工具、自定义的代码检查器、或者团队特有的工作流自动化。门槛比你想象的低。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/AI/" rel="tag"># AI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/essay/omo-opsx-blog/" rel="next" title="当 AI 编码遇上多智能体编排：OMO-OPSX 融合方案的设计与实践">
+                <i class="fa fa-chevron-left"></i> 当 AI 编码遇上多智能体编排：OMO-OPSX 融合方案的设计与实践
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/essay/compound-engineering/" rel="prev" title="戴明循环的 AI 版本：用复利工程让代码库越来越好改">
+                戴明循环的 AI 版本：用复利工程让代码库越来越好改 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="SunTongSheng" />
+            
+              <p class="site-author-name" itemprop="name">SunTongSheng</p>
+              <p class="site-description motion-element" itemprop="description">移动端 前端 跨平台</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">22</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%95%E8%A8%80%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%BB%99-AI-%E7%BC%96%E7%A0%81%E5%8A%A9%E6%89%8B%E5%86%99%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">引言：为什么要给 AI 编码助手写插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%EF%BC%9AOpenCode-%E7%9A%84%E6%89%A9%E5%B1%95%E4%BD%93%E7%B3%BB"><span class="nav-number">2.</span> <span class="nav-text">背景：OpenCode 的扩展体系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9AOpenCode-%E6%8F%92%E4%BB%B6%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">第一部分：OpenCode 插件原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E6%8F%92%E4%BB%B6%E7%9A%84%E5%8F%91%E7%8E%B0%E4%B8%8E%E5%8A%A0%E8%BD%BD"><span class="nav-number">3.1.</span> <span class="nav-text">1.1 插件的发现与加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E6%A0%B8%E5%BF%83-API%EF%BC%9APlugin-%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.2.</span> <span class="nav-text">1.2 核心 API：Plugin 接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Tool-%E5%AE%9A%E4%B9%89%EF%BC%9A%E8%AE%A9-AI-%E8%83%BD%E8%B0%83%E7%94%A8%E7%9A%84%E5%B7%A5%E5%85%B7"><span class="nav-number">3.3.</span> <span class="nav-text">1.3 Tool 定义：让 AI 能调用的工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Hooks%EF%BC%9A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90"><span class="nav-number">3.4.</span> <span class="nav-text">1.4 Hooks：生命周期钩子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Plugin-%E4%B8%8E-Skill-%E7%9A%84%E5%8D%8F%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.5.</span> <span class="nav-text">1.5 Plugin 与 Skill 的协作模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ABenchmark-%E6%8F%92%E4%BB%B6%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">第二部分：Benchmark 插件的实现与使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E9%9C%80%E6%B1%82%E5%9C%BA%E6%99%AF"><span class="nav-number">4.1.</span> <span class="nav-text">2.1 需求场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E8%AF%A6%E8%A7%A3"><span class="nav-number">4.2.</span> <span class="nav-text">2.2 插件实现详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-%E6%8F%92%E4%BB%B6%E9%AA%A8%E6%9E%B6"><span class="nav-number">4.2.1.</span> <span class="nav-text">2.2.1 插件骨架</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-%E6%A8%A1%E5%9E%8B%E5%8F%91%E7%8E%B0%EF%BC%9A%E6%94%B6%E9%9B%86%E6%89%80%E6%9C%89%E6%B5%8B%E8%AF%95%E7%9B%AE%E6%A0%87"><span class="nav-number">4.2.2.</span> <span class="nav-text">2.2.2 模型发现：收集所有测试目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-%E5%B9%B6%E8%A1%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">4.2.3.</span> <span class="nav-text">2.2.3 并行基准测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-4-%E7%BB%93%E6%9E%9C%E6%A0%BC%E5%BC%8F%E5%8C%96%E8%BE%93%E5%87%BA"><span class="nav-number">4.2.4.</span> <span class="nav-text">2.2.4 结果格式化输出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E9%85%8D%E5%A5%97-Skill-%E6%96%87%E4%BB%B6"><span class="nav-number">4.3.</span> <span class="nav-text">2.3 配套 Skill 文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86"><span class="nav-number">4.4.</span> <span class="nav-text">2.4 依赖管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">4.5.</span> <span class="nav-text">2.5 使用方式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E4%BD%93%E9%AA%8C%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">开发体验小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright"> &copy; <span itemprop="copyrightYear">2026</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SunTongSheng</span>
+ 
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+    <span title="站点总字数">532k</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+    <span title="站点阅读时长">8:04</span>
+  
+</div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv" title="总访客量">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="site-pv" title="总访问量">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/reading_progress/reading_progress.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.5.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.5.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  
+  
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(function (item) {
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'GDu0yv66wtSPG57DrMXjQkaM-gzGzoHsz',
+        appKey: 'kwprvkrW20QfQBpb4kiKPtsn',
+        placeholder: 'Just go go',
+        avatar:'mm',
+        meta:guest,
+        pageSize:'10' || 10,
+        visitor: true
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"superSample":2,"width":100,"height":200,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
