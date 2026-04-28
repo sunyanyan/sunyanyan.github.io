@@ -117,18 +117,20 @@
 
 
 
-  <meta name="description" content="使用System Sound Service播放音效参考   步骤   调用AudioServicesCreateSystemSoundID(   CFURLRef  inFileURL, SystemSoundID*   outSystemSoundID)函数获得系统声音ID。 如果需要监听播放完成操作，则使用AudioServicesAddSystemSoundCompletion(  Sys">
+  <meta name="description" content="尝试一下用ai开始全新的领域，完全用ai写一个游戏，自己不主动修改任意一行代码。遇到了一些问题，最终还是写出了一个小demo mvp,题材为卡牌肉鸽游戏：  一、我是怎么一步步发现问题的我一开始以为，AI 辅助开发游戏这件事，关键只是把需求说清楚。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AVFoundation-AVAudioPlayer简介">
-<meta property="og:url" content="https://developerdoc.com/essay/AVFoundation/AVFoundation-AVAudioPlayer%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:title" content="一次 AI 写godot游戏实践：文档驱动的 AI 游戏开发流程">
+<meta property="og:url" content="https://developerdoc.com/essay/ai-card-rougelike/index.html">
 <meta property="og:site_name" content="孙同生的博客">
-<meta property="og:description" content="使用System Sound Service播放音效参考   步骤   调用AudioServicesCreateSystemSoundID(   CFURLRef  inFileURL, SystemSoundID*   outSystemSoundID)函数获得系统声音ID。 如果需要监听播放完成操作，则使用AudioServicesAddSystemSoundCompletion(  Sys">
+<meta property="og:description" content="尝试一下用ai开始全新的领域，完全用ai写一个游戏，自己不主动修改任意一行代码。遇到了一些问题，最终还是写出了一个小demo mvp,题材为卡牌肉鸽游戏：  一、我是怎么一步步发现问题的我一开始以为，AI 辅助开发游戏这件事，关键只是把需求说清楚。">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2016-10-10T02:49:32.000Z">
-<meta property="article:modified_time" content="2018-11-23T02:25:06.000Z">
+<meta property="og:image" content="https://developerdoc.com/res/ai-card-rougelike.png">
+<meta property="article:published_time" content="2026-04-28T02:30:00.000Z">
+<meta property="article:modified_time" content="2026-04-28T03:52:35.087Z">
 <meta property="article:author" content="SunTongSheng">
-<meta property="article:tag" content="AVFoundation">
+<meta property="article:tag" content="AI, 软件工程, 游戏">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://developerdoc.com/res/ai-card-rougelike.png">
 
 
 
@@ -137,7 +139,7 @@
 
 
 
-  <link rel="canonical" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-AVAudioPlayer简介/"/>
+  <link rel="canonical" href="https://developerdoc.com/essay/ai-card-rougelike/"/>
 
 
 
@@ -147,7 +149,7 @@
   };
 </script>
 
-  <title>AVFoundation-AVAudioPlayer简介 | 孙同生的博客</title>
+  <title>一次 AI 写godot游戏实践：文档驱动的 AI 游戏开发流程 | 孙同生的博客</title>
   
 
 
@@ -349,7 +351,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/AVFoundation/AVFoundation-AVAudioPlayer%E7%AE%80%E4%BB%8B/">
+    <link itemprop="mainEntityOfPage" href="https://developerdoc.com/essay/ai-card-rougelike/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="SunTongSheng">
@@ -366,7 +368,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">AVFoundation-AVAudioPlayer简介
+          <h2 class="post-title" itemprop="name headline">一次 AI 写godot游戏实践：文档驱动的 AI 游戏开发流程
               
             
           </h2>
@@ -391,24 +393,12 @@
                 
               
 
-              <time title="创建时间：2016-10-10 10:49:32" itemprop="dateCreated datePublished" datetime="2016-10-10T10:49:32+08:00">2016-10-10</time>
+              <time title="创建时间：2026-04-28 10:30:00 / 修改时间：11:52:35" itemprop="dateCreated datePublished" datetime="2026-04-28T10:30:00+08:00">2026-04-28</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-11-23 10:25:06" itemprop="dateModified" datetime="2018-11-23T10:25:06+08:00">2018-11-23</time>
               
             
           </span>
@@ -425,14 +415,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/" itemprop="url" rel="index"><span itemprop="name">essay</span></a></span>
-
-                
-                
-                  ，
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/essay/AVFoundation/" itemprop="url" rel="index"><span itemprop="name">AVFoundation</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a></span>
 
                 
                 
@@ -447,8 +430,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/essay/AVFoundation/AVFoundation-AVAudioPlayer%E7%AE%80%E4%BB%8B/#comments" itemprop="discussionUrl">
-                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/AVFoundation/AVFoundation-AVAudioPlayer%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
+                <a href="/essay/ai-card-rougelike/#comments" itemprop="discussionUrl">
+                  <span class="post-meta-item-text">评论数：</span> <span class="post-comments-count valine-comment-count" data-xid="/essay/ai-card-rougelike/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -456,7 +439,7 @@
 
           
           
-             <span id="/essay/AVFoundation/AVFoundation-AVAudioPlayer%E7%AE%80%E4%BB%8B/" class="leancloud_visitors" data-flag-title="AVFoundation-AVAudioPlayer简介">
+             <span id="/essay/ai-card-rougelike/" class="leancloud_visitors" data-flag-title="一次 AI 写godot游戏实践：文档驱动的 AI 游戏开发流程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -481,7 +464,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.9k</span>
+                <span title="本文字数">7.6k</span>
               
 
               
@@ -495,7 +478,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">7 分钟</span>
               
             </div>
           
@@ -515,41 +498,102 @@
       
 
       
-        <h1 id="使用System-Sound-Service播放音效"><a href="#使用System-Sound-Service播放音效" class="headerlink" title="使用System Sound Service播放音效"></a>使用System Sound Service播放音效</h1><p>参考 <a href=""></a></p>
-<blockquote>
-<p>步骤</p>
-</blockquote>
-<ol>
-<li>调用<code>AudioServicesCreateSystemSoundID(   CFURLRef  inFileURL, SystemSoundID*   outSystemSoundID)</code>函数获得系统声音ID。</li>
-<li>如果需要监听播放完成操作，则使用<code>AudioServicesAddSystemSoundCompletion(  SystemSoundID inSystemSoundID,  CFRunLoopRef  inRunLoop, CFStringRef  inRunLoopMode, AudioServicesSystemSoundCompletionProc  inCompletionRoutine, void*  inClientData)</code>方法注册回调函数。</li>
-<li>调用<code>AudioServicesPlaySystemSound(SystemSoundID inSystemSoundID) </code>或者<code>AudioServicesPlayAlertSound(SystemSoundID inSystemSoundID)</code> 方法播放音效（后者带有震动效果）。</li>
-</ol>
+        <p>尝试一下用ai开始全新的领域，完全用ai写一个游戏，自己不主动修改任意一行代码。遇到了一些问题，最终还是写出了一个小demo mvp,题材为卡牌肉鸽游戏：</p>
+<p><img src="/res/ai-card-rougelike.png"></p>
+<h2 id="一、我是怎么一步步发现问题的"><a href="#一、我是怎么一步步发现问题的" class="headerlink" title="一、我是怎么一步步发现问题的"></a>一、我是怎么一步步发现问题的</h2><p>我一开始以为，AI 辅助开发游戏这件事，关键只是把需求说清楚。</p>
 <span id="more"></span>
 
-<blockquote>
-<p>示例：</p>
-</blockquote>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="string">&lt;AudioToolbox/AudioToolbox.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  播放完成回调函数</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param soundID    系统声音ID</span></span><br><span class="line"><span class="comment"> *  @param clientData 回调时传递的数据</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">void</span> soundCompleteCallback(SystemSoundID soundID,<span class="type">void</span> * clientData)&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@&quot;播放完成...&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  播放音效文件</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  @param name 音频文件名称</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">-(<span class="type">void</span>)playSoundEffect:(<span class="built_in">NSString</span> *)name&#123;</span><br><span class="line">    <span class="built_in">NSString</span> *audioFile=[[<span class="built_in">NSBundle</span> mainBundle] pathForResource:name ofType:<span class="literal">nil</span>];</span><br><span class="line">    <span class="built_in">NSURL</span> *fileUrl=[<span class="built_in">NSURL</span> fileURLWithPath:audioFile];</span><br><span class="line">    <span class="comment">//1.获得系统声音ID</span></span><br><span class="line">    SystemSoundID soundID=<span class="number">0</span>;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * inFileUrl:音频文件url</span></span><br><span class="line"><span class="comment">     * outSystemSoundID:声音id（此函数会将音效文件加入到系统音频服务中并返回一个长整形ID）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    AudioServicesCreateSystemSoundID((__bridge <span class="built_in">CFURLRef</span>)(fileUrl), &amp;soundID);</span><br><span class="line">    <span class="comment">//如果需要在播放完之后执行某些操作，可以调用如下方法注册一个播放完成回调函数</span></span><br><span class="line">    AudioServicesAddSystemSoundCompletion(soundID, <span class="literal">NULL</span>, <span class="literal">NULL</span>, soundCompleteCallback, <span class="literal">NULL</span>);</span><br><span class="line">    <span class="comment">//2.播放音频</span></span><br><span class="line">    AudioServicesPlaySystemSound(soundID);<span class="comment">//播放音效</span></span><br><span class="line"><span class="comment">//    AudioServicesPlayAlertSound(soundID);//播放音效并震动</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h1 id="AVAudioPlayer播放和录制音频"><a href="#AVAudioPlayer播放和录制音频" class="headerlink" title="AVAudioPlayer播放和录制音频"></a>AVAudioPlayer播放和录制音频</h1><blockquote>
-<p>主要通过 AVAudioPlayer 和 AVAudioRecorder 类来实现。</p>
-</blockquote>
-<h2 id="AVAudioPlayer-简介"><a href="#AVAudioPlayer-简介" class="headerlink" title="AVAudioPlayer 简介"></a>AVAudioPlayer 简介</h2><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><p>一般通过 使用本地音频文件的 NSURL 或者包含音频的内存的 NSData。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithContentsOfURL:(<span class="built_in">NSURL</span> *)url error:(<span class="built_in">NSError</span> **)outError;</span><br><span class="line">- (<span class="keyword">nullable</span> <span class="keyword">instancetype</span>)initWithData:(<span class="built_in">NSData</span> *)data error:(<span class="built_in">NSError</span> **)outError;</span><br></pre></td></tr></table></figure>
-
-<p>使用 <strong>prepareToPlay</strong> 方法 可以取得需要的音频硬件并预加载 Audio Queue 的缓冲区。在创建的时候调用可以降低调用 <strong>play</strong> 方法和听到声音输出之间的延迟。</p>
-<h3 id="对播放进行控制"><a href="#对播放进行控制" class="headerlink" title="对播放进行控制"></a>对播放进行控制</h3><blockquote>
-<p>常见的 <code>play</code>、<code>stop</code>和 <code>pause</code>的播放暂停功能。<br>其中 stop 和 pause 的区别是 stop 方法会撤销调用 prepareToPlay时所做的设置，而 pause 方法不会。</p>
-</blockquote>
-<p>除此之外还有：</p>
+<p>比如先让它写一个战斗系统，跑通；再补技能系统；再补道具和成长。每一步看起来都不复杂，而且 AI 出代码的速度确实很快。最开始那几次，我甚至有一种错觉：是不是终于可以把很多原本很慢的工程工作压缩掉了。</p>
+<p>但真正的问题，很快就出现在第二个、第三个 Sprint。</p>
+<p><strong>第一次出问题</strong>是在加技能系统的时候。战斗系统刚做完时一切正常，怪物攻击、掉血、回合切换都没毛病。等到我让 AI 在它上面接技能，它发现原来的怪物结构里根本没给 buff 槽、状态计时器这些东西留位置。两条路：要么打补丁硬塞进去，代码立刻开始变乱；要么回头重构怪物数据，把 Sprint 1 的活儿再做一遍。</p>
+<p>我当时还以为是自己一开始没说清楚需求。</p>
+<p><strong>第二次出问题</strong>是加技能移植——把一个怪物身上的技能抽出来移植到另一只。AI 又卡住了，因为前面写战斗时根本没区分”怪物模板”和”怪物实例”，技能也没有独立的槽位概念。这次返工范围比上一次更大，几乎把怪物相关的所有代码都翻了一遍。</p>
+<p>到这里我开始觉得不对劲，但还在归因到”AI 没我懂这个游戏”。</p>
+<p><strong>第三次</strong>是加道具系统的时候。我已经做好了再返工一遍的心理准备，但这次撞上的不是数据结构问题，而是战斗系统和道具系统之间根本没有接口——AI 之前写战斗时没考虑过外部还会有别的系统进来调用它。</p>
+<p>三次撞墙之后我才意识到，问题不是某段代码写错了，也不是 AI 不够聪明。问题在于 AI 每次只会对你<strong>眼前这一条指令</strong>给出一个局部最优解。单看当前任务，它写得通常没什么问题；但只要项目是要持续往外长的，这种局部最优解就会在后面变成系统性的返工。</p>
+<p>后来我给这个问题找了个更准确的名字：<strong>局部性</strong>。</p>
+<p>它不是 bug，而是 AI 协作天然的特性——它看不到你后面还要加什么，自然也不会替后面留位置。所以真正的问题不在 AI 的能力上，而在于<strong>你用什么流程，确保 AI 每次”局部写代码”时，都写在一个全局可扩展的框架里</strong>。</p>
+<p>而做到这一点，光靠”把需求说得更清楚”是不够的，得靠文档先行。</p>
+<h2 id="二、我后来稳定下来的流程"><a href="#二、我后来稳定下来的流程" class="headerlink" title="二、我后来稳定下来的流程"></a>二、我后来稳定下来的流程</h2><p>既然问题不只是”写代码”，那解法也不可能只是”换个更强的模型”。我后来慢慢稳定下来的，是一套四步流程：</p>
+<ol>
+<li><strong>讨论想法</strong>：跟 AI 头脑风暴，把模糊想法变成具体设计</li>
+<li><strong>写 MVP 文档</strong>：把设计拆成独立、可测试的步骤，包含数据结构和系统边界的设计</li>
+<li><strong>逐步落实</strong>：每个步骤独立实现</li>
+<li><strong>每步验证</strong>：自动化确认这步做对了</li>
+</ol>
+<p>四步缺一不可，但真正决定后面会不会反复返工的，其实不是”逐步落实”，也不是”每步验证”，而是第二步：在动手之前，到底有没有把 MVP 文档写清楚。</p>
+<p>大多数做法跳过文档直接写代码，结果每步都是”补丁上打补丁”。MVP 文档的作用，是让每一步代码都建立在一个经过思考的地基上，而不是临时搭的脚手架上。</p>
+<p>所以下面先展开讲，为什么这一步不能省。</p>
+<h2 id="三、为什么-MVP-文档是关键"><a href="#三、为什么-MVP-文档是关键" class="headerlink" title="三、为什么 MVP 文档是关键"></a>三、为什么 MVP 文档是关键</h2><h3 id="3-1-AI-不会替你考虑”后面还要加什么”"><a href="#3-1-AI-不会替你考虑”后面还要加什么”" class="headerlink" title="3.1 AI 不会替你考虑”后面还要加什么”"></a>3.1 AI 不会替你考虑”后面还要加什么”</h3><p>回到我前面那三次返工。每一次都不是 AI 写错了，而是<strong>前面的步骤没有为后面的扩展留空间</strong>。而 AI 不会主动留这个空间——它只在当前需求范围内做最优解，这就是局部性。</p>
+<p>换句话说，如果你不在前面就把”后面还要长什么”告诉它，它就只会按最简单的路径走完眼前这一步。然后你为这个”简单”付出后续返工的代价。</p>
+<p>每次返工都在侵蚀两样东西：你对 AI 辅助开发的信心，以及代码库本身的健康。两样东西一旦被磨没了，整个项目就很难再继续往下做了。</p>
+<h3 id="3-2-MVP-文档真正要解决的是什么"><a href="#3-2-MVP-文档真正要解决的是什么" class="headerlink" title="3.2 MVP 文档真正要解决的是什么"></a>3.2 MVP 文档真正要解决的是什么</h3><p>MVP 文档的核心作用，不是写设计文档给老板看，而是<strong>在写代码之前把关键设计决策定下来</strong>。具体来说有三类：</p>
 <ul>
-<li><strong>修改播放器的音量</strong> （volume）：从0.0（静音）到1.0（最大音量之间）。</li>
-<li><strong>修改播放器的 pan 值</strong>：允许使用立体声播放声音，从 -1.0（极左）到 1.0（极右）。默认 0.0（居中）。</li>
-<li><strong>调整播放率</strong> （rate）：需要配合 enableRate 使用。范围从 0.5（半数）到2.0（2倍数）。</li>
-<li><strong>无缝循环</strong> (numberOfLoops): 播放 n+1次，若 n&lt;-1 则播放无限次直到被停止。</li>
-<li><strong>音频计量</strong>： 可以读取音量力度的平均值和峰值。</li>
+<li><strong>数据怎么组织？</strong> 怪物是 Resource 模板加 Instance 实例的分离设计，还是全写死在脚本里？这个决定影响后续所有系统。</li>
+<li><strong>状态怎么管理？</strong> 全局单例、信号驱动、还是各模块自己管？这个决定了系统之间的通信方式。</li>
+<li><strong>系统边界在哪？</strong> 战斗系统知道驯服系统吗？技能系统和道具系统怎么交互？边界不清就会出现循环依赖。</li>
 </ul>
+<p>这些问题如果不在写代码前定下来，AI 就会按最简单的路径走。我前面那三次返工，本质上都是这三类决策在事后才被迫补上。</p>
+<h3 id="3-3-MVP-文档怎么写"><a href="#3-3-MVP-文档怎么写" class="headerlink" title="3.3 MVP 文档怎么写"></a>3.3 MVP 文档怎么写</h3><p>要说明的是，MVP 文档不是传统意义上的游戏设计文档（GDD）。GDD 描述的是游戏的创意和体验；MVP 文档描述的是<strong>最小可玩版本的工程步骤拆解</strong>，每步包含：</p>
+<ul>
+<li>这步要实现什么（功能目标）</li>
+<li>数据结构怎么设计（为后续扩展留空间）</li>
+<li>系统边界在哪（哪些交互本期不做，但接口要留）</li>
+<li>怎么验证这步做对了（可测试的验收标准）</li>
+</ul>
+<p>关键是：<strong>只写跟”能不能后续扩展”相关的设计决策，不写细节实现。</strong> AI 不需要你在文档里告诉它怎么写代码，它需要你告诉它代码要在什么框架里写。</p>
+<p>而且每个步骤必须是独立可测试的——做完这步能跑、能验证、不影响其他步骤。这样即使某一步实现有问题，影响范围也是可控的。</p>
+<h2 id="四、文档定方向，但执行还得靠纪律"><a href="#四、文档定方向，但执行还得靠纪律" class="headerlink" title="四、文档定方向，但执行还得靠纪律"></a>四、文档定方向，但执行还得靠纪律</h2><p>不过，文档解决的是”方向”问题，不解决”执行”问题。</p>
+<p>方向对了，AI 还是可能跳步、偷步、直接开写。它没有”先想后做”的本能，你说什么它就做什么；你说得不严谨，它就跳过。所以光有文档不够，还得有一套机制保证它按顺序做事。</p>
+<p>这部分我后来是靠三件事兜住的：流程上的纪律、知识上的传承、验证上的闭环。</p>
+<h3 id="4-1-流程纪律：让-AI-不能跳步"><a href="#4-1-流程纪律：让-AI-不能跳步" class="headerlink" title="4.1 流程纪律：让 AI 不能跳步"></a>4.1 流程纪律：让 AI 不能跳步</h3><p>和 AI 对话写代码，最常见的现象是：你说了个需求，AI 直接开始写代码。跳过了讨论，跳过了计划，跳过了测试——代码秒出，但质量堪忧。</p>
+<p>我后来用 Skill 体系把这件事兜住了。它不是给你更多工具，而是<strong>在关键节点加检查点</strong>，阻止 AI 跳步：</p>
+<ul>
+<li><strong>brainstorming</strong>：强制先讨论再动手。你说”我要加个技能系统”，它不会直接写代码，而是先跟你讨论技能系统的设计，确认边界和交互。</li>
+<li><strong>writing-plans</strong>：强制把 MVP 拆成可执行计划再写代码。拆完计划你能看到每步做什么、依赖什么、验证什么，而不是 AI 一股脑写完一坨代码。</li>
+<li><strong>test-driven-development</strong>：强制先写失败测试再写实现。这保证每一步都有验收标准，”能跑”不等于”做对了”。</li>
+<li><strong>verification-before-completion</strong>：做完必须验证，不能”我觉得好了”。验证通过才算完成。</li>
+</ul>
+<p>这些 Skill 的本质不是工具，是<strong>流程检查点</strong>。就好像建筑里的质检——不是每块砖都要你亲自检查，但关键节点必须有人签字确认。</p>
+<h3 id="4-2-知识传承：解决-AI-的”失忆”问题"><a href="#4-2-知识传承：解决-AI-的”失忆”问题" class="headerlink" title="4.2 知识传承：解决 AI 的”失忆”问题"></a>4.2 知识传承：解决 AI 的”失忆”问题</h3><p>但流程纪律也没法解决 AI 另一个让人头疼的特征：<strong>每次开新会话都像新员工入职</strong>。前面做的架构决策、项目约定、已完成的步骤，它一个都不知道。</p>
+<p>这件事直接踩过我两次。一次是新会话里 AI 把之前定好的怪物数据结构重新设计了一版；另一次是它把已经完成的 Sprint 1 当成”还没做”，准备从头实现。两次都不是它写错了，是它根本不知道前面发生过什么。</p>
+<p>Harness Engineering 是一套文档工程体系，用来兜住这件事。它包含三层：</p>
+<ul>
+<li><strong>入口地图</strong>：项目规则、目录结构、在哪找什么、禁止事项。相当于公司里的”新人入职手册”——不是详细的业务文档，是让你知道去哪找详细文档的地图。</li>
+<li><strong>按需加载的知识库</strong>：编码规范、架构决策、数据流、测试模板等深度文档。关键在于”按需加载”——不是每次对话都全读一遍，而是根据当前任务加载相关部分。做战斗系统时读战斗相关的文档，做 UI 时读 UI 相关的。这样既保证 AI 有足够的上下文，又不浪费 token 预算。</li>
+<li><strong>当前进度</strong>：正在做哪个 Sprint、完成了什么、下一步做什么。让 AI 知道项目走到哪了，而不是每次都从”现在项目什么状态”开始问。</li>
+</ul>
+<p>没有这套东西，每次对话都是新员工从零开始。你花时间在 MVP 文档里定的设计决策，AI 根本不知道，又回到局部性写代码的老路上。</p>
+<h3 id="4-3-验证闭环：让-AI-自己验证自己"><a href="#4-3-验证闭环：让-AI-自己验证自己" class="headerlink" title="4.3 验证闭环：让 AI 自己验证自己"></a>4.3 验证闭环：让 AI 自己验证自己</h3><p>最后还有一件事：AI 写了代码，谁来验证？</p>
+<p>我一开始的办法是人眼看：AI 写完代码 → 我手动在引擎里跑 → 截图给 AI 看 → AI 修 → 我再跑 → ……。这个循环慢，而且我自己是瓶颈——不可能每改一行代码都手动全面测试，结果就是很多问题拖着不验，到后面积成大问题。</p>
+<p>后来稳定下来的是三层自动化验证：</p>
+<p><strong>第一层：静态验证。</strong> 写完代码立刻做语法检查和场景结构验证。零成本，零延迟，捕获低级错误——拼写错误、类型不匹配、引用缺失。这一层过滤掉 80% 的愚蠢问题。</p>
+<p><strong>第二层：逻辑验证。</strong> 跑一段无头脚本断言数据是否正确。比如验证怪物实例的血量是不是初始化正确、技能冷却是不是按预期递减。不需要游戏画面，只需要数据对不对。</p>
+<p><strong>第三层：UI 交互验证。</strong> 启动游戏 → 模拟玩家输入 → 检查界面元素 → 跑脚本确认结果。这一层验证的是玩家真实体验——玩家点了这个按钮，界面是不是真的变了？战斗扣血后血条是不是真的更新了？</p>
+<p>三层各有分工：静态层抓低级错误，逻辑层验数据正确，UI 层验玩家真实体验。只有 UI 层能回答”玩家点击这个按钮后到底发生了什么”这个问题。</p>
+<p>跑通这三层之后，整个循环就从”AI 写代码 → 人测试 → 告诉 AI 结果 → AI 修”变成了”AI 写代码 → AI 自己验 → AI 自己修”。<strong>人是审批者，不是测试员。</strong></p>
+<h2 id="五、这套方法靠什么落地"><a href="#五、这套方法靠什么落地" class="headerlink" title="五、这套方法靠什么落地"></a>五、这套方法靠什么落地</h2><p>讲到这里，整套方法的轮廓已经有了：先用文档定边界，再用流程约束执行，再用验证形成闭环，再用知识库防止失忆。</p>
+<p>剩下的问题只有一个：这些事具体靠什么工具串起来？</p>
+<p>下面是我实际在用的几样：</p>
+<ul>
+<li><strong>OpenCode</strong>：支持 MCP 协议的对话式编程工具。桥接 AI 和游戏引擎，让 AI 能直接操作场景、运行游戏、查看结果，而不是靠人来回粘贴代码。</li>
+<li><strong>Superpowers Skill 体系</strong>：流程纪律的载体。前面说的 brainstorming、writing-plans、TDD 都是 skill，直接挂在对话流程里执行——不是你每次手动提醒 AI “先想再写”，是流程自动触发。</li>
+<li><strong>godot-mcp-runtime</strong>：游戏引擎和 AI 之间的桥梁。让 AI 能操作场景、运行游戏、模拟输入、截图查看。它是三层验证的执行手段——没有它，AI 写完代码只能等人来测试。</li>
+<li><strong>Harness 文档体系</strong>：入口地图 + 按需知识库 + 当前进度。给 AI 项目上下文，防止失忆，确保每次对话都能接上之前的架构决策。</li>
+</ul>
+<p>每个工具单独拿出来都不稀奇。但组合在一起，正好对应了前面那四件事——<strong>文档定方向、Skill 定流程、MCP 做验证、Harness 保记忆</strong>：</p>
+<ul>
+<li>文档决定了写什么、怎么组织</li>
+<li>Skill 确保按纪律执行</li>
+<li>MCP 让 AI 能自己验证自己</li>
+<li>Harness 让 AI 不忘记之前的决策</li>
+</ul>
+<p>缺了任何一环，闭环就断了——文档没人看（缺 Harness）、纪律没人守（缺 Skill）、验证靠人眼（缺 MCP）、架构决策每次重新来（缺 Harness）。</p>
+<h2 id="六、回头看"><a href="#六、回头看" class="headerlink" title="六、回头看"></a>六、回头看</h2><p>回头再看，AI 写游戏代码是局部性的。这件事我一开始没看明白，是被三次返工慢慢逼出来的。</p>
+<p>局部性本身不是 bug，是特性——AI 只在当前需求范围内做最优解，这本身没问题。问题在于，如果没有全局框架约束这些局部最优解，它们就会各自为政，最终无法组合成一个可扩展的系统。</p>
+<p>解决方案不是更好的 AI 模型，而是更好的流程：<strong>文档驱动定方向、流程纪律保执行、自动验证替人工、知识管理防失忆</strong>。</p>
+<p>这套方法论也不限于 Godot，不限于游戏开发。任何 AI 辅助的系统性工程——Web 应用、后端服务、数据处理管线——都有同样的局部性问题，都可以用同样的思路解决：先想清楚再动手，每步可验证，知识可传承。</p>
+<p>前期文档投入确实更大。但这个投入在第三个 Sprint 之后就会回本——因为你不用返工了。我自己就是在第三个 Sprint 才意识到这件事的，要是早一点知道，前两次返工的代价本来是可以省掉的。</p>
 
       
     </div>
@@ -570,7 +614,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/AVFoundation/" rel="tag"># AVFoundation</a>
+            <a href="/tags/AI-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E6%B8%B8%E6%88%8F/" rel="tag"># AI, 软件工程, 游戏</a>
           
         </div>
       
@@ -583,8 +627,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/essay/AVFoundation/AVFoundation-avspeechsynthesizer%E6%96%87%E5%AD%97%E8%BD%AC%E8%AF%AD%E9%9F%B3/" rel="next" title="AVFoundation-avspeechsynthesizer文字转语音">
-                <i class="fa fa-chevron-left"></i> AVFoundation-avspeechsynthesizer文字转语音
+              <a href="/essay/harness-engineering-article/" rel="next" title="Harness Engineering：AI Agent 时代的工程范式革命">
+                <i class="fa fa-chevron-left"></i> Harness Engineering：AI Agent 时代的工程范式革命
               </a>
             
           </div>
@@ -592,10 +636,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/essay/SDWebImage/SDWebImage375%E6%BA%90%E7%A0%81-%E8%B4%B0/" rel="prev" title="SDWebImage375源码-贰">
-                SDWebImage375源码-贰 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -841,7 +881,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8System-Sound-Service%E6%92%AD%E6%94%BE%E9%9F%B3%E6%95%88"><span class="nav-number">1.</span> <span class="nav-text">使用System Sound Service播放音效</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AVAudioPlayer%E6%92%AD%E6%94%BE%E5%92%8C%E5%BD%95%E5%88%B6%E9%9F%B3%E9%A2%91"><span class="nav-number">2.</span> <span class="nav-text">AVAudioPlayer播放和录制音频</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#AVAudioPlayer-%E7%AE%80%E4%BB%8B"><span class="nav-number">2.1.</span> <span class="nav-text">AVAudioPlayer 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA"><span class="nav-number">2.1.1.</span> <span class="nav-text">创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E6%92%AD%E6%94%BE%E8%BF%9B%E8%A1%8C%E6%8E%A7%E5%88%B6"><span class="nav-number">2.1.2.</span> <span class="nav-text">对播放进行控制</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E6%88%91%E6%98%AF%E6%80%8E%E4%B9%88%E4%B8%80%E6%AD%A5%E6%AD%A5%E5%8F%91%E7%8E%B0%E9%97%AE%E9%A2%98%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">一、我是怎么一步步发现问题的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%88%91%E5%90%8E%E6%9D%A5%E7%A8%B3%E5%AE%9A%E4%B8%8B%E6%9D%A5%E7%9A%84%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">二、我后来稳定下来的流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88-MVP-%E6%96%87%E6%A1%A3%E6%98%AF%E5%85%B3%E9%94%AE"><span class="nav-number">3.</span> <span class="nav-text">三、为什么 MVP 文档是关键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-AI-%E4%B8%8D%E4%BC%9A%E6%9B%BF%E4%BD%A0%E8%80%83%E8%99%91%E2%80%9D%E5%90%8E%E9%9D%A2%E8%BF%98%E8%A6%81%E5%8A%A0%E4%BB%80%E4%B9%88%E2%80%9D"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 AI 不会替你考虑”后面还要加什么”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-MVP-%E6%96%87%E6%A1%A3%E7%9C%9F%E6%AD%A3%E8%A6%81%E8%A7%A3%E5%86%B3%E7%9A%84%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 MVP 文档真正要解决的是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-MVP-%E6%96%87%E6%A1%A3%E6%80%8E%E4%B9%88%E5%86%99"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 MVP 文档怎么写</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E6%96%87%E6%A1%A3%E5%AE%9A%E6%96%B9%E5%90%91%EF%BC%8C%E4%BD%86%E6%89%A7%E8%A1%8C%E8%BF%98%E5%BE%97%E9%9D%A0%E7%BA%AA%E5%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">四、文档定方向，但执行还得靠纪律</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E6%B5%81%E7%A8%8B%E7%BA%AA%E5%BE%8B%EF%BC%9A%E8%AE%A9-AI-%E4%B8%8D%E8%83%BD%E8%B7%B3%E6%AD%A5"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 流程纪律：让 AI 不能跳步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E7%9F%A5%E8%AF%86%E4%BC%A0%E6%89%BF%EF%BC%9A%E8%A7%A3%E5%86%B3-AI-%E7%9A%84%E2%80%9D%E5%A4%B1%E5%BF%86%E2%80%9D%E9%97%AE%E9%A2%98"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 知识传承：解决 AI 的”失忆”问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E9%AA%8C%E8%AF%81%E9%97%AD%E7%8E%AF%EF%BC%9A%E8%AE%A9-AI-%E8%87%AA%E5%B7%B1%E9%AA%8C%E8%AF%81%E8%87%AA%E5%B7%B1"><span class="nav-number">4.3.</span> <span class="nav-text">4.3 验证闭环：让 AI 自己验证自己</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E8%BF%99%E5%A5%97%E6%96%B9%E6%B3%95%E9%9D%A0%E4%BB%80%E4%B9%88%E8%90%BD%E5%9C%B0"><span class="nav-number">5.</span> <span class="nav-text">五、这套方法靠什么落地</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E5%9B%9E%E5%A4%B4%E7%9C%8B"><span class="nav-number">6.</span> <span class="nav-text">六、回头看</span></a></li></ol></div>
             
 
           </div>
