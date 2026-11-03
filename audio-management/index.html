@@ -1,0 +1,590 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>通用音频管理方案 · 图解与关键约定</title><style id="html-artifacts-components">
+/* HTML Artifacts component foundation
+ * Inline this file into the final artifact. Override tokens on .ha-root.
+ * Components own geometry and interaction states, not the artifact's identity.
+ */
+
+.ha-root {
+  --ha-canvas: #f6f3ec;
+  --ha-surface: #fffdf8;
+  --ha-ink: #24231f;
+  --ha-muted: #666159;
+  --ha-rule: color-mix(in srgb, var(--ha-ink) 18%, transparent);
+  --ha-rule-strong: color-mix(in srgb, var(--ha-ink) 34%, transparent);
+  --ha-accent: #a34124;
+  --ha-accent-soft: #f5e2da;
+  --ha-positive: #176d69;
+  --ha-positive-soft: #dceceb;
+  --ha-negative: #8c3a28;
+  --ha-negative-soft: #f3ddd5;
+  --ha-focus: #0069d9;
+  --ha-radius: 0.5rem;
+  --ha-page-max: 72rem;
+  --ha-gutter: clamp(1rem, 3vw, 2rem);
+  --ha-section-gap: clamp(2.75rem, 7vw, 6rem);
+  --ha-rail: minmax(10rem, 0.55fr);
+  --ha-content: minmax(0, 2fr);
+  color: var(--ha-ink);
+  background: var(--ha-canvas);
+}
+
+.ha-root,
+.ha-root *,
+.ha-root *::before,
+.ha-root *::after {
+  box-sizing: border-box;
+}
+
+.ha-root img,
+.ha-root svg,
+.ha-root canvas {
+  display: block;
+  max-inline-size: 100%;
+}
+
+.ha-root button,
+.ha-root input,
+.ha-root output,
+.ha-root select,
+.ha-root textarea {
+  font: inherit;
+}
+
+.ha-root :focus-visible {
+  outline: 3px solid var(--ha-focus);
+  outline-offset: 3px;
+}
+
+.ha-shell {
+  inline-size: min(calc(100% - 2 * var(--ha-gutter)), var(--ha-page-max));
+  margin-inline: auto;
+}
+
+.ha-section-grid {
+  display: grid;
+  grid-template-columns: var(--ha-rail) var(--ha-content);
+  column-gap: clamp(2rem, 6vw, 5.5rem);
+  row-gap: 1.75rem;
+  align-items: start;
+}
+
+.ha-section-grid > * {
+  min-inline-size: 0;
+}
+
+.ha-section-rail {
+  grid-column: 1;
+}
+
+.ha-section-main {
+  grid-column: 2;
+}
+
+.ha-breakout {
+  grid-column: 1 / -1;
+  min-inline-size: 0;
+}
+
+.ha-prose {
+  max-inline-size: 70ch;
+}
+
+.ha-stack > * {
+  margin-block: 0;
+}
+
+.ha-stack > * + * {
+  margin-block-start: var(--ha-stack-gap, 1rem);
+}
+
+.ha-figure {
+  container: ha-figure / inline-size;
+  margin: 0;
+  min-inline-size: 0;
+}
+
+.ha-figure-frame {
+  overflow: hidden;
+  background: var(--ha-surface);
+  border: 1px solid var(--ha-rule-strong);
+  border-radius: var(--ha-radius);
+}
+
+.ha-figure-frame[data-treatment="inline"] {
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.ha-figure-frame[data-treatment="inline"] .ha-figure-header {
+  padding-inline: 0;
+  border-top: 1px solid var(--ha-rule-strong);
+}
+
+.ha-figure-frame[data-treatment="inline"] .ha-stepper-region {
+  padding-inline: 0;
+}
+
+.ha-figure-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.62fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: end;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--ha-rule);
+}
+
+.ha-figure-header > * {
+  min-inline-size: 0;
+}
+
+.ha-figure-title {
+  margin: 0;
+  text-wrap: balance;
+}
+
+.ha-figure-summary {
+  max-inline-size: 62ch;
+  margin: 0.5rem 0 0;
+  color: var(--ha-muted);
+  text-wrap: pretty;
+}
+
+.ha-control {
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ha-control-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.625rem;
+  color: var(--ha-muted);
+  font-size: 0.8125rem;
+}
+
+.ha-control-output {
+  color: var(--ha-accent);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ha-control-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ha-range {
+  inline-size: 100%;
+  min-block-size: 2.25rem;
+  accent-color: var(--ha-accent);
+  cursor: pointer;
+}
+
+.ha-button {
+  min-block-size: 2.25rem;
+  padding: 0.45rem 0.75rem;
+  color: var(--ha-ink);
+  background: var(--ha-surface);
+  border: 1px solid var(--ha-rule-strong);
+  border-radius: calc(var(--ha-radius) * 0.65);
+  cursor: pointer;
+}
+
+.ha-button:hover {
+  background: color-mix(in srgb, var(--ha-accent) 7%, var(--ha-surface));
+}
+
+.ha-control-ends {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.25rem;
+  color: var(--ha-muted);
+  font-size: 0.75rem;
+}
+
+.ha-stepper-region {
+  container: ha-stepper / inline-size;
+  min-inline-size: 0;
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+
+.ha-stepper {
+  --ha-node-size: 2.25rem;
+  --ha-connector-gap: 0.5rem;
+  --ha-connector-height: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(var(--ha-step-count), minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ha-stepper > .ha-step {
+  position: relative;
+  display: grid;
+  grid-template-rows: var(--ha-node-size) auto auto auto;
+  justify-items: center;
+  min-inline-size: 0;
+  padding-inline: 0.45rem;
+  text-align: center;
+}
+
+.ha-stepper > .ha-step::before,
+.ha-stepper > .ha-step::after {
+  content: none !important;
+  display: none !important;
+}
+
+.ha-svg-defs {
+  position: absolute;
+  inline-size: 0;
+  block-size: 0;
+  overflow: hidden;
+}
+
+.ha-step-connector {
+  position: absolute;
+  z-index: 0;
+  top: calc(var(--ha-node-size) / 2 - var(--ha-connector-height) / 2);
+  left: calc(50% + var(--ha-node-size) / 2 + var(--ha-connector-gap));
+  inline-size: calc(100% - var(--ha-node-size) - var(--ha-connector-gap) - var(--ha-connector-gap));
+  block-size: var(--ha-connector-height);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.ha-step-connector line {
+  stroke: var(--ha-rule-strong);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.ha-step-arrowhead {
+  fill: var(--ha-rule-strong);
+}
+
+.ha-step-node {
+  position: relative;
+  z-index: 2;
+  display: inline-grid;
+  inline-size: var(--ha-node-size);
+  block-size: var(--ha-node-size);
+  place-items: center;
+  border: 1px solid var(--ha-rule-strong);
+  border-radius: 50%;
+  background: var(--ha-surface);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.ha-step-name {
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+
+.ha-step-detail {
+  min-inline-size: 0;
+  margin: 0.4rem 0 0;
+  color: var(--ha-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.ha-step-state {
+  margin: 0.55rem 0 0;
+  color: var(--ha-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+.ha-step[data-state="complete"] .ha-step-node {
+  color: var(--ha-positive);
+  border-color: var(--ha-positive);
+  background: var(--ha-positive-soft);
+}
+
+.ha-step[data-state="active"] .ha-step-node {
+  color: var(--ha-accent);
+  border: 3px solid var(--ha-accent);
+  background: var(--ha-accent-soft);
+}
+
+.ha-step[data-state="active"] .ha-step-name {
+  color: var(--ha-accent);
+}
+
+.ha-step[data-state="pending"] .ha-step-name,
+.ha-step[data-state="pending"] .ha-step-detail,
+.ha-step[data-state="pending"] .ha-step-state {
+  color: var(--ha-muted);
+}
+
+.ha-outcomes {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--ha-rule);
+}
+
+.ha-outcome {
+  min-inline-size: 0;
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+}
+
+.ha-outcome + .ha-outcome {
+  border-left: 1px solid var(--ha-rule);
+}
+
+.ha-outcome[data-tone="negative"] {
+  background: var(--ha-negative-soft);
+}
+
+.ha-outcome[data-tone="positive"] {
+  background: var(--ha-positive-soft);
+}
+
+.ha-outcome-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.ha-outcome-copy {
+  margin: 0.6rem 0 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+.ha-figure-caption {
+  max-inline-size: 70ch;
+  margin-block-start: 0.9rem;
+  color: var(--ha-muted);
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.ha-scroll-cue {
+  margin: 0 0 0.5rem;
+  color: var(--ha-muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.ha-scroll-region {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-gutter: stable;
+}
+
+.ha-visually-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@container ha-figure (max-width: 48rem) {
+  .ha-figure-header {
+    grid-template-columns: 1fr;
+  }
+
+  .ha-outcomes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ha-outcome:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .ha-outcome:nth-child(2) {
+    border-left: 0;
+    border-top: 1px solid var(--ha-rule);
+  }
+
+  .ha-outcome:nth-child(3) {
+    border-top: 1px solid var(--ha-rule);
+  }
+}
+
+@container ha-stepper (max-width: 48rem) {
+  .ha-stepper {
+    grid-template-columns: 1fr;
+  }
+
+  .ha-stepper > .ha-step {
+    grid-template-columns: var(--ha-node-size) minmax(7rem, 0.38fr) minmax(0, 1fr) auto;
+    grid-template-rows: auto;
+    gap: 0.75rem;
+    align-items: center;
+    justify-items: start;
+    padding: 0.75rem 0;
+    text-align: left;
+  }
+
+  .ha-stepper > .ha-step:not(:first-child) {
+    border-top: 1px solid var(--ha-rule);
+  }
+
+  .ha-stepper .ha-step-connector {
+    display: none;
+  }
+
+  .ha-stepper .ha-step-name,
+  .ha-stepper .ha-step-detail,
+  .ha-stepper .ha-step-state {
+    margin: 0;
+  }
+
+  .ha-stepper .ha-step-state {
+    justify-self: end;
+    text-align: right;
+  }
+}
+
+@container ha-figure (max-width: 34rem) {
+  .ha-outcomes {
+    grid-template-columns: 1fr;
+  }
+
+  .ha-outcome:first-child {
+    grid-column: auto;
+  }
+
+  .ha-outcome + .ha-outcome {
+    border-left: 0;
+    border-top: 1px solid var(--ha-rule);
+  }
+}
+
+@container ha-stepper (max-width: 34rem) {
+  .ha-stepper > .ha-step {
+    grid-template-columns: var(--ha-node-size) minmax(0, 1fr) auto;
+  }
+
+  .ha-stepper .ha-step-detail {
+    grid-column: 2 / -1;
+  }
+}
+
+@media (max-width: 48rem) {
+  .ha-section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ha-section-rail,
+  .ha-section-main,
+  .ha-breakout {
+    grid-column: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ha-root *,
+  .ha-root *::before,
+  .ha-root *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  .ha-root {
+    --ha-canvas: white !important;
+    --ha-surface: white !important;
+    --ha-ink: #111 !important;
+    --ha-muted: #444 !important;
+    --ha-rule: rgb(0 0 0 / 18%) !important;
+    --ha-rule-strong: rgb(0 0 0 / 36%) !important;
+    --ha-accent: #111 !important;
+    --ha-accent-soft: #f2f2f2 !important;
+    --ha-positive: #111 !important;
+    --ha-positive-soft: #f2f2f2 !important;
+    --ha-negative: #111 !important;
+    --ha-negative-soft: #f2f2f2 !important;
+  }
+
+  .ha-controls,
+  .ha-no-print {
+    display: none !important;
+  }
+
+  .ha-figure-frame {
+    border-color: var(--ha-rule-strong);
+  }
+
+  .ha-stepper {
+    grid-template-columns: repeat(var(--ha-step-count), minmax(0, 1fr));
+  }
+
+  .ha-stepper > .ha-step {
+    display: grid;
+    grid-template-rows: var(--ha-node-size) auto auto auto;
+    grid-template-columns: auto;
+    justify-items: center;
+    padding-inline: 0.25rem;
+    border-top: 0 !important;
+    text-align: center;
+  }
+
+  .ha-stepper .ha-step-connector {
+    display: block;
+  }
+
+  .ha-outcomes,
+  .ha-figure,
+  .ha-stepper-region {
+    break-inside: avoid;
+  }
+}
+  </style><style>body{margin:0;background:#f5f3ed;color:#202e35;font:16px/1.75 system-ui,-apple-system,sans-serif}header,main,nav,footer{max-width:1120px;margin:auto;padding:24px 32px}header{padding-top:56px}h1{font-size:42px;line-height:1.25;max-width:850px}h2{font-size:25px;margin-top:0}h3{font-size:18px}p{max-width:90ch}section{padding:40px 0;border-top:1px solid #c9cfcf}.eyebrow{letter-spacing:.12em;color:#42616a;font-size:13px}.lead{font-size:21px;font-weight:500}nav{display:flex;gap:24px;flex-wrap:wrap}a{color:#165e76;text-underline-offset:4px;overflow-wrap:anywhere}a:focus-visible{outline:3px solid #a24a13;outline-offset:4px}table{border-collapse:collapse;width:100%;font-size:15px}td,th{padding:14px 12px;text-align:left;vertical-align:top;border-bottom:1px solid #c9cfcf}th{background:#e8edeb}td:first-child{width:20%;font-weight:600}.architecture{display:grid;grid-template-columns:1fr 110px 1.2fr 110px 1.2fr;align-items:center;gap:14px;padding:20px 0}.lane{padding:20px;background:#e5eeec}.lane b,.consumers b{color:#15544f}.link{text-align:center;font-size:14px;color:#455d65}.consumers>div{padding:12px 16px;border-left:3px solid #50877f;margin:12px 0}.consumers p,.chain p{margin:6px 0}.policy{padding:20px 24px;background:#dfeae7}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:36px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#e9ece9;padding:20px;font:15px/1.8 ui-monospace,monospace}.chain{display:grid;grid-template-columns:1fr 110px 1fr 110px 1fr;gap:12px;align-items:center}.chain>div{padding:16px;background:#e5eeec}.chain>span{font-size:14px;text-align:center}figcaption,small,footer{font-size:14px;color:#4a5c62}code{overflow-wrap:anywhere}ul,ol{padding-left:24px}li{margin:12px 0}@media(max-width:750px){header,main,nav,footer{padding-left:18px;padding-right:18px}h1{font-size:31px}.architecture,.chain,.twocol{grid-template-columns:1fr}.link,.chain>span{text-align:left;padding-left:16px}.lane{padding:16px}table,tbody,tr,td,th{display:block}thead{display:none}tr{padding:12px 0;border-bottom:1px solid #8d9f9e}td,th{width:auto!important;border:0;padding:6px 0}td:first-child{color:#15544f}section{padding:28px 0}.lead{font-size:19px}}@media print{nav{display:none}body{background:white;font-size:11px}header,main,footer{padding:12px}section{padding:16px 0}h1{font-size:27px}h2{font-size:20px}figure{break-inside:avoid}a{color:inherit}}.seqwide svg{width:100%;height:auto;display:block;color:#203038}.seqtext{font-size:15px}.budgetbar{display:flex;gap:3px;margin:20px 0}.budgetbar span{background:#d9e7e3;padding:12px 8px;text-align:center;min-width:0;font-size:14px}@media(max-width:750px){.seqwide{display:none}.budgetbar{display:grid;grid-template-columns:1fr 1fr}.budgetbar span{padding:12px}}@media print{.seqwide{display:block}.seqtext{font-size:11px}.budgetbar{display:flex}} .overall-wide svg{width:100%;height:auto}.overall-small{display:none}h4{font-size:17px;margin-bottom:10px}@media(max-width:750px){.overall-wide{display:none}.overall-small{display:block}.ha-figure svg[aria-labelledby="rhythm-title"]{display:none}}@media print{.overall-wide{display:block}.overall-small{display:none}} .poolmap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:24px 0}.poolmap>div{padding:16px;background:#e3eeeb}.poolmap p{margin:8px 0 0}@media(max-width:750px){.poolmap{grid-template-columns:1fr;gap:12px}} </style></head><body class="ha-root"><header><p class="eyebrow">通用音频管理方案 · 2026-11-03</p><h1>从使用问题出发，把声音进出的整条链路讲清楚。</h1><p class="lead">设备输入端 → 输入池 → 调度与处理 → 输出池 → 设备输出端。先看场景问题，再看模块职责；随后分别解决输入缓冲、连续播放、功能冲突、故障恢复和预算。</p><p>适用：同时提供录音、语音唤醒、对话、翻译与播报的应用，及其连接的耳机、眼镜等设备。本文是通用设计建议；平台限制和设备能力须另行验证。</p></header><nav><a href="#cases">场景问题</a><a href="#overall">完整链路</a><a href="#input-buffer">输入缓冲</a><a href="#output-buffer">输出缓冲</a><a href="#arbitration">调度冲突</a><a href="#recovery">传输恢复</a><a href="#budget">预算</a><a href="#delivery">验证</a><a href="#sources">来源</a></nav><main><section id="cases"><h2>01 / 使用场景：先明确会遇到什么问题</h2><p>下表同时包含本地案例提炼、公开资料描述的常见机制和通用链路分析。公开机制用于解释问题，不代表这些场景都已在某个产品上复现。</p><table><tr><th>场景 case</th><th>具体问题</th><th>依据与处理章节</th></tr><tr><td>持续记录声音，同时等待唤醒；唤醒后开始对话</td><td>重复开关麦克风；一个功能结束导致其它功能失去输入。</td><td>本地案例提炼<br><a href="#input-buffer">共享输入与独立读取</a></td></tr><tr><td>唤醒词后紧接着说问题，语音服务尚未连上</td><td>开头没有保存；历史与实时拼接时漏音或重复。</td><td>本地案例提炼<br><a href="#input-buffer">开头保留与顺序接续</a></td></tr><tr><td>蓝牙声音成批到达，但识别接口要求固定长度声音</td><td>直接把到达事件当成处理节拍，导致输入断续或片段尺寸不对。</td><td>通用链路分析<br><a href="#input-buffer">到达缓冲与格式重组</a></td></tr><tr><td>录音保存或识别突然变慢</td><td>等待队列不断增长，或共享声音一直无法释放。</td><td>通用链路分析<br><a href="#input-buffer">慢消费者与空间上限</a></td></tr><tr><td>应用仍在运行，却突然只收到静音</td><td>其它应用或系统优先级改变了实际采集权限；应用内部共享解决不了系统限制。</td><td><a href="https://developer.android.com/media/platform/sharing-audio-input">Android 官方输入共享规则</a><br><a href="#arbitration">使用资格与中断</a></td></tr><tr><td>锁屏或负载变高时，回复出现短暂停顿</td><td>收音、写文件或连接操作阻塞播放回调，设备来不及取到声音。</td><td>本地案例 + <a href="https://developer.android.com/games/sdk/oboe/low-latency-audio">Android 回调说明</a><br><a href="#output-buffer">输出缓冲与独立执行</a></td></tr><tr><td>语音服务一阵一阵返回回复，或无线包晚到、丢失</td><td>到达节奏与播放节奏不同，出现断供或越来越大的延迟。</td><td><a href="https://webrtc.googlesource.com/src/+/refs/heads/main/modules/audio_coding/neteq/g3doc/index.md">WebRTC 接收缓冲机制</a><br><a href="#output-buffer">预填、缺音与过期处理</a></td></tr><tr><td>短时间正常，连续通话后缓冲逐渐变深或变空</td><td>发送与播放设备时钟有细小差异，长期累积。</td><td><a href="https://webrtc.googlesource.com/src/+/refs/heads/main/modules/audio_coding/neteq/g3doc/index.md">WebRTC 时钟差异处理</a><br><a href="#output-buffer">区分时钟漂移与拥塞</a></td></tr><tr><td>对话、翻译、提示音、音乐相互交叠</td><td>声音盖住主语音，或多个功能交错控制同一输出。</td><td>本地案例 + 通用产品场景<br><a href="#arbitration">排队、混音与抢占</a></td></tr><tr><td>边播放边收音，麦克风又收到扬声器的声音</td><td>远端听到回声，或应用把自己的回复当成用户说话。</td><td><a href="https://webrtc.googlesource.com/src/+/refs/heads/main/modules/audio_processing/g3doc/audio_processing_module.md">WebRTC 语音增强机制</a><br><a href="#arbitration">回声处理与音频职责</a></td></tr><tr><td>拔下耳机、接入新设备、来电打断</td><td>播放位置变化；音频格式、缓冲时长也可能变化，不能沿用旧配置。</td><td><a href="https://developer.apple.com/library/archive/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/HandlingAudioHardwareRouteChanges/HandlingAudioHardwareRouteChanges.html">Apple 路由变化说明</a><br><a href="#recovery">重建格式与恢复条件</a></td></tr><tr><td>蓝牙断开重连，旧播放的结束消息迟到</td><td>旧回复补播，或旧消息关闭了新的播放。</td><td>本地案例提炼<br><a href="#recovery">传输清理与播放身份</a></td></tr></table></section><section id="overall"><h2>02 / 整体设计：完整链路与模块职责</h2><p class="lead">设备把声音推入输入池；各功能按自己的进度读取。产生的回复进入输出池；输出设备按播放节奏取走。调度器决定谁能读、谁能播，并根据积压和断音调整策略。</p><p>输入和输出是两条可以同时运行的链路。录音可能只有输入，提示音可能只有输出；实时对话才把两条链路通过语音处理服务联系起来。</p>
+<figure class="ha-figure"><div class="ha-figure-frame" data-treatment="inline"><h3>完整链路：设备输入、输入池、处理、输出池与设备输出</h3><div class="overall-wide"><svg viewBox="0 0 1200 690" role="img" aria-labelledby="audio-map-title audio-map-desc" xmlns="http://www.w3.org/2000/svg"><title id="audio-map-title">设备输入端、输入池、调度器、输出池和设备输出端的完整连接</title><desc id="audio-map-desc">输入端采集声音并送入按音源分开的输入池。调度器让唤醒、录音、对话和翻译分别读取。对话与翻译的回复异步进入输出池。每个输出设备按自己的播放时钟从输出池取声音，外接设备另有接收缓冲。设备反馈队列深度和断音情况，调度器调整缓冲与发送策略。</desc><defs><marker id="audio-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#38666a"/></marker><marker id="control-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#95602a"/></marker></defs>
+<g font-family="system-ui,sans-serif" fill="#20343b">
+<rect x="18" y="12" width="1164" height="90" rx="6" fill="#f0e8da"/><text x="38" y="40" font-size="20" font-weight="700">统一调度器：管理使用资格、选择路线、设定缓冲目标</text><text x="38" y="68" font-size="16">根据各池深度、数据年龄和设备反馈调整策略；不在同一线程里搬运全部声音。</text><text x="38" y="90" font-size="14">棕色虚线：控制与反馈　　绿色实线：声音内容的流动</text>
+<g stroke="#95602a" stroke-width="1.8" stroke-dasharray="6 5" fill="none" marker-end="url(#control-arrow)"><path d="M110 105 V178"/><path d="M350 105 V178"/><path d="M590 105 V178"/><path d="M830 105 V178"/><path d="M1070 105 V178"/></g>
+<g fill="#e3eeeb" stroke="#aec5bd"><rect x="18" y="183" width="204" height="185" rx="5"/><rect x="258" y="183" width="204" height="185" rx="5"/><rect x="498" y="183" width="204" height="185" rx="5"/><rect x="738" y="183" width="204" height="185" rx="5"/><rect x="978" y="183" width="204" height="185" rx="5"/></g>
+<g font-size="20" font-weight="700"><text x="34" y="215">① 设备输入端</text><text x="274" y="215">② 输入池</text><text x="514" y="215">③ 调度与处理</text><text x="754" y="215">④ 输出池</text><text x="994" y="215">⑤ 设备输出端</text></g>
+<g font-size="16"><text x="34" y="249">手机／外接麦克风</text><text x="34" y="278">接收、解码、标时间</text><text x="34" y="307">按音源独立接入</text><text x="34" y="343">到多少，先收多少</text>
+<text x="274" y="249">每个音源一条时间线</text><text x="274" y="278">短实时区 + 开头保留</text><text x="274" y="307">各功能独立读取位置</text><text x="274" y="343">吸收到达快慢变化</text>
+<text x="514" y="249">唤醒／录音／对话</text><text x="514" y="278">分别读取、独立处理</text><text x="514" y="307">回复按播放规则选择</text><text x="514" y="343">谁慢，只限制谁</text>
+<text x="754" y="249">各回复先独立排队</text><text x="754" y="278">每个目的地一条序列</text><text x="754" y="307">预填、限积压、平音量</text><text x="754" y="343">只留尚未过期的声音</text>
+<text x="994" y="249">手机扬声器／耳机</text><text x="994" y="278">或外接设备接收缓冲</text><text x="994" y="307">由播放时钟匀速取数</text><text x="994" y="343">上报深度与断供</text></g>
+<g stroke="#38666a" fill="none" stroke-width="2" marker-end="url(#audio-arrow)"><path d="M222 288 H254"/><path d="M462 288 H494"/><path d="M702 288 H734"/><path d="M942 288 H974"/></g>
+<g font-size="14" text-anchor="middle"><text x="238" y="168">声音片段</text><text x="478" y="168">按进度取</text><text x="718" y="168">回复声音</text><text x="958" y="168">按需取数</text></g>
+<rect x="290" y="428" width="610" height="102" fill="#edf0ed" stroke="#b6c5be"/><text x="310" y="458" font-size="18" font-weight="700">功能处理与语音服务：独立于收音和播放运行</text><text x="310" y="487" font-size="16">录音写入存储；对话／翻译发送声音，异步接收回复。</text><text x="310" y="514" font-size="16">输入声音与回复声音不是一一对应，不必等待回复才能继续收音。</text>
+<g stroke="#38666a" fill="none" stroke-width="2" marker-end="url(#audio-arrow)"><path d="M555 368 V424"/><path d="M900 476 H930 V394 H830 V372"/></g><text x="570" y="403" font-size="14">交给各功能</text><text x="944" y="444" font-size="14">异步返回回复</text>
+<path d="M1080 369 V583 H50 V107" stroke="#95602a" stroke-width="1.8" stroke-dasharray="6 5" fill="none" marker-end="url(#control-arrow)"/><text x="390" y="574" font-size="16" fill="#795027">反馈：当前还剩多少声音、最旧包等了多久、实际播放是否缺音</text>
+<text x="24" y="633" font-size="17" font-weight="700">真正让声音平滑的分工</text><text x="24" y="662" font-size="16">输入池吸收“到达不均匀”　·　输出池衔接“产生不均匀”　·　设备播放时钟保证“播放有节奏”</text></g></svg></div><ol class="overall-small"><li><strong>设备输入端：</strong>从麦克风或外接设备接收声音，解码并记录声音位置。</li><li><strong>输入池：</strong>按音源存放连续声音，各功能分别记住读到哪里。</li><li><strong>调度与处理：</strong>安排功能读取，处理录音、唤醒、对话或翻译；回复可以异步产生。</li><li><strong>输出池：</strong>回复分别排队，再按目的地和播放规则组成待播序列。</li><li><strong>设备输出端：</strong>手机或外接设备按自己的播放时钟取声音；外接设备还有接收缓冲。</li></ol></div><figcaption>绿色实线表示声音内容；棕色虚线表示调度与设备反馈。图中“调度与处理”是逻辑层：统一调度器只管理规则，各功能执行器分别处理声音。所有模块均为通用建议边界。</figcaption></figure>
+<h3>各模块负责什么，何时读写声音？</h3><table><tr><th>模块</th><th>主要职责</th><th>读写方式与执行时机</th></tr><tr><td>设备输入端</td><td>接入麦克风或外接音源，完成必要重组、解码与时间标记。</td><td>收音回调或数据到达时写入输入池；不等待功能处理。</td></tr><tr><td>输入池</td><td>按音源保存连续声音，为各功能维护独立读取位置。</td><td>输入端写，各功能按自身接口要求读取；按容量与保留规则释放内容。</td></tr><tr><td>调度器与功能执行器</td><td>调度器管理使用资格、优先级与路线；功能执行器完成唤醒、录音、对话或翻译。</td><td>启停、中断与状态变化更新规则；功能分别处理输入，回复异步写入输出队列。</td></tr><tr><td>输出池</td><td>各回复独立排队，按播放规则和目的地组成待播声音序列。</td><td>回复到达时写；播放回调或外接发送执行器按需要读取。</td></tr><tr><td>设备输出端</td><td>手机或外接设备实际播放；外接设备还负责接收缓冲与解码。</td><td>由设备播放时钟持续取数；可用时反馈剩余声音和断供情况。</td></tr></table>
+</section><section id="input-buffer"><h2>03 / 输入缓冲：多个功能怎样共用声音，又不丢开头？</h2><p><strong>问题：</strong>设备按自己的节奏交付声音，唤醒、录音和对话却有不同的读取范围与处理速度。一条大家争抢的队列会漏音；每个功能都完整复制，又增加内存和重复转换。</p><h3>按音源建池，按功能保存读取位置</h3><div class="poolmap"><div><b>设备输入端</b><p>收到声音，记录采样位置；压缩包按需重组、解码。</p></div><div><b>每个音源的输入池</b><p>短实时区循环保存；已保护的开头有独立保留范围。</p></div><div><b>多个独立读取位置</b><p>唤醒看最近窗口；对话连续读取；录音转入存储队列。</p></div></div><p>三块按顺序组成输入路径。同一音源、同一格式的内容可共享；手机麦克风与外接麦克风分别建池。不同目标格式按需转换一次，不把两种音源伪装成连续声音。</p>
+<table><tr><th>输入问题</th><th>处理方式</th><th>取舍与边界</th></tr><tr><td>到达长度不固定、成批到达</td><td>先按采样位置入池；识别接口需要多少采样点，就重组成对应长度。只有需要实时节拍的接口才按它要求的节奏供给。</td><td>输入缓冲不等于所有识别都要人为等待。支持成批处理的录音或离线识别可直接顺序消费；已有接收组件的重排与抖动缓冲不重复添加。</td></tr><tr><td>连接期间需要保留开头</td><td>检测到唤醒时记录声音中的准确位置，固定保留起点；连接期间继续接收，就绪后从同一读取位置顺序接到实时。</td><td>必须设保留容量与上传许可。保留多久、是否包含唤醒前声音需产品与隐私规则确认。</td></tr><tr><td>有一个功能读取太慢</td><td>唤醒可跳到新窗口并重置检测；实时对话按允许的延迟处理；完整录音移入独立存储队列。仅处置该功能。</td><td>不可无限固定公共池，也不可覆盖仍被使用的内容。复制到专用存储更简单；仅在复制成本明显时引入更复杂的引用管理。</td></tr><tr><td>音源切换或缺一段声音</td><td>开始新的连续段，重置相关格式转换状态并通知消费者；录音记缺口，受保护的首句明确判定是否失效。</td><td>人工修补不能当成真实录音。对话可否继续、是否请用户重说，按场景另定。</td></tr></table><h3>输入池怎样让声音平稳进入各功能？</h3><p>入池按实际到达发生，读取按消费者需要发生。两者不互相等待；通过采样位置保证顺序，通过长度重组满足接口，通过有界短缓冲吸收有限抖动。收音回调只做必要的短拷贝和状态更新，不等待磁盘、网络或其它功能。</p><h3>具体 case：唤醒后紧接问题，连接尚未完成</h3><figure class="ha-figure"><div class="ha-figure-frame" data-treatment="inline"><h3>唤醒后紧接问题：怎样不丢开头？</h3><div class="seqwide"><svg viewBox="0 0 1060 555" role="img" aria-label="首句保留：触发后怎样从历史接回实时？"><title>首句保留：触发后怎样从历史接回实时？</title><defs><marker id="m7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#38666a"/></marker></defs><text x="80.0" y="25" text-anchor="middle" font-size="16" font-weight="600">收音与暂存</text><line x1="80.0" y1="42" x2="80.0" y2="545" stroke="#a2b5b5" stroke-dasharray="4 5"/><text x="380.0" y="25" text-anchor="middle" font-size="16" font-weight="600">统一调度</text><line x1="380.0" y1="42" x2="380.0" y2="545" stroke="#a2b5b5" stroke-dasharray="4 5"/><text x="680.0" y="25" text-anchor="middle" font-size="16" font-weight="600">语音发送</text><line x1="680.0" y1="42" x2="680.0" y2="545" stroke="#a2b5b5" stroke-dasharray="4 5"/><text x="980.0" y="25" text-anchor="middle" font-size="16" font-weight="600">语音服务</text><line x1="980.0" y1="42" x2="980.0" y2="545" stroke="#a2b5b5" stroke-dasharray="4 5"/><line x1="80.0" y1="90" x2="380.0" y2="90" stroke="#38666a" stroke-width="2" marker-end="url(#m7)"/><text x="230.0" y="78" text-anchor="middle" font-size="15">唤醒事件带上准确的声音位置</text><line x1="380.0" y1="155" x2="80.0" y2="155" stroke="#38666a" stroke-width="2" marker-end="url(#m7)"/><text x="230.0" y="143" text-anchor="middle" font-size="15">固定起点，保留后续声音</text><line x1="380.0" y1="220" x2="980.0" y2="220" stroke="#38666a" stroke-width="2" marker-end="url(#m7)"/><text x="680.0" y="208" text-anchor="middle" font-size="15">同时准备连接与音频处理</text><line x1="380.0" y1="285" x2="680.0" y2="285" stroke="#38666a" stroke-width="2" marker-end="url(#m7)"/><text x="530.0" y="273" text-anchor="middle" font-size="15">连接就绪后允许发送</text><line x1="680.0" y1="350" x2="80.0" y2="350" stroke="#38666a" stroke-width="2" marker-end="url(#m7)"/><text x="380.0" y="338" text-anchor="middle" font-size="15">从起点按顺序读取</text><line x1="680.0" y1="415" x2="980.0" y2="415" stroke="#38666a" stroke-width="2" marker-end="url(#m7)"/><text x="830.0" y="403" text-anchor="middle" font-size="15">按固定节奏发送，必要时加速追赶</text><line x1="680.0" y1="480" x2="80.0" y2="480" stroke="#38666a" stroke-width="2" marker-end="url(#m7)"/><text x="380.0" y="468" text-anchor="middle" font-size="15">追上当前收音后继续顺序读取</text></svg></div><ol><li>持续收音时保留短时间的声音。检测到唤醒词后，记录它在声音中的位置，而不是只记录通知到达的时间。</li><li>固定需要保留的起点，同时连接语音服务；连接期间继续保存声音。</li><li>连接就绪且允许上传后，从起点顺序发送，再沿同一条读取进度接上后续收音，避免漏掉或重复发送。</li><li>确有积压时，可在语音服务允许且音质验证通过的范围内保音高加速；追上当前收音后恢复正常速度。</li><li>超出容量、音源重启或声音中断时，明确报告开头可能不完整，按约定重试或提示用户。</li></ol></div><figcaption>这是通用目标时序。是否保留唤醒前声音、保留多久以及是否允许加速，均需符合产品、隐私和音频服务约定。</figcaption></figure><p>连接失败、保留区溢出时，明确结束本次保留或提示重试，不静默跳过开头。</p></section><section id="output-buffer"><h2>04 / 输出缓冲：回复成批产生，怎样连续播放？</h2><p><strong>问题：</strong>回复生成、网络接收和蓝牙传送都可能忽快忽慢，但扬声器必须持续按自身时钟输出声音。直接来一包播一包容易断音；不停增加缓冲又会让回复越来越迟。</p><h3>各回复独立排队，各输出设备形成自己的待播序列</h3><div class="poolmap"><div><b>各功能的回复队列</b><p>对话、翻译、提示分别保存，带播放编号与有效期限。</p></div><div><b>每个设备的输出池</b><p>按调度规则选择或混合，再按设备格式重组。</p></div><div><b>设备播放端</b><p>手机由播放回调取数；外接设备由内部缓冲供给扬声器。</p></div></div><p>录音可以没有输出，提示音可以没有输入。对话回复异步入池，不要求输入输出片段一一对应。多个设备各有池与时钟，除非产品明确要求同步播放，否则不强行共用一条消费进度。</p><figure class="ha-figure"><div class="ha-figure-frame" data-treatment="inline"><h4>缓冲把成批到达的声音接成连续播放</h4><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 240" role="img" aria-labelledby="rhythm-title"><title id="rhythm-title">示意：到达忽快忽慢，缓冲后每隔二十毫秒播放一帧</title><g font-family="system-ui,sans-serif" fill="#20343b"><text x="12" y="25" font-size="17">示意：每块声音长 20 毫秒；不是实测数据</text><text x="12" y="88" font-size="16">到达时刻不均匀</text><line x1="235" y1="108" x2="1000" y2="108" stroke="#94aaa6"/><rect x="250" y="65" width="16" height="35" fill="#39756b"/><text x="258" y="57" text-anchor="middle" font-size="13">1</text><rect x="310" y="65" width="16" height="35" fill="#39756b"/><text x="318" y="57" text-anchor="middle" font-size="13">2</text><rect x="330" y="65" width="16" height="35" fill="#39756b"/><text x="338" y="57" text-anchor="middle" font-size="13">3</text><rect x="470" y="65" width="16" height="35" fill="#39756b"/><text x="478" y="57" text-anchor="middle" font-size="13">4</text><rect x="490" y="65" width="16" height="35" fill="#39756b"/><text x="498" y="57" text-anchor="middle" font-size="13">5</text><rect x="510" y="65" width="16" height="35" fill="#39756b"/><text x="518" y="57" text-anchor="middle" font-size="13">6</text><rect x="650" y="65" width="16" height="35" fill="#39756b"/><text x="658" y="57" text-anchor="middle" font-size="13">7</text><rect x="670" y="65" width="16" height="35" fill="#39756b"/><text x="678" y="57" text-anchor="middle" font-size="13">8</text><text x="12" y="182" font-size="16">播放时刻保持间隔</text><line x1="235" y1="202" x2="1000" y2="202" stroke="#94aaa6"/><rect x="360" y="159" width="16" height="35" fill="#39756b"/><text x="368" y="151" text-anchor="middle" font-size="13">1</text><rect x="420" y="159" width="16" height="35" fill="#39756b"/><text x="428" y="151" text-anchor="middle" font-size="13">2</text><rect x="480" y="159" width="16" height="35" fill="#39756b"/><text x="488" y="151" text-anchor="middle" font-size="13">3</text><rect x="540" y="159" width="16" height="35" fill="#39756b"/><text x="548" y="151" text-anchor="middle" font-size="13">4</text><rect x="600" y="159" width="16" height="35" fill="#39756b"/><text x="608" y="151" text-anchor="middle" font-size="13">5</text><rect x="660" y="159" width="16" height="35" fill="#39756b"/><text x="668" y="151" text-anchor="middle" font-size="13">6</text><rect x="720" y="159" width="16" height="35" fill="#39756b"/><text x="728" y="151" text-anchor="middle" font-size="13">7</text><rect x="780" y="159" width="16" height="35" fill="#39756b"/><text x="788" y="151" text-anchor="middle" font-size="13">8</text><text x="370" y="132" font-size="15">先积累少量声音再开播；后续仍持续接收</text><text x="800" y="210" font-size="14">时间由左向右</text></g></svg></div><figcaption>每块代表同样时长的声音。缓冲只能吸收有限抖动；长期到得比播得少，迟早仍会断供，必须降负载、暂停或结束。</figcaption></figure><h3>先有少量提前量，再由播放时钟持续取数</h3><p>播放前积累少量声音作为预填；播放中持续补充，每次交付设备所需的采样点。外接设备应保有可控的接收提前量；蓝牙发送受设备可用空间或传输许可约束，不能用应用定时器冒充扬声器时钟。</p><table><tr><th>输出状态或问题</th><th>处理方式</th><th>何时换策略</th></tr><tr><td>尚未开始播放</td><td>达到按场景设定的预填目标后开播，后续边收边播。</td><td>提前量更大更抗抖动，但开口更晚。完整短音效已全部就绪时，不必额外等待填满目标。</td></tr><tr><td>暂时到得慢，池子偏浅</td><td>观察低水位和到达抖动。实时语音可由成熟解码模块短时修补，并平滑接回正常声音。</td><td>无法修补时按接口要求补足静音并记录断供；完整播报可暂停后重新预填。选择取决于场景，不能无限重复旧声音。</td></tr><tr><td>池子持续变深或变空</td><td>先区分时钟差异、处理阻塞、带宽不足。细小时钟差异可小幅重采样或保音高伸缩。</td><td>严重积压要处置过期内容；长期平均供给不足必须降负载或暂停。微调速度不能修复持续拥塞。</td></tr><tr><td>多个声音切换，音量突然改变</td><td>按规则排队、叠加或压低背景声；切换时短暂淡入淡出，混音控制总幅度，防止削波。</td><td>紧急停止优先；渐变只减少突变杂音，不修复丢包，也不决定哪个业务应获准播放。</td></tr><tr><td>正常结束或被主动打断</td><td>正常结束停止新增声音并短暂排空；主动打断清理该次播放未播内容，撤销继续发送资格。</td><td>新声音不能与旧连接残留交错；具体传输清理见恢复章节。</td></tr></table><p><strong>每个实时池需配置：</strong>容量上限、目标深度、低水位、高水位以及声音最迟可用时间。水位用于发现偏离，是否调整预填、播放速率或终止播放由原因决定，不能低水位就无条件加速、或高水位就盲目丢音。具体数值见预算章节的测量口径。</p><p>输出回调只取数和填数，不等待收音、文件或连接操作。输入和输出逻辑分别执行；系统或音频组件若共享实时线程，更要保证任一方向不执行会阻塞另一方向的工作。参考 <a href="https://developer.android.com/games/sdk/oboe/low-latency-audio">Android 的回调约束</a>和 <a href="https://webrtc.googlesource.com/src/+/refs/heads/main/modules/audio_coding/neteq/g3doc/index.md">WebRTC 接收缓冲与时间伸缩机制</a>。</p></section><section id="arbitration"><h2>05 / 调度与播放冲突：多个功能同时使用设备怎么办？</h2><p><strong>问题：</strong>共用声音内容并不代表可以同时占用所有设备能力。多个功能各自开关收音、配置系统或向同一个发送器写数据，会相互覆盖；让全部工作串在一个调度器中，又会互相阻塞。</p><h3>统一管理使用资格，实际处理分别执行</h3><p>调度器记录每个请求的编号、所需音源、读取范围、输出位置、优先级和结束状态。它决定谁可以使用哪条路径；各功能与音频执行器按已发布规则运行。启停、打断和故障改变规则，声音片段不必逐个等待调度器审批。</p><table><tr><th>实际冲突与约束</th><th>可选处理及代价</th><th>建议</th></tr><tr><td>持续录音与对话都需要同一个麦克风</td><td>互斥最简单，但录音中断；共享采集可并行，但要隔离读取与停止范围。</td><td>产品允许时共享采集、分别使用；最后一个有效使用者退出后再关闭输入。系统权限限制仍需单独处理。</td></tr><tr><td>对话、翻译都要使用同一语音通道</td><td>排队会增加等待；自动抢占会结束另一业务；并行需要服务、带宽与产品交互都支持。</td><td>先明确业务组合关系，再实现互斥、排队或抢占。不能由音频层默认把一次点击解释成自动切换。</td></tr><tr><td>提示、回复与音乐叠加后听不清</td><td>暂停音乐简单但打断体验；压低音乐需控制其播放端；本地混音仅能处理能取得的声音。</td><td>对每对声音明确叠加、压低、排队或打断；在有实际控制能力的一端执行。能力不足时定义回退。</td></tr><tr><td>多个播放任务共用同一个蓝牙发送器</td><td>各自直接写容易交错包；全局串行声音处理又会放大阻塞。</td><td>同一字节流只有一个有效发送者；各回复独立排队，由输出执行器按调度结果发送，传输阻塞不扩散到采集。</td></tr><tr><td>旧结束消息迟到，新播放已经开始</td><td>仅检查“目前有播放”无法区分请求；每次播放有编号会增加状态管理，但能隔离生命周期。</td><td>结束和失败处理只操作匹配编号的资源；旧回调只记旧记录。</td></tr><tr><td>系统收音权限改变或收到静音</td><td>不断重开麦克风可能增加抖动，也未必能获得权限。</td><td>先检查系统采集状态、权限和当前输入设备；区分用户沉默与系统静音。恢复必须符合平台规则。</td></tr><tr><td>扬声器声音再次进入麦克风</td><td>只靠增大缓冲不会消除回声；多处重复降噪也可能损伤语音。</td><td>明确由设备、系统或应用哪一层负责回声消除、降噪与音量控制；给回声处理提供合适的播放参考，避免重复处理。</td></tr></table><p>语音增强机制参考 <a href="https://webrtc.googlesource.com/src/+/refs/heads/main/modules/audio_processing/g3doc/audio_processing_module.md">WebRTC 音频处理模块</a>；具体播放参考的取得位置与延迟，需要结合实际输出路线验证。</p></section><section id="recovery"><h2>06 / 传输与故障恢复：断开、拥塞和设备变化后怎样继续？</h2><table><tr><th>发生什么</th><th>立即做什么</th><th>什么情况下恢复</th></tr><tr><td>一个功能处理变慢</td><td>只限制该功能的等待队列；按用途丢旧声音、转存或报错。其它功能继续收音和播放。</td><td>回到预算内，且使用资格仍有效；重新检查它需要的声音是否还完整。</td></tr><tr><td>音源切换、重启或缺了一段声音</td><td>标记新的连续段。唤醒检测清掉不完整窗口；录音记缺口；受保护的问题开头明确判定是否失效。</td><td>从新起点重新读取，不能把两段声音冒充一段连续录音。</td></tr><tr><td>蓝牙发不动、声音越积越多</td><td>按发送能力减缓提交，观察最旧声音的年龄；超期停止当前播放。半包按协议安全收尾。</td><td>旧发送已退出或连接已隔离，并重新确认设备可用；不补播已过期的旧回复。</td></tr><tr><td>启动请求没有收到设备确认</td><td>在约定期限后查询设备状态，区分“确认消息没到”“明确拒绝”和“结果未知”。</td><td>确认状态后继续；结果未知时限制重试次数与等待总时长，不能不断重复启动。</td></tr><tr><td>连接断开</td><td>撤销本次发送资格、清理旧队列。手机是否继续播放，按用户已选路线执行。</td><td>重新连接、检查能力并完成新的启动。是否自动续播需产品明确；不能突然改为手机外放。</td></tr><tr><td>来电或系统暂停音频</td><td>暂停或结束不允许的收音与播放，记住用户是否仍希望继续。</td><td>系统允许、请求仍有效、设备就绪且用户未取消，才恢复。</td></tr><tr><td>用户结束、切功能或退出账号</td><td>先禁止新声音进入；正常结束可短暂排空，主动打断应清掉未播内容。释放本次使用资格。</td><td>资源释放完成后才让下一功能使用。功能切换是一键完成还是需要再次触发，由产品决定。</td></tr></table>
+<h3>具体 case：蓝牙拥塞后，新旧播放怎样隔离？</h3><figure class="ha-figure"><div class="ha-figure-frame" data-treatment="inline"><h3>蓝牙拥塞后：怎样避免旧声音干扰新播放？</h3><div class="seqwide"><svg viewBox="0 0 1060 620" role="img" aria-label="输出恢复：拥塞后如何防止旧声音穿进新会话？"><title>输出恢复：拥塞后如何防止旧声音穿进新会话？</title><defs><marker id="m8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#38666a"/></marker></defs><text x="80.0" y="25" text-anchor="middle" font-size="16" font-weight="600">回复声音</text><line x1="80.0" y1="42" x2="80.0" y2="610" stroke="#a2b5b5" stroke-dasharray="4 5"/><text x="380.0" y="25" text-anchor="middle" font-size="16" font-weight="600">统一调度</text><line x1="380.0" y1="42" x2="380.0" y2="610" stroke="#a2b5b5" stroke-dasharray="4 5"/><text x="680.0" y="25" text-anchor="middle" font-size="16" font-weight="600">蓝牙发送</text><line x1="680.0" y1="42" x2="680.0" y2="610" stroke="#a2b5b5" stroke-dasharray="4 5"/><text x="980.0" y="25" text-anchor="middle" font-size="16" font-weight="600">播放设备</text><line x1="980.0" y1="42" x2="980.0" y2="610" stroke="#a2b5b5" stroke-dasharray="4 5"/><line x1="80.0" y1="90" x2="380.0" y2="90" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="230.0" y="78" text-anchor="middle" font-size="15">提交本次播放的声音片段</text><line x1="380.0" y1="155" x2="680.0" y2="155" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="530.0" y="143" text-anchor="middle" font-size="15">按声音时长发送，标记为第 n 次播放</text><line x1="680.0" y1="220" x2="380.0" y2="220" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="530.0" y="208" text-anchor="middle" font-size="15">报告排队时间和发送结果</text><line x1="380.0" y1="285" x2="680.0" y2="285" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="530.0" y="273" text-anchor="middle" font-size="15">超时后停止第 n 次播放，清掉旧声音</text><line x1="380.0" y1="350" x2="980.0" y2="350" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="680.0" y="338" text-anchor="middle" font-size="15">能安全结束时，通知设备停止</text><line x1="680.0" y1="415" x2="380.0" y2="415" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="530.0" y="403" text-anchor="middle" font-size="15">确认旧发送已停止或旧连接已隔离</text><line x1="380.0" y1="480" x2="680.0" y2="480" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="530.0" y="468" text-anchor="middle" font-size="15">第 n+1 次播放：先启动，再发送声音</text><line x1="980.0" y1="545" x2="380.0" y2="545" stroke="#38666a" stroke-width="2" marker-end="url(#m8)"/><text x="680.0" y="533" text-anchor="middle" font-size="15">报告设备状态；旧消息不能影响新播放</text></svg></div><ol><li>每次播放有唯一编号。未发出的声音、正在发送的操作与结束回调，都记录属于哪一次播放。</li><li>观察排队时间与实际发送结果；超过期限后停止接收本次播放的新声音，清掉仍未发送的完整旧包。</li><li>已经写出一半的包不能直接截断后接新包；先安全完成或隔离旧连接，避免接收端把数据拼错。</li><li>确认旧发送操作已停止，或旧连接已被隔离，才允许新播放取得发送资格。</li><li>新播放先完成启动，再发送声音。旧回调迟到时只更新旧记录，不能关闭新播放。</li></ol></div><figcaption>播放编号首先解决本机操作冲突。设备端若也要识别新旧播放，协议必须携带相应身份；仅修改本机变量并不足够。</figcaption></figure><h3>怎样判断“确实在播放”？</h3><p>分别记录：① 应用已排队；② 本机系统已接受数据；③ 设备已收到；④ 设备已播放。前一项不能证明后一项。设备若只提供“会话已启动”，也不能据此判断每一段声音都正常出声。</p><p>条件允许时，设备报告最近收到与播放的位置、剩余声音时长、播放断供次数；发送端据此调节节奏。短缺时的声音修补可以参考成熟实时语音实现，不能承诺还原丢失内容。设备反馈不够时，用实际录音和参考声音对齐验证。</p>
+<h3>换设备后，为什么需要重新检查格式？</h3><p>耳机插拔或输入输出路线改变后，重新读取实际采样率、声道、缓冲时长与延迟；需要时重建格式转换器，清理旧格式残留，并重新预填。是否改用扬声器和是否自动恢复，按用户意图处理，不能只恢复之前的配置。参考 <a href="https://developer.apple.com/library/archive/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/HandlingAudioHardwareRouteChanges/HandlingAudioHardwareRouteChanges.html">Apple 路由变化说明</a>。</p><h3>不同蓝牙承载，怎样保留同一套上层规则？</h3><p>自定义 BLE GATT 传声音，需要应用处理分片、重组和发送流量控制；标准 LE Audio 使用专门的等时传输机制，需要两端共同支持。其它串行或配件通道也可承载压缩声音。方案应把这些差异放在传输适配层，上层统一使用启动、发送、停止、排队情况和失败反馈等接口。</p></section><section id="budget"><h2>07 / 缓冲预算：需要多少空间，能接受多少延迟？</h2><p><strong>问题：</strong>每层各留一段声音，叠加后可能产生过大延迟；只看容量又无法判断实际积压。输入与输出应分别计账，再计算端到端总预算。</p><p>统一四个口径：容量上限以字节计算；待处理声音深度以毫秒计算；包的年龄从约定的起点连续计时；故障超时是控制等待期限。换队列不应把同一声音的年龄清零。</p><table><tr><th>路径</th><th>预算包括哪些部分</th><th>确定依据</th></tr><tr><td>输入</td><td>实时短池、开头保留、各格式视图与私有长存储。</td><td>设备到达抖动、消费者读取长度、允许的开头保留时间、内存和存储速度。</td></tr><tr><td>输出</td><td>回复私有队列、目的地输出池、在途声音与设备接收缓冲。</td><td>回复生成节奏、连接抖动、可接受开口与持续播放延迟，以及设备可用空间。</td></tr><tr><td>启停与恢复</td><td>设备确认、状态查询、正常排空与强制结束的等待总量。</td><td>平台与协议合同、正常往返测量；分别设单次期限与总期限。</td></tr></table><h3>示例一：空间预算</h3><p>假设声音为每秒 16,000 个采样点、单声道、每点 16 位，则每秒占 <strong>32,000 字节</strong>。2 秒约 64 KB，200 毫秒约 6.4 KB，320 毫秒约 10.24 KB。若允许保留 120 秒，则仅声音本身约占 3.84 MB。<strong>这些是计算示例，不是所有产品的默认值。</strong></p><p>每条路径的总内存还要加上格式转换、副本、索引、压缩缓存与音频服务自身的占用。多个读取者共享同一份声音时，只算一次声音内容，但各自的独立保留区仍要计入。</p>
+<h3>示例二：延迟预算</h3><div class="budgetbar"><span style="flex:20">声音重组<br>20 ms</span><span style="flex:40">应用排队<br>40 ms</span><span style="flex:40">传输<br>40 ms</span><span style="flex:80">设备预填<br>80 ms</span><span style="flex:20">输出<br>20 ms</span></div><p>示例：从回复声音可用到外接设备出声，20 + 40 + 40 + 80 + 20 = <strong>200 毫秒</strong>。这是待验证的预算分配，未含云端生成与网络内部缓冲；实际各段可能重叠，应统一测量起止点，避免重复计算。各段“95% 情况下的延迟”相加，也不等于整条路径的同一指标。</p>
+<h3>示例三：输入积压多久才能追上实时？</h3><p>假设已经积压 3 秒，新的声音仍以正常速度进入；发送速度始终是正常的 1.6 倍，则理想情况下追赶需要 3 ÷ (1.6 − 1) = <strong>5 秒</strong>。这说明“连上了”与“已经跟上实时”是两个状态。</p>
+<h3>蓝牙带宽要留出额外空间</h3><p>假设压缩码率为 24 kbps，每包装 20 毫秒声音，声音数据约 60 字节；再假设自定义包头为 7 字节，则应用层约需 26.8 kbps。还必须加上分片、蓝牙传输开销、重传与其它并行业务。这里的格式和数值仅用于演算，应以实际协议和并发测量替换。</p></section><section id="delivery"><h2>08 / 验证：怎样证明每类问题被解决？</h2><ol><li><strong>先量现状。</strong>关联一次收音／播放的编号，测每段处理时间、积压、丢失和设备播放结果，建立基线。</li><li><strong>先隔离阻塞。</strong>验证收音变慢时播放仍继续，蓝牙卡住时不会锁住整个音频系统。</li><li><strong>再统一使用资格。</strong>逐个接入录音、唤醒、对话、翻译与播报，验证旧结束消息不能影响新请求。</li><li><strong>最后优化共享存储与缓冲。</strong>仅在测量显示收益时减少复制；再联合设备调整缓冲、丢包修补和发送节奏。</li></ol><table><tr><th>验证场景</th><th>可观察的通过条件</th></tr><tr><td>持续录音 + 等待唤醒 + 实时对话反复切换</td><td>收音不被无关功能结束；开头完整；内存不随次数增长。</td></tr><tr><td>故意拖慢收音处理，锁屏后听长回复</td><td>播放处理仍独立推进；实际出声没有超过已定阈值的缺口。</td></tr><tr><td>拥塞、断连、重连、旧结束消息迟到</td><td>排队有界；不补播过期声音；新播放不被旧消息停止。</td></tr><tr><td>音乐、提示、翻译、通话组合</td><td>叠加、降低音量、打断和恢复均符合逐项确认的规则。</td></tr><tr><td>连续运行和不同设备组合</td><td>内存稳定、声音积压不持续增长；联合设备反馈和实际录音确认。时长、延迟与缺口阈值由产品目标和基线确定。</td></tr></table><p>新增验证：模拟发送与接收时钟微小差异，观察深度是否长期单向增长；切换输入输出格式，检查转换残留；模拟系统静音，核对状态而非盲目重启；双向说话时验证实际回声与语音清晰度。</p><p><strong>实施前仍要确定：</strong>每对功能能否同时使用、切换交互、允许回退的播放位置、开头保留期限与隐私策略、可接受延迟和丢音阈值，以及设备能提供哪些反馈。</p></section><section id="sources"><h2>09 / 来源与适用边界</h2><p>正文将本地案例提炼为通用场景和设计建议，没有将某个工程的类名、功能缩写、互斥交互或调优参数作为通用要求。下面保留证据，供需要核对实现的人查看。</p><h3>本地案例怎样转为通用设计</h3><table><tr><th>提取到的现象</th><th>通用结论</th></tr><tr><td>持续记录与实时会话冲突时，语音检测被反复重建</td><td>底层收音生命周期与业务使用资格分开管理。</td></tr><tr><td>输入处理阻塞拖停播放</td><td>收音与播放独立调度，分别记录延误。</td></tr><tr><td>启动连接期间需要保存第一句话</td><td>使用准确的声音位置与有界保留，从历史顺序接回实时。</td></tr><tr><td>旧请求清理影响新请求；写入完成却不能证明发声</td><td>使用请求编号隔离生命周期，区分发送、接收与实际播放。</td></tr></table>
+<details><summary>展开本地工程证据（仅作来源）</summary><p>读取快照：Android 7e05f9b58；iOS 01c17466。源码与已有聊天证据来自前两轮调研，未穷尽所有实现。本轮只改文档，不重新验证产品行为。</p><p>C1 <code>代码/主工程/Enter-Glass-Android/data/air-audio/src/main/java/ai/looktech/glasses/data/air_audio/AirAudioDispatcher.kt</code><br>1–32：Opus / PCM 场景订阅</p><p>C2 <code>代码/主工程/Enter-Glass-Android/data/live/src/main/java/ai/looktech/glasses/data/live/LivePcmBuffer.kt</code><br>8–192：有界保留、锚点、读写与连续性</p><p>C3 <code>代码/主工程/Enter_Smart_Glass_iOS/DeviceConnectionView/Service/AudioInject/AppAudioInjector.swift</code><br>80–108、316–409、592–672：串行队列、sender、代次与终局</p><p>C4 <code>代码/主工程/Enter_Smart_Glass_iOS/DeviceConnectionView/Service/AudioInject/AppAudioInjectSink.swift</code><br>7–39：iAP2 pending age / purge / outcomes</p><p>C7 <code>代码/主工程/Enter_Smart_Glass_iOS/DeviceConnectionView/General/LTAudioSessionManager.swift</code><br>55–90：currentMode 归属缺口与系统通知</p><p>D1 <code>代码/主工程/Enter-Glass-Android/docs/tech/app-audio-inject-android.md</code><br>§0–3、§8–10：承载、路由、租约与常量（历史验收状态不能代替当前实测）</p><p>C5 Android git log：b1d65abad（2026-10-29 Journal 冲突修复）；C6 iOS git show 06ef0080（2026-11-03 输入／输出线程隔离，含回归用例）。本轮检查了补丁，未重新运行其测试。</p></details><h3>公开机制参考</h3><p>新增参考：<a href="https://developer.android.com/games/sdk/oboe/low-latency-audio">Android 实时回调与缓冲调优</a>；<a href="https://webrtc.googlesource.com/src/+/refs/heads/main/modules/audio_processing/g3doc/audio_processing_module.md">WebRTC 语音增强</a>；<a href="https://developer.apple.com/library/archive/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/HandlingAudioHardwareRouteChanges/HandlingAudioHardwareRouteChanges.html">Apple 路由变化与格式影响</a>。这些是官方机制说明，不作为未经实测的性能或问题发生率证明。</p><ul><li><a href="https://developer.android.com/media/platform/sharing-audio-input">Android：多个应用共享音频输入的系统规则</a>。</li><li><a href="https://developer.apple.com/documentation/avfaudio/responding-to-audio-route-changes">Apple：响应播放设备和音频路线变化</a>。</li><li><a href="https://developer.apple.com/documentation/corebluetooth/cbperipheral/cansendwritewithoutresponse">Apple：低功耗蓝牙无响应写的发送能力检查</a>。</li><li><a href="https://www.bluetooth.com/media/le-audio/le-audio-faqs/">Bluetooth SIG：标准低功耗蓝牙音频机制</a>。</li><li><a href="https://webrtc.googlesource.com/src/+/refs/heads/main/modules/audio_coding/neteq/g3doc/index.md">WebRTC：接收抖动缓冲与丢包修补的参考实现</a>。</li></ul><p>来源检索于 2026-11-03。本文不是上述平台的完整接入规范，具体行为仍需以产品、系统版本、协议和设备实测确认。</p><p>文档校验：已重写完整输入输出链、两级输出缓冲与平滑机制；结构、离线依赖、图形语法、引用路径与示例算术已检查。浏览器视觉与打印检查未完成；未做本轮产品构建、真机音频或长时间运行验证。</p></section></main><footer>通用设计建议 · 图解与精要说明 · 示例预算需按实际产品测量替换</footer></body></html>
