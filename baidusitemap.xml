@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://developerdoc.com/essay/%E9%80%9A%E7%94%A8%E9%9F%B3%E9%A2%91%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/</loc>
+    <loc>https://developerdoc.com/audio-management/</loc>
+    <lastmod>2026-11-04</lastmod>
+  </url>
+  <url>
+    <loc>https://developerdoc.com/essay/ios-business/ipa_size/</loc>
     <lastmod>2026-11-04</lastmod>
   </url>
   <url>
@@ -63,10 +67,6 @@
   <url>
     <loc>https://developerdoc.com/essay/ios-business/ipaAnylize/</loc>
     <lastmod>2024-06-17</lastmod>
-  </url>
-  <url>
-    <loc>https://developerdoc.com/essay/ios-business/ipa_size/</loc>
-    <lastmod>2024-06-13</lastmod>
   </url>
   <url>
     <loc>https://developerdoc.com/essay/ios-business/App%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96/</loc>

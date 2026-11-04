@@ -2,7 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://developerdoc.com/essay/%E9%80%9A%E7%94%A8%E9%9F%B3%E9%A2%91%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/</loc>
+    <loc>https://developerdoc.com/audio-management/</loc>
+    
+    <lastmod>2026-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/essay/ios-business/ipa_size/</loc>
     
     <lastmod>2026-11-04</lastmod>
     
@@ -140,15 +149,6 @@
     <loc>https://developerdoc.com/essay/ios-business/ipaAnylize/</loc>
     
     <lastmod>2024-06-17</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/essay/ios-business/ipa_size/</loc>
-    
-    <lastmod>2024-06-13</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -839,14 +839,7 @@
 
   
   <url>
-    <loc>https://developerdoc.com/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/react/</loc>
+    <loc>https://developerdoc.com/tags/AI-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-AI-Coding/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -860,20 +853,6 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/D3/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://developerdoc.com/tags/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -881,21 +860,14 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/tags/vscode/</loc>
+    <loc>https://developerdoc.com/tags/%E9%9F%B3%E9%A2%91-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1-Android-iOS-%E6%99%BA%E8%83%BD%E7%9C%BC%E9%95%9C/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://developerdoc.com/tags/AI-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-AI-Coding/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/React-Native/</loc>
+    <loc>https://developerdoc.com/tags/%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%8C%96/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -903,13 +875,6 @@
   
   <url>
     <loc>https://developerdoc.com/tags/Redux/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/AI-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -930,7 +895,7 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/tags/AI-Agent/</loc>
+    <loc>https://developerdoc.com/tags/AI-%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B-%E6%B8%B8%E6%88%8F/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -958,21 +923,98 @@
   </url>
   
   <url>
+    <loc>https://developerdoc.com/tags/AI-Agent/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/react/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/vscode/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/D3/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/AFNetworking/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/React-Native/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/LLDB/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/fishhook/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/Mach-O/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/LLVM/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/AVFoundation/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/tags/SDWebImage/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://developerdoc.com/tags/Babel/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/Electron/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1000,56 +1042,14 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/tags/AFNetworking/</loc>
+    <loc>https://developerdoc.com/tags/%E8%B7%A8%E5%B9%B3%E5%8F%B0%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://developerdoc.com/tags/AVFoundation/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/Mach-O/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/fishhook/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/LLVM/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/LLDB/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/SDWebImage/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/tags/%E9%9F%B3%E9%A2%91-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1-Android-iOS-%E6%99%BA%E8%83%BD%E7%9C%BC%E9%95%9C/</loc>
+    <loc>https://developerdoc.com/tags/Electron/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1058,7 +1058,7 @@
 
   
   <url>
-    <loc>https://developerdoc.com/categories/quick-start/</loc>
+    <loc>https://developerdoc.com/categories/AI/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1072,20 +1072,6 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/quick-start/create-react-app%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/%E5%8F%AF%E8%A7%86%E5%8C%96D3%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://developerdoc.com/categories/essay/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1093,7 +1079,7 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/AI/</loc>
+    <loc>https://developerdoc.com/categories/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1101,13 +1087,6 @@
   
   <url>
     <loc>https://developerdoc.com/categories/essay/%E8%AF%91%E6%96%87/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/essay/React-Native/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1135,35 +1114,28 @@
   </url>
   
   <url>
+    <loc>https://developerdoc.com/categories/quick-start/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/quick-start/create-react-app%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/quick-start/%E5%8F%AF%E8%A7%86%E5%8C%96D3%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://developerdoc.com/categories/%E6%AF%8F%E5%91%A8%E5%88%86%E4%BA%AB/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/Babel%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/Electron%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2026-11-04</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://developerdoc.com/categories/iOS%E5%9B%BE%E7%89%87/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1177,14 +1149,21 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/%E9%87%8D%E5%AD%A6iOS/Instruments/</loc>
+    <loc>https://developerdoc.com/categories/APM/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/APM/</loc>
+    <loc>https://developerdoc.com/categories/essay/React-Native/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/%E9%87%8D%E5%AD%A6iOS/Instruments/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -1212,7 +1191,28 @@
   </url>
   
   <url>
-    <loc>https://developerdoc.com/categories/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/</loc>
+    <loc>https://developerdoc.com/categories/quick-start/Babel%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/quick-start/Python%E7%88%AC%E8%99%AB%E6%95%99%E7%A8%8B/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/iOS%E5%9B%BE%E7%89%87/</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://developerdoc.com/categories/quick-start/Electron%E6%95%99%E7%A8%8B/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
