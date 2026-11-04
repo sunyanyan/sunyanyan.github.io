@@ -10,7 +10,7 @@
   <rights>All rights reserved 2026, SunTongSheng</rights>
   <subtitle>为美好的世界献上祝福</subtitle>
   <title>孙同生的博客</title>
-  <updated>2026-11-03T12:25:41.420Z</updated>
+  <updated>2026-11-04T06:11:12.818Z</updated>
   <entry>
     <author>
       <name>SunTongSheng</name>
@@ -18,7 +18,7 @@
     <category term="技术方案" scheme="https://developerdoc.com/categories/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/"/>
     <category term="音频, 架构设计, Android, iOS, 智能眼镜" scheme="https://developerdoc.com/tags/%E9%9F%B3%E9%A2%91-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1-Android-iOS-%E6%99%BA%E8%83%BD%E7%9C%BC%E9%95%9C/"/>
     <content>
-      <![CDATA[<p>设备输入端 → 输入池 → 调度与处理 → 输出池 → 设备输出端。这篇把声音进出的整条链路拆开，先讲使用场景里真正会遇到的问题，再讲模块职责，然后分别解决输入缓冲、连续播放、功能冲突、故障恢复和预算。</p><p>适用对象：同时提供录音、语音唤醒、对话、翻译与播报的应用，以及它们连接的耳机、眼镜等设备。</p><span id="more"></span><h2 id="全文结构"><a href="#全文结构" class="headerlink" title="全文结构"></a>全文结构</h2><table><thead><tr><th>章节</th><th>解决的问题</th></tr></thead><tbody><tr><td>使用场景</td><td>先明确会遇到什么问题（本地案例 + 公开机制）</td></tr><tr><td>完整链路</td><td>五段式音频地图：输入、输入池、调度处理、输出池、输出</td></tr><tr><td>输入缓冲</td><td>有界保留、锚点、读写与连续性</td></tr><tr><td>输出缓冲</td><td>串行队列、代次、终局与 purge</td></tr><tr><td>调度冲突</td><td>谁拥有麦克风 &#x2F; AudioSession &#x2F; 焦点</td></tr><tr><td>故障恢复</td><td>断连、重组、模式漂移后的收敛</td></tr><tr><td>预算</td><td>延迟、内存、功耗的取舍</td></tr><tr><td>验证</td><td>约定如何被验证</td></tr></tbody></table><p>全文以图解形式呈现（含交互式链路图），请阅读完整版：</p><p><strong><a href="/audio-management/">→ 通用音频管理方案（图解版）</a></strong></p><blockquote><p>说明：本文是通用设计建议；平台限制与设备能力须另行验证。</p></blockquote>]]>
+      <![CDATA[<p>设备输入端 → 输入池 → 调度与处理 → 输出池 → 设备输出端。这篇把声音进出的整条链路拆开，先讲使用场景里真正会遇到的问题，再讲模块职责，然后分别解决输入缓冲、连续播放、功能冲突、故障恢复和预算。</p><p>适用对象：同时提供录音、语音唤醒、对话、翻译与播报的应用，以及它们连接的耳机、眼镜等设备。</p><span id="more"></span><h2 id="全文结构"><a href="#全文结构" class="headerlink" title="全文结构"></a>全文结构</h2><table><thead><tr><th>章节</th><th>解决的问题</th></tr></thead><tbody><tr><td>使用场景</td><td>先明确会遇到什么问题（本地案例 + 公开机制）</td></tr><tr><td>完整链路</td><td>五段式音频地图：输入、输入池、调度处理、输出池、输出</td></tr><tr><td>输入缓冲</td><td>有界保留、锚点、读写与连续性</td></tr><tr><td>输出缓冲</td><td>串行队列、代次、终局与 purge</td></tr><tr><td>调度冲突</td><td>谁拥有麦克风 &#x2F; AudioSession &#x2F; 焦点</td></tr><tr><td>故障恢复</td><td>断连、重组、模式漂移后的收敛</td></tr><tr><td>预算</td><td>延迟、内存、功耗的取舍</td></tr><tr><td>遇到的问题与一句话方案</td><td>每个具体问题的对应结论</td></tr></tbody></table><p>全文以图解形式呈现（链路图 + 场景对照表 + 缓冲预算表），请阅读完整版：</p><p><strong><a href="/audio-management/">→ 通用音频管理方案（图解版）</a></strong></p><blockquote><p>说明：本文是通用设计建议；平台限制与设备能力须另行验证。</p></blockquote>]]>
     </content>
     <id>https://developerdoc.com/essay/%E9%80%9A%E7%94%A8%E9%9F%B3%E9%A2%91%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/</id>
     <link href="https://developerdoc.com/essay/%E9%80%9A%E7%94%A8%E9%9F%B3%E9%A2%91%E7%AE%A1%E7%90%86%E6%96%B9%E6%A1%88/"/>
@@ -28,7 +28,7 @@
 <p>适用对象：同时提供录音、语音唤醒、对话、翻译与播报的应用，以及它们连接的耳机、眼镜等设备。</p>]]>
     </summary>
     <title>通用音频管理方案</title>
-    <updated>2026-11-03T12:25:41.420Z</updated>
+    <updated>2026-11-04T06:11:12.818Z</updated>
   </entry>
   <entry>
     <author>
