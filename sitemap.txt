@@ -1,3 +1,4 @@
+https://developerdoc.com/message-list-design/
 https://developerdoc.com/audio-management/
 https://developerdoc.com/essay/ios-business/ipa_size/
 https://developerdoc.com/essay/AI%E8%BE%85%E5%8A%A9%E5%BC%80%E5%8F%91Harness%E5%B7%A5%E7%A8%8B2/
@@ -122,6 +123,7 @@ https://developerdoc.com/tags/%E5%9B%BE%E7%89%87/
 https://developerdoc.com/tags/Python/
 https://developerdoc.com/tags/Scrapy/
 https://developerdoc.com/tags/Babel/
+https://developerdoc.com/tags/%E6%B6%88%E6%81%AF%E5%88%97%E8%A1%A8-%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1-%E5%90%8C%E6%AD%A5-%E5%88%86%E9%A1%B5-%E6%B5%81%E5%BC%8F%E5%AD%97%E5%B9%95-AI/
 https://developerdoc.com/categories/%E6%8A%80%E6%9C%AF%E6%96%B9%E6%A1%88/
 https://developerdoc.com/categories/essay/
 https://developerdoc.com/categories/%E9%87%8D%E5%AD%A6iOS/
